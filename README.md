@@ -11,6 +11,7 @@ Nous avons choisi Flutter car étant une petite équipe voulant développer une 
 Un autre avantage de Flutter est la possiblité de pouvoir également servir une app web avec le même code source
 2. Backend
 Nous avons choisi Firebase qui est un BaaS qui propose des services tel que l'authentification et le stockage de données avec la BD orientée documents (Firestore)
+Firebase nous permet également d'utiliser Hosting pour hoster notre build WEB
 Firebase et Flutter étant 2 produits Google la cohabitation entre ces 2 parties sera aisée
 ### Description du processus de travail (git flow, devops, ...)
 ### Outils de développement (VCM, Issue tracker, ...)
@@ -19,22 +20,34 @@ Firebase et Flutter étant 2 produits Google la cohabitation entre ces 2 parties
 ### Démo du déploiement d'une modification
 
 ## Requirments fonctionnels
-- L'utilisateur peut créer des workouts ou il donne le nb de séances par semaine, les différentes séances comprises dans le workout
+- L'utilisateur peut se connecter et retrouver toutes ses données peu importe la machine depuis laquelle il se connecte
+- L'utilisateur peut créer des workouts ou il donne les séances qu'il voudrait faire chaque semaine (il peut mettre plusieurs fois la même séance)
 - L'utilisateur peut créer des séances qu'il pourra ensuite assigner à ses workouts
+- L'utilisateur peut créer des des exercices qu'il pourra ensuite assigner à ses séances
 - Les séances sont composés d'exercices par défaut proposés par l'application ou des exercices personnalisés ajoutés par chaque utilisateur (les exercices crées ne seront visibles que pour l'auteur de l'exercice sauf si ce dernier le partage)
-- Les workout, les séances et les exercices peuvent être partagés entre utilisateur
-- Durant la séance de sport l'utilisateur peut rentrer son nombre de répétitions et le poids utilisé pour chaque série de chaque exercice
+- Durant la séance de sport l'utilisateur peut rentrer son nombre de répétitions et le poids utilisé pour chaque série de chaque exercice (il y aura cependant une valeur par défaut de 8 répétitions pour faire gagner du temps à l'utilisateur)
 - Pour chaque exercice il existe un PR (Personal Record) qui n'est autre que la valeur maximale effectuée par l'utilisateur sur cet exercice, si le PR est battu un petit truc cool devrait se passer à l'écran au moment de la validation :)
+- L'utilisateur peut voir pour chaque exercice qu'il a fait son PR
 
 ### Ajouts éventuels
 - Possiblité d'avoir des amis pour comparer leurs performances (ex: PR)
 - Calendrier hebdo pour Oscar
 - Possiblité de faire des exercice "live" (impro), exercices en dehors des séances
+- Les workout, les séances et les exercices peuvent être partagés entre utilisateur
+- L'utilisateur peut voir pour chaque exercice son évolution (graphe?)
 
 ## Requirments non fonctionnels
 ### Sécurite
 TODO: parler des secu firebase et comment on a bien codé l'app ?
 TODO: je dois jsute dire que je veuille que tout aille bien alors que ca ne depend pas de moi ?
+### Compatibilité
+Le système doit tourner autant bien sur smartphone iOS que Android
+### Conformité
+- Quand un utilisateur supprime son compte toutes les données qui lui sont liés seront supprimées
+### Usabilité
+- L'application doît être facilement utilisable par des personnes qui sont à la salle de gym et qui ne sont pas forcément très concentré sur l'app car ils fournissent des efforts intensifs (il faut éviter de devoir passer par plusieurs touches d'écran pour pouvoir faire ce qu'ils ont envie de faire, ex: enregistrer les résultats de leur exercice)
+### Evolutivié - Performance - Disponibilité - Fiabilité
+- Tout cela est géré et garantit par notre BaaS Firebase
 
 ## Description de la méthodologie
 1. On regarde ensemble ce qu'il faut faire et on ajoute les tâches à un backlog
@@ -75,5 +88,20 @@ SCRUM OU AGILE VU QUE PAS DE CLIENT ?
 - Modifier pseudo, mdp, email, ...
 
 ## Landing page
-Speech (ex: https://studystorm.net) + lien pour télécharger l'APK ou si trop compliqée -> hébérger version WEB sur netflify
+Speech (ex: https://studystorm.net) + lien pour télécharger l'APK ou si trop compliqée -> hébérger version WEB sur netlify
 https://gilliozdorian.wixsite.com/gym2golmon
+
+# Questions
+- On peut deploy la version web mais tout de même être focus sur le mobile ?
+- Comment automatiser l'hebergement de notre apk (build) avec un script à la main ? Mettre sur github ?
+- Requirments non fonctionels
+- Faire prévalider notre CDC avant le rendu de vendredi ?
+- Valider le stack ?
+- Scrum ou Agile ?
+
+# TODO
+- Drawio: Workout -> Séances -> Exercices
+- Drawio: architecture avec flutter app, firebase... ?
+- - CI/CD ...
+- Démo de déploiement
+- Requirments fonctionels
