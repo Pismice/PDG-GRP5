@@ -1,8 +1,8 @@
 # PDG-GRP5 - Georian Gillioz, Jérémie Santoro, Oscar Baume, Théo Coutaudier
 ## Description du projet
 Application mobile (avec version WEB) qui accompagne les utilisateurs durant leurs séances de sport.
-L'application correspond à un modèle de séances de sport avec des sèries, répétitions, poids, ...
-Workout -> Séances -> Exercices
+L'application correspond à un modèle de séances de sport avec des séries, répétitions, poids, ...
+Workout(planning) -> Séances -> Exercices
 ### Architecture
 TODO: On aurait que notre App qui communique avec Firebase pour accéder à Firestore et Auth ?
 ### Choix technique
@@ -23,7 +23,7 @@ Firebase et Flutter étant 2 produits Google la cohabitation entre ces 2 parties
 - L'utilisateur peut se connecter et retrouver toutes ses données peu importe la machine depuis laquelle il se connecte
 - L'utilisateur peut créer des workouts ou il donne les séances qu'il voudrait faire chaque semaine (il peut mettre plusieurs fois la même séance)
 - L'utilisateur peut créer des séances qu'il pourra ensuite assigner à ses workouts
-- L'utilisateur peut créer des des exercices qu'il pourra ensuite assigner à ses séances
+- L'utilisateur peut créer des des exercices qu'il pourra ensuite assigner à ses séances (poids et nb de rep de ceux-ci par défaut)
 - Les séances sont composés d'exercices par défaut proposés par l'application ou des exercices personnalisés ajoutés par chaque utilisateur (les exercices crées ne seront visibles que pour l'auteur de l'exercice sauf si ce dernier le partage)
 - Durant la séance de sport l'utilisateur peut rentrer son nombre de répétitions et le poids utilisé pour chaque série de chaque exercice (il y aura cependant une valeur par défaut de 8 répétitions pour faire gagner du temps à l'utilisateur)
 - Pour chaque exercice il existe un PR (Personal Record) qui n'est autre que la valeur maximale effectuée par l'utilisateur sur cet exercice, si le PR est battu un petit truc cool devrait se passer à l'écran au moment de la validation :)
@@ -35,6 +35,12 @@ Firebase et Flutter étant 2 produits Google la cohabitation entre ces 2 parties
 - Possiblité de faire des exercice "live" (impro), exercices en dehors des séances
 - Les workout, les séances et les exercices peuvent être partagés entre utilisateur
 - L'utilisateur peut voir pour chaque exercice son évolution (graphe?)
+- Superset
+- Création de séance assité (meilleurs exo en 1er etc)
+- Photo + poids chaque fin de mois (avec notif) pour évolution
+- Lier avec le nb de pas de l'appareil (necessite de travailler avec les specificites iOS et Android)
+- Notification quand on arrive à la fin d'un workout pour se préparer à faire le suivant
+- Historique workouts/séances/exercices effecutés (il faudra donc stocker quand est effectué chacun)
 
 ## Requirments non fonctionnels
 ### Sécurite
@@ -63,8 +69,8 @@ SCRUM OU AGILE VU QUE PAS DE CLIENT ?
 - Exercices: Créer, modifier et supprimer des séances (exercices de base pas compris)
 ### Progression de la semaine en cours (PAGE D'ACCUEIL)
 - Si aucun workout en cours -> Propose de se rendre sous Gestion/Workouts
-- Affichage du workout en cours
-- Affichage du nombre de séances restantes pour la semaine actuelle (et totale?) ex: 2/4
+- Affichage du workout en cours et suivi des semaines (ex: semaine 2/5)
+- Affichage du nombre de séances restantes pour la semaine actuelle
 - Il est possible de refaire une même séance bien que cela sera précédé par un message demandant de confirmer à l'utilisateur son choix car ce dernier serait contradictoire avec le workout
 - Possiblité de stopper le workout actuel
 - Quand l'utilisateur veut faire sa séance de sport il choisit une des séances restantes de son choix qui va lancer l'affichage *Séance en cours*
@@ -74,7 +80,7 @@ SCRUM OU AGILE VU QUE PAS DE CLIENT ?
 - Entre chaque série un chrono se lance pour que l'utilisateur sache combien de temps de repos il utilise
 - Dès qu'il le désire il peut stoper le temps de repos pour passer à la série suivante
 - Une fois l'exercice terminé il se retrouve sur la page ou il peut choisir un exercice parmis les restants
-- Si la séance est terminée l'utilisateur et renvoyé sur la PAGE D'ACCUEIL avec le compteur de séances incrémenté de 1
+- Si la séance est terminée l'utilisateur et renvoyé sur la PAGE D'ACCUEIL et la séance effectuée est marquée comme terminée (avec par exemple une coloration en vert9
 ### Mes péformances
 - On peut voir le PR pour chaque exercice qu'on a fait depuis la création du compte
 ### Paramètres et gestion utilisateur
