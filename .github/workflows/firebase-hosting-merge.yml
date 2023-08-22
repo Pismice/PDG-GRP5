@@ -17,8 +17,9 @@ jobs:
         with:
           channel: 'stable'
 
+      - run: flutter clean
+
       - name: Install dependencies
-        run: flutter clean
         run: flutter pub get
 
       # Uncomment this step to verify the use of 'dart format' on each commit.
