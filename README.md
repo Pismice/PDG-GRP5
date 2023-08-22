@@ -18,7 +18,7 @@ Après: L'utilisateur peut revoir ses differentes performances sous la forme de 
 TODO: on peut avec des mokcup montrer un use case scenario
 
 ### Architecture
-![](resources/schema_pdg.png)
+![](ressources/schema_pdg.png)
 
 ### Choix technique
 1. Frontend
