@@ -39,6 +39,7 @@ jobs:
 
       - name: Firebase Deyploy Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
+        working-directory: ./g2g
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_HONGYM_4CB68 }}'
