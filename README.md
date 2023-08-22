@@ -1,10 +1,18 @@
-# PDG-GRP5 - Georian Gillioz, Jérémie Santoro, Oscar Baume, Théo Coutaudier
+# PDG-GRP5 - Dorian Gillioz, Jérémie Santoro, Oscar Baume, Théo Coutaudier
 ## Description du projet
 Application mobile (avec version WEB) qui accompagne les utilisateurs durant leurs séances de sport.
 L'application correspond à un modèle de séances de sport avec des séries, répétitions, poids, ...
-Workout(planning) -> Séances -> Exercices
+Organisation de nos entités: Workout(planning) -> Séances -> Exercices
+TODO: drawio des entités
+L'application accompagne l'utilisateur dans son aventure fitness, Gym2Golmon offre la possibilité d'être accompagné avant, pendant et après l'entraîement!
+Avant: L'utilisateur peut planifier ses séances à l'avance pour ne pas perdre de temps durant sa séance
+Pendant: L'utilisateur peut se concentrer à 100% sur ses performances sportives sans se soucier de quoi faire car l'application va le guider tout au long. Il pourra donc battre ses PR plus facilement
+Après: L'utilisateur peut revoir ses differentes performances sous la forme de différentes statistiques pour voir son progrès avec Gym2Golmon
+*Become a Golmon NOW with Gym2Golmon !*
+TODO: on peut avec des mokcup montrer un use case scenario
+
 ### Architecture
-TODO: On aurait que notre App qui communique avec Firebase pour accéder à Firestore et Auth ?
+TODO: DORIAN MET LE TRUC ICI
 ### Choix technique
 1. Frontend
 Nous avons choisi Flutter car étant une petite équipe voulant développer une app mobile sur Android et iOS et éviter de faire du code à double il s'agit de la meilleure solution pour effectuer la tâche dans le temps imparti.
@@ -14,10 +22,24 @@ Nous avons choisi Firebase qui est un BaaS qui propose des services tel que l'au
 Firebase nous permet également d'utiliser Hosting pour hoster notre build WEB
 Firebase et Flutter étant 2 produits Google la cohabitation entre ces 2 parties sera aisée
 ### Description du processus de travail (git flow, devops, ...)
+1. Quand un developpeur commit, son travil est soumis aux différents tests mis en place dans notre application Dart
+2. Si les test passent, le commit est accepté et un build est généré puis hébérgé sur Firebase Hosting (lien vers le site WEB à jour sur la landing page)
+
 ### Outils de développement (VCM, Issue tracker, ...)
+VCM: Git (avec GitHub)
+Issue Tracker: GitHub Issues
+Kanban: GitHub Project
+TODO: il faut dire + ?
+
 ### Environnement de déploiement
+Firebase Hosting
+TODO: dire +
+
 ### Pipeline de livraison et de déploiement (CI/CD)
+TODO
+
 ### Démo du déploiement d'une modification
+TODO
 
 ## Requirments fonctionnels
 - L'utilisateur peut se connecter et retrouver toutes ses données peu importe la machine depuis laquelle il se connecte
@@ -28,7 +50,6 @@ Firebase et Flutter étant 2 produits Google la cohabitation entre ces 2 parties
 - Durant la séance de sport l'utilisateur peut rentrer son nombre de répétitions et le poids utilisé pour chaque série de chaque exercice (il y aura cependant une valeur par défaut de 8 répétitions pour faire gagner du temps à l'utilisateur)
 - Pour chaque exercice il existe un PR (Personal Record) qui n'est autre que la valeur maximale effectuée par l'utilisateur sur cet exercice, si le PR est battu un petit truc cool devrait se passer à l'écran au moment de la validation :)
 - L'utilisateur peut voir pour chaque exercice qu'il a fait son PR
-
 ### Ajouts éventuels
 - Possiblité d'avoir des amis pour comparer leurs performances (ex: PR)
 - Calendrier hebdo pour Oscar
@@ -39,28 +60,40 @@ Firebase et Flutter étant 2 produits Google la cohabitation entre ces 2 parties
 - Création de séance assité (meilleurs exo en 1er etc)
 - Photo + poids chaque fin de mois (avec notif) pour évolution
 - Lier avec le nb de pas de l'appareil (necessite de travailler avec les specificites iOS et Android)
-- Notification quand on arrive à la fin d'un workout pour se préparer à faire le suivant
+- Notification (FCM) quand on arrive à la fin d'un workout pour se préparer à faire le suivant
 - Historique workouts/séances/exercices effecutés (il faudra donc stocker quand est effectué chacun)
+- Pour les exercices avec du temps, lancer un timer dans l'app
 
 ## Requirments non fonctionnels
 ### Sécurite
-TODO: parler des secu firebase et comment on a bien codé l'app ?
-TODO: je dois jsute dire que je veuille que tout aille bien alors que ca ne depend pas de moi ?
+- Seul les données de l'utilisateur sont visibles par l'utilisateur (authentifié)
+- Un utilisateur ne peut pas voir les données d'un autre
 ### Compatibilité
-Le système doit tourner autant bien sur smartphone iOS que Android
+- Le système doit tourner autant bien sur smartphone iOS que Android
 ### Conformité
 - Quand un utilisateur supprime son compte toutes les données qui lui sont liés seront supprimées
 ### Usabilité
 - L'application doît être facilement utilisable par des personnes qui sont à la salle de gym et qui ne sont pas forcément très concentré sur l'app car ils fournissent des efforts intensifs (il faut éviter de devoir passer par plusieurs touches d'écran pour pouvoir faire ce qu'ils ont envie de faire, ex: enregistrer les résultats de leur exercice)
-### Evolutivié - Performance - Disponibilité - Fiabilité
-- Tout cela est géré et garantit par notre BaaS Firebase
+### Evolutivié
+- Notre application doit pouvoir tenir 50 utilisateurs faisant leur séance en même temps
+### Performance
+- Les fenêtres doivent changer de manière fluide et en moins de 1 seconde
+### Disponibilité
+- L'application doit être disponbile 7j/7 24h/24
+### Fiabilité
+
 
 ## Description de la méthodologie
+Utilisation de SCRUM
+Nos sprints durent 2 jours, assez court pour pouvoir en faire assez et avoir des feedbacks régulieres et assez long pour pouvoir faire assez de travail dans le temp imparti.
 1. On regarde ensemble ce qu'il faut faire et on ajoute les tâches à un backlog
-2. On répartie les différentes tâches entre les membres du groupe
-3. A la fin du sprint (chaque jour), on se concerte ensemble pour voir l'avancement et répéter l'étape 1 avec les modifications nécessaires
-
-SCRUM OU AGILE VU QUE PAS DE CLIENT ?
+2. On répartie les différentes tâches entre les membres du groupe en fonction de leurs préférences et capacités
+3. A la fin du sprint, on fait du code review ensemble pour vérifier que le code soit maintenable et suffisament compréhensible
+4. Une fois le code validé on passe au sprint suivant (1.)
+Le projet sera décompsé en plusieurs parties pour éviter qu'on se marche dessus (chaque partie correspond à une branche git):
+- Front-end (fb_front): Design de l'application avec Flutter
+- Back-end (fb_back): Endpoints qui fait le lien entre le front-end et Firebase en Dart
+Convention de nommage des commits: [WIP], [DONE] puis le nom de la tâche issue du backlog ex: [WIP] Ajout d'un bouton pour supprimer le compte
 
 ## Mockups
 ### Gestion
@@ -98,16 +131,12 @@ Speech (ex: https://studystorm.net) + lien pour télécharger l'APK ou si trop c
 https://gilliozdorian.wixsite.com/gym2golmon
 
 # Questions
-- On peut deploy la version web mais tout de même être focus sur le mobile ?
-- Comment automatiser l'hebergement de notre apk (build) avec un script à la main ? Mettre sur github ?
-- Requirments non fonctionels
-- Faire prévalider notre CDC avant le rendu de vendredi ?
-- Valider le stack ?
-- Scrum ou Agile ?
+-
 
 # TODO
 - Drawio: Workout -> Séances -> Exercices
 - Drawio: architecture avec flutter app, firebase... ?
-- - CI/CD ...
+- CI/CD ...
+- Réorganiser le README
 - Démo de déploiement
-- Requirments fonctionels
+- Citer probleme de base -> solution
