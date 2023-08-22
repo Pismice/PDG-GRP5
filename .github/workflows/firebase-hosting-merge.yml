@@ -18,6 +18,7 @@ jobs:
           channel: 'stable'
 
       - name: Install dependencies
+        run: flutter clean
         run: flutter pub get
 
       # Uncomment this step to verify the use of 'dart format' on each commit.
@@ -35,7 +36,7 @@ jobs:
         run: flutter test
 
       - name: Build du projet 
-        run: flutter build web
+        run: flutter build web --web-renderer html --release
 
       - name: Firebase Deyploy Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
