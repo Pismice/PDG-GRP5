@@ -17,14 +17,14 @@ void main() async {
   // Vérification que l'utilisateur est toujours connecté
   FirebaseAuth.instance.authStateChanges().listen((User? u) {
     if (u == null) {
-      print('User is currently signed out!');
+      //print('User is currently signed out!');
     } else {
-      print('User is signed in!');
+      //print('User is signed in!');
     }
   });
 
   // Lancer l'app
-  final db = FirebaseFirestore.instance;
+  //final db = FirebaseFirestore.instance;
   runApp(const MyApp());
 }
 
