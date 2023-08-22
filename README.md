@@ -6,7 +6,7 @@ Application mobile (avec version WEB) qui accompagne les utilisateurs durant leu
 L'application correspond à un modèle de séances de sport avec des séries, répétitions, poids, ...
 
 Organisation de nos entités: Workout(planning) -> Séances -> Exercices
-TODO: drawio des entités
+![](entites.png)
 
 L'application accompagne l'utilisateur dans son aventure fitness, Gym2Golmon offre la possibilité d'être accompagné avant, pendant et après l'entraîement!
 Avant: L'utilisateur peut planifier ses séances à l'avance pour ne pas perdre de temps durant sa séance
@@ -36,14 +36,22 @@ Firebase et Flutter étant 2 produits Google la cohabitation entre ces 2 parties
 VCM: Git (avec GitHub)
 Issue Tracker: GitHub Issues
 Kanban: GitHub Project
-TODO: il faut dire + ?
 
 ### Environnement de déploiement
-Firebase Hosting
-TODO: dire +
+Nous avons décidé d'utiliser Firebase Hosting pour hébérger notre application.
+Nous avons fait ce choix pour rester dans l'environnement Google et notamment Firebase.
 
 ### Pipeline de livraison et de déploiement (CI/CD)
-TODO
+1. Le développeur commit son code
+2. La GitHub Action se déclenche
+   - Installation de flutter
+   - Flutter clean
+   - Installation des packages
+   - Analyse du code (warnings)
+   - Lancement des tests
+   - Build du projet (version web)
+   - Déploiement du build sur Firebase Hosting
+  3. Le commit est maintenant validé et la version de l'app est mise à jour sur le site web
 
 ### Démo du déploiement d'une modification
 TODO
@@ -141,10 +149,10 @@ https://gilliozdorian.wixsite.com/gym2golmon
 -
 
 # TODO
-- Utilisation d'un linter
-- Drawio: Workout -> Séances -> Exercices
-- Drawio: architecture avec flutter app, firebase... ?
-- CI/CD ...
 - Réorganiser le README
+- Demander confirmation du README à l'assistant
 - Démo de déploiement
-- Citer probleme de base -> solution
+- Citer probleme de base -> solution (avec mockups a theo)
+- Affiner la landing page
+- Mockups a theo
+- Landing page
