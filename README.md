@@ -6,7 +6,7 @@ Application mobile (avec version WEB) qui accompagne les utilisateurs durant leu
 L'application correspond à un modèle de séances de sport avec des séries, répétitions, poids, ...
 
 Organisation de nos entités: Workout(planning) -> Séances -> Exercices
-![](entites.png)
+![](ressources/entites.png)
 
 L'application accompagne l'utilisateur dans son aventure fitness, Gym2Golmon offre la possibilité d'être accompagné avant, pendant et après l'entraîement!
 Avant: L'utilisateur peut planifier ses séances à l'avance pour ne pas perdre de temps durant sa séance
