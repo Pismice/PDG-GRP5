@@ -37,10 +37,14 @@ jobs:
       - name: Build du projet 
         run: flutter build web
 
-      - name: Firebase Deyploy Hosting
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_HONGYM_4CB68 }}'
-          channelId: live
-          projectId: hongym-4cb68
+      - run: firebase init hosting
+
+      - run: firebase deploy
+
+      #- name: Firebase Deyploy Hosting
+      #  uses: FirebaseExtended/action-hosting-deploy@v0
+      #  with:
+      #    repoToken: '${{ secrets.GITHUB_TOKEN }}'
+      #    firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_HONGYM_4CB68 }}'
+      #    channelId: live
+      #    projectId: hongym-4cb68
