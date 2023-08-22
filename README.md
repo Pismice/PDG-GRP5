@@ -22,11 +22,9 @@ TODO: on peut avec des mokcup montrer un use case scenario
 
 ### Choix technique
 1. Frontend
-
 Nous avons choisi Flutter car étant une petite équipe voulant développer une app mobile sur Android et iOS et éviter de faire du code à double il s'agit de la meilleure solution pour effectuer la tâche dans le temps imparti.
 Un autre avantage de Flutter est la possiblité de pouvoir également servir une app web avec le même code source
 2. Backend
-
 Nous avons choisi Firebase qui est un BaaS qui propose des services tel que l'authentification et le stockage de données avec la BD orientée documents (Firestore)
 Firebase nous permet également d'utiliser Hosting pour hoster notre build WEB
 Firebase et Flutter étant 2 produits Google la cohabitation entre ces 2 parties sera aisée
