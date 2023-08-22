@@ -36,6 +36,7 @@ jobs:
       - name: Run tests
         working-directory: ./g2g
         run: flutter test
+
       - name: Firebase Deyploy Hosting
         working-directory: ./g2g
         uses: FirebaseExtended/action-hosting-deploy@v0
