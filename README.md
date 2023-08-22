@@ -18,7 +18,8 @@ Après: L'utilisateur peut revoir ses differentes performances sous la forme de 
 TODO: on peut avec des mokcup montrer un use case scenario
 
 ### Architecture
-TODO: DORIAN MET LE TRUC ICI
+![](ressources/schema_pdg.png)
+
 ### Choix technique
 1. Frontend
 
@@ -49,7 +50,7 @@ TODO
 ### Démo du déploiement d'une modification
 TODO
 
-## Requirments fonctionnels
+## Requirements fonctionnels
 - L'utilisateur peut se connecter et retrouver toutes ses données peu importe la machine depuis laquelle il se connecte
 - L'utilisateur peut créer des workouts ou il donne les séances qu'il voudrait faire chaque semaine (il peut mettre plusieurs fois la même séance)
 - L'utilisateur peut créer des séances qu'il pourra ensuite assigner à ses workouts
@@ -72,7 +73,7 @@ TODO
 - Historique workouts/séances/exercices effecutés (il faudra donc stocker quand est effectué chacun)
 - Pour les exercices avec du temps, lancer un timer dans l'app
 
-## Requirments non fonctionnels
+## Requirements non fonctionnels
 ### Sécurite
 - Seul les données de l'utilisateur sont visibles par l'utilisateur (authentifié)
 - Un utilisateur ne peut pas voir les données d'un autre
