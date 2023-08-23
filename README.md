@@ -35,7 +35,9 @@ Firebase et Flutter étant 2 produits Google la cohabitation entre ces 2 parties
 ### Outils de développement (VCM, Issue tracker, ...)
 VCM: Git (avec GitHub)
 Issue Tracker: GitHub Issues
-Kanban: GitHub Project
+Kanban: Nous allons utiliser GitHub Project pour notre Kanban. Notre Kanban aura 4 colonnes : Backlog/WIP/Review/Done
+Lors de nos stand up meeting nous deciderons des issues a résoudre lors de ce sprint et elles seront placées dans la colonne "Backlog". Durant ce même meeting nous assignerons à chaque personnes du groupe son travail pour le sprint. Les premières issues seront alors misent dans la colonnes "WIP". Lorsqu'une personne pense avoir terminé son issue en cours elle deplacera son issue dans la colonnes "Review" et demandera a un membre du groupe de review son travail avant de merge sa branche sur le main afin qu'il soit deploy. Après avoir fini une issue elle est placée dans la colonne "Done". 
+
 TODO: il faut dire + ?
 
 ### Environnement de déploiement
@@ -52,7 +54,7 @@ TODO
 - L'utilisateur peut se connecter et retrouver toutes ses données peu importe la machine depuis laquelle il se connecte
 - L'utilisateur peut créer des workouts ou il donne les séances qu'il voudrait faire chaque semaine (il peut mettre plusieurs fois la même séance)
 - L'utilisateur peut créer des séances qu'il pourra ensuite assigner à ses workouts
-- L'utilisateur peut créer des des exercices qu'il pourra ensuite assigner à ses séances (poids et nb de rep de ceux-ci par défaut)
+- L'utilisateur peut créer des des exercices qu'il pourra ensuite assigner à ses séances
 - Les séances sont composés d'exercices par défaut proposés par l'application ou des exercices personnalisés ajoutés par chaque utilisateur (les exercices crées ne seront visibles que pour l'auteur de l'exercice sauf si ce dernier le partage)
 - Durant la séance de sport l'utilisateur peut rentrer son nombre de répétitions et le poids utilisé pour chaque série de chaque exercice (il y aura cependant une valeur par défaut de 8 répétitions pour faire gagner du temps à l'utilisateur)
 - Pour chaque exercice il existe un PR (Personal Record) qui n'est autre que la valeur maximale effectuée par l'utilisateur sur cet exercice, si le PR est battu un petit truc cool devrait se passer à l'écran au moment de la validation :)
