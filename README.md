@@ -1,4 +1,5 @@
-# PDG-GRP5 - Dorian Gillioz, Jérémie Santoro, Oscar Baume, Théo Coutaudier
+# PDG-GRP5
+Dorian Gillioz, Jérémie Santoro, Oscar Baume, Théo Coutaudier
 ![](ressources/large.jpg)
 ## Description du projet
 Application mobile (avec version WEB) qui accompagne les utilisateurs durant leurs séances de sport.
@@ -9,15 +10,15 @@ Organisation de nos entités: Workout(planning) -> Séances -> Exercices
 
 ![](ressources/entites.png)
 
-L'application accompagne l'utilisateur dans son aventure fitness, Gym2Golmon offre la possibilité d'être accompagné avant, pendant et après l'entraîement!
+L'application accompagne l'utilisateur dans son aventure fitness, Gym2Golem offre la possibilité d'être accompagné avant, pendant et après l'entraîement!
 
 Avant: L'utilisateur peut planifier ses séances à l'avance pour ne pas perdre de temps durant sa séance
 
 Pendant: L'utilisateur peut se concentrer à 100% sur ses performances sportives sans se soucier de quoi faire car l'application va le guider tout au long. Il pourra donc battre ses PR plus facilement
 
-Après: L'utilisateur peut revoir ses differentes performances sous la forme de différentes statistiques pour voir son progrès avec Gym2Golmon.
+Après: L'utilisateur peut revoir ses differentes performances sous la forme de différentes statistiques pour voir son progrès avec Gym2Golem.
 
-*Become a Golmon NOW with Gym2Golmon !*
+*Become a Golem NOW with Gym2Golem !*
 
 TODO: on peut avec des mokcup montrer un use case scenario
 
@@ -75,21 +76,24 @@ TODO
 ### Ajouts éventuels
 - Possiblité d'avoir des amis pour comparer leurs performances (ex: PR)
 - Calendrier hebdo pour Oscar
-- Possiblité de faire des exercice "live" (impro), exercices en dehors des séances
+- Possiblité d'ajouter une séance "live" qui est une séance qui ne fait pas parti du workout en cours (utile si on veut faire un entraînement à l'improviste)
 - Les workout, les séances et les exercices peuvent être partagés entre utilisateur
 - L'utilisateur peut voir pour chaque exercice son évolution (graphe?)
-- Superset
-- Création de séance assité (meilleurs exo en 1er etc)
+- Possibilité de faire des superset
 - Photo + poids chaque fin de mois (avec notif) pour évolution
 - Lier avec le nb de pas de l'appareil (necessite de travailler avec les specificites iOS et Android)
 - Notification (FCM) quand on arrive à la fin d'un workout pour se préparer à faire le suivant
 - Historique workouts/séances/exercices effecutés (il faudra donc stocker quand est effectué chacun)
 - Pour les exercices avec du temps, lancer un timer dans l'app
+- Dès qu'il le désire il peut stoper le temps de repos pour passer à la série suivante (mettre temps de repos entre les séries, timer). Cela incluerait une nouvelle Vue séparant chaque série
+- Pour les statistiques: calculer le temps total passé à la salle de sport
 
 ## Requirements non fonctionnels
 ### Sécurite
+- Un utilisateur non authentifié ne peut pas accéder à autre chose que la page d'inscription/connexion de l'app
 - Seul les données de l'utilisateur sont visibles par l'utilisateur (authentifié)
 - Un utilisateur ne peut pas voir les données d'un autre
+- Une fois que l'utilisateur supprime ses données toutes les données liés à cet utilisateur doivent être supprimées pour complaire aux règles de l'UE sur la gestion des données
 ### Compatibilité
 - Le système doit tourner autant bien sur smartphone iOS que Android
 ### Conformité
@@ -102,26 +106,26 @@ TODO
 - Les fenêtres doivent changer de manière fluide et en moins de 1 seconde
 ### Disponibilité
 - L'application doit être disponbile 7j/7 24h/24
-### Fiabilité
-
 
 ## Description de la méthodologie
 Utilisation de SCRUM
+
 Nos sprints durent 2 jours, assez court pour pouvoir en faire assez et avoir des feedbacks régulieres et assez long pour pouvoir faire assez de travail dans le temp imparti.
 1. On regarde ensemble ce qu'il faut faire et on ajoute les tâches à un backlog
 2. On répartie les différentes tâches entre les membres du groupe en fonction de leurs préférences et capacités
 3. A la fin du sprint, on fait du code review ensemble pour vérifier que le code soit maintenable et suffisament compréhensible
 4. Une fois le code validé on passe au sprint suivant (1.)
+5. 
 Le projet sera décompsé en plusieurs parties pour éviter qu'on se marche dessus (chaque partie correspond à une branche git):
 - Front-end (fb_front): Design de l'application avec Flutter
 - Back-end (fb_back): Endpoints qui fait le lien entre le front-end et Firebase en Dart
+
 Convention de nommage des commits: [WIP], [DONE] puis le nom de la tâche issue du backlog ex: [WIP] Ajout d'un bouton pour supprimer le compte
 
 ## Mockups
-### Gestion
-- Workouts: Créer, modifier et supprimer des workouts
-- Séances: Créer, modifier et supprimer des séances
-- Exercices: Créer, modifier et supprimer des séances (exercices de base pas compris)
+Lien vers nos mockups: https://www.figma.com/file/fkh4ZoSzWQvWqY41R9Oc9H/G2G?type=design&node-id=0-1&mode=design&t=pG1VP4pjxEdOBTaZ-0
+### Inscription - Connexion
+- Connexion avec Google
 ### Progression de la semaine en cours (PAGE D'ACCUEIL)
 - Si aucun workout en cours -> Propose de se rendre sous Gestion/Workouts
 - Affichage du workout en cours et suivi des semaines (ex: semaine 2/5)
@@ -131,34 +135,39 @@ Convention de nommage des commits: [WIP], [DONE] puis le nom de la tâche issue 
 - Quand l'utilisateur veut faire sa séance de sport il choisit une des séances restantes de son choix qui va lancer l'affichage *Séance en cours*
 #### Séance en cours
 - L'utilisateur choisist dans les exercices possibles quel exercice faire l'un après l'autre (bien qu'un ordre soit recommandé)
-- Une fois l'exercice lancé il va pouvoir rentrer combien de répétitions il a fait ainsi que le poids utilisé
-- Entre chaque série un chrono se lance pour que l'utilisateur sache combien de temps de repos il utilise
-- Dès qu'il le désire il peut stoper le temps de repos pour passer à la série suivante
+- Une fois la série lancée il va pouvoir rentrer combien de répétitions il a fait ainsi que le poids utilisé, puis clique pour passer à la série suivante ou l'exercice suivant si il a fini toutes les séries de son exercice
 - Une fois l'exercice terminé il se retrouve sur la page ou il peut choisir un exercice parmis les restants
-- Si la séance est terminée l'utilisateur et renvoyé sur la PAGE D'ACCUEIL et la séance effectuée est marquée comme terminée (avec par exemple une coloration en vert9
-### Mes péformances
-- On peut voir le PR pour chaque exercice qu'on a fait depuis la création du compte
-### Paramètres et gestion utilisateur
+- Si la séance est terminée l'utilisateur et renvoyé sur la PAGE D'ACCUEIL et la séance effectuée est marquée comme terminée (avec par exemple une coloration en vert)
+### Gestion
+- Workouts: Créer, modifier et supprimer des workouts
+- Séances: Créer, modifier et supprimer des séances
+- Exercices: Créer, modifier et supprimer des séances (exercices de base pas compris)
+### Gestion utilisateur avec paramètres (comme sur insta)
 #### Paramètres
 - Dark and light mode ?
 - About version
 - Feedkback: report a bug
-#### Utilisateur
 - Supprimer le compte (règles EU)
 - Log out
-- Modifier pseudo, mdp, email, ...
+- Modifier mdp, email, ...
+#### Utilisateur
+- Changer pseudo
+- Changer PP
+- Afficher le nb de séances effecutées, le nb de poids poussé en tout, ...
+##### Mes performances
+- On peut voir le PR pour chaque exercice qu'on a fait depuis la création du compte
+- Par la suite on pourrait avoir accès depuis la même page à tout autre type de statistiques tel que l'evolution du poids, l'evolution avec les photos chaque fin de mois, ...
 
 ## Landing page
 Speech (ex: https://studystorm.net) + lien pour télécharger l'APK ou si trop compliqée -> hébérger version WEB sur netlify
-https://gilliozdorian.wixsite.com/gym2golmon
+https://gilliozdorian.wixsite.com/gym2golem
 
 # Questions
 -
 
 # TODO
-- Réorganiser le README
-- Demander confirmation du README à l'assistant
+- Demander confirmation du README + mockups à l'assistant
+- Finir les mockups si le prof/assistant demande +
 - Démo de déploiement
 - Citer probleme de base -> solution (avec mockups a theo)
 - Affiner la landing page
-- Mockups a theo
