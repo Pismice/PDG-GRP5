@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "619620435428",
+    "project_id": "hongym-4cb68",
+    "storage_bucket": "hongym-4cb68.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:619620435428:android:05e0ba10b4e217bbd433f1",
+        "android_client_info": {
+          "package_name": "com.example.g2g"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "619620435428-gg95mvrg5tgglg2b12cr1tfogk7l02dg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzSL3RbhSzxFWza3VnBwO9MfX40lgoUPY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "619620435428-gg95mvrg5tgglg2b12cr1tfogk7l02dg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "619620435428-723841b7u24qeujeafm8qvbqv7jqocu5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.hongym.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:619620435428:android:470635a8fcecc322d433f1",
+        "android_client_info": {
+          "package_name": "com.example.hongym"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "619620435428-gg95mvrg5tgglg2b12cr1tfogk7l02dg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzSL3RbhSzxFWza3VnBwO9MfX40lgoUPY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "619620435428-gg95mvrg5tgglg2b12cr1tfogk7l02dg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "619620435428-723841b7u24qeujeafm8qvbqv7jqocu5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.hongym.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
