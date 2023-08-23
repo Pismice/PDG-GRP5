@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -11,9 +12,11 @@ void main() async {
     options: DefaultFirebaseOptions.web,
   );
 
-  // Utilisation des émulateurs pour éviter les couts innatendus
-  await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
-  FirebaseFirestore.instance.useFirestoreEmulator('localhost', 9098);
+  if (kDebugMode) {
+    // Utilisation des émulateurs pour éviter les couts innatendus
+    await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+    FirebaseFirestore.instance.useFirestoreEmulator('localhost', 9098);
+  }
 
   // Vérification que l'utilisateur est toujours connecté
   FirebaseAuth.instance.authStateChanges().listen((User? u) {
