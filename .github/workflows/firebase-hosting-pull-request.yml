@@ -34,13 +34,3 @@ jobs:
       - name: Run tests
         run: flutter test
 
-      - name: Build du projet 
-        run: flutter build web --web-renderer html --release
-
-      - name: Firebase Deyploy Hosting
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_HONGYM_4CB68 }}'
-          projectId: hongym-4cb68
-
