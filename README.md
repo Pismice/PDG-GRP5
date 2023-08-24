@@ -26,6 +26,8 @@ Après: L'utilisateur peut revoir ses differentes performances sous la forme de 
 
 *Become a Golem NOW with Gym2Golem !*
 
+# Démonstration rapide de l'application avec des mockups
+
 1. Sur cette page d'accueil on peut voir les workouts que l'on a actuellement en cours, on peut voir en vert les séances hebdomadaires déjà effectuées et en gris celles qu'il nous reste à faire d'ici la fin de la semaine.
 
 ![](ressources/mockup1.jpg)
