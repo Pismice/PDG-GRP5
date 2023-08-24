@@ -85,10 +85,12 @@ Nous avons fait ce choix pour rester dans l'environnement Google et notamment Fi
 - L'utilisateur peut créer des workouts ou il donne les séances qu'il voudrait faire chaque semaine (il peut mettre plusieurs fois la même séance)
 - L'utilisateur peut créer des séances qu'il pourra ensuite assigner à ses workouts
 - L'utilisateur peut créer des des exercices qu'il pourra ensuite assigner à ses séances
+- L'utilisateur peut voir ou il est en est dans son workout hebdomadaire, c'est à dire qu'il voit les séances qu'il a déjà effectuées et celles qui doivent encore l'être
+- L'utilisateur peut stopper son workout et le reprendre par la suite si il le desire
 - Les séances sont composées d'exercices par défaut proposés par l'application ou des exercices personnalisés ajoutés par chaque utilisateur (les exercices crées ne seront visibles que pour l'auteur de l'exercice sauf si ce dernier le partage)
-- Durant la séance de sport l'utilisateur peut rentrer son nombre de répétitions et le poids utilisé pour chaque série de chaque exercice (il y aura cependant une valeur par défaut de 8 répétitions pour faire gagner du temps à l'utilisateur)
+- Durant la séance de sport l'utilisateur peut rentrer son nombre de répétitions et le poids utilisé pour chaque série de chaque exercice (il y aura cependant des valeurs par défaut pour faire gagner du temps à l'utilisateur)
 - Pour chaque exercice il existe un PR (Personal Record) qui n'est autre que la valeur maximale effectuée par l'utilisateur sur cet exercice, si le PR est battu un petit truc cool devrait se passer à l'écran au moment de la validation :)
-- L'utilisateur peut voir pour chaque exercice qu'il a fait son PR
+- L'utilisateur peut voir pour chaque exercice qu'il a fait son PR quand il effecute son exercice
 - L'utilisateur peut accéder à son profil et y mettre une photo de profil (https://pub.dev/packages/image_picker) ainsi qu'un pseudonyme
 - L'utilisateur peut avoir accés à divers stats tel que le poids total soulevé ou le nombre de temps passé à faire du sport
 ### Ajouts éventuels
@@ -148,7 +150,6 @@ Lien vers nos mockups: https://www.figma.com/file/fkh4ZoSzWQvWqY41R9Oc9H/G2G?typ
 - Affichage du workout en cours et suivi des semaines (ex: semaine 2/5)
 - Affichage des séances restantes pour la semaine actuelle
 - Il est possible de refaire une même séance bien que cela sera précédé par un message demandant de confirmer à l'utilisateur son choix car ce dernier serait contradictoire avec le workout
-- Possiblité de stopper le workout actuel et de le reprendre par la suite
 - Quand l'utilisateur veut faire sa séance de sport il choisit une des séances restantes de son choix qui va lancer l'affichage *Séance en cours*
 #### Séance en cours
 - L'utilisateur choisist dans les exercices possibles quel exercice faire l'un après l'autre (bien qu'un ordre soit recommandé)
@@ -185,9 +186,5 @@ https://gilliozdorian.wixsite.com/gym2golem
 # TODO
 - Démo de déploiement
 - Citer probleme de base -> solution (avec mockups a theo)
-- Relire le README en entier + fautes d orthographes + ajouter des éléments
 - Choisir entre provider, riverpod, getx ou autre si preference particuliere ?
-- Ajouter des mockup sur la landing page (expliquer les features), page contact ? https://les-crepes.github.io/
-- CI/CD: Rajouter pour réagir à pull request en + de merge
-- Mettre max dans functional requ
 - Raconter un peu partout et notamment sur la landing page l histoire de oscar avec le stylo et la calpin
