@@ -7,7 +7,7 @@ Application mobile (avec version WEB) qui accompagne les utilisateurs durant leu
 
 L'application correspond à un modèle de séances de sport avec des séries, répétitions, poids, ...
 
-Organisation de nos entités expliquée avec le schéma ci-dessous (chaque parent peut avoir plusieurs enfants)
+Organisation de nos entités expliquée avec le schéma ci-dessous (chaque parent peut avoir plusieurs enfants) :
 
 ![](ressources/entites.png)
 
@@ -16,17 +16,17 @@ Organisation de nos entités expliquée avec le schéma ci-dessous (chaque paren
 Marre d'oublier à chaque fois tes PR et quel poids tu as utilisé ? Marre de ne pas réussir à te rappeler de tes premiers poids pour voir ton évolution ? Marre de noter les poids que tu utilises dans un bloc-note ?
 Gym2Golem est fait pour toi !!!
 
-L'application accompagne l'utilisateur dans son aventure fitness, Gym2Golem offre la possibilité d'être accompagné avant, pendant et après l'entraîement!
+L'application accompagne l'utilisateur dans son aventure fitness, Gym2Golem offre la possibilité d'être accompagné AVANT, PENDANT et APRES l'entraîement!
 
-Avant: L'utilisateur peut planifier ses séances à l'avance pour ne pas perdre de temps durant sa séance
+Avant: L'utilisateur peut planifier ses séances à l'avance pour ne pas perdre de temps durant sa séance.
 
-Pendant: L'utilisateur peut se concentrer à 100% sur ses performances sportives sans se soucier de quoi faire car l'application va le guider tout au long exercice après exercice, série après série. Il pourra donc battre ses PR plus facilement
+Pendant: L'utilisateur peut se concentrer à 100% sur ses performances sportives sans se soucier de quoi faire car l'application va le guider tout au long exercice après exercice, série après série. Il pourra donc battre ses PR plus facilement.
 
-Après: L'utilisateur peut revoir ses differentes performances sous la forme de différentes statistiques pour voir son progrès avec Gym2Golem.
+Après: L'utilisateur peut revoir ses differentes performances sous la forme de différentes statistiques pour voir son progrès et rester motivé avec Gym2Golem.
 
 *Become a Golem NOW with Gym2Golem !*
 
-TODO: THEOOOOOOOOOOOOOOOOOOOO on peut avec des mokcup montrer un use case scenario
+![](ressources/mockup1.jpg)![](ressources/mockup2.jpg)![](ressources/mockup2.jpg)
 
 ### Architecture
 ![](ressources/schema_pdg.png)
@@ -34,20 +34,20 @@ TODO: THEOOOOOOOOOOOOOOOOOOOO on peut avec des mokcup montrer un use case scenar
 ### Choix technique
 1. Frontend
 Nous avons choisi Flutter car étant une petite équipe voulant développer une app mobile sur Android et iOS et éviter de faire du code à double il s'agit de la meilleure solution pour effectuer la tâche dans le temps imparti.
-Un autre avantage de Flutter est la possiblité de pouvoir également servir une app web avec le même code source
+Un autre avantage de Flutter est la possiblité de pouvoir également servir une app web avec le même code source.
 2. Backend
-Nous avons choisi Firebase qui est un BaaS qui propose des services tel que l'authentification et le stockage de données avec la BD orientée documents (Firestore)
-Firebase nous permet également d'utiliser Hosting pour hoster notre build WEB
-Firebase et Flutter étant 2 produits Google la cohabitation entre ces 2 parties sera aisée
+Nous avons choisi Firebase qui est un BaaS qui propose des services tel que l'authentification et le stockage de données avec la BD orientée documents (Firestore).
+Firebase nous permet également d'utiliser Hosting pour hoster notre build WEB.
+Firebase et Flutter étant 2 produits Google la cohabitation entre ces 2 parties sera aisée.
 
 ### Description du processus de travail (git flow, devops, ...) 
-- Les tests unitaires ainsi que vérification des warnings (flutter test et flutter analyze) sont effectués à la fois en local et sur une VM via les GitHub Actions (commit and build).
-Le but est d'avoir des dev qui commit le + souvent possible pour garantir régulièrement que la solution est toujours OK (passe les tests)
-- Chaque commit qui fix un bug doi venir avec un test case
-- Le build est toujours disponbile à la dernière version buildé en version web sur internet (hosté par Firebase Hosting)
+- Les tests unitaires ainsi que la vérification des warnings (flutter test et flutter analyze) sont effectués à la fois en local et sur une VM via les GitHub Actions (commit and build).
+Le but est d'avoir des dev qui commit le + souvent possible pour garantir régulièrement que la solution est toujours OK (passe les tests).
+- Chaque commit qui fix un bug doit venir avec un test case.
+- Le build est toujours disponbile à la dernière version buildé en version web sur internet (hosté par Firebase Hosting).
 
-1. Le développeur choisi la tâche qu'il va effectuer, puis la convertit en issue tout en ouvrant une feature branch lié à l'issue.
-2. Le dev travaille sur la feature branch et une fois terminé il effectue une pull request de sa feature branch sur main
+1. Le développeur choisi la tâche qu'il va effectuer, puis la convertit en issue tout en ouvrant une feature branch liée à l'issue.
+2. Le dev travaille sur la feature branch et une fois terminé il effectue une pull request de sa feature branch sur main.
 3. Quand un developpeur pull request sur la branche main, son travil est build puis, soumis aux différents tests mis en place dans notre application Dart ainsi qu'une analyse de warnings
 4. Si les test passent et la pull request est approuvé par un autre collègue, le commit est accepté et un build est généré puis hébérgé sur Firebase Hosting (lien vers le site WEB à jour sur la landing page)
 5. La dernière version du build est donc en tout temps disponible pour tout le monde
@@ -56,7 +56,7 @@ Le but est d'avoir des dev qui commit le + souvent possible pour garantir régul
 VCM: Git (avec GitHub)
 
 Issue Tracker: 
-- GitHub Issues avec utilisation de tag tel que backend et frontend pour faciliter le filtrage des différentes tâches
+- GitHub Issues avec utilisation de tag tel que backend et frontend pour faciliter le filtrage des différentes tâches.
 - Utilisation de 3 milestones différents pour pouvoir catégoriser les tâches par importance:
    1. First usable version (contient le STRICT MINIMUM pour que l'application prenne vie, ex: authentification, création des workouts, navigation correcte entre les pages)
    2. Required additions (contient toutes les fonctionalités qui doivent être ajoutées selon le CDC mais qui ne sont pas vitales, ex: afficher la photo de profil de l'utilisateur)
@@ -72,7 +72,7 @@ Nous avons fait ce choix pour rester dans l'environnement Google et notamment Fi
 
 ### Pipeline de livraison et de déploiement (CI/CD)
 1. Le développeur commit son code sur sa feature branch
-2. Une fois la feature branche terminé il merge celle-ci sur main
+2. Une fois la feature branche terminée il merge celle-ci sur main
 3. La GitHub Action se déclenche
    - Installation de flutter
    - Flutter clean
@@ -152,17 +152,17 @@ Lien vers nos mockups: https://www.figma.com/file/fkh4ZoSzWQvWqY41R9Oc9H/G2G?typ
 - Si aucun workout en cours -> Propose de se rendre sous Gestion/Workouts
 - Affichage du workout en cours et suivi des semaines (ex: semaine 2/5)
 - Affichage des séances restantes pour la semaine actuelle
-- Il est possible de refaire une même séance bien que cela sera précédé par un message demandant de confirmer à l'utilisateur son choix car ce dernier serait contradictoire avec le workout
+- Il est possible de refaire une même séance bien que cela sera précédé par un message demandant de confirmer à l'utilisateur son choix car cela ne ferait théoriquement pas de sens de vouloir refaire une séance que l'on a déjà effectué (surtout si il en reste d'autres qui n'ont pas encore été faites)
 - Quand l'utilisateur veut faire sa séance de sport il choisit une des séances restantes de son choix qui va lancer l'affichage *Séance en cours*
 #### Séance en cours
-- L'utilisateur choisist dans les exercices possibles quel exercice faire l'un après l'autre (bien qu'un ordre soit recommandé)
+- L'utilisateur choisist dans les exercices possibles quel exercice faire l'un après l'autre (il peut choisir l'ordre qu'il veut si par exemple est une machine occupée)
 - Une fois la série lancée il va pouvoir rentrer combien de répétitions il a fait ainsi que le poids utilisé, puis clique pour passer à la série suivante ou l'exercice suivant si il a fini toutes les séries de son exercice
 - Une fois l'exercice terminé il se retrouve sur la page ou il peut choisir un exercice parmis les restants
 - Si la séance est terminée l'utilisateur et renvoyé sur la PAGE D'ACCUEIL et la séance effectuée est marquée comme terminée (avec par exemple une coloration en vert)
-### Gestion
+### Gestion (bien évidemment impossible de modifer ou supprimer d'éventuels entités importées)
 - Workouts: Créer, modifier et supprimer des workouts
 - Séances: Créer, modifier et supprimer des séances
-- Exercices: Créer, modifier et supprimer des séances (exercices de base pas compris)
+- Exercices: Créer, modifier et supprimer des séances
 ### Gestion utilisateur avec paramètres (comme sur insta)
 #### Paramètres
 - Dark and light mode / choix d'un thème (ajout éventuel)
@@ -170,7 +170,7 @@ Lien vers nos mockups: https://www.figma.com/file/fkh4ZoSzWQvWqY41R9Oc9H/G2G?typ
 - Feedkback: report a bug
 - Supprimer le compte (règles EU)
 - Log out
-- Modifier mdp, email, ...
+- Modifier mdp, email, ... (si on se décide à ne pas partir sur une connexion avec Google
 #### Utilisateur
 - Changer pseudo
 - Changer PP
@@ -182,12 +182,3 @@ Lien vers nos mockups: https://www.figma.com/file/fkh4ZoSzWQvWqY41R9Oc9H/G2G?typ
 ## Landing page
 Speech (ex: https://studystorm.net) + lien pour télécharger l'APK ou si trop compliqée -> hébérger version WEB sur netlify
 https://gilliozdorian.wixsite.com/gym2golem
-
-# Questions
--
-
-# TODO
-- Démo de déploiement
-- Citer probleme de base -> solution (avec mockups a theo)
-- Choisir entre provider, riverpod, getx ou autre si preference particuliere ?
-- Raconter un peu partout et notamment sur la landing page l histoire de oscar avec le stylo et la calpin
