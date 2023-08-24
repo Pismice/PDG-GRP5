@@ -13,6 +13,11 @@ Comme sur le schéma hiérarchique ci-dessous:
 
 ![](ressources/entites.png)
 
+# Pourquoi utiliser Gym2Golem ?
+
+Marre d'oublier à chaque fois tes PR et quel poids tu as utilisé ? Marre de ne pas réussir à te rappeler de tes premiers poids pour voir ton évolution ? Marre de noter les poids que tu utilises dans un bloc-note ?
+Gym2Golem est fait pour toi !!!
+
 L'application accompagne l'utilisateur dans son aventure fitness, Gym2Golem offre la possibilité d'être accompagné avant, pendant et après l'entraîement!
 
 Avant: L'utilisateur peut planifier ses séances à l'avance pour ne pas perdre de temps durant sa séance
@@ -43,19 +48,19 @@ Le but est d'avoir des dev qui commit le + souvent possible pour garantir régul
 - Chaque commit qui fix un bug doi venir avec un test case
 - Le build est toujours disponbile à la dernière version buildé en version web sur internet (hosté par Firebase Hosting)
 
-1. Quand un developpeur commit sur la branche main, son travil est build puis, soumis aux différents tests mis en place dans notre application Dart ainsi qu'une analyse de warnings
-2. Si les test passent, le commit est accepté et un build est généré puis hébérgé sur Firebase Hosting (lien vers le site WEB à jour sur la landing page)
-3. La dernière version du build est donc en tout temps disponible pour tout le monde
+1. Le développeur choisi la tâche qu'il va effectuer, puis la convertit en issue tout en ouvrant une feature branch lié à l'issue.
+2. Le dev travaille sur la feature branch et une fois terminé il effectue une pull request de sa feature branch sur main
+3. Quand un developpeur pull request sur la branche main, son travil est build puis, soumis aux différents tests mis en place dans notre application Dart ainsi qu'une analyse de warnings
+4. Si les test passent et la pull request est approuvé par un autre collègue, le commit est accepté et un build est généré puis hébérgé sur Firebase Hosting (lien vers le site WEB à jour sur la landing page)
+5. La dernière version du build est donc en tout temps disponible pour tout le monde
 
 ### Outils de développement (VCM, Issue tracker, ...)
 VCM: Git (avec GitHub)
 
-Issue Tracker: GitHub Issues
+Issue Tracker: GitHub Issues avec utilisation de tag tel que backend et frontend pour faciliter le filtrage des différentes tâches
 
 Kanban: Nous allons utiliser GitHub Project pour notre Kanban. Notre Kanban aura 4 colonnes : Backlog/WIP/Review/Done
 Lors de nos stand up meeting nous deciderons des issues a résoudre lors de ce sprint et elles seront placées dans la colonne "Backlog". Durant ce même meeting nous assignerons à chaque personnes du groupe son travail pour le sprint. Les premières issues seront alors misent dans la colonnes "WIP". Lorsqu'une personne pense avoir terminé son issue en cours elle deplacera son issue dans la colonnes "Review" et demandera a un membre du groupe de review son travail avant de merge sa branche sur le main afin qu'il soit deploy. Après avoir fini une issue elle est placée dans la colonne "Done". 
-
-TODO: il faut dire + ?
 
 ### Environnement de déploiement
 Nous avons décidé d'utiliser Firebase Hosting pour hébérger notre application.
@@ -63,8 +68,9 @@ Nous avons décidé d'utiliser Firebase Hosting pour hébérger notre applicatio
 Nous avons fait ce choix pour rester dans l'environnement Google et notamment Firebase.
 
 ### Pipeline de livraison et de déploiement (CI/CD)
-1. Le développeur commit son code
-2. La GitHub Action se déclenche
+1. Le développeur commit son code sur sa feature branch
+2. Une fois la feature branche terminé il merge celle-ci sur main
+3. La GitHub Action se déclenche
    - Installation de flutter
    - Flutter clean
    - Installation des packages
@@ -72,10 +78,7 @@ Nous avons fait ce choix pour rester dans l'environnement Google et notamment Fi
    - Lancement des tests
    - Build du projet (version web)
    - Déploiement du build sur Firebase Hosting
-  3. Le commit est maintenant validé et la version de l'app est mise à jour sur le site web
-
-### Démo du déploiement d'une modification
-TODO
+  4. Le commit est maintenant validé et la version de l'app est mise à jour sur le site web
 
 ## Requirements fonctionnels
 - L'utilisateur peut se connecter et retrouver toutes ses données peu importe la machine depuis laquelle il se connecte
@@ -112,7 +115,7 @@ TODO
 ### Conformité
 - Quand un utilisateur supprime son compte toutes les données qui lui sont liés seront supprimées
 ### Usabilité
-- L'application doît être facilement utilisable par des personnes qui sont à la salle de gym et qui ne sont pas forcément très concentré sur l'app car ils fournissent des efforts intensifs (il faut éviter de devoir passer par plusieurs touches d'écran pour pouvoir faire ce qu'ils ont envie de faire, ex: enregistrer les résultats de leur exercice)
+- L'application doît être facilement utilisable par des personnes qui sont à la salle de gym et qui ne sont pas forcément très concentré sur l'app car ils fournissent des efforts intensifs (il faut éviter de devoir passer par plusieurs touches d'écran pour pouvoir faire ce qu'ils ont envie de faire, ex: enregistrer les résultats de leur exercice). Cela sera réaliser en ajoutant par exemple des valeurs par défaut pour éviter que l'utilisateur ait besoin de remplir tous les champs systématiquement
 ### Evolutivié
 - Notre application doit pouvoir tenir 50 utilisateurs faisant leur séance en même temps
 ### Performance
@@ -129,9 +132,7 @@ Nos sprints durent 2 jours, assez court pour pouvoir en faire assez et avoir des
 3. A la fin du sprint (ou plus tôt si 2 membres du groupe sont déjà disponibles), on fait du code review ensemble pour vérifier que le code soit maintenable et suffisament compréhensible
 4. Une fois les codes validés, on passe au sprint suivant (1.)
 
-Le projet sera décompsé en plusieurs parties pour éviter qu'on se marche dessus (chaque partie correspond à une branche git):
-- Front-end (fb_front): Design de l'application avec Flutter
-- Back-end (fb_back): Endpoints qui fait le lien entre le front-end et Firebase en Dart
+Le projet contiendra une branche principale main et une branche pour chaque feature (tâche/issue)
 
 Convention de nommage des commits: [WIP], [DONE] [FIXED] puis le nom de la tâche issue du backlog ex: [WIP] Ajout d'un bouton pour supprimer le compte
 WIP: En cours mais pas encore terminé
@@ -187,10 +188,6 @@ https://gilliozdorian.wixsite.com/gym2golem
 - Relire le README en entier + fautes d orthographes + ajouter des éléments
 - Choisir entre provider, riverpod, getx ou autre si preference particuliere ?
 - Ajouter des mockup sur la landing page (expliquer les features), page contact ? https://les-crepes.github.io/
-- Description du proc: si ajouter nouvelle feature, nouvelle fb_branch en créant une issue et rajouter avec des pull request (approuver par autre pesronne du groupe)
-- VCM, Issue tracker: tag backend/frontend (filtrer pour voir que backend etc)
 - CI/CD: Rajouter pour réagir à pull request en + de merge
-- Descirption metho: enlever les 2 branches backend et front
 - Mettre max dans functional requ
-- Plus précis dans usabilité (valeurs par défaut pour plus rapide avec un exemple, pas besoin de rep
 - Raconter un peu partout et notamment sur la landing page l histoire de oscar avec le stylo et la calpin
