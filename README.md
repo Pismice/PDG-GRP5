@@ -57,7 +57,12 @@ Le but est d'avoir des dev qui commit le + souvent possible pour garantir régul
 ### Outils de développement (VCM, Issue tracker, ...)
 VCM: Git (avec GitHub)
 
-Issue Tracker: GitHub Issues avec utilisation de tag tel que backend et frontend pour faciliter le filtrage des différentes tâches
+Issue Tracker: 
+- GitHub Issues avec utilisation de tag tel que backend et frontend pour faciliter le filtrage des différentes tâches
+- Utilisation de 3 milestones différents pour pouvoir catégoriser les tâches par importance:
+   1. First usable version (contient le STRICT MINIMUM pour que l'application prenne vie, ex: authentification, création des workouts, navigation correcte entre les pages)
+   2. Required additions (contient toutes les fonctionalités qui doivent être ajoutées selon le CDC mais qui ne sont pas vitales, ex: afficher la photo de profil de l'utilisateur)
+   3. Possible additions (contient toutes les tâches considérées comme des ajouts éventuels, qui sont hors des functional requirments)
 
 Kanban: Nous allons utiliser GitHub Project pour notre Kanban. Notre Kanban aura 4 colonnes : Backlog/WIP/Review/Done
 Lors de nos stand up meeting nous deciderons des issues a résoudre lors de ce sprint et elles seront placées dans la colonne "Backlog". Durant ce même meeting nous assignerons à chaque personnes du groupe son travail pour le sprint. Les premières issues seront alors misent dans la colonnes "WIP". Lorsqu'une personne pense avoir terminé son issue en cours elle deplacera son issue dans la colonnes "Review" et demandera a un membre du groupe de review son travail avant de merge sa branche sur le main afin qu'il soit deploy. Après avoir fini une issue elle est placée dans la colonne "Done". 
@@ -188,3 +193,4 @@ https://gilliozdorian.wixsite.com/gym2golem
 - Citer probleme de base -> solution (avec mockups a theo)
 - Choisir entre provider, riverpod, getx ou autre si preference particuliere ?
 - Raconter un peu partout et notamment sur la landing page l histoire de oscar avec le stylo et la calpin
+- Remplir le kanban des 1ères tâches
