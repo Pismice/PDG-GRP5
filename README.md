@@ -30,6 +30,7 @@ Après: L'utilisateur peut revoir ses differentes performances sous la forme de 
 
 
 ### Architecture
+Notre application G2G est écrite en Flutter et peut se retrouver sous forme mobile ou WEB
 ![](ressources/schema_pdg.png)
 
 ### Choix technique
