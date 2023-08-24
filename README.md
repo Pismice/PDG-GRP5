@@ -179,18 +179,18 @@ Speech (ex: https://studystorm.net) + lien pour télécharger l'APK ou si trop c
 https://gilliozdorian.wixsite.com/gym2golem
 
 # Questions
-- Est-ce que la landing page est ok ou il faut déjà mettre des screens et + de trucs ? Que doit contenir la landing page pour ce vendredi et la fin des 3 semaines ?
-- Est ce que je me repete trop dans "Description du processus de travail (git flow, devops, ...)" ?
-- vraiment besoin de gérer les issues via GitHub Issues ? Ou github project suffit ?
-- Environnement de déploiement: je dis bien ce qu il faut pour ce sujet ?
-- Je me repete bcp pour les CI/CD surtout par rapport à "Description du processus ..."
-- On a plusieurs functional requirments dans la partie "Mockup" c'est ok ?
-- Explication de scrum cest bon comme ca ?
-- Est ce qu il faudrait plusieurs branches ? Avec par exemple aussi une branche dev en + des backend et front ? Ca peut etre partique pour versioning (ex: version 0.2, 1.0, 1.1, ...)
+-
 
 # TODO
-- Demander confirmation du README + mockups à l'assistant
 - Démo de déploiement
 - Citer probleme de base -> solution (avec mockups a theo)
 - Relire le README en entier + fautes d orthographes + ajouter des éléments
 - Choisir entre provider, riverpod, getx ou autre si preference particuliere ?
+- Ajouter des mockup sur la landing page (expliquer les features), page contact ? https://les-crepes.github.io/
+- Description du proc: si ajouter nouvelle feature, nouvelle fb_branch en créant une issue et rajouter avec des pull request (approuver par autre pesronne du groupe)
+- VCM, Issue tracker: tag backend/frontend (filtrer pour voir que backend etc)
+- CI/CD: Rajouter pour réagir à pull request en + de merge
+- Descirption metho: enlever les 2 branches backend et front
+- Mettre max dans functional requ
+- Plus précis dans usabilité (valeurs par défaut pour plus rapide avec un exemple, pas besoin de rep
+- Raconter un peu partout et notamment sur la landing page l histoire de oscar avec le stylo et la calpin
