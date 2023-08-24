@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
             return const GoogleSignInScreen();
           } else {
             return Text(
-                'Bienvenue sur Gym on ${FirebaseAuth.instance.currentUser?.displayName ?? "Guest"} :)');
+                'super workflow Bienvenue sur Gym on ${FirebaseAuth.instance.currentUser?.displayName ?? "Guest"} :)');
           }
         },
       ),
