@@ -90,7 +90,7 @@ Nous avons fait ce choix pour rester dans l'environnement Google et notamment Fi
 - L'utilisateur peut créer des workouts ou il donne les séances qu'il voudrait faire chaque semaine (il peut mettre plusieurs fois la même séance)
 - L'utilisateur peut créer des séances qu'il pourra ensuite assigner à ses workouts
 - L'utilisateur peut créer des des exercices qu'il pourra ensuite assigner à ses séances
-- L'utilisateur peut voir ou il est en est dans son workout hebdomadaire, c'est à dire qu'il voit les séances qu'il a déjà effectuées et celles qui doivent encore l'être
+- L'utilisateur peut voir ou il est en est dans ses workouts hebdomadaires, c'est à dire qu'il voit les séances qu'il a déjà effectuées et celles qui doivent encore l'être (il ne peut avoir que 1 seul workout actif à la fois)
 - L'utilisateur peut stopper son workout et le reprendre par la suite si il le desire
 - Les séances sont composées d'exercices par défaut proposés par l'application ou des exercices personnalisés ajoutés par chaque utilisateur (les exercices crées ne seront visibles que pour l'auteur de l'exercice sauf si ce dernier le partage)
 - Durant la séance de sport l'utilisateur peut rentrer son nombre de répétitions et le poids utilisé pour chaque série de chaque exercice (il y aura cependant des valeurs par défaut pour faire gagner du temps à l'utilisateur)
@@ -110,6 +110,7 @@ Nous avons fait ce choix pour rester dans l'environnement Google et notamment Fi
 - Historique workouts/séances/exercices effecutés (il faudra donc stocker quand est effectué chacun) https://pub.dev/packages/fl_chart
 - Pour les exercices avec du temps, lancer un timer dans l'app
 - Ajout d'un chrono entre les séries, mais dès qu'il le désire il peut stoper le temps de repos pour passer à la série suivante. Cela incluerait une nouvelle Vue séparant chaque série
+- Exercices, séances et workout les + populaires que les utilisateurs pourront importer
 
 ## Requirements non fonctionnels
 ### Sécurite
