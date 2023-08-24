@@ -26,19 +26,22 @@ Après: L'utilisateur peut revoir ses differentes performances sous la forme de 
 
 *Become a Golem NOW with Gym2Golem !*
 
-Sur cette page d'accueil on peut voir les workouts que l'on a actuellement en cours, on peut voir en vert les séances hebdomadaires déjà effectuées et en gris celles qu'il nous reste à faire d'ici la fin de la semaine.
+1. Sur cette page d'accueil on peut voir les workouts que l'on a actuellement en cours, on peut voir en vert les séances hebdomadaires déjà effectuées et en gris celles qu'il nous reste à faire d'ici la fin de la semaine.
 
 ![](ressources/mockup1.jpg)
 
-Sur cette page on crée une séance en choisissant les exercices ainsi que le nombre de séries et répétitions prévues.
+
+2. Sur cette page on crée une séance en choisissant les exercices ainsi que le nombre de séries et répétitions prévues.
 
 ![](ressources/mockup3.jpg)
 
-Sur cette page on se trouve à la salle de gym et on vient de finir un exercice, on a donc le choix de poursuivre avec un des exercices restants (en gris).
+
+3. Sur cette page on se trouve à la salle de gym et on vient de finir un exercice, on a donc le choix de poursuivre avec un des exercices restants (en gris).
 
 ![](ressources/mockup2.jpg)
 
-Après avoir effectué notre série on rentre le nombre de répétions effectuées ainsi que le poids utilisé.
+
+4. Après avoir effectué notre série on rentre le nombre de répétions effectuées ainsi que le poids utilisé.
 
 ![](ressources/mockup4.jpg)
 
