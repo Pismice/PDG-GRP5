@@ -26,7 +26,7 @@ Après: L'utilisateur peut revoir ses differentes performances sous la forme de 
 
 *Become a Golem NOW with Gym2Golem !*
 
-![](ressources/mockup1.jpg)![](ressources/mockup2.jpg)![](ressources/mockup2.jpg)
+![](ressources/mockup1.jpg)![](ressources/mockup2.jpg)![](ressources/mockup3.jpg)
 
 ### Architecture
 ![](ressources/schema_pdg.png)
