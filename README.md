@@ -7,9 +7,7 @@ Application mobile (avec version WEB) qui accompagne les utilisateurs durant leu
 
 L'application correspond à un modèle de séances de sport avec des séries, répétitions, poids, ...
 
-Organisation de nos entités: Workout(planning) -> Séances -> Exercices ...
-
-Comme sur le schéma hiérarchique ci-dessous:
+Organisation de nos entités expliquée avec le schéma ci-dessous (chaque parent peut avoir plusieurs enfants)
 
 ![](ressources/entites.png)
 
@@ -22,13 +20,13 @@ L'application accompagne l'utilisateur dans son aventure fitness, Gym2Golem offr
 
 Avant: L'utilisateur peut planifier ses séances à l'avance pour ne pas perdre de temps durant sa séance
 
-Pendant: L'utilisateur peut se concentrer à 100% sur ses performances sportives sans se soucier de quoi faire car l'application va le guider tout au long. Il pourra donc battre ses PR plus facilement
+Pendant: L'utilisateur peut se concentrer à 100% sur ses performances sportives sans se soucier de quoi faire car l'application va le guider tout au long exercice après exercice, série après série. Il pourra donc battre ses PR plus facilement
 
 Après: L'utilisateur peut revoir ses differentes performances sous la forme de différentes statistiques pour voir son progrès avec Gym2Golem.
 
 *Become a Golem NOW with Gym2Golem !*
 
-TODO: on peut avec des mokcup montrer un use case scenario
+TODO: THEOOOOOOOOOOOOOOOOOOOO on peut avec des mokcup montrer un use case scenario
 
 ### Architecture
 ![](ressources/schema_pdg.png)
@@ -90,12 +88,12 @@ Nous avons fait ce choix pour rester dans l'environnement Google et notamment Fi
 - L'utilisateur peut créer des workouts ou il donne les séances qu'il voudrait faire chaque semaine (il peut mettre plusieurs fois la même séance)
 - L'utilisateur peut créer des séances qu'il pourra ensuite assigner à ses workouts
 - L'utilisateur peut créer des des exercices qu'il pourra ensuite assigner à ses séances
-- L'utilisateur peut voir ou il est en est dans ses workouts hebdomadaires, c'est à dire qu'il voit les séances qu'il a déjà effectuées et celles qui doivent encore l'être (il ne peut avoir que 1 seul workout actif à la fois)
-- L'utilisateur peut stopper son workout et le reprendre par la suite si il le desire
+- L'utilisateur peut voir ou il est en est dans ses workouts semaine après semaine, c'est à dire qu'il voit les séances qu'il a déjà effectuées et celles qui doivent encore l'être (il ne peut avoir que 1 seul workout actif à la fois)
+- L'utilisateur peut stopper son workout et le reprendre par la suite si il le desire (enlever le workout de l'écran d'accueil)
 - Les séances sont composées d'exercices par défaut proposés par l'application ou des exercices personnalisés ajoutés par chaque utilisateur (les exercices crées ne seront visibles que pour l'auteur de l'exercice sauf si ce dernier le partage)
-- Durant la séance de sport l'utilisateur peut rentrer son nombre de répétitions et le poids utilisé pour chaque série de chaque exercice (il y aura cependant des valeurs par défaut pour faire gagner du temps à l'utilisateur)
+- Durant la séance de sport l'utilisateur peut rentrer son nombre de répétitions et le poids utilisé pour chaque série de chaque exercice (il y aura cependant des valeurs par défaut pour faire gagner du temps à l'utilisateur). Si il s'agit d'un exercice dans le temps il pourra savoir combien de temps il a pris.
 - Pour chaque exercice il existe un PR (Personal Record) qui n'est autre que la valeur maximale effectuée par l'utilisateur sur cet exercice, si le PR est battu un petit truc cool devrait se passer à l'écran au moment de la validation :)
-- L'utilisateur peut voir pour chaque exercice qu'il a fait son PR quand il effecute son exercice
+- L'utilisateur peut voir pour chaque exercice qu'il fait son PR quand il effecute son exercice de manière à avoir son objectif en vue
 - L'utilisateur peut accéder à son profil et y mettre une photo de profil (https://pub.dev/packages/image_picker) ainsi qu'un pseudonyme
 - L'utilisateur peut avoir accés à divers stats tel que le poids total soulevé ou le nombre de temps passé à faire du sport
 ### Ajouts éventuels
@@ -108,9 +106,8 @@ Nous avons fait ce choix pour rester dans l'environnement Google et notamment Fi
 - Lier avec le nb de pas de l'appareil (necessite de travailler avec les specificites iOS et Android)
 - Notification (FCM) quand on arrive à la fin d'un workout pour se préparer à faire le suivant
 - Historique workouts/séances/exercices effecutés (il faudra donc stocker quand est effectué chacun) https://pub.dev/packages/fl_chart
-- Pour les exercices avec du temps, lancer un timer dans l'app
 - Ajout d'un chrono entre les séries, mais dès qu'il le désire il peut stoper le temps de repos pour passer à la série suivante. Cela incluerait une nouvelle Vue séparant chaque série
-- Exercices, séances et workout les + populaires que les utilisateurs pourront importer
+- Page "explorer" (dans la barre de navigation) pour voir les exercices, séances et workout les + populaires que les utilisateurs pourraient importer
 
 ## Requirements non fonctionnels
 ### Sécurite
@@ -137,7 +134,7 @@ Utilisation de SCRUM
 Nos sprints durent 2 jours, assez court pour pouvoir en faire assez et avoir des feedbacks régulieres et assez long pour pouvoir faire assez de travail dans le temp imparti.
 1. On regarde ensemble ce qu'il faut faire et on ajoute les tâches à un backlog
 2. On répartie les différentes tâches entre les membres du groupe en fonction de leurs préférences et capacités
-3. A la fin du sprint (ou plus tôt si 2 membres du groupe sont déjà disponibles), on fait du code review ensemble pour vérifier que le code soit maintenable et suffisament compréhensible
+3. A la fin du sprint (ou plus tôt si 2 membres du groupe sont déjà disponibles), on fait du code review ensemble pour vérifier que le code soit maintenable et suffisament compréhensible puis on merge la pull request
 4. Une fois les codes validés, on passe au sprint suivant (1.)
 
 Le projet contiendra une branche principale main et une branche pour chaque feature (tâche/issue)
@@ -194,4 +191,3 @@ https://gilliozdorian.wixsite.com/gym2golem
 - Citer probleme de base -> solution (avec mockups a theo)
 - Choisir entre provider, riverpod, getx ou autre si preference particuliere ?
 - Raconter un peu partout et notamment sur la landing page l histoire de oscar avec le stylo et la calpin
-- Remplir le kanban des 1ères tâches
