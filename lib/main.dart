@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
             return const GoogleSignInScreen();
           } else {
             return Text(
-                'Bienvenue GOLEEEEMdorian sur Gym on ${FirebaseAuth.instance.currentUser?.displayName ?? "Guest"} :)');
+                'Bienvenue GOLEEEEM sur Gym on ${FirebaseAuth.instance.currentUser?.displayName ?? "Guest"} :)');
           }
         },
       ),
