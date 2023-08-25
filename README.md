@@ -11,18 +11,18 @@ Organisation de nos entités expliquée avec le schéma ci-dessous (chaque paren
 
 ![](ressources/entites.png)
 
-Un Workout est une série de séance qui seront effectué sur une semaine. Ces séances pouront être répéter plusieurs semaine de suite selon le souhait de l'utilisateur 
+Un Workout est un ensemble de séances qui seront effectuées sur une semaine. Ces séances pourront être répétées plusieurs semaines de suite selon le souhait de l'utilisateur. (Le nombre de semaines sera défini à la création du workout)
 
 # Pourquoi utiliser Gym2Golem ?
 
-Marre d'oublier à chaque fois tes PR (Personal Record) et quel poids tu as utilisé lors de ta séance ? Marre de ne pas te rappeler de tes premiers poids pour voir ton évolution ? Marre d'inscire toutes tes séances sur un bloc note ?
+Marre d'oublier à chaque fois tes PR (Personal Record) et quel poids tu as utilisé lors de ta séance ? Marre de ne pas te rappeler de tes premiers poids pour voir ton évolution ? Marre d'inscrire toutes tes séances sur un bloc note ?
 Gym2Golem est fait pour toi !!!
 
-L'application accompagne l'utilisateur dans son aventure fitness, Gym2Golem offre la possibilité d'être accompagné AVANT, PENDANT et APRES l'entraîement!
+L'application accompagne l'utilisateur dans son aventure fitness, Gym2Golem offre la possibilité d'être accompagné AVANT, PENDANT et APRES l'entraînement!
 
 Avant: L'utilisateur peut planifier ses séances à l'avance pour ne pas perdre de temps durant sa séance.
 
-Pendant: L'utilisateur peut se concentrer à 100% sur ses performances sportives sans se soucier du reste, l'application va le guider tout au long série après série, exercice après exercice. Il pourra donc battre ses record plus facilement.
+Pendant: L'utilisateur peut se concentrer à 100% sur ses performances sportives sans se soucier du reste, l'application va le guider tout au long série après série, exercice après exercice. Il pourra donc se focaliser sur ses performances sportives et donc devenir plus fort.
 
 Après: L'utilisateur peut voir ses performances sous tout les angles pour voir son progrès analyser sa forme et rester motivé avec Gym2Golem.
 
@@ -66,11 +66,11 @@ Firebase et Flutter étant 2 produits Google la cohabitation entre ces 2 parties
 - Les tests unitaires ainsi que la vérification des warnings (flutter test et flutter analyze) sont effectués à la fois en local et sur une VM via les GitHub Actions (commit and build).
 Le but est d'avoir des dev qui commit le + souvent possible pour garantir régulièrement que la solution est toujours OK (passe les tests).
 - Chaque commit qui fix un bug doit venir avec un test case.
-- Le build est toujours disponbile à la dernière version buildé en version web sur internet (hosté par Firebase Hosting).
+- Le build est toujours disponible à la dernière version buildé en version web sur internet (hosté par Firebase Hosting).
 
 1. Le développeur choisi la tâche qu'il va effectuer, puis la convertit en issue tout en ouvrant une feature branch liée à l'issue.
 2. Le dev travaille sur la feature branch et une fois terminé il effectue une pull request de sa feature branch sur main.
-3. Quand un developpeur pull request sur la branche main, son travail est build puis, soumis aux différents tests mis en place dans notre application Dart ainsi qu'une analyse de warnings
+3. Quand un développeur pull request sur la branche main, son travail est build puis, soumis aux différents tests mis en place dans notre application Dart ainsi qu'une analyse de warnings
 4. Si les tests passent et la pull request est approuvé par un autre collègue, le commit est accepté et un build est généré puis hébergé sur Firebase Hosting (lien vers le site WEB à jour sur la landing page)
 5. La dernière version du build est donc en tout temps disponible pour tout le monde
 
@@ -108,7 +108,7 @@ Nous avons fait ce choix pour rester dans l'environnement Google et notamment Fi
 ## Requirements fonctionnels
 - L'utilisateur peut se connecter et retrouver toutes ses données peu importe la machine depuis laquelle il se connecte
 - L'utilisateur peut créer des workouts ou il donne les séances qu'il voudrait faire chaque semaine (il peut mettre plusieurs fois la même séance)
-- L'utilisateur peut definir pendant combien de semaine il souhaite effectuer un workout, les séances seront les même chaque semaine 
+- L'utilisateur peut définir pendant combien de semaine il souhaite effectuer un workout, les séances seront les même chaque semaine 
 - L'utilisateur peut créer des séances qu'il pourra ensuite assigner à ses workouts
 - L'utilisateur peut créer des exercices qu'il pourra ensuite assigner à ses séances
 - L'utilisateur peut voir ou il est en est dans ses workouts semaine après semaine, c'est à dire qu'il voit les séances qu'il a déjà effectuées et celles qui doivent encore l'être (il ne peut avoir que 1 seul workout actif à la fois)
@@ -116,11 +116,11 @@ Nous avons fait ce choix pour rester dans l'environnement Google et notamment Fi
 - L'utilisateur peut stopper son workout et le reprendre par la suite s'il le désire (enlever le workout de l'écran d'accueil)
 - Les séances sont composées d'exercices par défaut proposés par l'application ou des exercices personnalisés ajoutés par chaque utilisateur (les exercices crées ne seront visibles que pour l'auteur de l'exercice)
 - Durant la séance de sport l'utilisateur peut rentrer son nombre de répétitions et le poids utilisé pour chaque série de chaque exercice (il y aura cependant des valeurs pré-remplis). Si il s'agit d'un exercice dans le temps il pourra savoir combien de temps il a pris.
-- Pour chaque exercice il existe un PR (Personal Record) qui n'est autre que la valeur maximale effectuée par l'utilisateur sur cet exercice, si le PR est battu un petite annimation apparait à l'écran 
-- Pendant la séance l'utilisateur peut voir son PR pour l'exercice qu'il effecute afin de voir son objectif en vue
+- Pour chaque exercice il existe un PR (Personal Record) qui n'est autre que la valeur maximale effectuée par l'utilisateur sur cet exercice, si le PR est battu un petite animation apparait à l'écran 
+- Pendant la séance l'utilisateur peut voir son PR pour l'exercice qu'il effectue afin de voir son objectif en vue
 - L'utilisateur peut accéder à son profil et y mettre une photo de profil (https://pub.dev/packages/image_picker) ainsi qu'un pseudonyme
 - L'utilisateur peut avoir accès à divers stats tel que le poids total soulevé ou le nombre de temps passé à faire du sport
-- L'utilisateur pour voir l'evolution des performences qu'il a effectuer au fil du temps, par exemple le poids que l'utilisateur a soulevé pour un exercice sous forme de graphe
+- L'utilisateur pour voir l'evolution des performances qu'il a effectuer au fil du temps, par exemple le poids que l'utilisateur a soulevé pour un exercice sous forme de graphe
 
 ### Ajouts éventuels
 - Possibilité d'avoir des amis pour comparer leurs performances (ex: PR)
