@@ -5,7 +5,7 @@ import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'navigation_bar.dart';
-import 'screens/user_connection/google_sign_in_screen.dart';
+import 'screens/google_sign_in_screen.dart';
 
 void main() async {
   // Initialisation de Firebase
@@ -54,8 +54,7 @@ class MyApp extends StatelessWidget {
           if (user == null) {
             return const GoogleSignInScreen();
           } else {
-            return 
-                const BottomNavigationBarExample();
+            return const BottomNavigationBarExample();
           }
         },
       ),
