@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 Future<UserCredential> signInWithGoogle() async {
   // Create a new provider
+  // get: FirebaseAuth.instance.currentUser?.displayName
   GoogleAuthProvider googleProvider = GoogleAuthProvider();
 
   googleProvider.addScope('https://www.googleapis.com/auth/contacts.readonly');
