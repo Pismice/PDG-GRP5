@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
           if (user == null) {
             return const GoogleSignInScreen();
           } else {
-            return const BottomNavigationBarExample();
+            return const MyNavigationBar();
           }
         },
       ),
