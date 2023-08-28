@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:g2g/screens/user/settings/settings_screen.dart';
 
@@ -25,11 +26,14 @@ class UserScreen extends StatelessWidget {
         Row(
           children: [
             GestureDetector(
-              onTap: () {
-                // il faudra peut etre changer la PP
-              },
-              child: const CircleAvatar(),
-            ),
+                onTap: () {
+                  // il faudra peut etre changer la PP
+                },
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(FirebaseAuth
+                          .instance.currentUser?.photoURL ??
+                      'https://static.wikia.nocookie.net/clashofclans/images/4/44/Avatar_Golem.png'),
+                )),
             const Column(
               children: [
                 Text("Séances terminées"),
