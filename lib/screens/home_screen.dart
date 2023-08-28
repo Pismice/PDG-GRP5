@@ -7,18 +7,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          body: /*Stack(children: [
-          Container(
-            color: Colors.blue,
-            padding: const EdgeInsets.all(5.0),
-            child: const Text(
-              'data',
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-          ),*/
-              ListView(
+          body: ListView(
         padding: const EdgeInsets.all(8),
         children: <Widget>[
           Container(
