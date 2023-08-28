@@ -107,14 +107,14 @@ Nous avons fait ce choix pour rester dans l'environnement Google et notamment Fi
 
 ## Requirements fonctionnels
 - L'utilisateur peut se connecter et retrouver toutes ses données peu importe la machine depuis laquelle il se connecte
-- L'utilisateur peut créer des workouts où il donne les séances qu'il voudrait faire chaque semaine (il peut mettre plusieurs fois la même séance)
+- L'utilisateur peut créer des workouts où il donne les séances qu'il voudrait faire chaque semaine (il peut mettre plusieurs fois la même séance)(également modifier et supprimer)
 - L'utilisateur peut définir pendant combien de semaines il souhaite effectuer un workout, les séances seront les mêmes chaque semaine 
-- L'utilisateur peut créer des séances qu'il pourra ensuite assigner à ses workouts
-- L'utilisateur peut créer des exercices qu'il pourra ensuite assigner à ses séances
+- L'utilisateur peut créer des séances qu'il pourra ensuite assigner à ses workouts (également modifier et supprimer)
+- L'utilisateur peut créer des exercices qu'il pourra ensuite assigner à ses séances (également modifier et supprimer)
 - L'utilisateur peut voir où il est en est dans ses workouts semaine après semaine, c'est-à-dire qu'il voit les séances qu'il a déjà effectuées et celles qui doivent encore l'être (il ne peut avoir qu'un seul workout actif à la fois)
 - L'utilisateur peut réutiliser d'anciennes séances ou d'anciens workouts 
 - L'utilisateur peut stopper son workout et le reprendre par la suite s'il le désire (enlever le workout de l'écran d'accueil)
-- Les séances sont composées d'exercices par défaut proposés par l'application ou des exercices personnalisés ajoutés par chaque utilisateur (les exercices crées ne seront visibles que pour l'auteur de l'exercice)
+- Les séances sont composées d'exercices par défaut proposés par l'application ou des exercices personnalisés ajoutés par chaque utilisateur (les exercices crées seront personnels et donc ne seront visibles que pour l'auteur de l'exercice)
 - Durant la séance de sport l'utilisateur peut rentrer son nombre de répétitions et le poids utilisé pour chaque série de chaque exercice (il y aura cependant des valeurs pré-remplies). S'il s'agit d'un exercice dans le temps il pourra savoir combien de temps il a pris.
 - Pour chaque exercice il existe un PR (Personal Record) qui n'est autre que la valeur maximale effectuée par l'utilisateur sur cet exercice, si le PR est battu un petite animation apparaîtra à l'écran 
 - Pendant la séance l'utilisateur peut voir son PR pour l'exercice qu'il effectue afin de voir son objectif en vue
@@ -189,14 +189,14 @@ Lien vers nos mockups: https://www.figma.com/file/fkh4ZoSzWQvWqY41R9Oc9H/G2G?typ
 - Workouts: Créer, modifier et supprimer des workouts
 - Séances: Créer, modifier et supprimer des séances
 - Exercices: Créer, modifier et supprimer des séances
-### Gestion utilisateur avec paramètres (comme sur insta)
+### Gestion utilisateur avec paramètres (basé sur la page d'utilisateur instagram)
 #### Paramètres
 - Dark and light mode / choix d'un thème (ajout éventuel)
 - Version actuelle de l'app
 - Feedback: report a bug
 - Supprimer le compte (règles EU)
 - Log out
-- Modifier mdp, email, ... (si on se décide à ne pas partir sur une connexion avec Google)
+- Modifier mdp, email, ... (si on se décide de ne pas continuer sur une connexion avec Google exclusive)
 #### Utilisateur
 - Afficher le nombre de séances effectuées, le nombre de poids poussés en tout, ...
 ##### Mes performances
