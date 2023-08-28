@@ -122,7 +122,7 @@ Nous avons fait ce choix pour rester dans l'environnement Google et notamment Fi
 - L'utilisateur peut voir l'evolution des performances qu'il a effectué au fil du temps, par exemple le poids que l'utilisateur a soulevé pour un exercice sous forme de graphe
 
 ### Ajouts éventuels
-- L'utilisateur peut accéder à son profil et y mettre une photo de profil (https://pub.dev/packages/image_picker) ainsi qu'un pseudonyme
+- L'utilisateur peut accéder à son profil et y mettre une photo de profil (https://pub.dev/packages/image_picker) ainsi qu'un pseudonyme différent de celui de Google
 - Possibilité d'avoir des amis pour comparer leurs performances (ex: PR)
 - Possibilité d'ajouter une séance "live" qui est une séance qui ne fait pas parti du workout en cours (utile si on veut faire un entraînement à l'improviste)
 - Les workouts, les séances et les exercices peuvent être partagés entre utilisateur
@@ -198,8 +198,6 @@ Lien vers nos mockups: https://www.figma.com/file/fkh4ZoSzWQvWqY41R9Oc9H/G2G?typ
 - Log out
 - Modifier mdp, email, ... (si on se décide à ne pas partir sur une connexion avec Google)
 #### Utilisateur
-- Changer le pseudo
-- Changer la photo de profil
 - Afficher le nombre de séances effectuées, le nombre de poids poussés en tout, ...
 ##### Mes performances
 - On peut voir le PR pour chaque exercice qu'on a fait depuis la création du compte
