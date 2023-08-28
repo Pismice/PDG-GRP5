@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:g2g/screens/home_screen.dart';
 import 'package:g2g/screens/user_screen.dart';
-
 import 'screens/gestion_screen.dart';
 
 class BottomNavigationBarExample extends StatefulWidget {
