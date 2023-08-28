@@ -21,7 +21,6 @@ class UserScreen extends StatelessWidget {
           ),
         ],
       ),
-      backgroundColor: Colors.blue,
       body: Column(children: [
         Row(
           children: [
