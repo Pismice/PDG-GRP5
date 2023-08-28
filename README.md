@@ -5,7 +5,7 @@ Dorian Gillioz, Jérémie Santoro, Oscar Baume, Théo Coutaudier
 ## Description du projet
 Application mobile (avec version WEB) qui accompagne les utilisateurs durant leurs séances de sport.
 
-L'application correspond à un modèle de séances de sport avec des séries, répétitions, poids, ...
+L'application correspond à un modèle de séances de sport avec des séries, répétitions, poids, ... (éventuellement temps)
 
 Organisation de nos entités expliquée avec le schéma ci-dessous (chaque parent peut avoir plusieurs enfants) :
 
@@ -15,7 +15,7 @@ Un Workout est un ensemble de séances qui seront effectuées sur une semaine. C
 
 # Pourquoi utiliser Gym2Golem ?
 
-Marre d'oublier à chaque fois tes PR (Personal Record) et quel poids tu as utilisé lors de ta séance ? Marre de ne pas te rappeler de tes premiers poids pour voir ton évolution ? Marre d'inscrire toutes tes séances sur un bloc note ?
+Marre d'oublier à chaque fois tes PR (Personal Record) et quel poids tu as utilisé lors de ta séance ? Marre de ne pas te rappeler de tes premiers poids pour voir ton évolution ? Marre d'inscrire toutes tes séances sur un bloc note que tu risques de perdre ?
 Gym2Golem est fait pour toi !!!
 
 L'application accompagne l'utilisateur dans son aventure fitness, Gym2Golem offre la possibilité d'être accompagné AVANT, PENDANT et APRES l'entraînement!
