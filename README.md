@@ -118,11 +118,11 @@ Nous avons fait ce choix pour rester dans l'environnement Google et notamment Fi
 - Durant la séance de sport l'utilisateur peut rentrer son nombre de répétitions et le poids utilisé pour chaque série de chaque exercice (il y aura cependant des valeurs pré-remplies). S'il s'agit d'un exercice dans le temps il pourra savoir combien de temps il a pris.
 - Pour chaque exercice il existe un PR (Personal Record) qui n'est autre que la valeur maximale effectuée par l'utilisateur sur cet exercice, si le PR est battu un petite animation apparaîtra à l'écran 
 - Pendant la séance l'utilisateur peut voir son PR pour l'exercice qu'il effectue afin de voir son objectif en vue
-- L'utilisateur peut accéder à son profil et y mettre une photo de profil (https://pub.dev/packages/image_picker) ainsi qu'un pseudonyme
 - L'utilisateur peut avoir accès à divers stats tel que le poids total soulevé ou le nombre de temps passé à faire du sport
 - L'utilisateur peut voir l'evolution des performances qu'il a effectué au fil du temps, par exemple le poids que l'utilisateur a soulevé pour un exercice sous forme de graphe
 
 ### Ajouts éventuels
+- L'utilisateur peut accéder à son profil et y mettre une photo de profil (https://pub.dev/packages/image_picker) ainsi qu'un pseudonyme
 - Possibilité d'avoir des amis pour comparer leurs performances (ex: PR)
 - Possibilité d'ajouter une séance "live" qui est une séance qui ne fait pas parti du workout en cours (utile si on veut faire un entraînement à l'improviste)
 - Les workouts, les séances et les exercices peuvent être partagés entre utilisateur
