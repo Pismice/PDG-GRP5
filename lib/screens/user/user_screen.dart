@@ -9,7 +9,8 @@ class UserScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Ici il faudra mettra son pseudo"),
+        title: Text(
+            FirebaseAuth.instance.currentUser?.displayName ?? "Random golem"),
         actions: [
           IconButton(
             onPressed: () {
@@ -34,11 +35,17 @@ class UserScreen extends StatelessWidget {
                           .instance.currentUser?.photoURL ??
                       'https://static.wikia.nocookie.net/clashofclans/images/4/44/Avatar_Golem.png'),
                 )),
+            const SizedBox(
+              width: 10,
+            ),
             const Column(
               children: [
                 Text("Séances terminées"),
                 Text("0"),
               ],
+            ),
+            const SizedBox(
+              width: 10,
             ),
             const Column(
               children: [
@@ -46,14 +53,58 @@ class UserScreen extends StatelessWidget {
                 Text("0 kg"),
               ],
             ),
+            const SizedBox(
+              width: 10,
+            ),
+            const Column(
+              children: [
+                Text("Temps passé à faire du sport"),
+                Text("0 min"),
+              ],
+            ),
           ],
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Row(
+          children: [
+            ElevatedButton(onPressed: () {}, child: const Text("Edit Profile")),
+            ElevatedButton(
+                onPressed: () {}, child: const Text("Share Profile")),
+            IconButton.filled(
+                onPressed: () {}, icon: const Icon(Icons.person_add))
+          ],
+        ),
+        const SizedBox(
+          height: 10,
         ),
         Container(
           width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(border: Border.all(color: Colors.purple)),
-          child: const Text("Tous mes PR"),
+          decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+          child: ElevatedButton(
+            onPressed: () {},
+            child: const Row(
+              children: [
+                Icon(Icons.workspace_premium),
+                Text("Les PR de mes exercices"),
+              ],
+            ),
+          ),
         ),
-        const Text("autres"),
+        Container(
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+          child: ElevatedButton(
+            onPressed: () {/* https://pub.dev/packages/fl_chart*/},
+            child: const Row(
+              children: [
+                Icon(Icons.trending_up),
+                Text("Mon evolution"),
+              ],
+            ),
+          ),
+        ),
       ]),
     );
   }
