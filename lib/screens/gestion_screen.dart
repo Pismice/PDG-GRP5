@@ -53,6 +53,40 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Container(
         child: Column(
           children: <Widget>[
+            Container(
+              child: Row(children: <Widget>[
+                Expanded(
+                    child: ElevatedButton(
+                        onPressed: () {},
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(0.0)),
+                          ),
+                        ),
+                        child: const Text('Workout'))),
+                Expanded(
+                    child: ElevatedButton(
+                        onPressed: () {},
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(0.0)),
+                          ),
+                        ),
+                        child: const Text('Séance'))),
+                Expanded(
+                    child: ElevatedButton(
+                        onPressed: () {},
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(0.0)),
+                          ),
+                        ),
+                        child: const Text('Exercice'))),
+              ]),
+            ),
             Padding(
               padding: const EdgeInsets.all(4.0),
               child: TextField(
@@ -74,19 +108,23 @@ class _MyHomePageState extends State<MyHomePage> {
                 itemCount: items.length,
                 itemBuilder: (context, index) {
                   return Column(children: <Widget>[
-                    Row(children: <Widget>[
-                      Expanded(child: Text('${items[index]}')),
-                      Expanded(
-                          child: IconButton(
-                        icon: const Icon(Icons.more_vert),
-                        color: Colors.black,
-                        onPressed: () {},
-                      )),
-                    ]),
-                    Row(children: <Widget>[
-                      Expanded(child: Text('${index + 1} Semaine')),
-                      Expanded(child: Text('${index * 2}'))
-                    ])
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Expanded(child: Text('${items[index]}')),
+                          Expanded(
+                              child: IconButton(
+                            icon: const Icon(Icons.more_vert),
+                            color: Colors.black,
+                            onPressed: () {},
+                          )),
+                        ]),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Expanded(child: Text('${index + 1} Semaine')),
+                          Expanded(child: Text('${index * 2} Entrainements '))
+                        ])
                   ] /* Obligatoir en cas de liste vide*/
                       );
                 },
