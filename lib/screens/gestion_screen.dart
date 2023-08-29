@@ -11,7 +11,7 @@ class GestionScreen extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Mes Activités'),
+      home: MyHomePage(title: 'Mes Programmes'),
     );
   }
 }
@@ -27,7 +27,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController editingController = TextEditingController();
 
-  final duplicateItems = List<String>.generate(10000, (i) => "Item $i");
+  final duplicateItems = List<String>.generate(10000, (i) => "Programme $i");
   var items = <String>[];
 
   @override
@@ -73,10 +73,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 shrinkWrap: true,
                 itemCount: items.length,
                 itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(
-                        '${items[index]}'), /* Obligatoir en cas de liste vide*/
-                  );
+                  return Column(children: <Widget>[
+                    Row(children: <Widget>[
+                      Expanded(child: Text('${items[index]}')),
+                      Expanded(
+                          child: IconButton(
+                        icon: const Icon(Icons.more_vert),
+                        color: Colors.black,
+                        onPressed: () {},
+                      )),
+                    ]),
+                    Row(children: <Widget>[
+                      Expanded(child: Text('${index + 1} Semaine')),
+                      Expanded(child: Text('${index * 2}'))
+                    ])
+                  ] /* Obligatoir en cas de liste vide*/
+                      );
                 },
               ),
             ),
