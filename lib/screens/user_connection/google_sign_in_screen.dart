@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 Future<UserCredential> signInWithGoogle() async {
   // Create a new provider
@@ -19,14 +18,11 @@ Future<UserCredential> signInWithGoogle() async {
   return out;
 }
 
-void addNewUserToFirestore(UserCredential user) {
-  FirebaseFirestore db = FirebaseFirestore.instance;
-
-  db.collection('user').add({
-    "UID": user.user!.uid,
-    "name": user.user!.displayName,
-    "profilepicture": user.user!.photoURL,
-    "username": user.additionalUserInfo!.username
+Future<void> addNewUserToFirestore(UserCredential user) {
+  return FirebaseFirestore.instance.collection('user').add(<String, String>{
+    'UID': user.user!.uid,
+    'name': user.user!.displayName.toString(),
+    'profilepicture': user.user!.photoURL.toString(),
   });
 }
 
