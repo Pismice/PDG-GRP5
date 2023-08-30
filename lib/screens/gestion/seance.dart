@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MySessionScreen());
+void main() => runApp(const MySessionScreen());
 
 class MySessionScreen extends StatefulWidget {
   const MySessionScreen({Key? key}) : super(key: key);
@@ -76,7 +76,7 @@ class _MySessionPageState extends State<MySessionScreen> {
                           MaterialStateProperty.all(Colors.grey.shade100)),
                   child: Column(children: <Widget>[
                     Row(children: <Widget>[
-                      Expanded(child: Text('${items[index]}')),
+                      Expanded(child: Text(items[index])),
                       Expanded(child: Text('$index exercices')),
                       Align(
                           alignment: Alignment.centerRight,

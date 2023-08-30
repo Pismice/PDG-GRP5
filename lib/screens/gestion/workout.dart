@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyWorkoutScreen());
+void main() => runApp(const MyWorkoutScreen());
 
 class MyWorkoutScreen extends StatefulWidget {
-  MyWorkoutScreen({Key? key}) : super(key: key);
+  const MyWorkoutScreen({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _MyWorkoutScreen createState() => _MyWorkoutScreen();
 }
 
@@ -75,7 +76,7 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
                           MaterialStateProperty.all(Colors.grey.shade100)),
                   child: Column(children: <Widget>[
                     Row(children: <Widget>[
-                      Expanded(child: Text('${items[index]}')),
+                      Expanded(child: Text(items[index])),
                       Align(
                           alignment: Alignment.topCenter,
                           child: IconButton(

@@ -3,9 +3,11 @@ import 'package:g2g/screens/gestion/workout.dart';
 import 'package:g2g/screens/gestion/seance.dart';
 import 'package:g2g/screens/gestion/exercice.dart';
 
-void main() => runApp(GestionScreen());
+void main() => runApp(const GestionScreen());
 
 class GestionScreen extends StatelessWidget {
+  const GestionScreen({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -14,16 +16,17 @@ class GestionScreen extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Entrainements'),
+      home: const MyHomePage(title: 'Entrainements'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
+  // ignore: library_private_types_in_public_api
   _MyHomePageState createState() => _MyHomePageState();
 }
 
@@ -37,9 +40,9 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
   static final List<Widget> _widgetOptions = <Widget>[
-    MyWorkoutScreen(),
-    MySessionScreen(),
-    MyExerciceScreen(),
+    const MyWorkoutScreen(),
+    const MySessionScreen(),
+    const MyExerciceScreen(),
   ];
 
   @override

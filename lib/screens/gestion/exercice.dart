@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyExerciceScreen());
+void main() => runApp(const MyExerciceScreen());
 
 class MyExerciceScreen extends StatefulWidget {
-  MyExerciceScreen({Key? key}) : super(key: key);
+  const MyExerciceScreen({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _MyExerciceScreen createState() => _MyExerciceScreen();
 }
 
