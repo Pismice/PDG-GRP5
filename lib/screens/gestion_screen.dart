@@ -10,11 +10,11 @@ class GestionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Workout',
+      title: 'Gestion',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Mes Programmes'),
+      home: MyHomePage(title: 'Entrainements'),
     );
   }
 }
@@ -54,9 +54,12 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         bottomNavigationBar: NavigationBar(
           destinations: const [
-            NavigationDestination(icon: Icon(Icons.home), label: 'Workout'),
-            NavigationDestination(icon: Icon(Icons.home), label: 'Seance'),
-            NavigationDestination(icon: Icon(Icons.home), label: 'Exercice')
+            NavigationDestination(
+                icon: Icon(Icons.playlist_add_check_sharp), label: 'Workout'),
+            NavigationDestination(
+                icon: Icon(Icons.align_horizontal_left), label: 'Seance'),
+            NavigationDestination(
+                icon: Icon(Icons.fitness_center), label: 'Exercice')
           ],
           selectedIndex: _selectedIndex,
           onDestinationSelected: _onItemTapped,
