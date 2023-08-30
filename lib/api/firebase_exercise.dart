@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-class GetExercice extends StatelessWidget {
+class GetExercise extends StatelessWidget {
   final String documentId;
 
-  const GetExercice(this.documentId, {super.key});
+  const GetExercise(this.documentId, {super.key});
 
   @override
   Widget build(BuildContext context) {
