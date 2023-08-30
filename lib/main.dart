@@ -3,7 +3,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'navigation_bar.dart';
-import 'screens/user_connection/google_sign_in_screen.dart';
 
 void main() async {
   // Initialisation de Firebase
@@ -43,12 +42,12 @@ class MyApp extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
           }
-          final user = snapshot.data;
-          if (user == null) {
-            return const GoogleSignInScreen();
-          } else {
-            return const MyNavigationBar();
-          }
+          //final user = snapshot.data;
+          //if (user == null) {
+          //  return const GoogleSignInScreen();
+          //} else {
+          return const MyNavigationBar();
+          //}
         },
       ),
     );
