@@ -75,9 +75,15 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                           MaterialStateProperty.all(Colors.grey.shade100)),
                   child: Column(children: <Widget>[
                     Row(children: <Widget>[
-                      Align(
-                          alignment: Alignment.centerLeft,
-                          child: Image.asset('')),
+                      Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Image.asset(
+                                'assets/images/cervin.jpg',
+                                height: 75,
+                                width: 75,
+                              ))),
                       Expanded(child: Text('Nom exo $index')),
                       Align(
                           alignment: Alignment.centerRight,
