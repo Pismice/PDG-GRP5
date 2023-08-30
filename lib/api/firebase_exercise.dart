@@ -12,11 +12,8 @@ class GetExercise extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference exercises =
-        FirebaseFirestore.instance.collection('exercise');
-
     return FutureBuilder<DocumentSnapshot>(
-      future: exercises.doc(documentId).get(),
+      future: getExercise(documentId),
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasError) {
@@ -61,6 +58,10 @@ class GetExercise extends StatelessWidget {
 
 CollectionReference exercises =
     FirebaseFirestore.instance.collection('exercise');
+
+Future<DocumentSnapshot<Object?>> getExercise(String documentId) async {
+  return exercises.doc(documentId).get();
+}
 
 Future<void> addExercise(String name) async {
   return exercises

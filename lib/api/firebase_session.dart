@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_exercise.dart';
+import 'package:g2g/model/session.dart';
+import 'package:uuid/uuid.dart';
 
 class GetSession extends StatelessWidget {
   final String documentId;
@@ -10,11 +11,8 @@ class GetSession extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference sessions =
-        FirebaseFirestore.instance.collection('session');
-
     return FutureBuilder(
-      future: sessions.doc(documentId).get(),
+      future: getSession(documentId),
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasError) {
@@ -59,4 +57,23 @@ class GetSession extends StatelessWidget {
       },
     );
   }
+}
+
+CollectionReference sessions = FirebaseFirestore.instance.collection('session');
+
+Future<DocumentSnapshot<Object?>> getSession(String documentId) async {
+  return sessions.doc(documentId).get();
+}
+
+Future<void> addSession(Session session) async {
+  await sessions
+      .withConverter(
+          fromFirestore: Session.fromFirestore,
+          toFirestore: (Session session, options) => session.toFirestore())
+      .doc(const Uuid().v1())
+      .set(session);
+}
+
+Future<void> updateSession(String docId, Session session) async {
+  await sessions.doc(docId).set(session.toFirestore());
 }
