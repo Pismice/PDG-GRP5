@@ -8,7 +8,7 @@ class MyWorkoutScreen extends StatefulWidget {
   @override
   // ignore: library_private_types_in_public_api
   _MyWorkoutScreen createState() => _MyWorkoutScreen();
-}
+} /* oui */
 
 class _MyWorkoutScreen extends State<MyWorkoutScreen> {
   TextEditingController editingController = TextEditingController();
