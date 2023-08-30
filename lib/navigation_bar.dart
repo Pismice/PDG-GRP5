@@ -12,10 +12,10 @@ class MyNavigationBar extends StatefulWidget {
 
 class _MyNavigationBarState extends State<MyNavigationBar> {
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(),
-    GestionScreen(),
-    UserScreen(),
+  static final List<Widget> _widgetOptions = <Widget>[
+    const HomeScreen(),
+    const GestionScreen(),
+    const UserScreen(),
   ];
 
   void _onItemTapped(int index) {
