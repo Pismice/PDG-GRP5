@@ -17,8 +17,8 @@ class _BottomNavigationBarExampleState
 
   static final List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
-    GestionScreen(),
-    UserScreen(),
+    const GestionScreen(),
+    const UserScreen(),
   ];
 
   void _onItemTapped(int index) {
