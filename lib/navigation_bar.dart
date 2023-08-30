@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:g2g/screens/home_screen.dart';
-import 'package:g2g/screens/user_screen.dart';
+import 'package:g2g/screens/user/user_screen.dart';
 import 'screens/gestion_screen.dart';
 
-class BottomNavigationBarExample extends StatefulWidget {
-  const BottomNavigationBarExample({super.key});
+class MyNavigationBar extends StatefulWidget {
+  const MyNavigationBar({super.key});
 
   @override
-  State<BottomNavigationBarExample> createState() =>
-      _BottomNavigationBarExampleState();
+  State<MyNavigationBar> createState() => _MyNavigationBarState();
 }
 
-class _BottomNavigationBarExampleState
-    extends State<BottomNavigationBarExample> {
+class _MyNavigationBarState extends State<MyNavigationBar> {
   int _selectedIndex = 0;
 
   static final List<Widget> _widgetOptions = <Widget>[
@@ -30,10 +28,6 @@ class _BottomNavigationBarExampleState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Accueil'),
-        backgroundColor: Colors.blue,
-      ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
@@ -55,7 +49,7 @@ class _BottomNavigationBarExampleState
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.white,
         onTap: _onItemTapped,
-        backgroundColor: Colors.blue,
+        backgroundColor: Theme.of(context).primaryColor,
       ),
     );
   }

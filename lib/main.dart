@@ -1,9 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'navigation_bar.dart';
 import 'screens/google_sign_in_screen.dart';
 
@@ -12,12 +10,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.web,
   );
-
-  if (kDebugMode) {
-    // Utilisation des émulateurs pour éviter les couts innatendus
-    await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
-    FirebaseFirestore.instance.useFirestoreEmulator('localhost', 9098);
-  }
 
   // Vérification que l'utilisateur est toujours connecté
   FirebaseAuth.instance.authStateChanges().listen((User? u) {
@@ -35,13 +27,13 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
+        brightness: Brightness.dark,
+        primaryColor: Colors.purple,
         useMaterial3: true,
       ),
       home: StreamBuilder<User?>(
@@ -54,9 +46,21 @@ class MyApp extends StatelessWidget {
           if (user == null) {
             return const GoogleSignInScreen();
           } else {
-            return const BottomNavigationBarExample();
+          return const MyNavigationBar();
           }
         },
+      ),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Gym de Golem'),
       ),
     );
   }

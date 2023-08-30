@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:g2g/screens/during_session/my_exercices_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -66,6 +67,7 @@ class HomeScreen extends StatelessWidget {
               )),*/
               )),
     );
+
   }
 }
 /*
