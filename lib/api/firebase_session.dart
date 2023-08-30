@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_exercise.dart';
 
@@ -30,7 +31,7 @@ class GetSession extends StatelessWidget {
           return Column(
             children: [
               Text("Nom de la séance: ${data['name']}"),
-              Text("Crée par ${data['user']}"),
+              Text("Crée par ${data['user'].id}"),
               Text("Durée de la session : ${data['duration']} min"),
               SingleChildScrollView(
                 child: ConstrainedBox(
@@ -38,15 +39,9 @@ class GetSession extends StatelessWidget {
                   child: Column(
                     children: data['exercises'].map<Widget>(
                       (ex) {
-                        final id = ex['id'];
-                        int index = id.indexOf('/');
-                        String res = "";
-                        if (index != -1) {
-                          res = id.substring(index + 1);
-                        }
                         return Column(
                           children: [
-                            GetExercise(res),
+                            GetExercise(ex['id'].id),
                             Text("Séries : ${ex['repetition']} x ${ex['set']}"),
                             Text("Poids : ${ex['weight']} kg"),
                           ],
