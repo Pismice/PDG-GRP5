@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:g2g/screens/user/settings/delete_account_button.dart';
-import 'package:g2g/screens/user/settings/feedback_button.dart';
 import 'package:g2g/screens/user/settings/sign_out_button.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -14,11 +12,8 @@ class SettingsScreen extends StatelessWidget {
       ),
       body: const Column(
         children: [
-          Text("autres options"),
+          Text("bla bla mes options"),
           SignOutButton(),
-          DeleteAccountButton(),
-          FeedbackButton(),
-          Text("Version acutelle de l'app: 0.0.1"),
         ],
       ),
     );

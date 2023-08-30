@@ -5,7 +5,7 @@ Dorian Gillioz, Jérémie Santoro, Oscar Baume, Théo Coutaudier
 ## Description du projet
 Application mobile (avec version WEB) qui accompagne les utilisateurs durant leurs séances de sport.
 
-L'application correspond à un modèle de séances de sport avec des séries, répétitions, poids, ... (éventuellement temps)
+L'application correspond à un modèle de séances de sport avec des séries, répétitions, poids, ...
 
 Organisation de nos entités expliquée avec le schéma ci-dessous (chaque parent peut avoir plusieurs enfants) :
 
@@ -15,7 +15,7 @@ Un Workout est un ensemble de séances qui seront effectuées sur une semaine. C
 
 # Pourquoi utiliser Gym2Golem ?
 
-Marre d'oublier à chaque fois tes PR (Personal Record) et quels poids tu as utilisé lors de ta séance ? Marre de ne pas te rappeler de tes premiers poids pour voir ton évolution ? Marre d'inscrire toutes tes séances sur un bloc note que tu risques de perdre ?
+Marre d'oublier à chaque fois tes PR (Personal Record) et quel poids tu as utilisé lors de ta séance ? Marre de ne pas te rappeler de tes premiers poids pour voir ton évolution ? Marre d'inscrire toutes tes séances sur un bloc note ?
 Gym2Golem est fait pour toi !!!
 
 L'application accompagne l'utilisateur dans son aventure fitness, Gym2Golem offre la possibilité d'être accompagné AVANT, PENDANT et APRES l'entraînement!
@@ -54,15 +54,12 @@ Notre application G2G est écrite en Flutter et peut se retrouver sous forme mob
 ![](ressources/schema_pdg.png)
 
 ### Choix technique
-1. Frontend:
-Nous avons opté pour Flutter en raison de la taille restreinte de notre équipe et de notre souhait de développer une application mobile pour Android et iOS sans avoir à réécrire le code à chaque fois. Cette plateforme s'est révélée être la meilleure solution pour atteindre notre objectif dans les délais impartis.
-
-Un autre avantage majeur de Flutter est sa capacité à générer également une application web en utilisant le même code source. Cela nous permet de maximiser notre efficacité en développant une seule base de code pour plusieurs plates-formes, tout en maintenant une expérience utilisateur cohérente.
-
-2. Backend:
+1. Frontend
+Nous avons choisi Flutter car étant une petite équipe voulant développer une app mobile sur Android et iOS et éviter de faire du code à double il s'agit de la meilleure solution pour effectuer la tâche dans le temps imparti.
+Un autre avantage de Flutter est la possibilité de pouvoir également servir une app web avec le même code source.
+2. Backend
 Nous avons choisi Firebase qui est un BaaS qui propose des services tels que l'authentification et le stockage de données avec la BD orientée documents (Firestore).
 Firebase nous permet également d'utiliser Hosting pour hoster notre build WEB.
-Firebase storage nous permettrait même de stocker des photos de profil et des photos d'exercice.
 Firebase et Flutter étant 2 produits Google la cohabitation entre ces 2 parties sera aisée.
 
 ### Description du processus de travail (git flow, devops, ...) 
@@ -71,7 +68,7 @@ Le but est d'avoir des dev qui commit le + souvent possible pour garantir régul
 - Chaque commit qui fixe un bug doit venir avec un test case.
 - Le build est toujours disponible à la dernière version buildée en version web sur internet (hosté par Firebase Hosting).
 
-1. Le développeur choisit la tâche qu'il va effectuer, puis la convertit en issue tout en ouvrant une feature branch liée à l'issue.
+1. Le développeur choisi la tâche qu'il va effectuer, puis la convertit en issue tout en ouvrant une feature branch liée à l'issue.
 2. Le dev travaille sur la feature branch et une fois terminé, il effectue une pull request de sa feature branch sur main.
 3. Quand un développeur pull request sur la branche main, son travail est build puis, soumis aux différents tests mis en place dans notre application Dart ainsi qu'une analyse de warnings
 4. Si les tests passent et la pull request est approuvée par un autre collègue, le commit est accepté et un build est généré puis hébergé sur Firebase Hosting (lien vers le site WEB à jour sur la landing page)
@@ -88,7 +85,7 @@ Issue Tracker:
    3. Possible additions (contient toutes les tâches considérées comme des ajouts éventuels, qui sont hors des functional requirments)
 
 Kanban: Nous allons utiliser GitHub Project pour notre Kanban. Notre Kanban aura 4 colonnes : Backlog/WIP/Review/Done.
-Lors de nos stand up meeting nous deciderons des issues à résoudre lors de ce sprint et elles seront placées dans la colonne "Backlog". Durant ce même meeting nous assignerons à chaque personne du groupe son travail pour le sprint. Les premières issues seront alors mises dans la colonne "WIP". Lorsqu'une personne pense avoir terminé son issue en cours elle déplacera son issue dans la colonne "Review" et demandera à un membre du groupe de review son travail avant de merge sa branche sur le main afin qu'il soit deploy. Après avoir fini une issue elle est placée dans la colonne "Done". 
+Lors de nos stand up meeting nous deciderons des issues a résoudre lors de ce sprint et elles seront placées dans la colonne "Backlog". Durant ce même meeting nous assignerons à chaque personne du groupe son travail pour le sprint. Les premières issues seront alors mises dans la colonne "WIP". Lorsqu'une personne pense avoir terminé son issue en cours elle déplacera son issue dans la colonne "Review" et demandera a un membre du groupe de review son travail avant de merge sa branche sur le main afin qu'il soit deploy. Après avoir fini une issue elle est placée dans la colonne "Done". 
 
 ### Environnement de déploiement
 Nous avons décidé d'utiliser Firebase Hosting pour héberger notre application.
@@ -116,45 +113,44 @@ Nous avons fait ce choix pour rester dans l'environnement Google et notamment Fi
 - L'utilisateur peut créer des exercices qu'il pourra ensuite assigner à ses séances (également modifier et supprimer)
 - L'utilisateur peut voir où il est en est dans ses workouts semaine après semaine, c'est-à-dire qu'il voit les séances qu'il a déjà effectuées et celles qui doivent encore l'être (il ne peut avoir qu'un seul workout actif à la fois)
 - L'utilisateur peut réutiliser d'anciennes séances ou d'anciens workouts 
-- L'utilisateur peut stopper son workout, ce qui le rendra inactif et donc plus visible sur la page d'accueil (mais toujours accessible via la bibliothègue / fenêtre de gestion)
-- Les séances sont composées d'exercices par défaut proposés par l'application ou des exercices personnalisés ajoutés par chaque utilisateur (les exercices créés seront personnels et donc ne seront visibles que pour l'auteur de l'exercice, à moins que ceux-ci soient partagés)
-- Durant la séance de sport l'utilisateur peut rentrer son nombre de répétitions et le poids utilisé pour chaque série de chaque exercice (il y aura cependant des valeurs pré-remplies pour éventuellement faire gagner du temps à l'utilisateur). S'il s'agit d'un exercice dans le temps il pourra rentrer le temps qu'il a mis (voir comme ajout éventuel, lancer un chrono dont la valeur sera automatiquement rentrée à la place de l'utilisateur)
-- Pour chaque exercice il existe un PR (Personal Record) qui n'est autre que la valeur maximale effectuée par l'utilisateur sur cet exercice, si le PR actuel est battu un petite animation de félicitation apparaîtra à l'écran
+- L'utilisateur peut stopper son workout et le reprendre par la suite s'il le désire (enlever le workout de l'écran d'accueil)
+- Les séances sont composées d'exercices par défaut proposés par l'application ou des exercices personnalisés ajoutés par chaque utilisateur (les exercices crées seront personnels et donc ne seront visibles que pour l'auteur de l'exercice)
+- Durant la séance de sport l'utilisateur peut rentrer son nombre de répétitions et le poids utilisé pour chaque série de chaque exercice (il y aura cependant des valeurs pré-remplies). S'il s'agit d'un exercice dans le temps il pourra savoir combien de temps il a pris.
+- Pour chaque exercice il existe un PR (Personal Record) qui n'est autre que la valeur maximale effectuée par l'utilisateur sur cet exercice, si le PR est battu un petite animation apparaîtra à l'écran 
 - Pendant la séance l'utilisateur peut voir son PR pour l'exercice qu'il effectue afin de voir son objectif en vue
 - L'utilisateur peut avoir accès à divers stats tel que le poids total soulevé ou le nombre de temps passé à faire du sport
-- L'utilisateur peut voir l'évolution des performances qu'il a effectué au fil du temps, par exemple le poids que l'utilisateur a soulevé pour un exercice sous forme de graphe
+- L'utilisateur peut voir l'evolution des performances qu'il a effectué au fil du temps, par exemple le poids que l'utilisateur a soulevé pour un exercice sous forme de graphe
 
 ### Ajouts éventuels
 - L'utilisateur peut accéder à son profil et y mettre une photo de profil (https://pub.dev/packages/image_picker) ainsi qu'un pseudonyme différents de ceux de Google
 - Possibilité d'avoir des amis pour comparer leurs performances (ex: PR)
 - Possibilité d'ajouter une séance "live" qui est une séance qui ne fait pas parti du workout en cours (utile si on veut faire un entraînement à l'improviste)
-- Les workouts, les séances et les exercices peuvent être partagés entre utilisateurs
+- Les workouts, les séances et les exercices peuvent être partagés entre utilisateur
 - L'utilisateur peut voir pour chaque exercice son évolution avec notamment des graphes (partie statistiques)
 - Possibilité de faire des supersets
 - Photo + poids chaque fin de mois (avec notif) pour voir l'évolution https://pub.dev/packages/firebase_messaging
 - Lier avec le nombre de pas de l'appareil (nécessite de travailler avec les spécificités iOS et Android)
 - Notification (FCM) quand on arrive à la fin d'un workout pour se préparer à faire le suivant
 - Historique workouts/séances/exercices effecutés (il faudra donc stocker quand est effectué chacun) https://pub.dev/packages/fl_chart
-- Ajout d'un chrono entre les séries, mais dès qu'il le désire il peut stopper le temps de repos pour passer à la série suivante. Cela inclurait une nouvelle page (affichage) séparant chaque série
+- Ajout d'un chrono entre les séries, mais dès qu'il le désire il peut stopper le temps de repos pour passer à la série suivante. Cela inclurait une nouvelle Vue séparant chaque série
 - Page "explorer" (dans la barre de navigation) pour voir les exercices, séances et workout les plus populaires que les utilisateurs pourraient importer
 
 ## Requirements non fonctionnels
 ### Sécurité
 - Un utilisateur non-authentifié ne peut accéder à autre chose que la page d'inscription/connexion de l'app
-- Seul l'utilisateur authentifié peut voir ses propres données personnelles (confidentialité)
+- Seules les données de l'utilisateur sont visibles par l'utilisateur (authentifié)
 - Un utilisateur ne peut pas voir les données d'un autre
 - Une fois que l'utilisateur supprime ses données toutes les données liées à cet utilisateur doivent être supprimées pour complaire aux règles de l'UE sur la gestion des données
 ### Compatibilité
 - Le système doit tourner autant bien sur smartphone iOS que Android
 ### Conformité
-- Quand un utilisateur supprime son compte toutes les données qui lui sont liées seront supprimées
+- Quand un utilisateur supprime son compte toutes les données qui lui sont liés seront supprimées
 ### Usabilité
 - L'application doit être facilement utilisable par des personnes qui sont à la salle de gym et qui ne peuvent pas être concentrés sur l'app car ils fournissent des efforts intensifs (il faut éviter de devoir passer par plusieurs touches d'écran pour pouvoir faire ce qu'ils ont envie de faire, ex: enregistrer les résultats de leur exercice). Cela sera réalisé en ajoutant par exemple des valeurs par défaut pour éviter que l'utilisateur ait besoin de remplir tous les champs systématiquement
-- Comme le moment à la salle de sport est sensé être un moment détente, notre application ne doit pas frustrer l'utilisateur ou consommer trop de son temps
 ### Evolutivité
 - Notre application doit pouvoir tenir 50 utilisateurs faisant leur séance en même temps
 ### Performance
-- Les fenêtres doivent changer de manière fluide et en moins d'une seconde
+- Les fenêtres doivent changer de manière fluide et en moins de une seconde
 ### Disponibilité
 - L'application doit être disponible 7j/7 24h/24
 
@@ -179,7 +175,7 @@ Lien vers nos mockups: https://www.figma.com/file/fkh4ZoSzWQvWqY41R9Oc9H/G2G?typ
 ### Inscription - Connexion
 - Connexion avec Google
 ### Progression de la semaine en cours (PAGE D'ACCUEIL)
-- Si aucun workout n'est en cours -> Propose de créer un nouveau workout
+- Si aucun workout n'est en cours -> Propose de se rendre sous Gestion/Workouts
 - Affichage du workout en cours et suivi des semaines (ex: semaine 2/5)
 - Affichage des séances restantes pour la semaine actuelle
 - Il est possible de refaire une même séance bien que cela sera précédé par un message demandant de confirmer à l'utilisateur son choix car cela n'aurait théoriquement pas de sens de vouloir refaire une séance que l'on a déjà effectué (surtout s'il en reste d'autres qui n'ont pas encore été faites)

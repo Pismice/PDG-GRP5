@@ -48,7 +48,7 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.white,
         onTap: _onItemTapped,
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Colors.blue,
       ),
     );
   }
