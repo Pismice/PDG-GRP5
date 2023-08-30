@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:g2g/screens/gestion/workout.dart';
+import 'package:g2g/screens/gestion/seance.dart';
+import 'package:g2g/screens/gestion/exercice.dart';
 
 void main() => runApp(GestionScreen());
 
@@ -21,28 +24,23 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  TextEditingController editingController = TextEditingController();
-
-  final duplicateItems = List<String>.generate(10000, (i) => "Programme $i");
-  var items = <String>[];
-
-  @override
-  void initState() {
-    items = duplicateItems;
-    super.initState();
-  }
-
-  void filterSearchResults(String query) {
+  void _onItemTapped(int index) {
     setState(() {
-      items = duplicateItems
-          .where((item) => item.toLowerCase().contains(query.toLowerCase()))
-          .toList();
+      _selectedIndex = index;
     });
   }
+
+  int _selectedIndex = 0;
+
+  static final List<Widget> _widgetOptions = <Widget>[
+    MyWorkoutScreen(),
+    MySessionScreen(),
+    MyExerciceScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -50,87 +48,18 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            Container(
-              child: Row(children: <Widget>[
-                Expanded(
-                    child: ElevatedButton(
-                        onPressed: () {},
-                        style: ButtonStyle(
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(0.0)),
-                          ),
-                        ),
-                        child: const Text('Workout'))),
-                Expanded(
-                    child: ElevatedButton(
-                        onPressed: () {},
-                        style: ButtonStyle(
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(0.0)),
-                          ),
-                        ),
-                        child: const Text('Séance'))),
-                Expanded(
-                    child: ElevatedButton(
-                        onPressed: () {},
-                        style: ButtonStyle(
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(0.0)),
-                          ),
-                        ),
-                        child: const Text('Exercice'))),
-              ]),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: TextField(
-                onChanged: (value) {
-                  filterSearchResults(value);
-                },
-                controller: editingController,
-                decoration: const InputDecoration(
-                    labelText: "Recherche",
-                    hintText: "Mon Workout",
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)))),
-              ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: items.length,
-                itemBuilder: (context, index) {
-                  return Column(children: <Widget>[
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Expanded(child: Text('${items[index]}')),
-                          Expanded(
-                              child: IconButton(
-                            icon: const Icon(Icons.more_vert),
-                            color: Colors.black,
-                            onPressed: () {},
-                          )),
-                        ]),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          Expanded(child: Text('${index + 1} Semaine')),
-                          Expanded(child: Text('${index * 2} Entrainements '))
-                        ])
-                  ] /* Obligatoir en cas de liste vide*/
-                      );
-                },
-              ),
-            ),
+      body: Scaffold(
+        body: Center(
+          child: _widgetOptions.elementAt(_selectedIndex),
+        ),
+        bottomNavigationBar: NavigationBar(
+          destinations: const [
+            NavigationDestination(icon: Icon(Icons.home), label: 'Workout'),
+            NavigationDestination(icon: Icon(Icons.home), label: 'Seance'),
+            NavigationDestination(icon: Icon(Icons.home), label: 'Exercice')
           ],
+          selectedIndex: _selectedIndex,
+          onDestinationSelected: _onItemTapped,
         ),
       ),
     );
