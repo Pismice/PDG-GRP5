@@ -78,5 +78,9 @@ Future<void> addSession(Session session) async {
 /// Met à jour une [Session] passée en paramètre en fonction de son
 /// [docId]
 Future<void> updateSession(String docId, Session session) async {
-  await sessions.doc(docId).update(session.toFirestore());
+  try {
+    await sessions.doc(docId).update(session.toFirestore());
+  } on Exception catch (e) {
+    throw Exception(e.toString());
+  }
 }

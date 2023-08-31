@@ -11,17 +11,19 @@ class Session {
   factory Session.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) {
     final data = snapshot.data();
+
     return Session(
         name: data?['name'],
-        user: data?['user'],
+        user: data?['user'].id,
         duration: data?['duration'],
-        exercises: data?['exercises'].map<Session>((e) => e.toFirestore()));
+        exercises:
+            data?['exercises'].map<SessionExercises>((e) => {}).toList());
   }
 
   Map<String, dynamic> toFirestore() {
     return {
       if (name != null) "name": name,
-      if (user != null) "user": user,
+      if (user != null) "user": FirebaseFirestore.instance.doc("user/$user"),
       if (duration != null) "duration": duration,
       if (exercises != null)
         "exercises": exercises!.map((e) => e.toFirestore()).toList(),
@@ -44,7 +46,7 @@ class SessionExercises {
       SnapshotOptions? options) {
     final data = snapshot.data();
     return SessionExercises(
-      id: data?['name'],
+      id: data?['id'].id,
       repetition: data?['repetition'],
       set: data?['set'],
       weight: data?['weight'],
@@ -53,7 +55,7 @@ class SessionExercises {
 
   Map<String, dynamic> toFirestore() {
     return {
-      if (id != null) "id": id,
+      if (id != null) "id": FirebaseFirestore.instance.doc("exercise/$id"),
       if (repetition != null) "repetition": repetition,
       if (set != null) "set": set,
       if (weight != null) "weight": weight,
