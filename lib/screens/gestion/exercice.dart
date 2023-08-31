@@ -13,7 +13,7 @@ class MyExerciceScreen extends StatefulWidget {
 class _MyExerciceScreen extends State<MyExerciceScreen> {
   TextEditingController editingController = TextEditingController();
 
-  final duplicateItems = List<String>.generate(10000, (i) => "Séance $i");
+  final duplicateItems = List<String>.generate(10000, (i) => "Exo $i");
   var items = <String>[];
 
   @override
@@ -85,7 +85,7 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                                 height: 75,
                                 width: 75,
                               ))),
-                      Expanded(child: Text('Nom exo $index')),
+                      Expanded(child: Text(items[index])),
                       Align(
                           alignment: Alignment.centerRight,
                           child: IconButton(

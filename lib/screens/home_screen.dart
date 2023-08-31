@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:g2g/screens/gestion/affichage/affichage_workout.dart';
+
 /*import 'package:g2g/screens/during_session/my_exercices_screen.dart';*/
+void main() {
+  runApp(MaterialApp(
+    title: 'Navigation Basics',
+    home: HomeScreen(),
+  ));
+}
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -25,7 +33,14 @@ class HomeScreen extends StatelessWidget {
                             foregroundColor: Colors.black,
                             padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                             backgroundColor: Colors.white),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const MyWorkoutInfoPage()),
+                          );
+                        },
                         child: Column(children: <Widget>[
                           Align(
                               alignment: Alignment.bottomLeft,

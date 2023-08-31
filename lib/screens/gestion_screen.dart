@@ -51,23 +51,23 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Scaffold(
-        body: Center(
-          child: _widgetOptions.elementAt(_selectedIndex),
-        ),
-        bottomNavigationBar: NavigationBar(
-          destinations: const [
-            NavigationDestination(
-                icon: Icon(Icons.playlist_add_check_sharp), label: 'Workout'),
-            NavigationDestination(
-                icon: Icon(Icons.align_horizontal_left), label: 'Seance'),
-            NavigationDestination(
-                icon: Icon(Icons.fitness_center), label: 'Exercice')
-          ],
-          selectedIndex: _selectedIndex,
-          onDestinationSelected: _onItemTapped,
-        ),
+      body: /* Scaffold(
+        body: */
+          Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
       ),
-    );
+      bottomNavigationBar: NavigationBar(
+        destinations: const [
+          NavigationDestination(
+              icon: Icon(Icons.playlist_add_check_sharp), label: 'Workout'),
+          NavigationDestination(
+              icon: Icon(Icons.align_horizontal_left), label: 'Seance'),
+          NavigationDestination(
+              icon: Icon(Icons.fitness_center), label: 'Exercice')
+        ],
+        selectedIndex: _selectedIndex,
+        onDestinationSelected: _onItemTapped,
+      ),
+    ) /*)*/;
   }
 }
