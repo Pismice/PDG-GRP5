@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:js_interop';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:g2g/model/workout.dart';
@@ -25,7 +22,7 @@ class GetWorkout extends StatelessWidget {
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
-          return const Text("data");
+          return Text(snapshot.data!.name!);
         }
 
         return const Text("Chargement");

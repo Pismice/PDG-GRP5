@@ -45,9 +45,11 @@ class Workout {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['name'] = name;
-    data['user'] = FirebaseFirestore.instance.doc("user/$user");
-    data['duration'] = duration;
+    if (name != null) data['name'] = name;
+    if (user != null) {
+      data['user'] = FirebaseFirestore.instance.doc("user/$user");
+    }
+    if (duration != null) data['duration'] = duration;
     if (sessions != null) {
       data['sessions'] = sessions!.map((v) => v.toJson()).toList();
     }
@@ -87,8 +89,8 @@ class WorkoutSessions {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = FirebaseFirestore.instance.doc("session/$id");
-    data['duration'] = duration;
+    if (id != null) data['id'] = FirebaseFirestore.instance.doc("session/$id");
+    if (duration != null) data['duration'] = duration;
     if (exercises != null) {
       data['exercises'] = exercises!.map((v) => v.toJson()).toList();
     }
@@ -134,7 +136,7 @@ class ExercisesDone {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = FirebaseFirestore.instance.doc("exercise/$id");
+    if (id != null) data['id'] = FirebaseFirestore.instance.doc("exercise/$id");
     if (sets != null) {
       data['sets'] = sets!.map((v) => v.toJson()).toList();
     }
@@ -156,8 +158,8 @@ class Sets {
   Sets({this.weight, this.repetition});
 
   Sets.fromJson(Map<String, dynamic> json) {
-    weight = json['weight'];
-    repetition = json['repetition'];
+    if (json['weight'] != null) weight = json['weight'];
+    if (json['repetition'] != null) repetition = json['repetition'];
   }
 
   factory Sets.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot,
@@ -171,8 +173,8 @@ class Sets {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['weight'] = weight;
-    data['repetition'] = repetition;
+    if (weight != null) data['weight'] = weight;
+    if (repetition != null) data['repetition'] = repetition;
     return data;
   }
 

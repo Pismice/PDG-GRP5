@@ -8,6 +8,17 @@ class Session {
 
   Session({this.name, this.user, this.duration, this.exercises});
 
+  Session.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    user = json['user'].id;
+    duration = json['duration'];
+    if (json['exercises'] != null) {
+      exercises = <SessionExercises>[];
+      json['exercises']
+          .forEach((e) => exercises!.add(SessionExercises.fromJson(e)));
+    }
+  }
+
   factory Session.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) {
     final data = snapshot.data();
@@ -18,6 +29,21 @@ class Session {
         duration: data?['duration'],
         exercises:
             data?['exercises'].map<SessionExercises>((e) => {}).toList());
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (name != null) data['name'] = name;
+
+    if (user != null) {
+      data['user'] = FirebaseFirestore.instance.doc("user/$user");
+    }
+
+    if (duration != null) data['duration'] = duration;
+    if (exercises != null) {
+      data['exercises'] = exercises!.map((e) => e.toJson()).toList();
+    }
+    return data;
   }
 
   Map<String, dynamic> toFirestore() {
@@ -41,6 +67,14 @@ class SessionExercises {
   SessionExercises(
       {this.id, this.repetition, this.set, this.weight, this.duration});
 
+  SessionExercises.fromJson(Map<String, dynamic> json) {
+    id = json['id'].id;
+    repetition = json['repetition'];
+    set = json['set'];
+    weight = json['weight'];
+    duration = json['duration'];
+  }
+
   factory SessionExercises.fromFirestore(
       DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) {
@@ -53,9 +87,19 @@ class SessionExercises {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = FirebaseFirestore.instance.doc("session/$id");
+    if (repetition != null) data['repetition'] = repetition;
+    if (set != null) data['set'] = set;
+    if (weight != null) data['weight'] = weight;
+    if (duration != null) data['duration'] = duration;
+    return data;
+  }
+
   Map<String, dynamic> toFirestore() {
     return {
-      if (id != null) "id": FirebaseFirestore.instance.doc("exercise/$id"),
+      "id": FirebaseFirestore.instance.doc("exercise/$id"),
       if (repetition != null) "repetition": repetition,
       if (set != null) "set": set,
       if (weight != null) "weight": weight,
