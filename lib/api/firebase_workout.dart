@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:g2g/model/workout.dart';
-import 'package:uuid/uuid.dart';
 
 class GetWorkout extends StatelessWidget {
   final String documentId;
@@ -22,7 +21,7 @@ class GetWorkout extends StatelessWidget {
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
-          return Text(snapshot.data!.name!);
+          return Text("${snapshot.data!.sessions!.length}");
         }
 
         return const Text("Chargement");
@@ -43,18 +42,30 @@ Future<Workout> getWorkout(String documentId) async {
 }
 
 Future<void> addWorkout(Workout workout) async {
-  await workouts
-      .withConverter(
-          fromFirestore: Workout.fromFirestore,
-          toFirestore: (Workout session, options) => session.toFirestore())
-      .doc(const Uuid().v1())
-      .set(workout);
+  try {
+    await workouts
+        .withConverter(
+            fromFirestore: Workout.fromFirestore,
+            toFirestore: (Workout session, options) => session.toFirestore())
+        .doc()
+        .set(workout);
+  } on Exception catch (e) {
+    throw Exception("Erreur lors de l'ajout : $e");
+  }
 }
 
 Future<void> updateWorkout(String docId, Workout workout) async {
   try {
     await workouts.doc(docId).update(workout.toFirestore());
   } on Exception catch (e) {
-    throw Exception(e.toString());
+    throw Exception("Erreur lors de la modification : $e");
+  }
+}
+
+Future<void> deleteWorkout(String docId) async {
+  try {
+    await workouts.doc(docId).delete();
+  } on Exception catch (e) {
+    throw Exception("Erreur lors de la suppression : $e");
   }
 }

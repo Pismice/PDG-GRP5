@@ -63,18 +63,26 @@ Future<DocumentSnapshot<Object?>> getExercise(String documentId) async {
   return exercises.doc(documentId).get();
 }
 
-Future<void> addExercise(String name) async {
-  return exercises
-      .add({'name': name, 'img': ''})
-      .then((_) => print("exercice ajouté"))
-      .catchError(
-          (error) => print("L'exercice n'a pas pu être ajouté : $error"));
+Future<void> addExercise(String name, String imgName) async {
+  try {
+    await exercises.add({'name': name, 'img': imgName});
+  } on Exception catch (e) {
+    throw Exception("Erreur lors de l'ajout : $e");
+  }
 }
 
 Future<void> updateExercise(String docId, String newName) async {
-  return exercises
-      .doc(docId)
-      .update({'name': newName})
-      .then((_) => print("modification effectuée"))
-      .catchError((error) => print('Erreur : $error'));
+  try {
+    await exercises.doc(docId).update({'name': newName});
+  } on Exception catch (e) {
+    throw Exception("Erreur lors de la modification : $e");
+  }
+}
+
+Future<void> deleteExercise(String docId) async {
+  try {
+    await exercises.doc(docId).delete();
+  } on Exception catch (e) {
+    throw Exception("Erreur lors de la suppressions : $e");
+  }
 }
