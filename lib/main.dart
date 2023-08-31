@@ -11,6 +11,12 @@ void main() async {
     options: DefaultFirebaseOptions.web,
   );
 
+  /*if (kDebugMode) {
+    // Utilisation des émulateurs pour éviter les couts innatendus
+    await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+    FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
+  }*/
+
   // Vérification que l'utilisateur est toujours connecté
   FirebaseAuth.instance.authStateChanges().listen((User? u) {
     if (u == null) {
