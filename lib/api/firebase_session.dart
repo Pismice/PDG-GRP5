@@ -65,6 +65,7 @@ Future<DocumentSnapshot<Object?>> getSession(String documentId) async {
   return sessions.doc(documentId).get();
 }
 
+/// Ajoute une [Session] qui correspond à une séance dans la base de donnée
 Future<void> addSession(Session session) async {
   await sessions
       .withConverter(
@@ -74,6 +75,8 @@ Future<void> addSession(Session session) async {
       .set(session);
 }
 
+/// Met à jour une [Session] passée en paramètre en fonction de son
+/// [docId]
 Future<void> updateSession(String docId, Session session) async {
-  await sessions.doc(docId).set(session.toFirestore());
+  await sessions.doc(docId).update(session.toFirestore());
 }
