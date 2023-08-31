@@ -21,7 +21,6 @@ class GetSession extends StatelessWidget {
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
-          print(snapshot.data);
           return Text(snapshot.data!.name!);
         }
 
