@@ -41,6 +41,7 @@ dependencies:
   firebase_storage: ^11.2.6
   path: ^1.8.3
   uuid: ^3.0.7
+  confetti: ^0.7.0
 
 
 dev_dependencies:
@@ -64,9 +65,9 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
-  # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/images/cervin.jpg
+  # To add assets to your application, add an assets section, like this:
     - ressources/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
