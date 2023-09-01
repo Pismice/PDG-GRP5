@@ -20,7 +20,7 @@ Future<UserCredential> signInWithGoogle() async {
 
 Future<void> addNewUserToFirestore(UserCredential user) {
   return FirebaseFirestore.instance.collection('user').add(<String, String>{
-    'UID': user.user!.uid,
+    'authid': user.user!.uid,
     'name': user.user!.displayName.toString(),
     'profilepicture': user.user!.photoURL.toString(),
   });
