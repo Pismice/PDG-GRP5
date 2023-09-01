@@ -18,7 +18,7 @@ class UserStatistics {
   Future<String> getHoursSpentInGym() async {
     int totalMinutesSpent = 0;
     developer.log('start total hours');
-    var sess;
+    Map<String, dynamic> sess;
     await FirebaseFirestore.instance
             .collection('workout')
             .where('user', isEqualTo: userRef)
@@ -50,7 +50,7 @@ class UserStatistics {
   Future<double> getTotalWeightPushed() async {
     double totalWeight = 0;
     developer.log('start total weight');
-    var sess;
+    Map<String, dynamic> sess;
     await FirebaseFirestore.instance
             .collection('workout')
             .where('user', isEqualTo: userRef)
@@ -91,7 +91,7 @@ class UserStatistics {
 
   Future<int> getNumberSessionDone() async {
     int numbers = 0;
-    var sess;
+    Map<String, dynamic> sess;
     await FirebaseFirestore.instance
             .collection('workout')
             .where('user', isEqualTo: userRef)

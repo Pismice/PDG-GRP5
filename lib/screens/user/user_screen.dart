@@ -43,7 +43,7 @@ class UserScreen extends StatelessWidget {
             ),
             Column(
               children: [
-                Text("Séances terminées"),
+                const Text("Séances terminées"),
                 FutureBuilder(
                     future: userStat.getNumberSessionDone(),
                     builder: ((context, snapshot) {
@@ -51,7 +51,7 @@ class UserScreen extends StatelessWidget {
                           snapshot.hasData) {
                         return Text(snapshot.data.toString());
                       } else {
-                        return Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       }
                     })),
               ],
@@ -61,15 +61,15 @@ class UserScreen extends StatelessWidget {
             ),
             Column(
               children: [
-                Text("Poids total soulevé"),
+                const Text("Poids total soulevé"),
                 FutureBuilder(
                     future: userStat.getTotalWeightPushed(),
                     builder: ((context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done &&
                           snapshot.hasData) {
-                        return Text(snapshot.data.toString() + "kg");
+                        return Text("${snapshot.data}kg");
                       } else {
-                        return Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       }
                     })),
               ],
@@ -79,7 +79,7 @@ class UserScreen extends StatelessWidget {
             ),
             Column(
               children: [
-                Text("Temps passé à faire du sport"),
+                const Text("Temps passé à faire du sport"),
                 FutureBuilder(
                     future: userStat.getHoursSpentInGym(),
                     builder: ((context, snapshot) {
@@ -87,7 +87,7 @@ class UserScreen extends StatelessWidget {
                           snapshot.hasData) {
                         return Text(snapshot.data as String);
                       } else {
-                        return Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       }
                     }))
               ],
