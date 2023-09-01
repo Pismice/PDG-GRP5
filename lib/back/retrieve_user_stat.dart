@@ -17,28 +17,28 @@ class UserStatistics {
 
   Future<String> getHoursSpentInGym() async {
     int totalMinutesSpent = 0;
-    Future<String> out;
     developer.log('start total hours');
     var sess;
     await FirebaseFirestore.instance
-        .collection('workout')
-        .where('user', isEqualTo: userRef)
-        .get()
-        .then((value) => value.docs.forEach((element) {
-              sess = element.data()['sessions'];
-              for (int i = 0; i < sess.length; ++i) {
-                developer.log('.');
-                if (sess[i]['start'] != null && sess[i]['end'] != null) {
-                  totalMinutesSpent += DateTime.fromMillisecondsSinceEpoch(
-                          sess[i]['end'].seconds * 1000)
-                      .difference(DateTime.fromMillisecondsSinceEpoch(
-                          sess[i]['start'].seconds * 1000))
-                      .inMinutes;
-                }
-              }
-            }))
-        .catchError(
-            (error) => print("Something went wrong : ${error.toString()}"));
+            .collection('workout')
+            .where('user', isEqualTo: userRef)
+            .get()
+            .then((value) => value.docs.forEach((element) {
+                  sess = element.data()['sessions'];
+                  for (int i = 0; i < sess.length; ++i) {
+                    developer.log('.');
+                    if (sess[i]['start'] != null && sess[i]['end'] != null) {
+                      totalMinutesSpent += DateTime.fromMillisecondsSinceEpoch(
+                              sess[i]['end'].seconds * 1000)
+                          .difference(DateTime.fromMillisecondsSinceEpoch(
+                              sess[i]['start'].seconds * 1000))
+                          .inMinutes;
+                    }
+                  }
+                }))
+        /*.catchError((error) =>
+            developer.log("Something went wrong : ${error.toString()}"))*/
+        ;
     developer.log('f total hours');
 
     if (totalMinutesSpent >= 60) {
@@ -52,41 +52,39 @@ class UserStatistics {
     developer.log('start total weight');
     var sess;
     await FirebaseFirestore.instance
-        .collection('workout')
-        .where('user', isEqualTo: userRef)
-        .get()
-        .then((snapshot) => {
-              snapshot.docs.forEach((element) {
-                sess = element.data()['sessions'];
-                for (int i = 0; i < element.data()['sessions'].length; ++i) {
-                  for (int j = 0;
-                      j < element.data()['sessions'][i]['exercises'].length;
-                      ++j) {
-                    for (int k = 0;
-                        k <
-                            element
-                                .data()['sessions'][i]['exercises'][j]['sets']
-                                .length;
-                        ++k) {
-                      developer.log('!');
-                      if (element.data()['sessions'][i]['exercises'][j]['sets']
-                                  [k]['repetition'] !=
-                              null &&
-                          element.data()['sessions'][i]['exercises'][j]['sets']
-                                  [k]['weight'] !=
-                              null) {
-                        totalWeight += element.data()['sessions'][i]
-                                ['exercises'][j]['sets'][k]['repetition'] *
-                            element.data()['sessions'][i]['exercises'][j]
-                                ['sets'][k]['weight'];
+            .collection('workout')
+            .where('user', isEqualTo: userRef)
+            .get()
+            .then((snapshot) => {
+                  snapshot.docs.forEach((element) {
+                    sess = element.data()['sessions'];
+                    for (int i = 0; i < sess.length; ++i) {
+                      for (int j = 0; j < sess[i]['exercises'].length; ++j) {
+                        for (int k = 0;
+                            k <
+                                element
+                                    .data()['sessions'][i]['exercises'][j]
+                                        ['sets']
+                                    .length;
+                            ++k) {
+                          developer.log('!');
+                          if (sess[i]['exercises'][j]['sets'][k]
+                                      ['repetition'] !=
+                                  null &&
+                              sess[i]['exercises'][j]['sets'][k]['weight'] !=
+                                  null) {
+                            totalWeight += sess[i]['exercises'][j]['sets'][k]
+                                    ['repetition'] *
+                                sess[i]['exercises'][j]['sets'][k]['weight'];
+                          }
+                        }
                       }
                     }
-                  }
-                }
-              })
-            })
-        .catchError(
-            (onError) => print("Something went wrong : ${onError.toString()}"));
+                  })
+                })
+        /*.catchError((error) =>
+            developer.log("Something went wrong : ${error.toString()}"))*/
+        ;
     developer.log('end total weight');
     return totalWeight;
   }
@@ -95,17 +93,20 @@ class UserStatistics {
     int numbers = 0;
     var sess;
     await FirebaseFirestore.instance
-        .collection('workout')
-        .where('user', isEqualTo: userRef)
-        .get()
-        .then((value) => value.docs.forEach((element) {
-              sess = element.data()['sessions'];
-              for (int i = 0; i < sess.length; ++i) {
-                if (sess[i]['start'] != null && sess[i]['end'] != null) {
-                  numbers++;
-                }
-              }
-            }));
+            .collection('workout')
+            .where('user', isEqualTo: userRef)
+            .get()
+            .then((value) => value.docs.forEach((element) {
+                  sess = element.data()['sessions'];
+                  for (int i = 0; i < sess.length; ++i) {
+                    if (sess[i]['start'] != null && sess[i]['end'] != null) {
+                      numbers++;
+                    }
+                  }
+                }))
+        /*.catchError((error) =>
+            developer.log("Something went wrong : ${error.toString()}"),)*/
+        ;
     return numbers;
   }
 }

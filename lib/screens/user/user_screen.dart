@@ -4,7 +4,7 @@ import 'package:g2g/screens/user/settings/settings_screen.dart';
 import 'package:g2g/back/retrieve_user_stat.dart';
 
 class UserScreen extends StatelessWidget {
-  UserStatistics userStat =
+  final UserStatistics userStat =
       UserStatistics(FirebaseAuth.instance.currentUser!.uid);
   UserScreen({super.key});
 
