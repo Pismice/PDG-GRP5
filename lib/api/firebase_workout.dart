@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:g2g/api/firebase_session.dart';
 import 'package:g2g/model/workout.dart';
 
 class GetWorkout extends StatelessWidget {
@@ -41,18 +42,27 @@ Future<Workout> getWorkout(String documentId) async {
   return workout;
 }
 
-Future<void> addWorkout(Workout workout) async {
+Future<Workout> addWorkout(Workout workout) async {
   try {
-    await workouts
+    final newWorkoutRef = workouts
         .withConverter(
             fromFirestore: Workout.fromFirestore,
             toFirestore: (Workout session, options) => session.toFirestore())
-        .doc()
-        .set(workout);
+        .doc();
+    await newWorkoutRef.set(workout);
+
+    // Get the newly added workout document
+    final snapshot = await newWorkoutRef.get();
+
+    // Create a Workout object from the fetched data
+    final w = snapshot.data() as Workout;
+
+    return w;
   } on Exception catch (e) {
     throw Exception("Erreur lors de l'ajout : $e");
   }
 }
+
 
 Future<void> updateWorkout(String docId, Workout workout) async {
   try {
