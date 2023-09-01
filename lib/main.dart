@@ -3,12 +3,19 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'navigation_bar.dart';
+import 'screens/google_sign_in_screen.dart';
 
 void main() async {
   // Initialisation de Firebase
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.web,
   );
+
+  /*if (kDebugMode) {
+    // Utilisation des émulateurs pour éviter les couts innatendus
+    await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+    FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
+  }*/
 
   // Vérification que l'utilisateur est toujours connecté
   FirebaseAuth.instance.authStateChanges().listen((User? u) {
@@ -26,7 +33,6 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -42,13 +48,25 @@ class MyApp extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
           }
-          //final user = snapshot.data;
-          //if (user == null) {
-          //  return const GoogleSignInScreen();
-          //} else {
+          final user = snapshot.data;
+          if (user == null) {
+            return const GoogleSignInScreen();
+          } else {
           return const MyNavigationBar();
-          //}
+          }
         },
+      ),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Gym de Golem'),
       ),
     );
   }
