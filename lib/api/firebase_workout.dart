@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter/material.dart';
-import 'package:g2g/api/firebase_user.dart';
-import 'package:g2g/model/user.dart';
 import 'package:g2g/model/workout.dart';
 
 class GetWorkout extends StatelessWidget {
