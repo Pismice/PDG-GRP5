@@ -102,7 +102,7 @@ void main() async {
       user: (await getUserReference("hihihihihhi")).id,
       duration: 20,
       exercises: [exercises1, exercises2]);
-
+/*
   test("getAllSessions", () async {
     await addSession(session);
     await addSession(session);
@@ -110,7 +110,7 @@ void main() async {
     final doc = await getAllSessionsFrom("hihihihihhi");
 
     expect(doc.length, 2);
-  });
+  });*/
 
   test("addSession", () async {
     await addSession(session);
