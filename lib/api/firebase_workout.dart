@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter/material.dart';
-import 'package:g2g/api/firebase_session.dart';
 import 'package:g2g/model/workout.dart';
 
 class GetWorkout extends StatelessWidget {
@@ -80,7 +79,6 @@ Future<Workout> addWorkout(Workout workout) async {
     throw Exception("Erreur lors de l'ajout : $e");
   }
 }
-
 
 Future<void> updateWorkout(String docId, Workout workout) async {
   try {
