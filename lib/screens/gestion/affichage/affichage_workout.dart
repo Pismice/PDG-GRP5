@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:g2g/screens/gestion/affichage/affichage_seance.dart';
 
-void main() {
-  runApp(MaterialApp(
-    title: 'Workout Info',
-    theme: ThemeData(primarySwatch: Colors.blue),
-    home: const MyWorkoutInfoPage(),
+/*void main() {
+  runApp(//MaterialApp(
+    //title: 'Workout Info',
+    //theme: ThemeData(primarySwatch: Colors.blue),
+    /*home: */const MyWorkoutInfoPage(),
   ));
-}
+}*/
 
 class MyWorkoutInfoPage extends StatefulWidget {
   const MyWorkoutInfoPage({Key? key}) : super(key: key);
@@ -30,7 +31,13 @@ class _MyWorkoutInfoPage extends State<MyWorkoutInfoPage> {
             itemCount: items.length,
             itemBuilder: (context, index) {
               return ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MySeanceInfoPage()),
+                    );
+                  },
                   style: ButtonStyle(
                       foregroundColor: MaterialStateProperty.all(Colors.black),
                       backgroundColor:

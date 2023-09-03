@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:g2g/screens/gestion/modification/editexo.dart';
 
 void main() => runApp(const MyExerciceScreen());
 
@@ -92,7 +93,14 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                             icon: const Icon(Icons.edit),
                             padding: const EdgeInsets.all(0),
                             color: Colors.black,
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const MyEditExoPage()),
+                              );
+                            },
                           )),
                     ]),
                   ]));

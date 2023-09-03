@@ -51,9 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: /* Scaffold(
-        body: */
-          Center(
+      body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: NavigationBar(
@@ -68,6 +66,6 @@ class _MyHomePageState extends State<MyHomePage> {
         selectedIndex: _selectedIndex,
         onDestinationSelected: _onItemTapped,
       ),
-    ) /*)*/;
+    );
   }
 }

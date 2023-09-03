@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:g2g/screens/gestion/modification/editseance.dart';
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     title: 'Workout Info',
-    theme: ThemeData(primarySwatch: Colors.blue),
-    home: const MySeanceInfoPage(),
+    //theme: ThemeData(primarySwatch: Colors.blue),
+    home: MySeanceInfoPage(),
   ));
 }
 
@@ -60,8 +61,14 @@ class _MySeanceInfoPage extends State<MySeanceInfoPage> {
                 child:
                     IconButton(onPressed: () {}, icon: const Icon(Icons.add))),
             Expanded(
-                child:
-                    IconButton(onPressed: () {}, icon: const Icon(Icons.edit))),
+                child: IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MyEditSeancePage()));
+                    },
+                    icon: const Icon(Icons.edit))),
             Expanded(
                 child: IconButton(
                     onPressed: () {}, icon: const Icon(Icons.delete)))
