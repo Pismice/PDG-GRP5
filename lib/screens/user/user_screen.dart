@@ -1,9 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:g2g/screens/user/settings/settings_screen.dart';
+import 'package:g2g/back/retrieve_user_stat.dart';
 
 class UserScreen extends StatelessWidget {
-  const UserScreen({super.key});
+  final UserStatistics userStat =
+      UserStatistics(FirebaseAuth.instance.currentUser!.uid);
+  UserScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,28 +41,55 @@ class UserScreen extends StatelessWidget {
             const SizedBox(
               width: 10,
             ),
-            const Column(
+            Column(
               children: [
-                Text("Séances terminées"),
-                Text("0"),
+                const Text("Séances terminées"),
+                FutureBuilder(
+                    future: userStat.getNumberSessionDone(),
+                    builder: ((context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done &&
+                          snapshot.hasData) {
+                        return Text(snapshot.data.toString());
+                      } else {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                    })),
               ],
             ),
             const SizedBox(
               width: 10,
             ),
-            const Column(
+            Column(
               children: [
-                Text("Poids total soulevé"),
-                Text("0 kg"),
+                const Text("Poids total soulevé"),
+                FutureBuilder(
+                    future: userStat.getTotalWeightPushed(),
+                    builder: ((context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done &&
+                          snapshot.hasData) {
+                        return Text("${snapshot.data}kg");
+                      } else {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                    })),
               ],
             ),
             const SizedBox(
               width: 10,
             ),
-            const Column(
+            Column(
               children: [
-                Text("Temps passé à faire du sport"),
-                Text("0 min"),
+                const Text("Temps passé à faire du sport"),
+                FutureBuilder(
+                    future: userStat.getHoursSpentInGym(),
+                    builder: ((context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done &&
+                          snapshot.hasData) {
+                        return Text(snapshot.data as String);
+                      } else {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                    }))
               ],
             ),
           ],
