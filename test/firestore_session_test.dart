@@ -43,8 +43,6 @@ Future<List<Session>> getAllSessionsFrom(String? uid) async {
       .get()
       .then((value) => users.doc(value.docs[0].id));
 
-  final truc = await sessions.get();
-  truc.docs.map((e) async => await e.data()['user'].get());
   final snapshot = await sessions.where('user', isEqualTo: userRef).get();
 
   final data = snapshot.docs.map((w) => Session.fromJson(w.data())).toList();
@@ -102,14 +100,12 @@ void main() async {
       user: (await getUserReference("hihihihihhi")).id,
       duration: 20,
       exercises: [exercises1, exercises2]);
-/*
-  test("getAllSessions", () async {
-    await addSession(session);
-    await addSession(session);
 
+  /*test("getAllSessions", () async {
+    await addSession(session);
     final doc = await getAllSessionsFrom("hihihihihhi");
 
-    expect(doc.length, 2);
+    expect(doc.length, 1);
   });*/
 
   test("addSession", () async {
