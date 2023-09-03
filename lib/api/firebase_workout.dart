@@ -59,14 +59,22 @@ Future<List<Workout>> getAllWorkouts({String? uid}) async {
   return data;
 }
 
-Future<void> addWorkout(Workout workout) async {
+Future<Workout> addWorkout(Workout workout) async {
   try {
-    await workouts
+    final newWorkoutRef = workouts
         .withConverter(
             fromFirestore: Workout.fromFirestore,
-            toFirestore: (Workout w, options) => w.toFirestore())
-        .doc()
-        .set(workout);
+            toFirestore: (Workout session, options) => session.toFirestore())
+        .doc();
+    await newWorkoutRef.set(workout);
+
+    // Get the newly added workout document
+    final snapshot = await newWorkoutRef.get();
+
+    // Create a Workout object from the fetched data
+    final w = snapshot.data() as Workout;
+
+    return w;
   } on Exception catch (e) {
     throw Exception("Erreur lors de l'ajout : $e");
   }
