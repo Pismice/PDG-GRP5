@@ -36,3 +36,13 @@ void deleteUser(String authid) async {
   }
   ref.delete();
 }
+
+void updateUser(User user) async {
+  User storeUser = User.fromFirestore(
+      users.doc(user.uid).get().then((DocumentSnapshot snapshot) => snapshot)
+          as DocumentSnapshot<Map<String, dynamic>>,
+      null);
+  if (user.profilepicture != storeUser.profilepicture) {
+    users.doc(user.uid).set(user.toFirestore());
+  }
+}
