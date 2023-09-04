@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter/material.dart';
+import 'package:g2g/api/firebase_session.dart';
+import 'package:g2g/model/session.dart';
 import 'package:g2g/model/workout.dart';
 
 class GetWorkout extends StatelessWidget {
@@ -39,11 +41,12 @@ Future<Workout> getWorkout(String documentId) async {
   if (snapshot.data() == null) {
     throw Exception("Workout non trouvé");
   }
-  final workout = Workout.fromJson(snapshot.data()!);
+  Workout workout = Workout.fromJson(snapshot.data()!);
+  workout.uid = documentId;
   return workout;
 }
 
-Future<List<Workout>> getAllWorkouts({String? uid}) async {
+Future<List<Workout>> getAllWorkoutsFrom({String? uid}) async {
   String id = (uid != null) ? uid : FirebaseAuth.instance.currentUser!.uid;
 
   final userRef = await users
@@ -54,7 +57,11 @@ Future<List<Workout>> getAllWorkouts({String? uid}) async {
 
   final snapshot = await workouts.where('user', isEqualTo: userRef).get();
 
-  final data = snapshot.docs.map((w) => Workout.fromJson(w.data())).toList();
+  final data = snapshot.docs.map((w) {
+    Workout workout = Workout.fromJson(w.data());
+    workout.uid = w.id;
+    return workout;
+  }).toList();
 
   return data;
 }
@@ -80,9 +87,9 @@ Future<Workout> addWorkout(Workout workout) async {
   }
 }
 
-Future<void> updateWorkout(String docId, Workout workout) async {
+Future<void> updateWorkout(Workout workout) async {
   try {
-    await workouts.doc(docId).update(workout.toFirestore());
+    await workouts.doc(workout.uid).update(workout.toFirestore());
   } on Exception catch (e) {
     throw Exception("Erreur lors de la modification : $e");
   }
@@ -94,4 +101,25 @@ Future<void> deleteWorkout(String docId) async {
   } on Exception catch (e) {
     throw Exception("Erreur lors de la suppression : $e");
   }
+}
+
+Future<void> addExerciseDone(
+    Workout workout, ExercisesDone exercise, String sessionId) async {
+  Session session = await getSession(sessionId);
+  bool inSession = false;
+  for (var sessExercise in session.exercises!) {
+    if (sessExercise.id == exercise.id) {
+      inSession = true;
+    }
+  }
+
+  if (!inSession) {
+    throw Exception("L'exercice effectué n'est pas prévu dans cette séance");
+  }
+
+  for (var session in workout.sessions!) {
+    if (session.id != sessionId) continue;
+    session.exercises!.add(exercise);
+  }
+  updateWorkout(workout);
 }
