@@ -76,7 +76,8 @@ void main() async {
         .get()
         .then((value) => value.data());
     developer.log(data!['profilepicture']);
-    expect(data!['profilepicture'], "TEST2");
+
+    expect(data['profilepicture'], "TEST2");
   });
 
   /*test('Test suppression utilisateur', () async {
