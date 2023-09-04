@@ -5,14 +5,16 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:g2g/model/user.dart';
 import 'package:g2g/api/firebase_user.dart';
 
+final instance = FakeFirebaseFirestore();
+final users = instance.collection('user');
+final session = instance.collection('session');
+final workout = instance.collection('workout');
+
 void main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
   User u = User(authId: "1234", name: "Test");
-  var users = FirebaseFirestore.instance.collection('user');
-  var session = FirebaseFirestore.instance.collection('session');
-  var workout = FirebaseFirestore.instance.collection('workout');
   DocumentReference ref = users.add(u.toFirestore()) as DocumentReference;
   u.uid = ref.id;
   test('Test ajout utilisateur', () async {
