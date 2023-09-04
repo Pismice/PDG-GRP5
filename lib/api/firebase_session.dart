@@ -100,6 +100,11 @@ Future<void> deleteSession(String docId) async {
 
 enum _SetsValue { repetition, weight, duration }
 
+/// Permet de récupérer la meilleure valeur enregistrée par un utilisateur [authid]
+/// sur un exercice donné [exId].
+/// Les valeurs possibles sont 'repetition', 'weight' et 'duration'.
+///
+/// Retourne la meilleure mesure enregristrée
 Future<int> _getPR(String exId, _SetsValue sets, {String? authid}) async {
   final List<Workout> workouts;
   if (authid != null) {
