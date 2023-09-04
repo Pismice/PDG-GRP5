@@ -3,16 +3,16 @@ import 'package:flutter/cupertino.dart';
 
 const double _kItemExtent = 32.0;
 
-class MyEditSeancePage extends StatefulWidget {
-  const MyEditSeancePage({Key? key}) : super(key: key);
+class MyCreateSeance extends StatefulWidget {
+  const MyCreateSeance({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
-  _MyEditSeancePage createState() => _MyEditSeancePage();
+  _MyCreateSeance createState() => _MyCreateSeance();
 }
 
-class _MyEditSeancePage extends State<MyEditSeancePage> {
-  final items = List<String>.generate(4, (i) => "Exo $i");
+class _MyCreateSeance extends State<MyCreateSeance> {
+  final items = List<String>.generate(0, (i) => "Exo $i");
   var _selectedNumber = 1;
 
   void _showDialog(Widget child) {
@@ -136,14 +136,8 @@ class _MyEditSeancePage extends State<MyEditSeancePage> {
                   ));
             },
           ),
-          Row(children: [
-            Expanded(
-                child:
-                    IconButton(onPressed: () {}, icon: const Icon(Icons.add))),
-            Expanded(
-                child: IconButton(
-                    onPressed: () {}, icon: const Icon(Icons.delete)))
-          ])
+          Expanded(
+              child: IconButton(onPressed: () {}, icon: const Icon(Icons.add))),
         ]));
   }
 }

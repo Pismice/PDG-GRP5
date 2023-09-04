@@ -48,7 +48,7 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
               child: TextField(
                   decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: 'Rename Workout',
+                hintText: 'Nom Workout',
               ))),
           Row(children: [
             const Text('Nombre de semaine'),
@@ -111,14 +111,8 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
                   ));
             },
           ),
-          Row(children: [
-            Expanded(
-                child:
-                    IconButton(onPressed: () {}, icon: const Icon(Icons.add))),
-            Expanded(
-                child: IconButton(
-                    onPressed: () {}, icon: const Icon(Icons.delete)))
-          ])
+          Expanded(
+              child: IconButton(onPressed: () {}, icon: const Icon(Icons.add))),
         ]));
   }
 }

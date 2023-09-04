@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class MyEditExoPage extends StatefulWidget {
-  const MyEditExoPage({Key? key}) : super(key: key);
+class MyCreateExercice extends StatefulWidget {
+  const MyCreateExercice({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
-  _MyEditExoPage createState() => _MyEditExoPage();
+  _MyCreateExercice createState() => _MyCreateExercice();
 }
 
-class _MyEditExoPage extends State<MyEditExoPage> {
+class _MyCreateExercice extends State<MyCreateExercice> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,13 +17,6 @@ class _MyEditExoPage extends State<MyEditExoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: Image.asset(
-                      'assets/images/cervin.jpg',
-                      height: 75,
-                      width: 75,
-                    )),
                 ElevatedButton(
                     onPressed: () {},
                     style: const ButtonStyle(
@@ -34,7 +27,7 @@ class _MyEditExoPage extends State<MyEditExoPage> {
                   child: TextField(
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      hintText: 'Rename exercise',
+                      hintText: 'Nom exercise',
                     ),
                   ),
                 )
