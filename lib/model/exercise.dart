@@ -4,12 +4,16 @@ class Exercise {
   String? uid;
   String? name;
   String? img;
+  String? type;
+  String? user;
 
-  Exercise({this.uid, this.name, this.img});
+  Exercise({this.uid, this.name, this.img, this.type, this.user});
 
   Exercise.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     img = json['img'];
+    type = json['type'];
+    user = json['user'];
   }
 
   factory Exercise.fromFirestore(
@@ -17,13 +21,20 @@ class Exercise {
       SnapshotOptions? options) {
     final data = snapshot.data();
 
-    return Exercise(name: data?['name'], img: data?['img']);
+    return Exercise(
+      name: data?['name'],
+      img: data?['img'],
+      type: data?['type'],
+      user: data?['user'],
+    );
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (name != null) data['name'] = name;
     if (img != null) data['img'] = img;
+    if (type != null) data['type'] = type;
+    if (user != null) data['user'] = user;
 
     return data;
   }
@@ -32,6 +43,8 @@ class Exercise {
     return {
       if (name != null) "name": name,
       if (img != null) "img": img,
+      if (type != null) "type": type,
+      if (user != null) "user": user,
     };
   }
 }
