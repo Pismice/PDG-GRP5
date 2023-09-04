@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:g2g/api/firebase_workout.dart';
 import 'package:g2g/model/session.dart';
+import 'package:g2g/model/workout.dart';
 
 class GetSession extends StatelessWidget {
   final String documentId;
@@ -39,11 +41,12 @@ Future<Session> getSession(String documentId) async {
   if (snapshot.data() == null) {
     throw Exception("Séance non trouvée");
   }
-  final session = Session.fromJson(snapshot.data()!);
+  Session session = Session.fromJson(snapshot.data()!);
+  session.uid = documentId;
   return session;
 }
 
-Future<List<Session>> getAllSessions({String? uid}) async {
+Future<List<Session>> getAllSessionsFrom({String? uid}) async {
   String id = (uid != null) ? uid : FirebaseAuth.instance.currentUser!.uid;
 
   final userRef = await users
@@ -54,7 +57,11 @@ Future<List<Session>> getAllSessions({String? uid}) async {
 
   final snapshot = await sessions.where('user', isEqualTo: userRef).get();
 
-  final data = snapshot.docs.map((w) => Session.fromJson(w.data())).toList();
+  final data = snapshot.docs.map((s) {
+    Session session = Session.fromJson(s.data());
+    session.uid = s.id;
+    return session;
+  }).toList();
 
   return data;
 }
@@ -75,9 +82,9 @@ Future<void> addSession(Session session) async {
 
 /// Met à jour une [Session] passée en paramètre en fonction de son
 /// [docId]
-Future<void> updateSession(String docId, Session session) async {
+Future<void> updateSession(Session session) async {
   try {
-    await sessions.doc(docId).update(session.toFirestore());
+    await sessions.doc(session.uid).update(session.toFirestore());
   } on Exception catch (e) {
     throw Exception("Erreur lors de la modification : $e");
   }
@@ -89,4 +96,98 @@ Future<void> deleteSession(String docId) async {
   } on Exception catch (e) {
     throw Exception("Erreur lors de la suppression : $e");
   }
+}
+
+enum _SetsValue { repetition, weight, duration }
+
+/// Permet de récupérer la meilleure valeur enregistrée par un utilisateur [authid]
+/// sur un exercice donné [exId].
+/// Les valeurs possibles sont 'repetition', 'weight' et 'duration'.
+///
+/// Retourne la meilleure mesure enregristrée
+Future<int> _getPR(String exId, _SetsValue sets, {String? authid}) async {
+  final List<Workout> workouts;
+  if (authid != null) {
+    workouts = await getAllWorkoutsFrom(uid: authid);
+  } else {
+    workouts = await getAllWorkoutsFrom();
+  }
+
+  int pr = 0;
+
+  for (var workout in workouts) {
+    for (var session in workout.sessions!) {
+      for (var exercise in session.exercises!) {
+        if (exercise.id != exId) continue;
+
+        for (var set in exercise.sets!) {
+          switch (sets) {
+            case _SetsValue.repetition:
+              if (set.repetition != null && set.repetition! > pr) {
+                pr = set.repetition!;
+              }
+              break;
+            case _SetsValue.weight:
+              if (set.weight != null && set.weight! > pr) {
+                pr = set.weight!;
+              }
+              break;
+            case _SetsValue.duration:
+              if (set.duration != null && set.duration! > pr) {
+                pr = set.duration!;
+              }
+              break;
+          }
+        }
+      }
+    }
+  }
+
+  return pr;
+}
+
+Future<int> getWeightPR(String exId, {String? authid}) async {
+  if (authid != null) {
+    return await _getPR(exId, _SetsValue.weight, authid: authid);
+  }
+  return await _getPR(exId, _SetsValue.weight);
+}
+
+Future<int> getDurationPR(String exId, {String? authid}) async {
+  if (authid != null) {
+    return await _getPR(exId, _SetsValue.duration, authid: authid);
+  }
+  return await _getPR(exId, _SetsValue.duration);
+}
+
+Future<int> getBestRepetitionNb(String exId, {String? authid}) async {
+  if (authid != null) {
+    return await _getPR(exId, _SetsValue.repetition, authid: authid);
+  }
+  return await _getPR(exId, _SetsValue.repetition);
+}
+
+Future<int> getBestSetsNb(String exId, {String? authid}) async {
+  final List<Workout> workouts;
+  if (authid != null) {
+    workouts = await getAllWorkoutsFrom(uid: authid);
+  } else {
+    workouts = await getAllWorkoutsFrom();
+  }
+
+  int pr = 0;
+
+  for (var workout in workouts) {
+    for (var session in workout.sessions!) {
+      for (var exercise in session.exercises!) {
+        if (exercise.id != exId) continue;
+
+        if (exercise.sets!.length > pr) {
+          pr = exercise.sets!.length;
+        }
+      }
+    }
+  }
+
+  return pr;
 }
