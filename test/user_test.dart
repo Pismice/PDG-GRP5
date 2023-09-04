@@ -43,7 +43,7 @@ void deleteUser(String authid) async {
   ref.delete();
 }
 
-void updateUser(User user) async {
+Future<void> updateUser(User user) async {
   User storeUser = User.fromFirestore(
       await users.doc(user.uid).get().then((DocumentSnapshot snapshot) =>
           snapshot as DocumentSnapshot<Map<String, dynamic>>),
@@ -68,13 +68,15 @@ void main() async {
   });
 
   test('Modification utilisateur', () async {
+    u.authId = "2345";
     u.uid = (await users.add(u.toFirestore())).id;
     u.profilepicture = "TEST2";
-    updateUser(u);
+    await updateUser(u);
     var data = await users
         .doc((await getReference(u)).id)
         .get()
         .then((value) => value.data());
+
     developer.log(data!['profilepicture']);
 
     expect(data['profilepicture'], "TEST2");
