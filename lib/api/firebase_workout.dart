@@ -43,7 +43,7 @@ Future<Workout> getWorkout(String documentId) async {
   return workout;
 }
 
-Future<List<Workout>> getAllWorkouts({String? uid}) async {
+Future<List<Workout>> getAllWorkoutsFrom({String? uid}) async {
   String id = (uid != null) ? uid : FirebaseAuth.instance.currentUser!.uid;
 
   final userRef = await users

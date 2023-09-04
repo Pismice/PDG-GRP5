@@ -154,12 +154,14 @@ class ExercisesDone {
 class Sets {
   int? weight;
   int? repetition;
+  int? duration;
 
-  Sets({this.weight, this.repetition});
+  Sets({this.weight, this.repetition, this.duration});
 
   Sets.fromJson(Map<String, dynamic> json) {
     if (json['weight'] != null) weight = json['weight'];
     if (json['repetition'] != null) repetition = json['repetition'];
+    if (json['duration'] != null) duration = json['duration'];
   }
 
   factory Sets.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot,
@@ -168,6 +170,7 @@ class Sets {
     return Sets(
       weight: data?['weight'],
       repetition: data?['repetition'],
+      duration: data?['duration'],
     );
   }
 
@@ -175,6 +178,7 @@ class Sets {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (weight != null) data['weight'] = weight;
     if (repetition != null) data['repetition'] = repetition;
+    if (duration != null) data['duration'] = duration;
     return data;
   }
 
@@ -182,6 +186,7 @@ class Sets {
     return {
       if (weight != null) "weight": weight,
       if (repetition != null) "repetition": repetition,
+      if (duration != null) "duration": duration,
     };
   }
 }
