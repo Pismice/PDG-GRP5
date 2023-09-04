@@ -8,7 +8,7 @@ import 'screens/google_sign_in_screen.dart';
 void main() async {
   // Initialisation de Firebase
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.web,
+    options: DefaultFirebaseOptions.currentPlatform,
   );
 
   /*if (kDebugMode) {
@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
           if (user == null) {
             return const GoogleSignInScreen();
           } else {
-          return const MyNavigationBar();
+            return const MyNavigationBar();
           }
         },
       ),
