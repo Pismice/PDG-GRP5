@@ -21,7 +21,7 @@ class _MyCreateExercice extends State<MyCreateExercice> {
                     onPressed: () {},
                     style: const ButtonStyle(
                         backgroundColor: MaterialStatePropertyAll(Colors.grey)),
-                    child: const Text("change photo")),
+                    child: const Text("add photo")),
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
                   child: TextField(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:g2g/screens/gestion/affichage/affichage_workout.dart';
 import 'package:g2g/screens/gestion/modification/editworkout.dart';
+import 'package:g2g/screens/gestion/creation/create_workout.dart';
 
 void main() => runApp(const MyWorkoutScreen());
 
@@ -60,7 +61,12 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
                   child: IconButton(
                     icon: const Icon(Icons.add),
                     color: Colors.black,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MyCreateWorkout()));
+                    },
                   ))),
         ]),
         Expanded(
