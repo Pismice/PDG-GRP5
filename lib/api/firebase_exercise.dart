@@ -1,79 +1,36 @@
-// ignore_for_file: avoid_print
-
-import 'package:flutter/material.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:g2g/api/firebase_workout.dart';
+import 'package:g2g/model/exercise.dart';
+import 'package:g2g/model/workout.dart';
 
-class GetExercise extends StatelessWidget {
-  final String documentId;
+final exercises = FirebaseFirestore.instance.collection('exercise');
 
-  const GetExercise(this.documentId, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<DocumentSnapshot>(
-      future: getExercise(documentId),
-      builder:
-          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return const Text("Quelque chose n'a pas fonctionné");
-        }
-
-        if (snapshot.hasData && !snapshot.data!.exists) {
-          return const Text("Le document n'existe pas");
-        }
-
-        if (snapshot.connectionState == ConnectionState.done) {
-          Map<String, dynamic> data =
-              snapshot.data!.data() as Map<String, dynamic>;
-
-          return Column(children: [
-            image(data),
-            Text("Nom de l'exercice: ${data['name']}")
-          ]);
-        }
-
-        return const Text("Chargement");
-      },
-    );
+Future<Exercise> getExercise(String documentId) async {
+  final snapshot = await exercises.doc(documentId).get();
+  if (snapshot.data() == null) {
+    throw Exception("Exercice non trouvé");
   }
-
-  Widget image(Map<String, dynamic> data) {
-    return FutureBuilder(
-      future: FirebaseStorage.instance
-          .refFromURL('gs://hongym-4cb68.appspot.com')
-          .child("img/exercises/${data['img']}")
-          .getDownloadURL(),
-      builder: (context, snapshot) {
-        return Image.network(
-          snapshot.data.toString(),
-          height: 100,
-          width: 100,
-        );
-      },
-    );
-  }
+  Exercise exercise = Exercise.fromJson(snapshot.data()!);
+  exercise.uid = documentId;
+  return exercise;
 }
 
-CollectionReference exercises =
-    FirebaseFirestore.instance.collection('exercise');
-
-Future<DocumentSnapshot<Object?>> getExercise(String documentId) async {
-  return exercises.doc(documentId).get();
-}
-
-Future<void> addExercise(String name, String imgName) async {
+Future<void> addExercise(Exercise exercise) async {
   try {
-    await exercises.add({'name': name, 'img': imgName});
+    await exercises
+        .withConverter(
+            fromFirestore: Exercise.fromFirestore,
+            toFirestore: (Exercise exercise, options) => exercise.toFirestore())
+        .doc()
+        .set(exercise);
   } on Exception catch (e) {
     throw Exception("Erreur lors de l'ajout : $e");
   }
 }
 
-Future<void> updateExercise(String docId, String newName) async {
+Future<void> updateExercise(Exercise exercise) async {
   try {
-    await exercises.doc(docId).update({'name': newName});
+    await exercises.doc(exercise.uid).update(exercise.toFirestore());
   } on Exception catch (e) {
     throw Exception("Erreur lors de la modification : $e");
   }
@@ -85,4 +42,29 @@ Future<void> deleteExercise(String docId) async {
   } on Exception catch (e) {
     throw Exception("Erreur lors de la suppressions : $e");
   }
+}
+
+Future<List<Exercise>> getAllExercisesFrom({String? authid}) async {
+  final List<Workout> workouts;
+  if (authid != null) {
+    workouts = await getAllWorkoutsFrom(uid: authid);
+  } else {
+    workouts = await getAllWorkoutsFrom();
+  }
+
+  List<Exercise> exercises = [];
+
+  for (var workout in workouts) {
+    for (var session in workout.sessions!) {
+      if (session.exercises == null) continue;
+      for (var exercise in session.exercises!) {
+        var ex = await getExercise(exercise.id!);
+        if (!exercises.any((e) => e.uid == exercise.id)) {
+          exercises.add(ex);
+        }
+      }
+    }
+  }
+
+  return exercises;
 }
