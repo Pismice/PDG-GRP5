@@ -2,9 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:g2g/model/user.dart';
-import 'package:g2g/model/exercice.dart';
-import 'package:g2g/model/session.dart';
-import 'package:g2g/model/workout.dart';
 
 final instance = FakeFirebaseFirestore();
 final users = instance.collection('user');
@@ -26,16 +23,16 @@ void deleteUser(String authid) async {
       .get()
       .then((value) => users.doc(value.docs[0].id));
   List<QueryDocumentSnapshot<Map<String, dynamic>>> docs = await exercise
-      .where('user', isEqualTo: "${ref.id}")
+      .where('user', isEqualTo: ref.id)
       .get()
       .then((value) => value.docs);
   docs.addAll(await session
-      .where('user', isEqualTo: "${ref.id}")
+      .where('user', isEqualTo: ref.id)
       .get()
       .then((value) => value.docs));
 
   docs.addAll(await workout
-      .where('user', isEqualTo: "${ref.id}")
+      .where('user', isEqualTo: ref.id)
       .get()
       .then((value) => value.docs));
 
