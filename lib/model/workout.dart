@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Workout {
+  String? uid;
   String? name;
   String? user;
   int? duration;
   List<WorkoutSessions>? sessions;
 
-  Workout({this.name, this.user, this.duration, this.sessions});
+  Workout({this.uid, this.name, this.user, this.duration, this.sessions});
 
   Workout.fromJson(Map<String, dynamic> json) {
     name = json['name'];

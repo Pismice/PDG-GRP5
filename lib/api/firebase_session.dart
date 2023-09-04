@@ -41,7 +41,8 @@ Future<Session> getSession(String documentId) async {
   if (snapshot.data() == null) {
     throw Exception("Séance non trouvée");
   }
-  final session = Session.fromJson(snapshot.data()!);
+  Session session = Session.fromJson(snapshot.data()!);
+  session.uid = documentId;
   return session;
 }
 
@@ -56,7 +57,11 @@ Future<List<Session>> getAllSessionsFrom({String? uid}) async {
 
   final snapshot = await sessions.where('user', isEqualTo: userRef).get();
 
-  final data = snapshot.docs.map((w) => Session.fromJson(w.data())).toList();
+  final data = snapshot.docs.map((s) {
+    Session session = Session.fromJson(s.data());
+    session.uid = s.id;
+    return session;
+  }).toList();
 
   return data;
 }
@@ -77,9 +82,9 @@ Future<void> addSession(Session session) async {
 
 /// Met à jour une [Session] passée en paramètre en fonction de son
 /// [docId]
-Future<void> updateSession(String docId, Session session) async {
+Future<void> updateSession(Session session) async {
   try {
-    await sessions.doc(docId).update(session.toFirestore());
+    await sessions.doc(session.uid).update(session.toFirestore());
   } on Exception catch (e) {
     throw Exception("Erreur lors de la modification : $e");
   }
