@@ -51,7 +51,7 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
                 hintText: 'Rename Workout',
               ))),
           Row(children: [
-            Text('Nombre de semaine'),
+            const Text('Nombre de semaine'),
             CupertinoButton(
                 padding: EdgeInsets.zero,
                 // Display a CupertinoPicker with list of fruits.
