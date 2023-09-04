@@ -160,7 +160,7 @@ Future<int> getDurationPR(String exId, {String? authid}) async {
   return await _getPR(exId, _SetsValue.duration);
 }
 
-Future<int> getBestRepetitionNb(String exId, {String? authid}) async {
+Future<int> getRepetitionPR(String exId, {String? authid}) async {
   if (authid != null) {
     return await _getPR(exId, _SetsValue.repetition, authid: authid);
   }

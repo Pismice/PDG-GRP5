@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_exercise.dart';
+import 'package:g2g/api/firebase_session.dart';
 import 'package:g2g/model/exercise.dart';
 
 class ExercicesPr extends StatefulWidget {
@@ -34,10 +35,28 @@ class _ExercicesPrState extends State<ExercicesPr> {
                 return ListView.builder(
                     itemCount: exercices.length,
                     itemBuilder: (context, index) {
+                      String metric = "";
+                      int value = 0;
                       final exercise = exercices[index];
+                      switch (exercise.type) {
+                        case "REP":
+                          value = getRepetitionPR(exercise.uid!) as int;
+                          metric = "x";
+                          break;
+                        case "TIME":
+                          value = getDurationPR(exercise.uid!) as int;
+                          metric = "s";
+                          break;
+                        case "WEIGHT":
+                        // Par défaut un exercice est considere comme WEIGHTed
+                        default:
+                          value = getWeightPR(exercise.uid!) as int;
+                          metric = "kg";
+                          break;
+                      }
                       return ListTile(
                         title: Text(exercise.name ?? "No name"),
-                        subtitle: Text("0 kg"),
+                        subtitle: Text("{$value} $metric"),
                       );
                     });
               }
