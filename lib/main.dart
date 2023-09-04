@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:g2g/screens/introduction/presentation.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'navigation_bar.dart';
-import 'screens/google_sign_in_screen.dart';
 
 void main() async {
   // Initialisation de Firebase
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.web,
+    options: DefaultFirebaseOptions.currentPlatform,
   );
 
   /*if (kDebugMode) {
@@ -50,9 +50,9 @@ class MyApp extends StatelessWidget {
           }
           final user = snapshot.data;
           if (user == null) {
-            return const GoogleSignInScreen();
+            return const AppPresentationScreen();
           } else {
-          return const MyNavigationBar();
+            return const MyNavigationBar();
           }
         },
       ),

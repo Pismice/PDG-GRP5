@@ -1,13 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
+
+final instance = FakeFirebaseFirestore();
 
 class Workout {
-  String? uid;
   String? name;
   String? user;
   int? duration;
   List<WorkoutSessions>? sessions;
 
-  Workout({this.uid, this.name, this.user, this.duration, this.sessions});
+  Workout({this.name, this.user, this.duration, this.sessions});
 
   Workout.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -23,21 +25,13 @@ class Workout {
 
   factory Workout.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) {
-    final data = snapshot.data();
-
-    return Workout(
-        name: data?['name'],
-        user: data?['user'],
-        duration: data?['duration'],
-        sessions: data?['sessions']
-            .map<WorkoutSessions>((e) => WorkoutSessions())
-            .toList());
+    return Workout();
   }
 
   Map<String, dynamic> toFirestore() {
     return {
       if (name != null) "name": name,
-      if (user != null) "user": FirebaseFirestore.instance.doc("user/$user"),
+      if (user != null) "user": instance.doc("user/$user"),
       if (duration != null) "duration": duration,
       if (sessions != null)
         "sessions": sessions!.map((s) => s.toFirestore()).toList(),
@@ -48,7 +42,7 @@ class Workout {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (name != null) data['name'] = name;
     if (user != null) {
-      data['user'] = FirebaseFirestore.instance.doc("user/$user");
+      data['user'] = instance.doc("user/$user");
     }
     if (duration != null) data['duration'] = duration;
     if (sessions != null) {
@@ -90,7 +84,7 @@ class WorkoutSessions {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (id != null) data['id'] = FirebaseFirestore.instance.doc("session/$id");
+    if (id != null) data['id'] = instance.doc("session/$id");
     if (duration != null) data['duration'] = duration;
     if (exercises != null) {
       data['exercises'] = exercises!.map((v) => v.toJson()).toList();
@@ -100,7 +94,7 @@ class WorkoutSessions {
 
   Map<String, dynamic> toFirestore() {
     return {
-      if (id != null) "id": FirebaseFirestore.instance.doc("session/$id"),
+      if (id != null) "id": instance.doc("session/$id"),
       if (duration != null) "duration": duration,
       if (exercises != null)
         "exercises": exercises!.map((e) => e.toFirestore()).toList(),
@@ -137,7 +131,7 @@ class ExercisesDone {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (id != null) data['id'] = FirebaseFirestore.instance.doc("exercise/$id");
+    if (id != null) data['id'] = instance.doc("exercise/$id");
     if (sets != null) {
       data['sets'] = sets!.map((v) => v.toJson()).toList();
     }
@@ -146,7 +140,7 @@ class ExercisesDone {
 
   Map<String, dynamic> toFirestore() {
     return {
-      if (id != null) "id": FirebaseFirestore.instance.doc("exercise/$id"),
+      if (id != null) "id": instance.doc("exercise/$id"),
       if (sets != null) "sets": sets!.map((s) => s.toFirestore()).toList(),
     };
   }
@@ -155,14 +149,12 @@ class ExercisesDone {
 class Sets {
   int? weight;
   int? repetition;
-  int? duration;
 
-  Sets({this.weight, this.repetition, this.duration});
+  Sets({this.weight, this.repetition});
 
   Sets.fromJson(Map<String, dynamic> json) {
     if (json['weight'] != null) weight = json['weight'];
     if (json['repetition'] != null) repetition = json['repetition'];
-    if (json['duration'] != null) duration = json['duration'];
   }
 
   factory Sets.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot,
@@ -171,7 +163,6 @@ class Sets {
     return Sets(
       weight: data?['weight'],
       repetition: data?['repetition'],
-      duration: data?['duration'],
     );
   }
 
@@ -179,7 +170,6 @@ class Sets {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (weight != null) data['weight'] = weight;
     if (repetition != null) data['repetition'] = repetition;
-    if (duration != null) data['duration'] = duration;
     return data;
   }
 
@@ -187,7 +177,6 @@ class Sets {
     return {
       if (weight != null) "weight": weight,
       if (repetition != null) "repetition": repetition,
-      if (duration != null) "duration": duration,
     };
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:g2g/screens/gestion/affichage/affichage_workout.dart';
+import 'package:g2g/screens/gestion/modification/editworkout.dart';
 
 void main() => runApp(const MyWorkoutScreen());
 
@@ -67,7 +69,13 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
             itemCount: items.length,
             itemBuilder: (context, index) {
               return ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MyWorkoutInfoPage()),
+                    );
+                  },
                   style: ButtonStyle(
                       foregroundColor: MaterialStateProperty.all(Colors.black),
                       backgroundColor:
@@ -82,7 +90,13 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
                           child: IconButton(
                             icon: const Icon(Icons.edit),
                             color: Colors.black,
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const MyEditWorkoutPage()));
+                            },
                           )),
                     ]),
                     Padding(

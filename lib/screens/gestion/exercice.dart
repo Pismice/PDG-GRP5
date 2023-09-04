@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:g2g/screens/gestion/modification/editexo.dart';
 
 void main() => runApp(const MyExerciceScreen());
 
@@ -13,7 +14,7 @@ class MyExerciceScreen extends StatefulWidget {
 class _MyExerciceScreen extends State<MyExerciceScreen> {
   TextEditingController editingController = TextEditingController();
 
-  final duplicateItems = List<String>.generate(10000, (i) => "Séance $i");
+  final duplicateItems = List<String>.generate(10000, (i) => "Exo $i");
   var items = <String>[];
 
   @override
@@ -85,14 +86,21 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                                 height: 75,
                                 width: 75,
                               ))),
-                      Expanded(child: Text('Nom exo $index')),
+                      Expanded(child: Text(items[index])),
                       Align(
                           alignment: Alignment.centerRight,
                           child: IconButton(
                             icon: const Icon(Icons.edit),
                             padding: const EdgeInsets.all(0),
                             color: Colors.black,
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const MyEditExoPage()),
+                              );
+                            },
                           )),
                     ]),
                   ]));
