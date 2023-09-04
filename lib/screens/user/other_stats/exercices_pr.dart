@@ -35,31 +35,48 @@ class _ExercicesPrState extends State<ExercicesPr> {
                 return ListView.builder(
                     itemCount: exercices.length,
                     itemBuilder: (context, index) {
-                      String metric = "";
-                      int value = 0;
                       final exercise = exercices[index];
-                      switch (exercise.type) {
-                        case "REP":
-                          value = getRepetitionPR(exercise.uid!) as int;
-                          metric = "x";
-                          break;
-                        case "TIME":
-                          value = getDurationPR(exercise.uid!) as int;
-                          metric = "s";
-                          break;
-                        case "WEIGHT":
-                        // Par défaut un exercice est considere comme WEIGHTed
-                        default:
-                          value = getWeightPR(exercise.uid!) as int;
-                          metric = "kg";
-                          break;
-                      }
-                      return ListTile(
-                        title: Text(exercise.name ?? "No name"),
-                        subtitle: Text("{$value} $metric"),
-                      );
+                      return FutureBuilder(
+                          future: buildListTile(exercise),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const CircularProgressIndicator();
+                            } else if (snapshot.hasError) {
+                              return Text("Error: ${snapshot.error}");
+                            } else {
+                              return snapshot.data ??
+                                  const SizedBox(); // Return an empty SizedBox if data is null
+                            }
+                          });
                     });
               }
             }));
   }
+}
+
+Future<Widget> buildListTile(Exercise exercise) async {
+  String metric = "";
+  int value = 0;
+  switch (exercise.type) {
+    case "REP":
+      value = await getRepetitionPR(exercise.uid!);
+      metric = "x";
+      break;
+    case "TIME":
+      value = await getDurationPR(exercise.uid!);
+      metric = "s";
+      break;
+    case "WEIGHT":
+    // Par défaut un exercice est considere comme WEIGHTed
+    default:
+      value = await getWeightPR(exercise.uid!);
+      metric = "kg";
+      break;
+  }
+
+  return ListTile(
+    title: Text(exercise.name ?? "No name"),
+    subtitle: Text("$value $metric"),
+  );
 }
