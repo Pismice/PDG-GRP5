@@ -43,6 +43,13 @@ class _MyEditSeancePage extends State<MyEditSeancePage> {
           title: const Text("Séance X"),
         ),
         body: Column(children: <Widget>[
+          const Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: TextField(
+                  decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Rename Seance',
+              ))),
           ListView.builder(
             shrinkWrap: true,
             itemCount: items.length,

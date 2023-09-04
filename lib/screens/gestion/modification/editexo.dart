@@ -34,7 +34,7 @@ class _MyEditExoPage extends State<MyEditExoPage> {
                   child: TextField(
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      hintText: 'Enter a search term',
+                      hintText: 'Rename exercise',
                     ),
                   ),
                 )
