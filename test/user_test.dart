@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:g2g/model/user.dart';
+import 'dart:developer' as developer;
 
 final instance = FakeFirebaseFirestore();
 final users = instance.collection('user');
@@ -74,6 +75,7 @@ void main() async {
         .doc((await getReference(u)).id)
         .get()
         .then((value) => value.data());
+    developer.log(data!['profilepicture']);
     expect(data!['profilepicture'], "TEST2");
   });
 
