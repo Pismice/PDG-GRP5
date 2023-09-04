@@ -42,6 +42,7 @@ dependencies:
   path: ^1.8.3
   uuid: ^3.0.7
   confetti: ^0.7.0
+  fake_cloud_firestore: ^2.4.1+1
 
 
 dev_dependencies:
