@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:g2g/screens/gestion/affichage/affichage_seance.dart';
+import 'package:g2g/screens/gestion/modification/editseance.dart';
 
 void main() => runApp(const MySessionScreen());
 
@@ -67,7 +69,13 @@ class _MySessionPageState extends State<MySessionScreen> {
             itemCount: items.length,
             itemBuilder: (context, index) {
               return ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MySeanceInfoPage()),
+                    );
+                  },
                   style: ButtonStyle(
                       foregroundColor: MaterialStateProperty.all(Colors.black),
                       backgroundColor:
@@ -84,7 +92,13 @@ class _MySessionPageState extends State<MySessionScreen> {
                             icon: const Icon(Icons.edit),
                             padding: const EdgeInsets.all(0),
                             color: Colors.black,
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const MyEditSeancePage()));
+                            },
                           )),
                     ]),
                   ]));
