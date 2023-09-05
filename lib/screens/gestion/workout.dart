@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_workout.dart';
+import 'package:g2g/model/workout.dart';
 import 'package:g2g/screens/gestion/affichage/affichage_workout.dart';
 import 'package:g2g/screens/gestion/modification/editworkout.dart';
 import 'package:g2g/screens/gestion/creation/create_workout.dart';
@@ -17,19 +18,22 @@ class MyWorkoutScreen extends StatefulWidget {
 class _MyWorkoutScreen extends State<MyWorkoutScreen> {
   TextEditingController editingController = TextEditingController();
 
-  final duplicateItems = List<String>.generate(10000, (i) => "Programme $i");
-  var items = <String>[];
+  List<Workout>? workouts = [];
+  var items = <Workout>[];
+  bool queryEmpty = true;
 
   @override
   void initState() {
-    items = duplicateItems;
+    items = workouts!;
     super.initState();
   }
 
   void filterSearchResults(String query) {
+    queryEmpty = query.isEmpty;
     setState(() {
-      items = duplicateItems
-          .where((item) => item.toLowerCase().contains(query.toLowerCase()))
+      items = workouts!
+          .where(
+              (item) => item.name!.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }
@@ -45,7 +49,13 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
 
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData) {
-            final workouts = snapshot.data;
+            workouts = snapshot.data;
+            if (workouts!.isEmpty) {
+              return const Text("Aucun workout crée");
+            }
+            if (items.isEmpty && queryEmpty) {
+              items = workouts!;
+            }
             return Column(
               children: <Widget>[
                 Row(children: <Widget>[
@@ -85,7 +95,7 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
                 Expanded(
                   child: ListView.builder(
                     shrinkWrap: true,
-                    itemCount: workouts!.length,
+                    itemCount: items.length,
                     itemBuilder: (context, index) {
                       return ElevatedButton(
                         onPressed: () {
@@ -109,7 +119,7 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
                               children: <Widget>[
                                 Expanded(
                                   child: Text(
-                                    workouts[index].name!,
+                                    items[index].name!,
                                   ),
                                 ),
                                 Align(
@@ -138,12 +148,12 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
                                   const Icon(Icons.repeat),
                                   Expanded(
                                     child: Text(
-                                        '${workouts[index].duration} Semaine'),
+                                        '${items[index].duration} Semaine'),
                                   ),
                                   Align(
                                     alignment: Alignment.topCenter,
                                     child: Text(
-                                        '${workouts[index].sessions!.length} entrainements'),
+                                        '${items[index].sessions!.length} entrainements'),
                                   ),
                                 ],
                               ),
