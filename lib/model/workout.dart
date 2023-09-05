@@ -30,7 +30,7 @@ class Workout {
         user: data?['user'],
         duration: data?['duration'],
         sessions: data?['sessions']
-            .map<WorkoutSessions>((e) => WorkoutSessions())
+            .map<WorkoutSessions>((e) => WorkoutSessions.fromJson(e))
             .toList());
   }
 
@@ -60,14 +60,16 @@ class Workout {
 
 class WorkoutSessions {
   String? id;
-  int? duration;
+  DateTime? start;
+  DateTime? end;
   List<ExercisesDone>? exercises;
 
-  WorkoutSessions({this.id, this.duration, this.exercises});
+  WorkoutSessions({this.id, this.start, this.end, this.exercises});
 
   WorkoutSessions.fromJson(Map<String, dynamic> json) {
     id = json['id'].id;
-    duration = json['duration'];
+    start = DateTime.fromMillisecondsSinceEpoch(json['start'].seconds * 1000);
+    end = DateTime.fromMillisecondsSinceEpoch(json['end'].seconds * 1000);
     if (json['exercises'] != null) {
       exercises = <ExercisesDone>[];
       json['exercises'].forEach((v) {
@@ -82,7 +84,8 @@ class WorkoutSessions {
     final data = snapshot.data();
     return WorkoutSessions(
       id: data?['id'].id,
-      duration: data?['duration'],
+      start: DateTime.fromMillisecondsSinceEpoch(data?['start']),
+      end: DateTime.fromMillisecondsSinceEpoch(data?['end']),
       exercises:
           data?['sessions'].map<ExercisesDone>((e) => ExercisesDone()).toList(),
     );
@@ -91,7 +94,8 @@ class WorkoutSessions {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (id != null) data['id'] = FirebaseFirestore.instance.doc("session/$id");
-    if (duration != null) data['duration'] = duration;
+    if (start != null) data['start'] = start!.millisecondsSinceEpoch / 1000;
+    if (end != null) data['end'] = end!.millisecondsSinceEpoch / 1000;
     if (exercises != null) {
       data['exercises'] = exercises!.map((v) => v.toJson()).toList();
     }
@@ -101,7 +105,8 @@ class WorkoutSessions {
   Map<String, dynamic> toFirestore() {
     return {
       if (id != null) "id": FirebaseFirestore.instance.doc("session/$id"),
-      if (duration != null) "duration": duration,
+      if (start != null) "start": start!.millisecondsSinceEpoch / 1000,
+      if (end != null) "end": end!.millisecondsSinceEpoch / 1000,
       if (exercises != null)
         "exercises": exercises!.map((e) => e.toFirestore()).toList(),
     };
