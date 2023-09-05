@@ -21,7 +21,7 @@ class _MyWorkoutInfoPage extends State<MyWorkoutInfoPage> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done &&
             snapshot.hasData) {
-          Scaffold(
+          return Scaffold(
               appBar: AppBar(
                 title: Text(snapshot.data!.name as String),
               ),
@@ -73,11 +73,35 @@ class _MyWorkoutInfoPage extends State<MyWorkoutInfoPage> {
                           onPressed: () {}, icon: const Icon(Icons.edit))),
                   Expanded(
                       child: IconButton(
-                          onPressed: () {}, icon: const Icon(Icons.delete)))
+                          onPressed: () {
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text('Suppréssion du workout'),
+                                content: const Text(
+                                    'Êtes-vous certain de vouloir supprimer ce workout ?'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, 'Cancel'),
+                                    child: const Text('Annuler'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      deleteWorkout(widget.id);
+                                      Navigator.pop(context, 'OK');
+                                    },
+                                    child: const Text('Supprimer'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.delete)))
                 ])
               ]));
         }
-        return const CircularProgressIndicator();
+        return const Center(child: CircularProgressIndicator());
       },
     );
   }
