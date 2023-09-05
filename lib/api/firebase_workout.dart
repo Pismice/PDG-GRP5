@@ -44,6 +44,11 @@ Future<Workout> getWorkout(String documentId) async {
   }
   Workout workout = Workout.fromJson(snapshot.data()!);
   workout.uid = documentId;
+
+  for (var i = 0; i < workout.sessions!.length; i++) {
+    workout.sessions![i].workoutId = workout.uid;
+  }
+
   return workout;
 }
 
@@ -61,6 +66,9 @@ Future<List<Workout>> getAllWorkoutsFrom({String? uid}) async {
   final data = snapshot.docs.map((w) {
     Workout workout = Workout.fromJson(w.data());
     workout.uid = w.id;
+    for (var i = 0; i < workout.sessions!.length; i++) {
+      workout.sessions![i].workoutId = workout.uid;
+    }
     return workout;
   }).toList();
 
