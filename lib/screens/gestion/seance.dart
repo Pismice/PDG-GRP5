@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_session.dart';
+import 'package:g2g/model/session.dart';
 import 'package:g2g/screens/gestion/affichage/affichage_seance.dart';
 import 'package:g2g/screens/gestion/modification/editseance.dart';
 import 'package:g2g/screens/gestion/creation/create_seance.dart';
@@ -17,19 +18,22 @@ class MySessionScreen extends StatefulWidget {
 class _MySessionPageState extends State<MySessionScreen> {
   TextEditingController editingController = TextEditingController();
 
-  final duplicateItems = List<String>.generate(10000, (i) => "Séance $i");
-  var items = <String>[];
+  List<Session>? sessions = [];
+  var items = <Session>[];
+  bool queryEmpty = true;
 
   @override
   void initState() {
-    items = duplicateItems;
+    items = sessions!;
     super.initState();
   }
 
   void filterSearchResults(String query) {
+    queryEmpty = query.isEmpty;
     setState(() {
-      items = duplicateItems
-          .where((item) => item.toLowerCase().contains(query.toLowerCase()))
+      items = sessions!
+          .where(
+              (item) => item.name!.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }
@@ -45,9 +49,12 @@ class _MySessionPageState extends State<MySessionScreen> {
 
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData) {
-            final sessions = snapshot.data;
+            sessions = snapshot.data;
             if (sessions!.isEmpty) {
               return const Text("Aucune session crée");
+            }
+            if (items.isEmpty && queryEmpty) {
+              items = sessions!;
             }
             return Column(
               children: <Widget>[
@@ -88,7 +95,7 @@ class _MySessionPageState extends State<MySessionScreen> {
                 Expanded(
                   child: ListView.builder(
                     shrinkWrap: true,
-                    itemCount: sessions.length,
+                    itemCount: items.length,
                     itemBuilder: (context, index) {
                       return ElevatedButton(
                           onPressed: () {
@@ -108,10 +115,10 @@ class _MySessionPageState extends State<MySessionScreen> {
                                   Colors.grey.shade100)),
                           child: Column(children: <Widget>[
                             Row(children: <Widget>[
-                              Expanded(child: Text(sessions[index].name!)),
+                              Expanded(child: Text(items[index].name!)),
                               Expanded(
                                   child: Text(
-                                      '${sessions[index].exercises!.length} exercices')),
+                                      '${items[index].exercises!.length} exercices')),
                               Align(
                                   alignment: Alignment.centerRight,
                                   child: IconButton(
