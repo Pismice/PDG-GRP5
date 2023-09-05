@@ -47,6 +47,7 @@ class _MyRepetitionState extends State<MyRepetition> {
             key: _formKey,
             child: Column(
               children: [
+                // TODO
                 const Text("Série 2 sur 3"),
                 Row(
                   children: [
@@ -98,7 +99,7 @@ class _MyRepetitionState extends State<MyRepetition> {
                           });
                         }
                         // Inserer dans la BD l exo effectue
-                        
+                        // TODO: inserer
                       }
                     },
                     child: const Text("Valider ma série"))

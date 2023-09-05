@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_exercise.dart';
+import 'package:g2g/api/firebase_session.dart';
 import 'package:g2g/model/session.dart';
-import 'package:g2g/screens/during_session/my_repetition_screen.dart';
+import 'package:g2g/model/workout.dart';
 
+// ignore: must_be_immutable
 class MyExercices extends StatelessWidget {
-  const MyExercices({super.key, required this.session});
-  final Session session;
+  MyExercices({super.key, required this.onGoingSession});
+  final WorkoutSessions onGoingSession;
+  Session session = Session();
+
+  Future<void> loadSessionData() async {
+    session = await getSession(onGoingSession.id!);
+  }
 
   @override
   Widget build(BuildContext context) {
+    loadSessionData();
     return Scaffold(
         appBar: AppBar(
           title: Text(session.name!),
