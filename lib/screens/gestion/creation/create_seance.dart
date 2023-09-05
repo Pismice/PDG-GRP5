@@ -13,7 +13,7 @@ class MyCreateSeance extends StatefulWidget {
 }
 
 class _MyCreateSeance extends State<MyCreateSeance> {
-  final items = List<String>.generate(0, (i) => "Exo $i");
+  var items = <String>[];
   var _selectedNumber = 1;
 
   void _showDialog(Widget child) {

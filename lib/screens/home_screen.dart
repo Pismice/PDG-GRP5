@@ -53,7 +53,7 @@ class HomeScreen extends StatelessWidget {
                                         snapshot.data![i].name as String))),
                             ListView.builder(
                                 shrinkWrap: true,
-                                itemCount: snapshot.data!.length - i + 1,
+                                itemCount: snapshot.data![i].sessions!.length,
                                 itemBuilder: (context, j) {
                                   return Container(
                                       padding: const EdgeInsets.all(8),

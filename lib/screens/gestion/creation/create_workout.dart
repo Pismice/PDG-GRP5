@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:g2g/screens/gestion/creation/addnew/addnewseance.dart';
 
 const double _kItemExtent = 32.0;
 
@@ -12,7 +13,7 @@ class MyCreateWorkout extends StatefulWidget {
 }
 
 class _MyCreateWorkout extends State<MyCreateWorkout> {
-  final items = List<String>.generate(4, (i) => "Seance $i");
+  var items = <String>[];
   var _selectedNumber = 1;
 
   void _showDialog(Widget child) {
@@ -113,8 +114,14 @@ class _MyCreateWorkout extends State<MyCreateWorkout> {
           ),
           Row(children: [
             Expanded(
-                child:
-                    IconButton(onPressed: () {}, icon: const Icon(Icons.add))),
+                child: IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MyAddNewSeance()));
+                    },
+                    icon: const Icon(Icons.add))),
             Expanded(
                 child: Container(
                     color: Colors.green[200],
