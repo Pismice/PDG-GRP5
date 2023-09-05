@@ -65,16 +65,24 @@ class SessionExercises {
   int? set;
   int? weight;
   int? duration;
+  String? sessionId;
 
-  SessionExercises(
-      {this.id, this.repetition, this.set, this.weight, this.duration});
+  SessionExercises({
+    this.id,
+    this.repetition,
+    this.set,
+    this.weight,
+    this.duration,
+    this.sessionId,
+  });
 
   SessionExercises.fromJson(Map<String, dynamic> json) {
-    id = json['id'].id;
+    if (json['id'] != null) id = json['id'].id;
     repetition = json['repetition'];
     set = json['set'];
     weight = json['weight'];
     duration = json['duration'];
+    if (json['sessionId'] != null) sessionId = json['sessionId'].id;
   }
 
   factory SessionExercises.fromFirestore(
@@ -82,30 +90,36 @@ class SessionExercises {
       SnapshotOptions? options) {
     final data = snapshot.data();
     return SessionExercises(
-      id: data?['id'].id,
+      id: data?['id'] != null ? data!['id'].id : null,
       repetition: data?['repetition'],
       set: data?['set'],
       weight: data?['weight'],
+      sessionId: data?['sessionId'] != null ? data!['sessionId'].id : null,
     );
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = FirebaseFirestore.instance.doc("session/$id");
+    if (id != null) data['id'] = FirebaseFirestore.instance.doc("exercise/$id");
     if (repetition != null) data['repetition'] = repetition;
     if (set != null) data['set'] = set;
     if (weight != null) data['weight'] = weight;
     if (duration != null) data['duration'] = duration;
+    if (sessionId != null) {
+      data['sessionId'] = FirebaseFirestore.instance.doc("session/$sessionId");
+    }
     return data;
   }
 
   Map<String, dynamic> toFirestore() {
     return {
-      "id": FirebaseFirestore.instance.doc("exercise/$id"),
+      if (id != null) "id": FirebaseFirestore.instance.doc("exercise/$id"),
       if (repetition != null) "repetition": repetition,
       if (set != null) "set": set,
       if (weight != null) "weight": weight,
       if (duration != null) "duration": duration,
+      if (sessionId != null)
+        "id": FirebaseFirestore.instance.doc("session/$sessionId"),
     };
   }
 }
