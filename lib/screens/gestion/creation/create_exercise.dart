@@ -30,7 +30,11 @@ class _MyCreateExercice extends State<MyCreateExercice> {
                       hintText: 'Nom exercise',
                     ),
                   ),
-                )
+                ),
+                Container(
+                    color: Colors.green[200],
+                    child: IconButton(
+                        onPressed: () {}, icon: const Icon(Icons.check)))
               ],
             )));
   }

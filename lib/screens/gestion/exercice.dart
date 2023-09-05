@@ -47,7 +47,7 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
               controller: editingController,
               decoration: const InputDecoration(
                   labelText: "Recherche",
-                  hintText: "Mon Workout",
+                  hintText: "Mon Exercice",
                   prefixIcon: Icon(Icons.search),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)))),

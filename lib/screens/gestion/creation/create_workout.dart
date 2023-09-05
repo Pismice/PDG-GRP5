@@ -111,8 +111,16 @@ class _MyCreateWorkout extends State<MyCreateWorkout> {
                   ));
             },
           ),
-          Expanded(
-              child: IconButton(onPressed: () {}, icon: const Icon(Icons.add))),
+          Row(children: [
+            Expanded(
+                child:
+                    IconButton(onPressed: () {}, icon: const Icon(Icons.add))),
+            Expanded(
+                child: Container(
+                    color: Colors.green[200],
+                    child: IconButton(
+                        onPressed: () {}, icon: const Icon(Icons.check))))
+          ]),
         ]));
   }
 }
