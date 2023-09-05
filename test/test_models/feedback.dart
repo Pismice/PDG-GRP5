@@ -1,4 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
+
+final instance = FakeFirebaseFirestore();
 
 class Feedback {
   String? uid;
@@ -31,7 +34,7 @@ class Feedback {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (user != null) {
-      data['user'] = FirebaseFirestore.instance.doc("user/$user");
+      data['user'] = instance.doc("user/$user");
     }
     if (email != null) data['email'] = email;
     if (title != null) data['title'] = title;
@@ -41,7 +44,7 @@ class Feedback {
 
   Map<String, dynamic> toFirestore() {
     return {
-      if (user != null) "user": FirebaseFirestore.instance.doc("user/$user"),
+      if (user != null) "user": instance.doc("user/$user"),
       if (email != null) "email": email,
       if (title != null) "title": title,
       if (comment != null) "comment": comment,
