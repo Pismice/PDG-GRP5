@@ -9,9 +9,11 @@ class SignOutButton extends StatelessWidget {
     return ElevatedButton(
         onPressed: () async {
           await FirebaseAuth.instance.signOut();
-          // ignore: use_build_context_synchronously
-          Navigator.pop(context);
+          FirebaseAuth.instance.userChanges();
+          if (context.mounted) {
+            Navigator.pop(context);
+          }
         },
-        child: const Text("sign out"));
+        child: const Text("Sign out"));
   }
 }

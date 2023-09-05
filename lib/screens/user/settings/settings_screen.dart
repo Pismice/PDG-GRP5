@@ -14,10 +14,18 @@ class SettingsScreen extends StatelessWidget {
       ),
       body: const Column(
         children: [
-          Text("autres options"),
           SignOutButton(),
+          SizedBox(
+            height: 10,
+          ),
           DeleteAccountButton(),
+          SizedBox(
+            height: 10,
+          ),
           FeedbackButton(),
+          SizedBox(
+            height: 10,
+          ),
           Text("Version acutelle de l'app: 0.0.1"),
         ],
       ),
