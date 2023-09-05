@@ -9,15 +9,6 @@ final instance = FakeFirebaseFirestore();
 var workouts = instance.collection("workout");
 var users = instance.collection("user");
 
-Future<DocumentReference<Map<String, dynamic>>> getReference(
-    Workout workout) async {
-  return await workouts
-      .where('name', isEqualTo: workout.name)
-      .limit(1)
-      .get()
-      .then((value) => workouts.doc(value.docs[0].id));
-}
-
 Future<DocumentReference<Map<String, dynamic>>> getUserReference(
     String authid) async {
   return await users
@@ -27,13 +18,14 @@ Future<DocumentReference<Map<String, dynamic>>> getUserReference(
       .then((value) => users.doc(value.docs[0].id));
 }
 
-Future<Workout> getSession(String documentId) async {
+Future<Workout> getWorkout(String documentId) async {
   final snapshot = await workouts.doc(documentId).get();
   if (snapshot.data() == null) {
-    throw Exception("Séance non trouvée");
+    throw Exception("Workout non trouvée");
   }
-  final session = Workout.fromJson(snapshot.data()!);
-  return session;
+  var workout = Workout.fromJson(snapshot.data()!);
+  workout.uid = documentId;
+  return workout;
 }
 
 Future<List<Workout>> getAllWorkoutsFrom(String? uid) async {
@@ -47,7 +39,11 @@ Future<List<Workout>> getAllWorkoutsFrom(String? uid) async {
   truc.docs.map((e) async => await e.data()['user'].get());
   final snapshot = await workouts.where('user', isEqualTo: userRef).get();
 
-  final data = snapshot.docs.map((w) => Workout.fromJson(w.data())).toList();
+  final data = snapshot.docs.map((w) {
+    var workout = Workout.fromJson(w.data());
+    workout.uid = w.id;
+    return workout;
+  }).toList();
 
   return data;
 }
@@ -58,16 +54,16 @@ Future<void> addWorkout(Workout workout) async {
         .withConverter(
             fromFirestore: Workout.fromFirestore,
             toFirestore: (Workout workout, options) => workout.toFirestore())
-        .doc()
+        .doc(workout.uid)
         .set(workout);
   } on Exception catch (e) {
     throw Exception("Erreur lors de l'ajout : $e");
   }
 }
 
-Future<void> updateWorkout(String docId, Workout workout) async {
+Future<void> updateWorkout(Workout workout) async {
   try {
-    await workouts.doc(docId).update(workout.toFirestore());
+    await workouts.doc(workout.uid).update(workout.toFirestore());
   } on Exception catch (e) {
     throw Exception("Erreur lors de la modification : $e");
   }
@@ -92,6 +88,7 @@ void main() async {
   await addUser();
 
   Workout workout = Workout(
+      uid: "hiphiphip",
       name: "workout test",
       user: (await getUserReference("hihihihihhi")).id,
       duration: 50);
@@ -108,9 +105,7 @@ void main() async {
   test("addWorkout", () async {
     await addWorkout(workout);
 
-    final ref = await getReference(workout);
-
-    final doc = await getSession(ref.id);
+    final doc = await getWorkout(workout.uid!);
 
     expect(doc.name, workout.name);
   });
@@ -118,11 +113,10 @@ void main() async {
   test("updateWorkout", () async {
     await addWorkout(workout);
 
-    final ref = await getReference(workout);
     workout.name = "euh voila quoi c'est un workout quoi";
 
-    await updateWorkout(ref.id, workout);
-    final doc = await getSession(ref.id);
+    await updateWorkout(workout);
+    final doc = await getWorkout(workout.uid!);
 
     expect(doc.name, "euh voila quoi c'est un workout quoi");
   });
@@ -130,14 +124,12 @@ void main() async {
   test("deleteWorkout", () async {
     await addWorkout(workout);
 
-    var ref = await getReference(workout);
-
-    var doc = await workouts.doc(ref.id).get();
+    var doc = await workouts.doc(workout.uid).get();
     expect(true, doc.exists);
 
-    deleteWorkout(ref.id);
+    deleteWorkout(workout.uid!);
 
-    doc = await workouts.doc(ref.id).get();
+    doc = await workouts.doc(workout.uid).get();
     expect(false, doc.exists);
   });
 }
