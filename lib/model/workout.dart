@@ -5,14 +5,22 @@ class Workout {
   String? name;
   String? user;
   int? duration;
+  int? week;
   List<WorkoutSessions>? sessions;
 
-  Workout({this.uid, this.name, this.user, this.duration, this.sessions});
+  Workout(
+      {this.uid,
+      this.name,
+      this.user,
+      this.duration,
+      this.week,
+      this.sessions});
 
   Workout.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     user = json['user'].id;
     duration = json['duration'];
+    week = json['week'];
     if (json['sessions'] != null) {
       sessions = <WorkoutSessions>[];
       json['sessions'].forEach((v) {
@@ -29,8 +37,9 @@ class Workout {
         name: data?['name'],
         user: data?['user'],
         duration: data?['duration'],
+        week: data?['week'],
         sessions: data?['sessions']
-            .map<WorkoutSessions>((e) => WorkoutSessions())
+            .map<WorkoutSessions>((e) => WorkoutSessions.fromJson(e))
             .toList());
   }
 
@@ -39,6 +48,7 @@ class Workout {
       if (name != null) "name": name,
       if (user != null) "user": FirebaseFirestore.instance.doc("user/$user"),
       if (duration != null) "duration": duration,
+      if (week != null) "week": week,
       if (sessions != null)
         "sessions": sessions!.map((s) => s.toFirestore()).toList(),
     };
@@ -51,6 +61,7 @@ class Workout {
       data['user'] = FirebaseFirestore.instance.doc("user/$user");
     }
     if (duration != null) data['duration'] = duration;
+    if (week != null) data['week'] = week;
     if (sessions != null) {
       data['sessions'] = sessions!.map((v) => v.toJson()).toList();
     }
@@ -60,14 +71,20 @@ class Workout {
 
 class WorkoutSessions {
   String? id;
-  int? duration;
+  DateTime? start;
+  DateTime? end;
   List<ExercisesDone>? exercises;
 
-  WorkoutSessions({this.id, this.duration, this.exercises});
+  WorkoutSessions({this.id, this.start, this.end, this.exercises});
 
   WorkoutSessions.fromJson(Map<String, dynamic> json) {
     id = json['id'].id;
-    duration = json['duration'];
+    if (json['start'] != null) {
+      start = DateTime.fromMillisecondsSinceEpoch(json['start'].seconds * 1000);
+    }
+    if (json['end'] != null) {
+      end = DateTime.fromMillisecondsSinceEpoch(json['end'].seconds * 1000);
+    }
     if (json['exercises'] != null) {
       exercises = <ExercisesDone>[];
       json['exercises'].forEach((v) {
@@ -82,7 +99,12 @@ class WorkoutSessions {
     final data = snapshot.data();
     return WorkoutSessions(
       id: data?['id'].id,
-      duration: data?['duration'],
+      start: data?['start'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(data?['start'])
+          : null,
+      end: data?['end'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(data?['end'])
+          : null,
       exercises:
           data?['sessions'].map<ExercisesDone>((e) => ExercisesDone()).toList(),
     );
@@ -91,7 +113,8 @@ class WorkoutSessions {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (id != null) data['id'] = FirebaseFirestore.instance.doc("session/$id");
-    if (duration != null) data['duration'] = duration;
+    if (start != null) data['start'] = start!.millisecondsSinceEpoch / 1000;
+    if (end != null) data['end'] = end!.millisecondsSinceEpoch / 1000;
     if (exercises != null) {
       data['exercises'] = exercises!.map((v) => v.toJson()).toList();
     }
@@ -101,7 +124,8 @@ class WorkoutSessions {
   Map<String, dynamic> toFirestore() {
     return {
       if (id != null) "id": FirebaseFirestore.instance.doc("session/$id"),
-      if (duration != null) "duration": duration,
+      if (start != null) "start": start!.millisecondsSinceEpoch / 1000,
+      if (end != null) "end": end!.millisecondsSinceEpoch / 1000,
       if (exercises != null)
         "exercises": exercises!.map((e) => e.toFirestore()).toList(),
     };

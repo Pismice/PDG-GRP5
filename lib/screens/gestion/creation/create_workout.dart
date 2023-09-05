@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:g2g/screens/gestion/creation/addnew/addnewseance.dart';
 
 const double _kItemExtent = 32.0;
 
-class MyEditWorkoutPage extends StatefulWidget {
-  const MyEditWorkoutPage({Key? key}) : super(key: key);
+class MyCreateWorkout extends StatefulWidget {
+  const MyCreateWorkout({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
-  _MyEditWorkoutPage createState() => _MyEditWorkoutPage();
+  _MyCreateWorkout createState() => _MyCreateWorkout();
 }
 
-class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
-  final items = List<String>.generate(4, (i) => "Seance $i");
+class _MyCreateWorkout extends State<MyCreateWorkout> {
+  var items = <String>[];
   var _selectedNumber = 1;
 
   void _showDialog(Widget child) {
@@ -111,8 +112,22 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
                   ));
             },
           ),
-          Expanded(
-              child: IconButton(onPressed: () {}, icon: const Icon(Icons.add))),
+          Row(children: [
+            Expanded(
+                child: IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MyAddNewSeance()));
+                    },
+                    icon: const Icon(Icons.add))),
+            Expanded(
+                child: Container(
+                    color: Colors.green[200],
+                    child: IconButton(
+                        onPressed: () {}, icon: const Icon(Icons.check))))
+          ]),
         ]));
   }
 }

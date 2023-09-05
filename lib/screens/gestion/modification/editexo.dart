@@ -37,7 +37,11 @@ class _MyEditExoPage extends State<MyEditExoPage> {
                       hintText: 'Rename exercise',
                     ),
                   ),
-                )
+                ),
+                Container(
+                    color: Colors.green[200],
+                    child: IconButton(
+                        onPressed: () {}, icon: const Icon(Icons.check)))
               ],
             )));
   }

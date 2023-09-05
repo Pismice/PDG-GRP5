@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:g2g/screens/gestion/creation/addnew/addnewexercise.dart';
 
 const double _kItemExtent = 32.0;
 
@@ -138,8 +139,19 @@ class _MyEditSeancePage extends State<MyEditSeancePage> {
           ),
           Row(children: [
             Expanded(
-                child:
-                    IconButton(onPressed: () {}, icon: const Icon(Icons.add))),
+                child: IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MyAddNewExercise()));
+                    },
+                    icon: const Icon(Icons.add))),
+            Expanded(
+                child: Container(
+                    color: Colors.green[200],
+                    child: IconButton(
+                        onPressed: () {}, icon: const Icon(Icons.check)))),
             Expanded(
                 child: IconButton(
                     onPressed: () {}, icon: const Icon(Icons.delete)))

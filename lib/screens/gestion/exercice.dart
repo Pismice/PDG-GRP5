@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:g2g/screens/gestion/modification/editexo.dart';
+import 'package:g2g/screens/gestion/creation/create_exercise.dart';
 
 void main() => runApp(const MyExerciceScreen());
 
@@ -46,7 +47,7 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
               controller: editingController,
               decoration: const InputDecoration(
                   labelText: "Recherche",
-                  hintText: "Mon Workout",
+                  hintText: "Mon Exercice",
                   prefixIcon: Icon(Icons.search),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)))),
@@ -59,7 +60,12 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                   child: IconButton(
                     icon: const Icon(Icons.add),
                     color: Colors.black,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MyCreateExercice()));
+                    },
                   ))),
         ]),
         Expanded(

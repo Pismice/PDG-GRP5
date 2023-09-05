@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:g2g/screens/gestion/creation/addnew/addnewexercise.dart';
+//import 'package:g2g/screens/gestion/creation/create_exercise.dart';
 
 const double _kItemExtent = 32.0;
 
-class MyCreateSeance extends StatefulWidget {
-  const MyCreateSeance({Key? key}) : super(key: key);
+class MyAddNewSeance extends StatefulWidget {
+  const MyAddNewSeance({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
-  _MyCreateSeance createState() => _MyCreateSeance();
+  _MyEditSeancePage createState() => _MyEditSeancePage();
 }
 
-class _MyCreateSeance extends State<MyCreateSeance> {
+class _MyEditSeancePage extends State<MyAddNewSeance> {
   var items = <String>[];
   var _selectedNumber = 1;
 
@@ -139,19 +139,16 @@ class _MyCreateSeance extends State<MyCreateSeance> {
           ),
           Row(children: [
             Expanded(
-                child: IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const MyAddNewExercise()));
-                    },
-                    icon: const Icon(Icons.add))),
+                child:
+                    IconButton(onPressed: () {}, icon: const Icon(Icons.add))),
             Expanded(
                 child: Container(
                     color: Colors.green[200],
                     child: IconButton(
-                        onPressed: () {}, icon: const Icon(Icons.check))))
+                        onPressed: () {}, icon: const Icon(Icons.check)))),
+            Expanded(
+                child: IconButton(
+                    onPressed: () {}, icon: const Icon(Icons.delete)))
           ])
         ]));
   }
