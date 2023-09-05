@@ -14,22 +14,25 @@ Future<User> getUser(String authid) async {
   return User.fromJson(data);
 }
 
-void deleteUser(String authid) async {
-  DocumentReference ref = users
-          .where('authid', isEqualTo: authid)
-          .get()
-          .then((value) => users.doc(value.docs[0].id))
-      as DocumentReference<Map<String, dynamic>>;
-  List<QueryDocumentSnapshot<Map<String, dynamic>>> docs =
-      exercise.where('user', isEqualTo: ref).get().then((value) => value.docs)
-          as List<QueryDocumentSnapshot<Map<String, dynamic>>>;
-  docs.addAll(
-      session.where('user', isEqualTo: ref).get().then((value) => value.docs)
-          as List<QueryDocumentSnapshot<Map<String, dynamic>>>);
+Future<void> deleteUser(String authid) async {
+  DocumentReference ref = await users
+      .where('authid', isEqualTo: authid)
+      .get()
+      .then((value) => users.doc(value.docs[0].id));
+  List<QueryDocumentSnapshot<Map<String, dynamic>>> docs = await exercise
+      .where('user', isEqualTo: ref)
+      .get()
+      .then((value) => value.docs);
 
-  docs.addAll(
-      workout.where('user', isEqualTo: ref).get().then((value) => value.docs)
-          as List<QueryDocumentSnapshot<Map<String, dynamic>>>);
+  docs.addAll(await session
+      .where('user', isEqualTo: ref)
+      .get()
+      .then((value) => value.docs));
+
+  docs.addAll(await workout
+      .where('user', isEqualTo: ref)
+      .get()
+      .then((value) => value.docs));
 
   for (var doc in docs) {
     doc.reference.delete();
