@@ -46,6 +46,9 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData) {
             final workouts = snapshot.data;
+            if (workouts!.isEmpty) {
+              return const Text("Aucun workout crée");
+            }
             return Column(
               children: <Widget>[
                 Row(children: <Widget>[
