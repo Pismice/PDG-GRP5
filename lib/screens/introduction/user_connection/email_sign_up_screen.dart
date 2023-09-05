@@ -103,6 +103,7 @@ class _EmailSignUpScreenState extends State<EmailSignUpScreen> {
                 if (value!.length < 4) {
                   return "Password must be at least 4 characters long";
                 }
+                return null;
               },
               decoration: const InputDecoration(
                 labelText: 'Password',
