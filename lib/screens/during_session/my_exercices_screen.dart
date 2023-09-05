@@ -41,14 +41,15 @@ class MyExercices extends StatelessWidget {
                           } else if (exoBase.hasError) {
                             return Text('Error: ${exoBase.error}');
                           } else {
+                            String imageName =
+                                exoBase.data!.img ?? "default.png";
                             return Row(
                               children: [
                                 FutureBuilder(
                                   future: FirebaseStorage.instance
                                       .refFromURL(
                                           'gs://hongym-4cb68.appspot.com')
-                                      .child(
-                                          "img/exercises/${exoBase.data!.img!}") // TODO image de secours
+                                      .child("img/exercises/$imageName")
                                       .getDownloadURL(),
                                   builder: (context, snapshotImage) {
                                     if (exoBase.connectionState ==
