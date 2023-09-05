@@ -141,6 +141,11 @@ class _MyEditSeancePage extends State<MyEditSeancePage> {
                 child:
                     IconButton(onPressed: () {}, icon: const Icon(Icons.add))),
             Expanded(
+                child: Container(
+                    color: Colors.green[200],
+                    child: IconButton(
+                        onPressed: () {}, icon: const Icon(Icons.check)))),
+            Expanded(
                 child: IconButton(
                     onPressed: () {}, icon: const Icon(Icons.delete)))
           ])

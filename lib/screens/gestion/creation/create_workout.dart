@@ -3,15 +3,15 @@ import 'package:flutter/cupertino.dart';
 
 const double _kItemExtent = 32.0;
 
-class MyEditWorkoutPage extends StatefulWidget {
-  const MyEditWorkoutPage({Key? key}) : super(key: key);
+class MyCreateWorkout extends StatefulWidget {
+  const MyCreateWorkout({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
-  _MyEditWorkoutPage createState() => _MyEditWorkoutPage();
+  _MyCreateWorkout createState() => _MyCreateWorkout();
 }
 
-class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
+class _MyCreateWorkout extends State<MyCreateWorkout> {
   final items = List<String>.generate(4, (i) => "Seance $i");
   var _selectedNumber = 1;
 
@@ -111,8 +111,16 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
                   ));
             },
           ),
-          Expanded(
-              child: IconButton(onPressed: () {}, icon: const Icon(Icons.add))),
+          Row(children: [
+            Expanded(
+                child:
+                    IconButton(onPressed: () {}, icon: const Icon(Icons.add))),
+            Expanded(
+                child: Container(
+                    color: Colors.green[200],
+                    child: IconButton(
+                        onPressed: () {}, icon: const Icon(Icons.check))))
+          ]),
         ]));
   }
 }

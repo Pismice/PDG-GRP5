@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:g2g/screens/gestion/affichage/affichage_seance.dart';
 import 'package:g2g/screens/gestion/modification/editseance.dart';
+import 'package:g2g/screens/gestion/creation/create_seance.dart';
 
 void main() => runApp(const MySessionScreen());
 
@@ -60,7 +61,12 @@ class _MySessionPageState extends State<MySessionScreen> {
                   child: IconButton(
                     icon: const Icon(Icons.add),
                     color: Colors.black,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MyCreateSeance()));
+                    },
                   ))),
         ]),
         Expanded(
