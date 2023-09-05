@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'navigation_bar.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   // Initialisation de Firebase
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
