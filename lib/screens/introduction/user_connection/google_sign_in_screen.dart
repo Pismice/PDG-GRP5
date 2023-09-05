@@ -12,8 +12,15 @@ Future<UserCredential> signInWithGoogle() async {
   // Once signed in, return the UserCredential
   Future<UserCredential> out =
       FirebaseAuth.instance.signInWithPopup(googleProvider);
-  out.then((value) => {
-        if (value.additionalUserInfo!.isNewUser) {addNewUserToFirestore(value)}
+  out.then((value) async => {
+        if (await FirebaseFirestore.instance
+                .collection('user')
+                .where('authid', isEqualTo: value.user!.uid)
+                .limit(1)
+                .get()
+                .then((value) => value.docs.length) ==
+            0)
+          {await addNewUserToFirestore(value)}
       });
   return out;
 }
