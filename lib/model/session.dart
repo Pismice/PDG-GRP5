@@ -25,6 +25,7 @@ class Session {
     final data = snapshot.data();
 
     return Session(
+        uid: snapshot.id,
         name: data?['name'],
         user: data?['user'].id,
         duration: data?['duration'],

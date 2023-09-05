@@ -39,7 +39,10 @@ void deleteUser(String authid) async {
 
 void updateUser(User user) async {
   User storeUser = User.fromFirestore(
-      users.doc(user.uid).get().then((DocumentSnapshot snapshot) => snapshot)
+      await users
+              .doc(user.uid)
+              .get()
+              .then((DocumentSnapshot snapshot) => snapshot)
           as DocumentSnapshot<Map<String, dynamic>>,
       null);
   if (user.profilepicture != storeUser.profilepicture) {

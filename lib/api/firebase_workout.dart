@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_session.dart';
 import 'package:g2g/model/session.dart';
 import 'package:g2g/model/workout.dart';
+import 'package:intl/intl.dart';
 
 class GetWorkout extends StatelessWidget {
   final String documentId;
@@ -64,6 +65,36 @@ Future<List<Workout>> getAllWorkoutsFrom({String? uid}) async {
   }).toList();
 
   return data;
+}
+
+int numOfWeeks(int year) {
+  DateTime dec28 = DateTime(year, 12, 28);
+  int dayOfDec28 = int.parse(DateFormat("D").format(dec28));
+  return ((dayOfDec28 - dec28.weekday + 10) / 7).floor();
+}
+
+int weekNumber(DateTime date) {
+  int dayOfYear = int.parse(DateFormat("D").format(date));
+  int woy = ((dayOfYear - date.weekday + 10) / 7).floor();
+  if (woy < 1) {
+    woy = numOfWeeks(date.year - 1);
+  } else if (woy > numOfWeeks(date.year)) {
+    woy = 1;
+  }
+  return woy;
+}
+
+Future<List<Workout>> getAllActiveWorkoutFrom({String? uid}) async {
+  final data = await getAllWorkoutsFrom(uid: uid);
+  List<Workout> out = List.empty();
+  final currentWeek = weekNumber(DateTime.now());
+  for (var d in data) {
+    if (d.week! >= currentWeek &&
+        d.week! <= (currentWeek + (d.duration as int))) {
+      out.add(d);
+    }
+  }
+  return out;
 }
 
 Future<Workout> addWorkout(Workout workout) async {
