@@ -85,7 +85,7 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
                 Expanded(
                   child: ListView.builder(
                     shrinkWrap: true,
-                    itemCount: workouts.length,
+                    itemCount: workouts!.length,
                     itemBuilder: (context, index) {
                       return ElevatedButton(
                         onPressed: () {
