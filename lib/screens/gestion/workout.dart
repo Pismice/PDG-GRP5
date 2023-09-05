@@ -46,7 +46,6 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData) {
             final workouts = snapshot.data;
-            print(workouts!.length);
             return Column(
               children: <Widget>[
                 Row(children: <Widget>[
