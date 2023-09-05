@@ -79,8 +79,12 @@ class WorkoutSessions {
 
   WorkoutSessions.fromJson(Map<String, dynamic> json) {
     id = json['id'].id;
-    start = DateTime.fromMillisecondsSinceEpoch(json['start'].seconds * 1000);
-    end = DateTime.fromMillisecondsSinceEpoch(json['end'].seconds * 1000);
+    if (json['start'] != null) {
+      start = DateTime.fromMillisecondsSinceEpoch(json['start'].seconds * 1000);
+    }
+    if (json['end'] != null) {
+      end = DateTime.fromMillisecondsSinceEpoch(json['end'].seconds * 1000);
+    }
     if (json['exercises'] != null) {
       exercises = <ExercisesDone>[];
       json['exercises'].forEach((v) {
@@ -95,8 +99,12 @@ class WorkoutSessions {
     final data = snapshot.data();
     return WorkoutSessions(
       id: data?['id'].id,
-      start: DateTime.fromMillisecondsSinceEpoch(data?['start']),
-      end: DateTime.fromMillisecondsSinceEpoch(data?['end']),
+      start: data?['start'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(data?['start'])
+          : null,
+      end: data?['end'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(data?['end'])
+          : null,
       exercises:
           data?['sessions'].map<ExercisesDone>((e) => ExercisesDone()).toList(),
     );
