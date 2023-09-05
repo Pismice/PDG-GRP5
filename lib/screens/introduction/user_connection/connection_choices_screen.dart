@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:g2g/screens/introduction/user_connection/email_sign_in_screen.dart';
+import 'package:g2g/screens/introduction/user_connection/email_sign_up_screen.dart';
 
 Future<UserCredential> signInWithGoogle() async {
   // Create a new provider
@@ -33,8 +35,8 @@ Future<void> addNewUserToFirestore(UserCredential user) {
   });
 }
 
-class GoogleSignInScreen extends StatelessWidget {
-  const GoogleSignInScreen({super.key});
+class ConnectionChoicesScreen extends StatelessWidget {
+  const ConnectionChoicesScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,6 +66,50 @@ class GoogleSignInScreen extends StatelessWidget {
                     width: 10,
                   ),
                   Text('Sign In with Google'),
+                ],
+              ),
+            ),
+            TextButton(
+              onPressed: () async {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const EmailSignUpScreen()));
+              },
+              child: const Row(
+                children: [
+                  Image(
+                    image: AssetImage("ressources/email.png"),
+                    height: 20,
+                    width: 20,
+                  ),
+                  SizedBox(
+                    height: 10,
+                    width: 10,
+                  ),
+                  Text('Sign Up with Email'),
+                ],
+              ),
+            ),
+            TextButton(
+              onPressed: () async {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const EmailSignInScreen()));
+              },
+              child: const Row(
+                children: [
+                  Image(
+                    image: AssetImage("ressources/email.png"),
+                    height: 20,
+                    width: 20,
+                  ),
+                  SizedBox(
+                    height: 10,
+                    width: 10,
+                  ),
+                  Text('Sign In with Email'),
                 ],
               ),
             ),
