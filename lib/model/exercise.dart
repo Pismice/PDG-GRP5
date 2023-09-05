@@ -43,10 +43,10 @@ class Exercise {
 
   Map<String, dynamic> toFirestore() {
     return {
-      if (name != null) "name": FirebaseFirestore.instance.doc("user/$user"),
+      if (name != null) "name": name,
       if (img != null) "img": img,
       if (type != null) "type": type,
-      if (user != null) "user": user,
+      if (user != null) "user": FirebaseFirestore.instance.doc("user/$user"),
     };
   }
 }
