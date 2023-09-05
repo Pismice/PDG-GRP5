@@ -13,7 +13,7 @@ class Exercise {
     name = json['name'];
     img = json['img'];
     type = json['type'];
-    user = json['user'];
+    if (json['user'] != null) user = json['user'].id;
   }
 
   factory Exercise.fromFirestore(
@@ -25,7 +25,7 @@ class Exercise {
       name: data?['name'],
       img: data?['img'],
       type: data?['type'],
-      user: data?['user'],
+      user: (data?['user'] != null) ? data!['user'].id : null,
     );
   }
 
@@ -34,14 +34,16 @@ class Exercise {
     if (name != null) data['name'] = name;
     if (img != null) data['img'] = img;
     if (type != null) data['type'] = type;
-    if (user != null) data['user'] = user;
+    if (user != null) {
+      data['user'] = FirebaseFirestore.instance.doc("user/$user");
+    }
 
     return data;
   }
 
   Map<String, dynamic> toFirestore() {
     return {
-      if (name != null) "name": name,
+      if (name != null) "name": FirebaseFirestore.instance.doc("user/$user"),
       if (img != null) "img": img,
       if (type != null) "type": type,
       if (user != null) "user": user,
