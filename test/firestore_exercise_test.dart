@@ -1,8 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:g2g/model/exercise.dart';
+import 'test_models/exercise.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 
 final instance = FakeFirebaseFirestore();
+
+Future<DocumentReference<Map<String, dynamic>>> getUserReference(
+    String authid) async {
+  return await users
+      .where('authid', isEqualTo: authid)
+      .limit(1)
+      .get()
+      .then((value) => users.doc(value.docs[0].id));
+}
 
 Future<void> addUser() async {
   await instance.collection('user').add({
@@ -54,11 +64,14 @@ final users = instance.collection('user');
 final exercises = instance.collection('exercise');
 
 void main() async {
+  await addUser();
+
   Exercise e = Exercise(
     uid: "nimportequoi",
     name: "cool pompe",
     img: "pompe.png",
     type: "REP",
+    user: (await getUserReference('nimportequoi')).id,
   );
 
   test("addExercise", () async {
