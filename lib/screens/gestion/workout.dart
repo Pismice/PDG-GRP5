@@ -92,8 +92,8 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    const MyWorkoutInfoPage()),
+                                builder: (context) => MyWorkoutInfoPage(
+                                    snapshot.data![index].uid as String)),
                           );
                         },
                         style: ButtonStyle(

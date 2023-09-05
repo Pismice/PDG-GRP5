@@ -40,8 +40,8 @@ class HomeScreen extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      const MyWorkoutInfoPage()),
+                                  builder: (context) => MyWorkoutInfoPage(
+                                      snapshot.data![i].uid as String)),
                             );
                           },
                           child: Column(children: <Widget>[
