@@ -8,7 +8,7 @@ final users = FirebaseFirestore.instance.collection('user');
 Future<List<Workout>> getAllWorkoutFor(User user) async {
   List<Workout> workouts = List.empty();
   var docs = await workout
-      .where('user', isEqualTo: users.doc("user/${user.uid}"))
+      .where('user', isEqualTo: users.doc(user.uid))
       .get()
       .then((value) => value.docs);
   for (var doc in docs) {
