@@ -9,15 +9,6 @@ final instance = FakeFirebaseFirestore();
 var sessions = instance.collection("session");
 var users = instance.collection("user");
 
-Future<DocumentReference<Map<String, dynamic>>> getReference(
-    Session session) async {
-  return await sessions
-      .where('name', isEqualTo: session.name)
-      .limit(1)
-      .get()
-      .then((value) => sessions.doc(value.docs[0].id));
-}
-
 Future<DocumentReference<Map<String, dynamic>>> getUserReference(
     String authid) async {
   return await users
@@ -32,7 +23,8 @@ Future<Session> getSession(String documentId) async {
   if (snapshot.data() == null) {
     throw Exception("Séance non trouvée");
   }
-  final session = Session.fromJson(snapshot.data()!);
+  var session = Session.fromJson(snapshot.data()!);
+  session.uid = documentId;
   return session;
 }
 
@@ -45,7 +37,11 @@ Future<List<Session>> getAllSessionsFrom(String? uid) async {
 
   final snapshot = await sessions.where('user', isEqualTo: userRef).get();
 
-  final data = snapshot.docs.map((w) => Session.fromJson(w.data())).toList();
+  final data = snapshot.docs.map((w) {
+    var session = Session.fromJson(w.data());
+    session.uid = w.id;
+    return session;
+  }).toList();
 
   return data;
 }
@@ -57,7 +53,7 @@ Future<void> addSession(Session session) async {
         .withConverter(
             fromFirestore: Session.fromFirestore,
             toFirestore: (Session session, options) => session.toFirestore())
-        .doc()
+        .doc(session.uid)
         .set(session);
   } on Exception catch (e) {
     throw Exception("Erreur lors de l'ajout : $e");
@@ -66,9 +62,9 @@ Future<void> addSession(Session session) async {
 
 /// Met à jour une [Session] passée en paramètre en fonction de son
 /// [docId]
-Future<void> updateSession(String docId, Session session) async {
+Future<void> updateSession(Session session) async {
   try {
-    await sessions.doc(docId).update(session.toFirestore());
+    await sessions.doc(session.uid).update(session.toFirestore());
   } on Exception catch (e) {
     throw Exception("Erreur lors de la modification : $e");
   }
@@ -96,6 +92,7 @@ void main() async {
   SessionExercises exercises2 =
       SessionExercises(id: "6Rl2uzhZnOnHyODT26KR", repetition: 5, set: 5);
   Session session = Session(
+      uid: "youhou",
       name: "session test",
       user: (await getUserReference("hihihihihhi")).id,
       duration: 20,
@@ -111,9 +108,7 @@ void main() async {
   test("addSession", () async {
     await addSession(session);
 
-    final ref = await getReference(session);
-
-    final doc = await getSession(ref.id);
+    final doc = await getSession(session.uid!);
 
     expect(doc.name, session.name);
   });
@@ -121,11 +116,10 @@ void main() async {
   test("updateSession", () async {
     await addSession(session);
 
-    final ref = await getReference(session);
     session.name = "euh voila quoi c'est une séance quoi";
 
-    await updateSession(ref.id, session);
-    final doc = await getSession(ref.id);
+    await updateSession(session);
+    final doc = await getSession(session.uid!);
 
     expect(doc.name, "euh voila quoi c'est une séance quoi");
   });
@@ -133,14 +127,12 @@ void main() async {
   test("deleteSession", () async {
     await addSession(session);
 
-    var ref = await getReference(session);
-
-    var doc = await sessions.doc(ref.id).get();
+    var doc = await sessions.doc(session.uid).get();
     expect(true, doc.exists);
 
-    deleteSession(ref.id);
+    deleteSession(session.uid!);
 
-    doc = await sessions.doc(ref.id).get();
+    doc = await sessions.doc(session.uid).get();
     expect(false, doc.exists);
   });
 }
