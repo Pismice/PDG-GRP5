@@ -1,6 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:g2g/api/firebase_session.dart';
 import 'package:g2g/api/firebase_workout.dart';
+import 'package:g2g/model/session.dart';
+import 'package:g2g/model/workout.dart';
+import 'package:g2g/screens/during_session/my_exercices_screen.dart';
 import 'package:g2g/screens/gestion/affichage/affichage_workout.dart';
 
 void main() {
@@ -49,8 +53,7 @@ class HomeScreen extends StatelessWidget {
                                 alignment: Alignment.bottomLeft,
                                 child: Container(
                                     padding: const EdgeInsets.all(10),
-                                    child: Text(
-                                        snapshot.data![i].name as String))),
+                                    child: Text(snapshot.data![i].name!))),
                             ListView.builder(
                                 shrinkWrap: true,
                                 itemCount: snapshot.data![i].sessions!.length,
@@ -58,26 +61,36 @@ class HomeScreen extends StatelessWidget {
                                   return Container(
                                       padding: const EdgeInsets.all(8),
                                       child: FutureBuilder(
-                                        builder: ((context, snapshot) {
-                                          if (snapshot.connectionState ==
+                                        builder: ((context, snapshotSession) {
+                                          if (snapshotSession.connectionState ==
                                                   ConnectionState.done &&
-                                              snapshot.hasData) {
+                                              snapshotSession.hasData) {
                                             return ElevatedButton(
                                                 onPressed: () {
-                                                  /*Changer de pages where la séance en cours*/
+                                                  WorkoutSessions
+                                                      workoutSessions = snapshot
+                                                          .data![i]
+                                                          .findWorkoutSessionById(
+                                                              snapshotSession
+                                                                  .data!.uid!)!;
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            MyExercices(
+                                                                onGoingSession:
+                                                                    workoutSessions)),
+                                                  );
                                                 },
-                                                child: Text(snapshot.data!
-                                                    .data()!['name']));
+                                                child: Text(snapshotSession
+                                                    .data!.name!));
                                           }
                                           return const Center(
                                               child:
                                                   CircularProgressIndicator());
                                         }),
-                                        future: FirebaseFirestore.instance
-                                            .collection('session')
-                                            .doc(snapshot
-                                                .data![i].sessions![j].id)
-                                            .get(),
+                                        future: getSession(
+                                            snapshot.data![i].sessions![j].id!),
                                       ));
                                 })
                           ])));

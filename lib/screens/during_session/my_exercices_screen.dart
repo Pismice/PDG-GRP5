@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_exercise.dart';
 import 'package:g2g/api/firebase_session.dart';
@@ -16,37 +17,73 @@ class MyExercices extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    loadSessionData();
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(session.name!),
-        ),
-        body: ListView.builder(
-          itemCount: session.exercises!.length,
-          itemBuilder: (context, index) {
-            return FutureBuilder(
-                future: getExercise(session.exercises![index].id!),
-                builder: (context, exoBase) {
-                  return Row(
-                    children: [
-                      Image(
-                          image: NetworkImage(exoBase.data!.img ??
-                              "https://cdn-icons-png.flaticon.com/512/1053/1053916.png")),
-                      Column(
-                        children: [
-                          Text(exoBase.data!.name!),
-                          Row(
-                            children: [
-                              Text(
-                                  "${session.exercises![index].set.toString()} x ${session.exercises![index].repetition.toString()}")
-                            ],
-                          )
-                        ],
-                      ),
-                    ],
-                  );
-                });
-          },
-        ));
+    return FutureBuilder(
+        future: loadSessionData(),
+        builder: (context, empty) {
+          if (empty.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator(); // Loading indicator
+          } else if (empty.hasError) {
+            return Text('Error: ${empty.error}'); // Handle errors
+          } else {
+            return Scaffold(
+                appBar: AppBar(
+                  title: Text(session.name!),
+                ),
+                body: ListView.builder(
+                  itemCount: session.exercises!.length,
+                  itemBuilder: (context, index) {
+                    return FutureBuilder(
+                        future: getExercise(session.exercises![index].id!),
+                        builder: (context, exoBase) {
+                          if (exoBase.connectionState ==
+                              ConnectionState.waiting) {
+                            return const CircularProgressIndicator();
+                          } else if (exoBase.hasError) {
+                            return Text('Error: ${exoBase.error}');
+                          } else {
+                            return Row(
+                              children: [
+                                FutureBuilder(
+                                  future: FirebaseStorage.instance
+                                      .refFromURL(
+                                          'gs://hongym-4cb68.appspot.com')
+                                      .child(
+                                          "img/exercises/${exoBase.data!.img!}") // TODO image de secours
+                                      .getDownloadURL(),
+                                  builder: (context, snapshotImage) {
+                                    if (exoBase.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return const CircularProgressIndicator();
+                                    } else if (snapshotImage.hasError) {
+                                      return Text(
+                                          'Error: ${snapshotImage.error}');
+                                    } else {
+                                      return Image.network(
+                                        snapshotImage.data.toString(),
+                                        height: 100,
+                                        width: 100,
+                                      );
+                                    }
+                                  },
+                                ),
+                                Column(
+                                  children: [
+                                    Text(exoBase.data!.name!),
+                                    Row(
+                                      children: [
+                                        Text(
+                                            "${session.exercises![index].set.toString()} x ${session.exercises![index].repetition.toString()}")
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ],
+                            );
+                          }
+                        });
+                  },
+                ));
+          }
+        });
   }
 }

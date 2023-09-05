@@ -29,6 +29,13 @@ class Workout {
     }
   }
 
+  WorkoutSessions? findWorkoutSessionById(String sessionId) {
+    for (var session in sessions!) {
+      if (session.id == sessionId) return session;
+    }
+    return null;
+  }
+
   factory Workout.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) {
     final data = snapshot.data();
