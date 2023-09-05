@@ -11,7 +11,7 @@ class Session {
 
   Session.fromJson(Map<String, dynamic> json) {
     name = json['name'];
-    user = json['user'].id;
+    if (user != null) user = json['user'].id;
     duration = json['duration'];
     if (json['exercises'] != null) {
       exercises = <SessionExercises>[];
@@ -27,7 +27,7 @@ class Session {
     return Session(
         uid: snapshot.id,
         name: data?['name'],
-        user: data?['user'].id,
+        user: (data?['user'] != null) ? data!['user'].id : null,
         duration: data?['duration'],
         exercises:
             data?['exercises'].map<SessionExercises>((e) => {}).toList());
