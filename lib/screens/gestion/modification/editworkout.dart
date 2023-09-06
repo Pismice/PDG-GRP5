@@ -50,8 +50,8 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
           }
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData) {
-            var _selectedNumber = snapshot.data!.duration!;
-            var _name = snapshot.data!.name!;
+            var selectedNumber = snapshot.data!.duration!;
+            var name = snapshot.data!.name!;
             return Scaffold(
                 appBar: AppBar(
                   title: const Text("Modification de "),
@@ -62,10 +62,10 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
                       child: TextField(
                         decoration: InputDecoration(
                           border: const OutlineInputBorder(),
-                          hintText: _name,
+                          hintText: name,
                         ),
                         onChanged: (text) {
-                          _name = text;
+                          name = text;
                         },
                       )),
                   Row(children: [
@@ -78,12 +78,12 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
                                 itemExtent: _kItemExtent,
                                 // This sets the initial item.
                                 scrollController: FixedExtentScrollController(
-                                  initialItem: _selectedNumber,
+                                  initialItem: selectedNumber,
                                 ),
                                 // This is called when selected item is changed.
                                 onSelectedItemChanged: (int selectedItem) {
                                   setState(() {
-                                    _selectedNumber = selectedItem;
+                                    selectedNumber = selectedItem;
                                   });
                                 },
                                 children:
@@ -94,7 +94,7 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
                             ),
                         // This displays the selected fruit name.
                         child: Text(
-                          '$_selectedNumber',
+                          '$selectedNumber',
                         )),
                   ]),
                   ListView.builder(
@@ -194,7 +194,7 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
                             color: Colors.green[200],
                             child: IconButton(
                                 onPressed: () {
-                                  acceptChanges();
+                                  //acceptChanges();
                                   Navigator.pop(context);
                                 },
                                 icon: const Icon(Icons.check)))),
