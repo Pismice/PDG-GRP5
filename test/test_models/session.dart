@@ -4,12 +4,13 @@ import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 final instance = FakeFirebaseFirestore();
 
 class Session {
+  String? uid;
   String? name;
   String? user;
   int? duration;
   List<SessionExercises>? exercises;
 
-  Session({this.name, this.user, this.duration, this.exercises});
+  Session({this.uid, this.name, this.user, this.duration, this.exercises});
 
   Session.fromJson(Map<String, dynamic> json) {
     name = json['name'];

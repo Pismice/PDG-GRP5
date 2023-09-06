@@ -1,18 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:g2g/model/exercise.dart';
+import 'test_models/exercise.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 
 final instance = FakeFirebaseFirestore();
 
-Future<DocumentReference<Map<String, dynamic>>> getReference(
-    Exercise ex) async {
-  return await exercises
-      .where('name', isEqualTo: ex.name)
-      .where('img', isEqualTo: ex.img)
+Future<DocumentReference<Map<String, dynamic>>> getUserReference(
+    String authid) async {
+  return await users
+      .where('authid', isEqualTo: authid)
       .limit(1)
       .get()
-      .then((value) => exercises.doc(value.docs[0].id));
+      .then((value) => users.doc(value.docs[0].id));
 }
 
 Future<void> addUser() async {
@@ -22,20 +21,32 @@ Future<void> addUser() async {
   });
 }
 
-Future<void> addExercice(Exercise e) async {
-  await instance.collection('exercise').add({
-    'img': e.img,
-    'name': e.name,
-  });
+Future<Exercise> getExercise(String documentId) async {
+  final snapshot = await exercises.doc(documentId).get();
+  if (snapshot.data() == null) {
+    throw Exception("Exercice non trouvé");
+  }
+  Exercise exercise = Exercise.fromJson(snapshot.data()!);
+  exercise.uid = documentId;
+  return exercise;
 }
 
-Future<DocumentSnapshot<Object?>> getExercise(String documentId) async {
-  return exercises.doc(documentId).get();
-}
-
-Future<void> updateExercise(String docId, String newName) async {
+Future<void> addExercise(Exercise exercise) async {
   try {
-    await exercises.doc(docId).update({'name': newName});
+    await exercises
+        .withConverter(
+            fromFirestore: Exercise.fromFirestore,
+            toFirestore: (Exercise exercise, options) => exercise.toFirestore())
+        .doc(exercise.uid)
+        .set(exercise);
+  } on Exception catch (e) {
+    throw Exception("Erreur lors de l'ajout : $e");
+  }
+}
+
+Future<void> updateExercise(Exercise exercise) async {
+  try {
+    await exercises.doc(exercise.uid).update(exercise.toFirestore());
   } on Exception catch (e) {
     throw Exception("Erreur lors de la modification : $e");
   }
@@ -53,46 +64,45 @@ final users = instance.collection('user');
 final exercises = instance.collection('exercise');
 
 void main() async {
-  Exercise e = Exercise(name: "cool pompe", img: "pompe.png");
+  await addUser();
+
+  Exercise e = Exercise(
+    uid: "nimportequoi",
+    name: "cool pompe",
+    img: "pompe.png",
+    type: "REP",
+    user: (await getUserReference('nimportequoi')).id,
+  );
 
   test("addExercise", () async {
-    await addExercice(e);
+    await addExercise(e);
 
-    final exRef = await getReference(e);
+    final doc = await getExercise(e.uid!);
 
-    final doc = await getExercise(exRef.id);
-
-    Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-    expect(e.name, data['name']);
-    expect(e.img, data['img']);
+    expect(doc.uid, e.uid);
   });
 
   test("updateExercise", () async {
-    await addExercice(e);
+    await addExercise(e);
 
-    final exRef = await getReference(e);
+    e.name = "super cool pompe";
 
-    updateExercise(exRef.id, "super cool pompe");
+    updateExercise(e);
 
-    final doc = await getExercise(exRef.id);
+    final doc = await getExercise(e.uid!);
 
-    Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-
-    expect(data['name'], "super cool pompe");
+    expect(doc.name, "super cool pompe");
   });
 
   test("deleteExercise", () async {
-    await addExercice(e);
+    await addExercise(e);
 
-    final exRef = await getReference(e);
+    var doc = await exercises.doc(e.uid).get();
+    expect(true, doc.exists);
 
-    var doc = await getExercise(exRef.id);
+    deleteExercise(e.uid!);
 
-    expect(doc.exists, true);
-
-    deleteExercise(exRef.id);
-
-    doc = await getExercise(exRef.id);
-    expect(doc.exists, false);
+    doc = await exercises.doc(e.uid).get();
+    expect(false, doc.exists);
   });
 }
