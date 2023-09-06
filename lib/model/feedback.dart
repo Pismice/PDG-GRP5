@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+/// Classe qui représente un feedback
 class Feedback {
   String? uid;
   String? user;
@@ -9,6 +10,7 @@ class Feedback {
 
   Feedback({this.uid, this.user, this.email, this.title, this.comment});
 
+  /// constructeur à partir d'un json
   Feedback.fromJson(Map<String, dynamic> json) {
     if (user != null) user = json['user'].id;
     email = json['email'];
@@ -16,6 +18,7 @@ class Feedback {
     comment = json['comment'];
   }
 
+  /// Fonction qui crée un feedback à partir d'un DocumentSnapshot
   factory Feedback.fromFirestore(
       DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) {
@@ -28,6 +31,7 @@ class Feedback {
     );
   }
 
+  /// Fonction qui retourne le feedback au format json
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (user != null) {
@@ -39,6 +43,7 @@ class Feedback {
     return data;
   }
 
+  /// Fonction qui retourne le feedback au format de la bdd
   Map<String, dynamic> toFirestore() {
     return {
       if (user != null) "user": FirebaseFirestore.instance.doc("user/$user"),
