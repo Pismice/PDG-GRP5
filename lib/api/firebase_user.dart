@@ -11,7 +11,9 @@ Future<User> getUser(String authid) async {
       await users.where('authid', isEqualTo: authid).limit(1).get();
 
   final data = snapshot.docs.map((e) => e.data()).first;
-  return User.fromJson(data);
+  User user = User.fromJson(data);
+  user.uid = snapshot.docs.first.id;
+  return user;
 }
 
 Future<void> deleteUser(String authid) async {

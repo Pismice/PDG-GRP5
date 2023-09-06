@@ -97,13 +97,14 @@ class _MySessionPageState extends State<MySessionScreen> {
                     shrinkWrap: true,
                     itemCount: items.length,
                     itemBuilder: (context, index) {
+                      final Session session = items[index];
                       return ElevatedButton(
                           onPressed: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const MySeanceInfoPage()),
+                                      MySeanceInfoPage(session)),
                             );
                           },
                           style: ButtonStyle(
