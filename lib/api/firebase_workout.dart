@@ -44,6 +44,15 @@ Future<Workout> getWorkout(String documentId) async {
   }
   Workout workout = Workout.fromJson(snapshot.data()!);
   workout.uid = documentId;
+
+  for (var i = 0; i < workout.sessions!.length; i++) {
+    workout.sessions![i].workoutId = workout.uid;
+    if (workout.sessions![i].exercises == null) continue;
+    for (var j = 0; j < workout.sessions![i].exercises!.length; ++j) {
+      workout.sessions![i].exercises![j].session = workout.sessions![i];
+    }
+  }
+
   return workout;
 }
 
@@ -61,10 +70,45 @@ Future<List<Workout>> getAllWorkoutsFrom({String? uid}) async {
   final data = snapshot.docs.map((w) {
     Workout workout = Workout.fromJson(w.data());
     workout.uid = w.id;
+    for (var i = 0; i < workout.sessions!.length; i++) {
+      workout.sessions![i].workoutId = workout.uid;
+      if (workout.sessions![i].exercises == null) continue;
+      for (var j = 0; j < workout.sessions![i].exercises!.length; ++j) {
+        workout.sessions![i].exercises![j].session = workout.sessions![i];
+      }
+    }
     return workout;
   }).toList();
 
   return data;
+}
+
+Future<void> addSessionToWorkout(String idWorkout, String idSession) async {
+  final w = await getWorkout(idWorkout);
+  final s = await getSession(idSession);
+  final ws = WorkoutSessions.fromSession(s);
+
+  w.sessions!.add(ws);
+  updateWorkout(w);
+}
+
+Future<void> deleteSessionFromWorkout(
+    String idWorkout, String idSession) async {
+  final w = await getWorkout(idWorkout);
+  final sessions = <WorkoutSessions>[];
+  if (w.sessions == null) {
+    return;
+  }
+  bool deleted = false;
+  for (var sess in w.sessions!) {
+    if (sess.id == idSession && !deleted) {
+      deleted = true;
+      continue;
+    }
+    sessions.add(sess);
+  }
+  w.sessions = sessions;
+  updateWorkout(w);
 }
 
 int numOfWeeks(int year) {
@@ -84,9 +128,9 @@ int weekNumber(DateTime date) {
   return woy;
 }
 
-Future<List<Workout>> getAllActiveWorkoutFrom({String? uid}) async {
+Future<List<Workout>> getAllActiveWorkoutsFrom({String? uid}) async {
   final data = await getAllWorkoutsFrom(uid: uid);
-  List<Workout> out = List.empty();
+  final out = <Workout>[];
   final currentWeek = weekNumber(DateTime.now());
   for (var d in data) {
     if (d.week! >= currentWeek &&

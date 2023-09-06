@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:g2g/api/firebase_user.dart';
 import 'package:g2g/screens/introduction/user_connection/email_sign_in_screen.dart';
 import 'package:g2g/screens/introduction/user_connection/email_sign_up_screen.dart';
 
@@ -22,17 +23,9 @@ Future<UserCredential> signInWithGoogle() async {
                 .get()
                 .then((value) => value.docs.length) ==
             0)
-          {await addNewUserToFirestore(value)}
+          {await addNewGoogleUserToFirestore(value)}
       });
   return out;
-}
-
-Future<void> addNewUserToFirestore(UserCredential user) {
-  return FirebaseFirestore.instance.collection('user').add(<String, String>{
-    'authid': user.user!.uid,
-    'name': user.user!.displayName.toString(),
-    'profilepicture': user.user!.photoURL.toString(),
-  });
 }
 
 class ConnectionChoicesScreen extends StatelessWidget {
@@ -65,7 +58,8 @@ class ConnectionChoicesScreen extends StatelessWidget {
                     height: 10,
                     width: 10,
                   ),
-                  Text('Sign In with Google (only working on web platforms for now)'),
+                  Text(
+                      'Sign In with Google (only working on web platforms for now)'),
                 ],
               ),
             ),

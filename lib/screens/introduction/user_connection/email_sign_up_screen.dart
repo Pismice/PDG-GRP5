@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:g2g/screens/introduction/user_connection/connection_choices_screen.dart';
+import 'package:g2g/api/firebase_user.dart';
 
 class EmailSignUpScreen extends StatefulWidget {
   const EmailSignUpScreen({super.key});
@@ -27,7 +27,8 @@ class _EmailSignUpScreenState extends State<EmailSignUpScreen> {
     super.dispose();
   }
 
-  Future<void> signUpAndContinue(String email, String password, [String? username]) async {
+  Future<void> signUpAndContinue(String email, String password,
+      [String? username]) async {
     try {
       Future<UserCredential> credential =
           FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -36,6 +37,7 @@ class _EmailSignUpScreenState extends State<EmailSignUpScreen> {
       );
 
       await credential.then((value) async => {
+            // Si l'utilisateur lié à ce Firebase Auth User n'existe pas dans la BD Firestore il faut le créer
             if (await FirebaseFirestore.instance
                     .collection('user')
                     .where('authid', isEqualTo: value.user!.uid)
@@ -43,7 +45,7 @@ class _EmailSignUpScreenState extends State<EmailSignUpScreen> {
                     .get()
                     .then((value) => value.docs.length) ==
                 0)
-              {await addNewUserToFirestore(value)}
+              {await addNewEmailUserToFirestore(value, username)}
           });
 
       if (context.mounted) {

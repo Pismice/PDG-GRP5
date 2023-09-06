@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:g2g/model/user.dart';
 
 final users = FirebaseFirestore.instance.collection('user');
@@ -53,4 +54,20 @@ void updateUser(User user) async {
   if (user.profilepicture != storeUser.profilepicture) {
     users.doc(user.uid).set(user.toFirestore());
   }
+}
+
+Future<void> addNewGoogleUserToFirestore(UserCredential user) {
+  return FirebaseFirestore.instance.collection('user').add(<String, String>{
+    'authid': user.user!.uid,
+    'name': user.user!.displayName.toString(),
+    'profilepicture': user.user!.photoURL.toString(),
+  });
+}
+
+Future<void> addNewEmailUserToFirestore(UserCredential user,
+    [String? username]) {
+  return FirebaseFirestore.instance.collection('user').add(<String, String>{
+    'authid': user.user!.uid,
+    'name': username ?? 'null',
+  });
 }

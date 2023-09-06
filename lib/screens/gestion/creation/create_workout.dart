@@ -41,7 +41,7 @@ class _MyCreateWorkout extends State<MyCreateWorkout> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Workout X"),
+          title: const Text("Création d'un workout"),
         ),
         body: Column(children: <Widget>[
           const Padding(
@@ -94,15 +94,6 @@ class _MyCreateWorkout extends State<MyCreateWorkout> {
                   child: Container(
                     padding: const EdgeInsets.all(20),
                     child: Row(children: [
-                      Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Image.asset(
-                                'assets/images/cervin.jpg',
-                                height: 75,
-                                width: 75,
-                              ))),
                       Expanded(child: Text(items[index])),
                       Padding(
                           padding: const EdgeInsets.only(left: 30),

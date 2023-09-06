@@ -50,6 +50,7 @@ Future<Session> getSession(String documentId) async {
   if (snapshot.data() == null) {
     throw Exception("Séance non trouvée");
   }
+
   return _convertJson(snapshot.data()!, documentId);
 }
 

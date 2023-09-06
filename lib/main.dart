@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'navigation_bar.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   // Initialisation de Firebase
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           }
           final user = snapshot.data;
           if (user == null) {
