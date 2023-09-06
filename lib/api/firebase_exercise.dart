@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:g2g/api/firebase_workout.dart';
 import 'package:g2g/model/exercise.dart';
 import 'package:g2g/model/workout.dart';
@@ -42,6 +43,27 @@ Future<void> deleteExercise(String docId) async {
   } on Exception catch (e) {
     throw Exception("Erreur lors de la suppressions : $e");
   }
+}
+
+Future<List<Exercise>> getAllExercisesOf({String? authid}) async {
+  String id =
+      (authid != null) ? authid : FirebaseAuth.instance.currentUser!.uid;
+
+  final userRef = await users
+      .where('authid', isEqualTo: id)
+      .limit(1)
+      .get()
+      .then((value) => users.doc(value.docs[0].id));
+
+  final snapshot = await exercises.where("user", isEqualTo: userRef).get();
+
+  final data = snapshot.docs.map((e) {
+    Exercise exercise = Exercise.fromJson(e.data());
+    exercise.uid = e.id;
+    return exercise;
+  }).toList();
+
+  return data;
 }
 
 /// Récupère la liste de tous les exercices, on va récupérer tous
