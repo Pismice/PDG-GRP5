@@ -115,7 +115,7 @@ class SessionExercises {
       if (repetition != null) "repetition": repetition,
       if (set != null) "set": set,
       if (weight != null) "weight": weight,
-      if (duration != null) "duration": duration,,
+      if (duration != null) "duration": duration,
     };
   }
 }

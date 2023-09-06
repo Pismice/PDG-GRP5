@@ -6,7 +6,6 @@ import 'package:g2g/api/firebase_session.dart';
 import 'package:g2g/model/exercise.dart';
 import 'package:g2g/model/session.dart';
 import 'package:g2g/screens/gestion/creation/addnew/addnewexercise.dart';
-import 'package:g2g/screens/gestion/seance.dart';
 
 const double _kItemExtent = 32.0;
 
