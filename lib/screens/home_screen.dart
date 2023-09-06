@@ -13,14 +13,14 @@ void main() {
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
-  final workouts = getAllActiveWorkoutFrom();
+  final workouts = getAllActiveWorkoutsFrom();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
           body: FutureBuilder(
-        future: getAllWorkoutsFrom(),
+        future: workouts,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
