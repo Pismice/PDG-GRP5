@@ -84,9 +84,9 @@ int weekNumber(DateTime date) {
   return woy;
 }
 
-Future<List<Workout>> getAllActiveWorkoutFrom({String? uid}) async {
+Future<List<Workout>> getAllActiveWorkoutsFrom({String? uid}) async {
   final data = await getAllWorkoutsFrom(uid: uid);
-  List<Workout> out = List.empty();
+  final out = <Workout>[];
   final currentWeek = weekNumber(DateTime.now());
   for (var d in data) {
     if (d.week! >= currentWeek &&
