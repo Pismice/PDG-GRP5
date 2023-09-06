@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:g2g/model/session.dart';
 
 class Workout {
   String? uid;
@@ -23,9 +24,9 @@ class Workout {
     week = json['week'];
     if (json['sessions'] != null) {
       sessions = <WorkoutSessions>[];
-      json['sessions'].forEach((v) {
-        sessions!.add(WorkoutSessions.fromJson(v));
-      });
+      for (Map<String, dynamic> session in json['sessions']) {
+        sessions!.add(WorkoutSessions.fromJson(session));
+      }
     }
   }
 
@@ -82,15 +83,11 @@ class WorkoutSessions {
   DateTime? end;
   List<ExercisesDone>? exercises;
   String? workoutId;
-
-  WorkoutSessions({
-    this.id,
-    this.start,
-    this.end,
-    this.exercises,
-    this.workoutId,
-  });
-
+  WorkoutSessions(
+      {this.id, this.start, this.end, this.exercises, this.workoutId});
+  WorkoutSessions.fromSession(Session s) {
+    id = s.uid;
+  }
   WorkoutSessions.fromJson(Map<String, dynamic> json) {
     if (json['id'] != null) id = json['id'].id;
     if (json['start'] != null) {
@@ -101,9 +98,9 @@ class WorkoutSessions {
     }
     if (json['exercises'] != null) {
       exercises = <ExercisesDone>[];
-      json['exercises'].forEach((v) {
-        exercises!.add(ExercisesDone.fromJson(v));
-      });
+      for (Map<String, dynamic> exercise in json['exercises']) {
+        exercises!.add(ExercisesDone.fromJson(exercise));
+      }
     }
     if (json['workoutId'] != null) workoutId = json['workoutId'];
   }
@@ -159,14 +156,17 @@ class ExercisesDone {
   WorkoutSessions? session;
 
   ExercisesDone({this.id, this.sets});
-
+  ExercisesDone.fromSessionExercises(SessionExercises exercise) {
+    id = exercise.id;
+  }
   ExercisesDone.fromJson(Map<String, dynamic> json) {
     id = json['id'].id;
     if (json['sets'] != null) {
+      final jsets = json['sets'];
       sets = <Sets>[];
-      json['sets'].forEach((v) {
-        sets!.add(Sets.fromJson(v));
-      });
+      for (Map<String, dynamic> set in jsets) {
+        sets!.add(Sets.fromJson(set));
+      }
     }
   }
 

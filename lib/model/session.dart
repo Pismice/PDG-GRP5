@@ -15,8 +15,9 @@ class Session {
     duration = json['duration'];
     if (json['exercises'] != null) {
       exercises = <SessionExercises>[];
-      json['exercises']
-          .forEach((e) => exercises!.add(SessionExercises.fromJson(e)));
+      for (Map<String, dynamic> exercise in json['exercises']) {
+        exercises!.add(SessionExercises.fromJson(exercise));
+      }
     }
   }
 

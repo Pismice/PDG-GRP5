@@ -81,6 +81,34 @@ Future<List<Workout>> getAllWorkoutsFrom({String? uid}) async {
   return data;
 }
 
+Future<void> addSessionToWorkout(String idWorkout, String idSession) async {
+  final w = await getWorkout(idWorkout);
+  final s = await getSession(idSession);
+  final ws = WorkoutSessions.fromSession(s);
+
+  w.sessions!.add(ws);
+  updateWorkout(w);
+}
+
+Future<void> deleteSessionFromWorkout(
+    String idWorkout, String idSession) async {
+  final w = await getWorkout(idWorkout);
+  final sessions = <WorkoutSessions>[];
+  if (w.sessions == null) {
+    return;
+  }
+  bool deleted = false;
+  for (var sess in w.sessions!) {
+    if (sess.id == idSession && !deleted) {
+      deleted = true;
+      continue;
+    }
+    sessions.add(sess);
+  }
+  w.sessions = sessions;
+  updateWorkout(w);
+}
+
 int numOfWeeks(int year) {
   DateTime dec28 = DateTime(year, 12, 28);
   int dayOfDec28 = int.parse(DateFormat("D").format(dec28));
@@ -98,9 +126,9 @@ int weekNumber(DateTime date) {
   return woy;
 }
 
-Future<List<Workout>> getAllActiveWorkoutFrom({String? uid}) async {
+Future<List<Workout>> getAllActiveWorkoutsFrom({String? uid}) async {
   final data = await getAllWorkoutsFrom(uid: uid);
-  List<Workout> out = List.empty();
+  final out = <Workout>[];
   final currentWeek = weekNumber(DateTime.now());
   for (var d in data) {
     if (d.week! >= currentWeek &&

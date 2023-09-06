@@ -92,7 +92,7 @@ void main() async {
     temp = Workout(name: "Work1").toJson();
     temp.addEntries({MapEntry('user', u.uid)});
     workout.add(temp);
-    deleteUser(u.authId as String);
+    deleteUser(u.authId!);
     expect(
         await users
             .where('authid', isEqualTo: u.authId)
