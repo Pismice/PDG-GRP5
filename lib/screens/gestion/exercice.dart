@@ -198,22 +198,6 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                                             width: 75,
                                           ))),
                                   Expanded(child: Text(exercise[index].name!)),
-                                  Align(
-                                      alignment: Alignment.centerRight,
-                                      child: IconButton(
-                                        icon: const Icon(Icons.edit),
-                                        padding: const EdgeInsets.all(0),
-                                        color: Colors.black,
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    MyEditExoPage(
-                                                        exo: exercise[index])),
-                                          );
-                                        },
-                                      )),
                                 ]),
                               ]));
                         }));
