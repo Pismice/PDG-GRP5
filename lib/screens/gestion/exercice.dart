@@ -36,7 +36,7 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: getAllExercisesFrom(),
+        future: getAllExercises(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
@@ -133,7 +133,7 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
               ],
             );
           }
-          return const Text("");
+          return const Text("alo");
         });
   }
 }
