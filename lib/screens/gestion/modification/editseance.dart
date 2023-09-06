@@ -262,6 +262,7 @@ class _MyEditSeancePage extends State<MyEditSeancePage> {
                       MaterialPageRoute(
                         builder: (context) =>
                             MyAddNewExercise(session: widget.session),
+                        maintainState: false,
                       ),
                     );
                   },
