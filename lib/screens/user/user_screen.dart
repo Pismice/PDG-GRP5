@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:g2g/screens/user/other_stats/exercices_pr.dart';
+import 'package:g2g/screens/user/other_stats/user_stats.dart';
 import 'package:g2g/screens/user/settings/settings_screen.dart';
 import 'package:g2g/back/retrieve_user_stat.dart';
 
@@ -115,10 +116,8 @@ class UserScreen extends StatelessWidget {
           decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
           child: ElevatedButton(
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ExercicesPr()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const ExercicesPr()));
             },
             child: const Row(
               children: [
@@ -132,7 +131,12 @@ class UserScreen extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
           child: ElevatedButton(
-            onPressed: () {/* https://pub.dev/packages/fl_chart*/},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const LineChartSample1()));
+            },
             child: const Row(
               children: [
                 Icon(Icons.trending_up),

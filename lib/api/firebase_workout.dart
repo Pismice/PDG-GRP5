@@ -47,8 +47,11 @@ Future<Workout> getWorkout(String documentId) async {
   return workout;
 }
 
-Future<List<Workout>> getAllWorkoutsFrom({String? uid}) async {
-  String id = (uid != null) ? uid : FirebaseAuth.instance.currentUser!.uid;
+/// Récupère la liste de tous les workouts d'un utilisateur donné [authid].
+/// Si l'[authid] n'est pas renseigné, on prend l'utilisateur actuel
+Future<List<Workout>> getAllWorkoutsFrom({String? authid}) async {
+  String id =
+      (authid != null) ? authid : FirebaseAuth.instance.currentUser!.uid;
 
   final userRef = await users
       .where('authid', isEqualTo: id)
@@ -84,8 +87,10 @@ int weekNumber(DateTime date) {
   return woy;
 }
 
-Future<List<Workout>> getAllActiveWorkoutFrom({String? uid}) async {
-  final data = await getAllWorkoutsFrom(uid: uid);
+/// Récupère la liste de toutes les sessions d'un utilisateur donné [authid].
+/// Si l'[authid] n'est pas renseigné, on prend l'utilisateur actuel
+Future<List<Workout>> getAllActiveWorkoutFrom({String? authid}) async {
+  final data = await getAllWorkoutsFrom(authid: authid);
   List<Workout> out = List.empty();
   final currentWeek = weekNumber(DateTime.now());
   for (var d in data) {

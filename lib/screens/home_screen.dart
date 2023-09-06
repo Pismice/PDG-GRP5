@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:g2g/api/firebase_exercise.dart';
+import 'package:g2g/api/firebase_session.dart';
 import 'package:g2g/api/firebase_workout.dart';
 import 'package:g2g/screens/gestion/affichage/affichage_workout.dart';
+import 'package:g2g/back/retrieve_user_stat.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -20,68 +23,11 @@ class HomeScreen extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
           body: FutureBuilder(
-        future: getAllWorkoutsFrom(),
+        future: getWeightEvolution("6Rl2uzhZnOnHyODT26KR"),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData) {
-            return ListView.builder(
-                shrinkWrap: true,
-                itemCount: snapshot.data!.length,
-                itemBuilder: (context, i) {
-                  return Container(
-                      padding: const EdgeInsets.all(15),
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              foregroundColor: Colors.black,
-                              padding:
-                                  const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                              backgroundColor: Colors.white),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const MyWorkoutInfoPage()),
-                            );
-                          },
-                          child: Column(children: <Widget>[
-                            Align(
-                                alignment: Alignment.bottomLeft,
-                                child: Container(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Text(
-                                        snapshot.data![i].name as String))),
-                            ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: snapshot.data![i].sessions!.length,
-                                itemBuilder: (context, j) {
-                                  return Container(
-                                      padding: const EdgeInsets.all(8),
-                                      child: FutureBuilder(
-                                        builder: ((context, snapshot) {
-                                          if (snapshot.connectionState ==
-                                                  ConnectionState.done &&
-                                              snapshot.hasData) {
-                                            return ElevatedButton(
-                                                onPressed: () {
-                                                  /*Changer de pages where la séance en cours*/
-                                                },
-                                                child: Text(snapshot.data!
-                                                    .data()!['name']));
-                                          }
-                                          return const Center(
-                                              child:
-                                                  CircularProgressIndicator());
-                                        }),
-                                        future: FirebaseFirestore.instance
-                                            .collection('session')
-                                            .doc(snapshot
-                                                .data![i].sessions![j].id)
-                                            .get(),
-                                      ));
-                                })
-                          ])));
-                });
+            return Text(snapshot.data!.toString());
           }
           return const Center(child: CircularProgressIndicator());
         },

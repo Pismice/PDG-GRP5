@@ -108,7 +108,7 @@ enum _SetsValue { repetition, weight, duration }
 Future<int> _getPR(String exId, _SetsValue sets, {String? authid}) async {
   final List<Workout> workouts;
   if (authid != null) {
-    workouts = await getAllWorkoutsFrom(uid: authid);
+    workouts = await getAllWorkoutsFrom(authid: authid);
   } else {
     workouts = await getAllWorkoutsFrom();
   }
@@ -170,7 +170,7 @@ Future<int> getRepetitionPR(String exId, {String? authid}) async {
 Future<int> getBestSetsNb(String exId, {String? authid}) async {
   final List<Workout> workouts;
   if (authid != null) {
-    workouts = await getAllWorkoutsFrom(uid: authid);
+    workouts = await getAllWorkoutsFrom(authid: authid);
   } else {
     workouts = await getAllWorkoutsFrom();
   }

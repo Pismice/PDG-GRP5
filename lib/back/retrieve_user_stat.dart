@@ -1,4 +1,9 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:g2g/api/firebase_exercise.dart';
+import 'package:g2g/api/firebase_workout.dart';
+import 'package:g2g/model/exercise.dart';
 //import 'dart:developer' as developer;
 
 class UserStatistics {
@@ -98,4 +103,85 @@ class UserStatistics {
     }
     return numbers;
   }
+}
+
+Future<Map<int, int>> _getEvolution(Exercise exercise, {String? authid}) async {
+  final workouts = await getAllWorkoutsFrom(authid: authid);
+
+  final Map<int, int> evolution = <int, int>{};
+
+  for (var workout in workouts) {
+    int weekPR = 0;
+    int iter = 0;
+
+    if (workout.duration! > workout.sessions!.length / workout.duration!) {
+      iter = 1;
+    }
+
+    for (var i = 0; i < iter; i++) {
+      for (var j = 0; j < workout.sessions!.length; j++) {
+        for (var exerciseDone
+            in workout.sessions![j + i * workout.sessions!.length].exercises!) {
+          if (exerciseDone.id != exercise.uid) continue;
+
+          for (var set in exerciseDone.sets!) {
+            switch (exercise.type) {
+              case "REP":
+                if (set.repetition! > weekPR) {
+                  weekPR = set.repetition!;
+                }
+                break;
+              case "TIME":
+                if (set.duration! > weekPR) {
+                  weekPR = set.duration!;
+                }
+                break;
+              case "WEIGHT":
+              default:
+                if (set.weight! > weekPR) {
+                  weekPR = set.weight!;
+                }
+                break;
+            }
+          }
+        }
+      }
+      evolution[workout.week! + i] = weekPR;
+    }
+  }
+
+  return evolution;
+}
+
+Future<Map<int, int>> getWeightEvolution(String exerciseId,
+    {String? authid}) async {
+  final exercise = await getExercise(exerciseId);
+
+  if (exercise.type != "WEIGHT") {
+    throw Exception("Pas le bon type d'exercice");
+  }
+
+  return _getEvolution(exercise, authid: authid);
+}
+
+Future<Map<int, int>> getRepEvolution(String exerciseId,
+    {String? authid}) async {
+  final exercise = await getExercise(exerciseId);
+
+  if (exercise.type != "REP") {
+    throw Exception("Pas le bon type d'exercice");
+  }
+
+  return _getEvolution(exercise, authid: authid);
+}
+
+Future<Map<int, int>> getDurationEvolution(String exerciseId,
+    {String? authid}) async {
+  final exercise = await getExercise(exerciseId);
+
+  if (exercise.type != "TIME") {
+    throw Exception("Pas le bon type d'exercice");
+  }
+
+  return _getEvolution(exercise, authid: authid);
 }
