@@ -54,49 +54,32 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
             var name = snapshot.data!.name!;
             return Scaffold(
                 appBar: AppBar(
-                  title: const Text("Modification de "),
+                  title: Text("Modification de $name"),
                 ),
                 body: Column(children: <Widget>[
                   Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: TextField(
-                        decoration: InputDecoration(
-                          border: const OutlineInputBorder(),
-                          hintText: name,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: "Rename workout",
                         ),
                         onChanged: (text) {
                           name = text;
                         },
                       )),
-                  Row(children: [
-                    const Text('Nombre de semaine'),
-                    CupertinoButton(
-                        padding: EdgeInsets.zero,
-                        // Display a CupertinoPicker with list of fruits.
-                        onPressed: () => _showDialog(
-                              CupertinoPicker(
-                                itemExtent: _kItemExtent,
-                                // This sets the initial item.
-                                scrollController: FixedExtentScrollController(
-                                  initialItem: selectedNumber,
-                                ),
-                                // This is called when selected item is changed.
-                                onSelectedItemChanged: (int selectedItem) {
-                                  setState(() {
-                                    selectedNumber = selectedItem;
-                                  });
-                                },
-                                children:
-                                    List<Widget>.generate(50, (int index) {
-                                  return Center(child: Text('$index'));
-                                }),
-                              ),
-                            ),
-                        // This displays the selected fruit name.
-                        child: Text(
-                          '$selectedNumber',
-                        )),
-                  ]),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: const OutlineInputBorder(),
+                          hintText: 'Number of week (actual : $selectedNumber)',
+                        ),
+                        keyboardType: TextInputType.number,
+                        onChanged: (text) {
+                          selectedNumber = int.parse(text);
+                        },
+                      )),
                   ListView.builder(
                     shrinkWrap: true,
                     itemCount: snapshot.data!.sessions!.length,
@@ -194,7 +177,7 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
                             color: Colors.green[200],
                             child: IconButton(
                                 onPressed: () {
-                                  //acceptChanges();
+                                  acceptChanges(name, selectedNumber);
                                   Navigator.pop(context);
                                 },
                                 icon: const Icon(Icons.check)))),
@@ -232,14 +215,14 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
         }));
   }
 
-  // Future<void> acceptChanges() async {
-  //   final w = await getWorkout(widget.id!);
-  //   if (w.name != _name) {
-  //     w.name = _name;
-  //   }
-  //   if (w.duration != _selectedNumber) {
-  //     w.duration = _selectedNumber;
-  //   }
-  //   updateWorkout(w);
-  // }
+  Future<void> acceptChanges(var name, var selectedNumber) async {
+    final w = await getWorkout(widget.id!);
+    if (w.name != name) {
+      w.name = name;
+    }
+    if (w.duration != selectedNumber) {
+      w.duration = selectedNumber;
+    }
+    updateWorkout(w);
+  }
 }

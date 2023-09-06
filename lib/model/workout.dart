@@ -102,7 +102,7 @@ class WorkoutSessions {
         exercises!.add(ExercisesDone.fromJson(exercise));
       }
     }
-    if (json['workoutId'] != null) workoutId = json['workoutId'];
+    if (json['workoutId'] != null) workoutId = json['workoutId'].id;
   }
 
   factory WorkoutSessions.fromFirestore(

@@ -25,9 +25,10 @@ class HomeScreen extends StatelessWidget {
             title: const Text('Workout'),
           ),
           body: FutureBuilder(
-            future: workouts,
+            future: getAllActiveWorkoutsFrom(),
             builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
+              if (snapshot.connectionState == ConnectionState.waiting ||
+                  snapshot.connectionState == ConnectionState.active) {
                 return const Center(child: CircularProgressIndicator());
               }
               if (snapshot.hasError) {
