@@ -75,11 +75,12 @@ class HomeScreen extends StatelessWidget {
                                     alignment: Alignment.bottomLeft,
                                     child: Container(
                                         padding: const EdgeInsets.all(10),
-                                        child: Text(workoutsSnapshot.data![i].name!))),
+                                        child: Text(
+                                            workoutsSnapshot.data![i].name!))),
                                 ListView.builder(
                                     shrinkWrap: true,
-                                    itemCount:
-                                        workoutsSnapshot.data![i].sessions!.length,
+                                    itemCount: workoutsSnapshot
+                                        .data![i].sessions!.length,
                                     itemBuilder: (context, j) {
                                       return Container(
                                           padding: const EdgeInsets.all(8),
@@ -94,7 +95,8 @@ class HomeScreen extends StatelessWidget {
                                                     onPressed: () {
                                                       WorkoutSessions
                                                           workoutSessions =
-                                                          workoutsSnapshot.data![i]
+                                                          workoutsSnapshot
+                                                              .data![i]
                                                               .findWorkoutSessionById(
                                                                   snapshotSession
                                                                       .data!
@@ -108,7 +110,8 @@ class HomeScreen extends StatelessWidget {
                                                                         workoutSessions)),
                                                       );
                                                     },
-                                                    child: Text(snapshotSession.data!.name!));
+                                                    child: Text(snapshotSession
+                                                        .data!.name!));
                                               }
                                               return const Center(
                                                   child:
