@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_exercise.dart';
 /*import 'package:g2g/api/firebase_user.dart';*/
@@ -121,13 +122,25 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                                 Row(children: <Widget>[
                                   Padding(
                                       padding: const EdgeInsets.only(right: 10),
-                                      child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Image.asset(
-                                            myExercise[index].img!,
+                                      child: FutureBuilder(
+                                        future: FirebaseStorage.instance
+                                            .refFromURL(
+                                                'gs://hongym-4cb68.appspot.com')
+                                            .child(
+                                                "img/exercises/${myExercise[index].img}")
+                                            .getDownloadURL(),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return const CircularProgressIndicator();
+                                          }
+                                          return Image.network(
+                                            snapshot.data.toString(),
                                             height: 75,
                                             width: 75,
-                                          ))),
+                                          );
+                                        },
+                                      )),
                                   Expanded(
                                       child: Text(myExercise[index].name!)),
                                   Align(
@@ -190,13 +203,25 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                                 Row(children: <Widget>[
                                   Padding(
                                       padding: const EdgeInsets.only(right: 10),
-                                      child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Image.asset(
-                                            exercise[index].img!,
+                                      child: FutureBuilder(
+                                        future: FirebaseStorage.instance
+                                            .refFromURL(
+                                                'gs://hongym-4cb68.appspot.com')
+                                            .child(
+                                                "img/exercises/${exercise[index].img}")
+                                            .getDownloadURL(),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return const CircularProgressIndicator();
+                                          }
+                                          return Image.network(
+                                            snapshot.data.toString(),
                                             height: 75,
                                             width: 75,
-                                          ))),
+                                          );
+                                        },
+                                      )),
                                   Expanded(child: Text(exercise[index].name!)),
                                 ]),
                               ]));

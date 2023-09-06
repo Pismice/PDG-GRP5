@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:g2g/model/session.dart';
 import 'package:g2g/api/firebase_exercise.dart';
@@ -75,13 +76,25 @@ class _MyAddNewExercise extends State<MyAddNewExercise> {
                                 Row(children: <Widget>[
                                   Padding(
                                       padding: const EdgeInsets.only(right: 10),
-                                      child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Image.asset(
-                                            exercises[index].img!,
-                                            height: 75,
-                                            width: 75,
-                                          ))),
+                                      child: FutureBuilder(
+                                        future: FirebaseStorage.instance
+                                            .refFromURL(
+                                                'gs://hongym-4cb68.appspot.com')
+                                            .child(
+                                                "img/exercises/${exercises[index].img}")
+                                            .getDownloadURL(),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return const CircularProgressIndicator();
+                                          }
+                                          return Image.network(
+                                            snapshot.data.toString(),
+                                            height: 100,
+                                            width: 100,
+                                          );
+                                        },
+                                      )),
                                   Expanded(child: Text(exercises[index].name!)),
                                 ]),
                               ]));
