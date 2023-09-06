@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:g2g/model/session.dart';
 
+/// classe qui représente un workout
 class Workout {
   String? uid;
   String? name;
@@ -17,6 +18,7 @@ class Workout {
       this.week,
       this.sessions});
 
+  /// Constructeur à partir d'un json
   Workout.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     user = json['user'].id;
@@ -30,6 +32,7 @@ class Workout {
     }
   }
 
+  /// Fonction qui retourne une séance d'un workout par son id
   WorkoutSessions? findWorkoutSessionById(String sessionId) {
     for (var session in sessions!) {
       if (session.id == sessionId) return session;
@@ -37,6 +40,7 @@ class Workout {
     return null;
   }
 
+  /// Fonction qui retourne un workout à partir d'un DocumentSnapshot
   factory Workout.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) {
     final data = snapshot.data();
@@ -51,6 +55,7 @@ class Workout {
             .toList());
   }
 
+  /// Fonction qui retourne le workout au format OK pour la bdd
   Map<String, dynamic> toFirestore() {
     return {
       if (name != null) "name": name,
@@ -62,6 +67,7 @@ class Workout {
     };
   }
 
+  /// Fonction qui retourne le workout au format json
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (name != null) data['name'] = name;
@@ -77,6 +83,7 @@ class Workout {
   }
 }
 
+/// Classe qui représente une séance durant un workout
 class WorkoutSessions {
   String? id;
   DateTime? start;
@@ -85,9 +92,13 @@ class WorkoutSessions {
   String? workoutId;
   WorkoutSessions(
       {this.id, this.start, this.end, this.exercises, this.workoutId});
+
+  /// Constructeur à partir d'une séance
   WorkoutSessions.fromSession(Session s) {
     id = s.uid;
   }
+
+  /// Constructeur à partir d'un json
   WorkoutSessions.fromJson(Map<String, dynamic> json) {
     if (json['id'] != null) id = json['id'].id;
     if (json['start'] != null) {
@@ -105,6 +116,8 @@ class WorkoutSessions {
     if (json['workoutId'] != null) workoutId = json['workoutId'].id;
   }
 
+  /// Fonction qui construit et retourne une séance de workout à partir
+  /// d'un DocumentSnapshot
   factory WorkoutSessions.fromFirestore(
       DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) {
@@ -123,6 +136,7 @@ class WorkoutSessions {
     );
   }
 
+  /// Fonction qui retourne la séance de workout au format JSON
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (id != null) data['id'] = FirebaseFirestore.instance.doc("session/$id");
@@ -137,6 +151,7 @@ class WorkoutSessions {
     return data;
   }
 
+  /// Fonction qui retourne la séance de workout au format OK pour la bdd
   Map<String, dynamic> toFirestore() {
     return {
       if (id != null) "id": FirebaseFirestore.instance.doc("session/$id"),
@@ -150,15 +165,20 @@ class WorkoutSessions {
   }
 }
 
+/// Classe qui représente un exercice dans une séance de workout
 class ExercisesDone {
   String? id;
   List<Sets>? sets;
   WorkoutSessions? session;
 
   ExercisesDone({this.id, this.sets});
+
+  /// Constructeur depuis un exercice
   ExercisesDone.fromSessionExercises(SessionExercises exercise) {
     id = exercise.id;
   }
+
+  /// Constructeur depuis un json
   ExercisesDone.fromJson(Map<String, dynamic> json) {
     id = json['id'].id;
     if (json['sets'] != null) {
@@ -170,6 +190,8 @@ class ExercisesDone {
     }
   }
 
+  /// Fonction qui crée et retourne un exercice de séance de workout
+  /// à partir d'un DocumentSnapshot
   factory ExercisesDone.fromFirebase(
       DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) {
@@ -181,6 +203,7 @@ class ExercisesDone {
     );
   }
 
+  /// Fonction qui retourne l'exercice de séance de workout au format json
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (id != null) data['id'] = FirebaseFirestore.instance.doc("exercise/$id");
@@ -190,6 +213,8 @@ class ExercisesDone {
     return data;
   }
 
+  /// Fonction qui retourne l'exercice de séance de workout
+  /// au format ok pour la BDD
   Map<String, dynamic> toFirestore() {
     return {
       if (id != null) "id": FirebaseFirestore.instance.doc("exercise/$id"),
@@ -198,6 +223,7 @@ class ExercisesDone {
   }
 }
 
+/// classe qui représente un set d'exerciceDone
 class Sets {
   int? weight;
   int? repetition;
@@ -205,12 +231,14 @@ class Sets {
 
   Sets({this.weight, this.repetition, this.duration});
 
+  /// Constructeur depuis json
   Sets.fromJson(Map<String, dynamic> json) {
     if (json['weight'] != null) weight = json['weight'];
     if (json['repetition'] != null) repetition = json['repetition'];
     if (json['duration'] != null) duration = json['duration'];
   }
 
+  /// Fonction qui construit un set depuis un documentSnapshot
   factory Sets.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) {
     final data = snapshot.data();
@@ -221,6 +249,7 @@ class Sets {
     );
   }
 
+  /// Fonction qui retourne le set au format json
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (weight != null) data['weight'] = weight;
@@ -229,6 +258,7 @@ class Sets {
     return data;
   }
 
+  /// Fonction qui retourne le set au format ok pour la bdd
   Map<String, dynamic> toFirestore() {
     return {
       if (weight != null) "weight": weight,
