@@ -61,13 +61,19 @@ class Session {
 
 class SessionExercises {
   String? id;
+  int? positionId;
   int? repetition;
   int? set;
   int? weight;
   int? duration;
 
   SessionExercises(
-      {this.id, this.repetition, this.set, this.weight, this.duration});
+      {this.id,
+      this.positionId,
+      this.repetition,
+      this.set,
+      this.weight,
+      this.duration});
 
   SessionExercises.fromJson(Map<String, dynamic> json) {
     id = json['id'].id;

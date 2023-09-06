@@ -215,7 +215,33 @@ class _MyEditSeancePage extends State<MyEditSeancePage> {
                           Padding(
                             padding: const EdgeInsets.only(left: 30),
                             child: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                showDialog<String>(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    title: const Text('Suppression du workout'),
+                                    content: const Text(
+                                        'Êtes-vous certain de vouloir supprimer cette session ?'),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, 'Cancel'),
+                                        child: const Text('Annuler'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          deleteExerciseFromSession(
+                                              widget.session.uid!,
+                                              widget.session.exercises![index]);
+                                          Navigator.pop(context, 'OK');
+                                        },
+                                        child: const Text('Supprimer'),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                               icon: const Icon(Icons.delete),
                             ),
                           )
@@ -260,7 +286,6 @@ class _MyEditSeancePage extends State<MyEditSeancePage> {
               Expanded(
                 child: IconButton(
                   onPressed: () {
-                    print("yoyooy");
                     showDialog<String>(
                       context: context,
                       builder: (BuildContext context) => AlertDialog(

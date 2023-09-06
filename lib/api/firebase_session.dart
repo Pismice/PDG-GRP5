@@ -36,14 +36,21 @@ class GetSession extends StatelessWidget {
 final sessions = FirebaseFirestore.instance.collection('session');
 final users = FirebaseFirestore.instance.collection('user');
 
+Session _convertJson(Map<String, dynamic> data, String documentId) {
+  Session session = Session.fromJson(data);
+  session.uid = documentId;
+  for (int i = 0; i < session.exercises!.length; ++i) {
+    session.exercises![i].positionId = i + 1;
+  }
+  return session;
+}
+
 Future<Session> getSession(String documentId) async {
   final snapshot = await sessions.doc(documentId).get();
   if (snapshot.data() == null) {
     throw Exception("Séance non trouvée");
   }
-  Session session = Session.fromJson(snapshot.data()!);
-  session.uid = documentId;
-  return session;
+  return _convertJson(snapshot.data()!, documentId);
 }
 
 Future<List<Session>> getAllSessionsFrom({String? uid}) async {
@@ -58,9 +65,7 @@ Future<List<Session>> getAllSessionsFrom({String? uid}) async {
   final snapshot = await sessions.where('user', isEqualTo: userRef).get();
 
   final data = snapshot.docs.map((s) {
-    Session session = Session.fromJson(s.data());
-    session.uid = s.id;
-    return session;
+    return _convertJson(s.data(), s.id);
   }).toList();
 
   return data;
@@ -190,4 +195,17 @@ Future<int> getBestSetsNb(String exId, {String? authid}) async {
   }
 
   return pr;
+}
+
+Future<void> deleteExerciseFromSession(
+    String sessionId, SessionExercises exercise) async {
+  Session session = await getSession(sessionId);
+
+  for (var sesssionEx in session.exercises!) {
+    if (sesssionEx.positionId == exercise.positionId) {
+      session.exercises!.remove(sesssionEx);
+    }
+  }
+
+  await updateSession(session);
 }
