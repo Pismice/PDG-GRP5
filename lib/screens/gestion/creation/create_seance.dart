@@ -150,12 +150,12 @@ class _MyCreateSeance extends State<MyCreateSeance> {
               Expanded(
                 child: IconButton(
                   onPressed: () {
-                    Navigator.push(
+                    /*Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const MyAddNewExercise(),
+                        builder: (context) => const MyAddNewExercise(session: ,),
                       ),
-                    );
+                    );*/
                   },
                   icon: const Icon(Icons.add),
                 ),

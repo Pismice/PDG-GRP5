@@ -260,7 +260,8 @@ class _MyEditSeancePage extends State<MyEditSeancePage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const MyAddNewExercise(),
+                        builder: (context) =>
+                            MyAddNewExercise(session: widget.session),
                       ),
                     );
                   },
