@@ -57,7 +57,12 @@ class _MyRepetitionState extends State<MyRepetition> {
                       keyboardType: TextInputType.number,
                       controller: ctrlNbReps,
                       validator: (value) {
-                        if (int.parse(value!) < 0) {
+                        try {
+                          int.parse(value!);
+                        } catch (e) {
+                          return "Must be a number";
+                        }
+                        if (int.parse(value) < 0) {
                           return "Must be positive";
                         }
                         return null;
@@ -73,7 +78,12 @@ class _MyRepetitionState extends State<MyRepetition> {
                       keyboardType: TextInputType.number,
                       controller: ctrlWeight,
                       validator: (value) {
-                        if (int.parse(value!) < 0) {
+                        try {
+                          int.parse(value!);
+                        } catch (e) {
+                          return "Must be a number";
+                        }
+                        if (int.parse(value) < 0) {
                           return "Must be positive";
                         }
                         return null;
@@ -89,20 +99,47 @@ class _MyRepetitionState extends State<MyRepetition> {
                 ),
                 ElevatedButton(
                     onPressed: () async {
+                      int myPR = await getWeightPR(widget.exoBase.uid!);
                       if (_formKey.currentState!.validate()) {
-                        if (await getWeightPR(widget.exoBase.uid!) <
-                            int.parse(ctrlWeight.text)) {
-                              // PR battu !
+                        if (myPR < int.parse(ctrlWeight.text)) {
+                          // PR battu !
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content:
+                                      Text("New PR for this exercise !!!")),
+                            );
+                          }
                           controller.play();
-                          Future.delayed(const Duration(milliseconds: 500), () {
+                          await Future.delayed(
+                              const Duration(milliseconds: 3000), () {
                             controller.stop();
                           });
                         }
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text(
+                                    "Your performance is now in the ROCK!")),
+                          );
+                        }
+
+                        // TODO
                         // Inserer dans la BD l exo effectue
-                        // TODO: inserer
+
+                        // Passer a la serie suivante ou revenir sur l ecran des exercices si cest termine
+                        bool remainingSeries = false;
+                        if (remainingSeries) {
+                          // TODO
+                        } else {
+                          if (context.mounted) {
+                            //Future.delayed(const Duration(seconds: 3));
+                            Navigator.pop(context);
+                          }
+                        }
                       }
                     },
-                    child: const Text("Valider ma série"))
+                    child: const Text("Enter my results in the rock"))
               ],
             ),
           ),
