@@ -1,6 +1,7 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_exercise.dart';
+import 'package:g2g/api/firebase_session.dart';
 import 'package:g2g/model/exercise.dart';
 import 'package:g2g/model/session.dart';
 import 'package:g2g/screens/gestion/modification/editseance.dart';
@@ -31,10 +32,11 @@ class _MySeanceInfoPage extends State<MySeanceInfoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("${widget.session.name}"),
-        ),
-        body: Column(children: <Widget>[
+      appBar: AppBar(
+        title: Text("${widget.session.name}"),
+      ),
+      body: Column(
+        children: <Widget>[
           ListView.builder(
             shrinkWrap: true,
             itemCount: widget.session.exercises!.length,
@@ -95,23 +97,53 @@ class _MySeanceInfoPage extends State<MySeanceInfoPage> {
               );
             },
           ),
-          Row(children: [
-            Expanded(
-                child:
-                    IconButton(onPressed: () {}, icon: const Icon(Icons.add))),
-            Expanded(
+          Row(
+            children: [
+              Expanded(
                 child: IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const MyEditSeancePage()));
-                    },
-                    icon: const Icon(Icons.edit))),
-            Expanded(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MyEditSeancePage(widget.session),
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.edit),
+                ),
+              ),
+              Expanded(
                 child: IconButton(
-                    onPressed: () {}, icon: const Icon(Icons.delete)))
-          ])
-        ]));
+                  onPressed: () {
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Suppression du workout'),
+                        content: const Text(
+                            'Êtes-vous certain de vouloir supprimer cette session ?'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'Cancel'),
+                            child: const Text('Annuler'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              deleteSession(widget.session.uid!);
+                              Navigator.pop(context, 'OK');
+                            },
+                            child: const Text('Supprimer'),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.delete),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }

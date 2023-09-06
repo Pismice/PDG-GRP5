@@ -31,13 +31,7 @@ class _MyWorkoutInfoPage extends State<MyWorkoutInfoPage> {
             itemCount: items.length,
             itemBuilder: (context, index) {
               return ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const MySeanceInfoPage()),
-                    );
-                  },
+                  onPressed: () {},
                   style: ButtonStyle(
                       foregroundColor: MaterialStateProperty.all(Colors.black),
                       backgroundColor:
