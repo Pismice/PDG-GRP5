@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_session.dart';
+import 'package:g2g/api/firebase_workout.dart';
 import 'package:g2g/model/exercise.dart';
 import 'package:g2g/model/session.dart';
 import 'package:g2g/model/workout.dart';
@@ -168,7 +169,7 @@ class _MyRepetitionState extends State<MyRepetition> {
                               id: widget.exercise.id, sets: onGoingSets);
                           Session session =
                               await getSession(widget.exercise.sessionId!);
-                          //TODO: addExerciseDone(//TODO, exercisesDone, widget.exercise.sessionId!);
+                          addExerciseDone(, exercisesDone, widget.exercise.sessionId!);
                           if (context.mounted) {
                             //Future.delayed(const Duration(seconds: 3));
                             Navigator.pop(context);
