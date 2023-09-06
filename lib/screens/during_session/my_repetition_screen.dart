@@ -5,25 +5,34 @@ import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_session.dart';
 import 'package:g2g/model/exercise.dart';
 import 'package:g2g/model/session.dart';
+import 'package:g2g/model/workout.dart';
 
+// ignore: must_be_immutable
 class MyRepetition extends StatefulWidget {
-  const MyRepetition(
-      {super.key, required this.exercise, required this.exoBase});
+  MyRepetition(
+      {super.key,
+      required this.exercise,
+      required this.exoBase,
+      required this.mySets});
   final SessionExercises exercise;
   final Exercise exoBase;
+  List<Sets> mySets;
 
   @override
   State<MyRepetition> createState() => _MyRepetitionState();
 }
 
 class _MyRepetitionState extends State<MyRepetition> {
+  List<Sets> onGoingSets = List<Sets>.from(List.empty(growable: true));
   bool isPlaying = false;
+  bool isSent = false;
   final controller = ConfettiController();
   final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
+    onGoingSets = List<Sets>.from(widget.mySets);
   }
 
   @override
@@ -47,8 +56,8 @@ class _MyRepetitionState extends State<MyRepetition> {
             key: _formKey,
             child: Column(
               children: [
-                // TODO
-                const Text("Série 2 sur 3"),
+                Text(
+                    "Série ${onGoingSets.length + 1} sur ${widget.exercise.set}"),
                 Row(
                   children: [
                     const Text("Nombre de répétitions"),
@@ -62,7 +71,7 @@ class _MyRepetitionState extends State<MyRepetition> {
                         } catch (e) {
                           return "Must be a number";
                         }
-                        if (int.parse(value) < 0) {
+                        if (int.parse(value) <= 0) {
                           return "Must be positive";
                         }
                         return null;
@@ -83,7 +92,7 @@ class _MyRepetitionState extends State<MyRepetition> {
                         } catch (e) {
                           return "Must be a number";
                         }
-                        if (int.parse(value) < 0) {
+                        if (int.parse(value) <= 0) {
                           return "Must be positive";
                         }
                         return null;
@@ -100,21 +109,31 @@ class _MyRepetitionState extends State<MyRepetition> {
                 ElevatedButton(
                     onPressed: () async {
                       int myPR = await getWeightPR(widget.exoBase.uid!);
-                      if (_formKey.currentState!.validate()) {
-                        if (myPR < int.parse(ctrlWeight.text)) {
-                          // PR battu !
-                          if (context.mounted) {
+                      if (_formKey.currentState!.validate() && !isSent) {
+                        int myPerformance = int.parse(ctrlWeight.text);
+                        bool isPrBeaten = false;
+                        isSent = true;
+                        if (myPR < myPerformance) {
+                          isPrBeaten = true;
+                          for (Sets exo in onGoingSets) {
+                            if (exo.weight! >= myPerformance) {
+                              // Un exercice recent est meilleur donc pas de PR ...
+                              isPrBeaten = false;
+                              break;
+                            }
+                          }
+                          if (context.mounted && isPrBeaten) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                   content:
                                       Text("New PR for this exercise !!!")),
                             );
+                            controller.play();
+                            await Future.delayed(
+                                const Duration(milliseconds: 3000), () {
+                              controller.stop();
+                            });
                           }
-                          controller.play();
-                          await Future.delayed(
-                              const Duration(milliseconds: 3000), () {
-                            controller.stop();
-                          });
                         }
                         if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -124,14 +143,32 @@ class _MyRepetitionState extends State<MyRepetition> {
                           );
                         }
 
-                        // TODO
-                        // Inserer dans la BD l exo effectue
+                        // Inserer dans la liste de sets
+                        Sets sets = Sets(
+                            repetition: int.parse(ctrlNbReps.text),
+                            weight: int.parse(ctrlWeight.text));
+                        onGoingSets.add(sets);
 
                         // Passer a la serie suivante ou revenir sur l ecran des exercices si cest termine
-                        bool remainingSeries = false;
-                        if (remainingSeries) {
-                          // TODO
+                        if (onGoingSets.length < widget.exercise.set!) {
+                          // Il reste des séries
+                          if (context.mounted) {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MyRepetition(
+                                        exercise: widget.exercise,
+                                        exoBase: widget.exoBase,
+                                        mySets: onGoingSets)));
+                          }
                         } else {
+                          // Il ne reste plus de série à effectuer
+                          // Inserer dans la BD
+                          ExercisesDone exercisesDone = ExercisesDone(
+                              id: widget.exercise.id, sets: onGoingSets);
+                          Session session =
+                              await getSession(widget.exercise.sessionId!);
+                          //TODO: addExerciseDone(//TODO, exercisesDone, widget.exercise.sessionId!);
                           if (context.mounted) {
                             //Future.delayed(const Duration(seconds: 3));
                             Navigator.pop(context);

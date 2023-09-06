@@ -7,13 +7,19 @@ import 'package:g2g/model/workout.dart';
 import 'package:g2g/screens/during_session/my_repetition_screen.dart';
 
 // ignore: must_be_immutable
-class MyExercices extends StatelessWidget {
-  MyExercices({super.key, required this.onGoingSession});
+class MyExercices extends StatefulWidget {
+  const MyExercices({super.key, required this.onGoingSession});
   final WorkoutSessions onGoingSession;
+
+  @override
+  State<MyExercices> createState() => _MyExercicesState();
+}
+
+class _MyExercicesState extends State<MyExercices> {
   Session session = Session();
 
   Future<void> loadSessionData() async {
-    session = await getSession(onGoingSession.id!);
+    session = await getSession(widget.onGoingSession.id!);
   }
 
   @override
@@ -44,20 +50,29 @@ class MyExercices extends StatelessWidget {
                           } else {
                             String imageName =
                                 exoBase.data!.img ?? "default.png";
+                            bool isExerciseOver = false;
+                            if (session.exercises!.length ==
+                                widget.onGoingSession.exercises!.length) {
+                              isExerciseOver = true;
+                            }
                             return GestureDetector(
                               onTap: () {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => MyRepetition(
-                                            exoBase: exoBase.data!,
-                                            exercise:
-                                                session.exercises![index])));
+                                              exoBase: exoBase.data!,
+                                              exercise:
+                                                  session.exercises![index],
+                                              mySets: List.empty(),
+                                            )));
                               },
                               child: Container(
                                 // TODO: si toutes les series de cet exercice sont faits il faut mettre en vert
                                 decoration: BoxDecoration(
-                                    color: Colors.green,
+                                    color: isExerciseOver
+                                        ? Colors.green
+                                        : Colors.grey,
                                     border: Border.all(
                                       color: Colors.black,
                                       width: 2.0,
