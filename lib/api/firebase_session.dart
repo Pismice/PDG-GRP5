@@ -43,6 +43,9 @@ Future<Session> getSession(String documentId) async {
   }
   Session session = Session.fromJson(snapshot.data()!);
   session.uid = documentId;
+  for (var i = 0; i < session.exercises!.length; i++) {
+    session.exercises![i].sessionId = session.uid;
+  }
   return session;
 }
 
@@ -60,6 +63,9 @@ Future<List<Session>> getAllSessionsFrom({String? uid}) async {
   final data = snapshot.docs.map((s) {
     Session session = Session.fromJson(s.data());
     session.uid = s.id;
+    for (var i = 0; i < session.exercises!.length; i++) {
+      session.exercises![i].sessionId = session.uid;
+    }
     return session;
   }).toList();
 
