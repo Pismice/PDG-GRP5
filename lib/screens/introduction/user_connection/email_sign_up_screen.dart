@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -47,10 +49,6 @@ class _EmailSignUpScreenState extends State<EmailSignUpScreen> {
                 0)
               {await addNewEmailUserToFirestore(value, username)}
           });
-
-      if (context.mounted) {
-        Navigator.pop(context);
-      }
     } on FirebaseAuthException catch (e) {
       creationOk = false;
       if (e.code == 'weak-password') {
