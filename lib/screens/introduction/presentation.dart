@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:g2g/screens/introduction/user_connection/google_sign_in_screen.dart';
+import 'package:g2g/screens/introduction/user_connection/connection_choices_screen.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
 class AppPresentationScreen extends StatelessWidget {
@@ -17,7 +17,7 @@ class AppPresentationScreen extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => const GoogleSignInScreen()));
+                builder: (context) => const ConnectionChoicesScreen()));
       },
       pages: [
         PageViewModel(
