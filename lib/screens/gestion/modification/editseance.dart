@@ -19,50 +19,82 @@ class MyEditSeancePage extends StatefulWidget {
 }
 
 class _MyEditSeancePage extends State<MyEditSeancePage> {
-  Widget displaySet(Exercise ex) {
+  Widget _displaySet(Exercise ex) {
     for (var sessEx in widget.session.exercises!) {
       if (sessEx.id != ex.uid) continue;
+      List<Widget> children = [];
       switch (ex.type) {
         case "TIME":
-          return Row(
-            children: [
-              CupertinoButton(
-                padding: EdgeInsets.zero,
-                // Display a CupertinoPicker with list of fruits.
-                onPressed: () => _showDialog(
-                  CupertinoPicker(
-                    itemExtent: _kItemExtent,
-                    // This sets the initial item.
-                    scrollController: FixedExtentScrollController(
-                      initialItem: sessEx.duration!,
-                    ),
-                    // This is called when selected item is changed.
-                    onSelectedItemChanged: (int selectedItem) {
-                      setState(
-                        () {
-                          sessEx.duration = selectedItem;
-                        },
-                      );
-                    },
-                    children: List<Widget>.generate(
-                      600,
-                      (int index) {
-                        return Center(child: Text('$index'));
+          children.addAll([
+            CupertinoButton(
+              padding: EdgeInsets.zero,
+              // Display a CupertinoPicker with list of fruits.
+              onPressed: () => _showDialog(
+                CupertinoPicker(
+                  itemExtent: _kItemExtent,
+                  // This sets the initial item.
+                  scrollController: FixedExtentScrollController(
+                    initialItem: sessEx.duration!,
+                  ),
+                  // This is called when selected item is changed.
+                  onSelectedItemChanged: (int selectedItem) {
+                    setState(
+                      () {
+                        sessEx.duration = selectedItem;
                       },
-                    ),
+                    );
+                  },
+                  children: List<Widget>.generate(
+                    600,
+                    (int index) {
+                      return Center(child: Text('$index'));
+                    },
                   ),
                 ),
-                // This displays the selected fruit name.
-                child: Text(
-                  '${sessEx.duration}',
+              ),
+              // This displays the selected fruit name.
+              child: Text(
+                '${sessEx.duration}',
+              ),
+            ),
+            const Text(' sec'),
+          ]);
+          break;
+        case "WEIGHT":
+          children.addAll([
+            CupertinoButton(
+              padding: EdgeInsets.zero,
+              // Display a CupertinoPicker with list of fruits.
+              onPressed: () => _showDialog(
+                CupertinoPicker(
+                  itemExtent: _kItemExtent,
+                  // This sets the initial item.
+                  scrollController: FixedExtentScrollController(
+                    initialItem: sessEx.repetition!,
+                  ),
+                  // This is called when selected item is changed.
+                  onSelectedItemChanged: (int selectedItem) {
+                    setState(() {
+                      sessEx.weight = selectedItem;
+                    });
+                  },
+                  children: List<Widget>.generate(150, (int index) {
+                    return Center(child: Text('$index'));
+                  }),
                 ),
               ),
-              const Text(' sec'),
-            ],
-          );
+              // This displays the selected fruit name.
+              child: Text(
+                '${sessEx.weight}',
+              ),
+            ),
+            const Text(' kg'),
+          ]);
+          continue rest;
+        rest:
         default:
-          return Row(
-            children: [
+          children.addAll(
+            [
               CupertinoButton(
                   padding: EdgeInsets.zero,
                   // Display a CupertinoPicker with list of fruits.
@@ -117,7 +149,11 @@ class _MyEditSeancePage extends State<MyEditSeancePage> {
               ),
             ],
           );
+          break;
       }
+      return Row(
+        children: children,
+      );
     }
     return const Text("");
   }
@@ -212,7 +248,7 @@ class _MyEditSeancePage extends State<MyEditSeancePage> {
                               ),
                             ),
                             Expanded(child: Text(exercise.name!)),
-                            displaySet(exercise),
+                            _displaySet(exercise),
                             Padding(
                               padding: const EdgeInsets.only(left: 30),
                               child: IconButton(

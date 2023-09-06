@@ -19,11 +19,16 @@ class _MySeanceInfoPage extends State<MySeanceInfoPage> {
   String displaySet(Exercise ex) {
     for (var sessEx in widget.session.exercises!) {
       if (sessEx.id != ex.uid) continue;
+      String res = "";
       switch (ex.type) {
         case "TIME":
           return "${sessEx.duration} sec";
+        case "WEIGHT":
+          res = "${sessEx.weight} kg |";
+          continue rest;
+        rest:
         default:
-          return "${sessEx.repetition} x ${sessEx.set}";
+          return "$res ${sessEx.repetition} x ${sessEx.set}";
       }
     }
     return "";
