@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:g2g/model/exercise.dart';
 import 'package:g2g/model/session.dart';
 
 class Workout {
