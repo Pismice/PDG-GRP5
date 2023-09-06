@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:g2g/model/exercise.dart';
-import 'package:g2g/screens/gestion/creation/addnew/addnewexercise.dart';
 
 const double _kItemExtent = 32.0;
 

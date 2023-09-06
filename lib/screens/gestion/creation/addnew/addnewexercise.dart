@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:g2g/model/session.dart';
-import 'package:g2g/screens/gestion/creation/create_exercise.dart';
 import 'package:g2g/api/firebase_exercise.dart';
 
 class MyAddNewExercise extends StatefulWidget {
