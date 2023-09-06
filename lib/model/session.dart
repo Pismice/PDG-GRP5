@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+/// classe qui représente une séance
 class Session {
   String? uid;
   String? name;
@@ -9,6 +10,7 @@ class Session {
 
   Session({this.uid, this.name, this.user, this.duration, this.exercises});
 
+  /// Constructeur à partir d'un json
   Session.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     if (user != null) user = json['user'].id;
@@ -21,6 +23,7 @@ class Session {
     }
   }
 
+  /// Fonction qui crée une séance à partir d'un documentSnapshot
   factory Session.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) {
     final data = snapshot.data();
@@ -34,6 +37,7 @@ class Session {
             data?['exercises'].map<SessionExercises>((e) => {}).toList());
   }
 
+  /// Fonction qui retourne la séance au format JSON
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (name != null) data['name'] = name;
@@ -49,6 +53,7 @@ class Session {
     return data;
   }
 
+  /// Fonction qui retourne la session au format de la bdd
   Map<String, dynamic> toFirestore() {
     return {
       if (name != null) "name": name,
@@ -60,6 +65,7 @@ class Session {
   }
 }
 
+/// Classe qui représente les exercices des séances
 class SessionExercises {
   String? id;
   int? repetition;
@@ -77,6 +83,7 @@ class SessionExercises {
     this.sessionId,
   });
 
+  /// Constructeur à partir d'un json
   SessionExercises.fromJson(Map<String, dynamic> json) {
     if (json['id'] != null) id = json['id'].id;
     repetition = json['repetition'];
@@ -86,6 +93,7 @@ class SessionExercises {
     if (json['sessionId'] != null) sessionId = json['sessionId'].id;
   }
 
+  /// Fonction qui crée un exo de séance à partir d'un documentSnapshot
   factory SessionExercises.fromFirestore(
       DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) {
@@ -99,6 +107,7 @@ class SessionExercises {
     );
   }
 
+  /// Fonction qui retourne l'exerice au format json
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (id != null) data['id'] = FirebaseFirestore.instance.doc("exercise/$id");
@@ -112,6 +121,7 @@ class SessionExercises {
     return data;
   }
 
+  /// Fonction qui retourne l'exercice au format de la bdd
   Map<String, dynamic> toFirestore() {
     return {
       if (id != null) "id": FirebaseFirestore.instance.doc("exercise/$id"),
