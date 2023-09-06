@@ -67,6 +67,23 @@ Future<List<Workout>> getAllWorkoutsFrom({String? uid}) async {
   return data;
 }
 
+Future<void> deleteSessionFromWorkout(
+    String idWorkout, String idSession) async {
+  final w = await getWorkout(idWorkout);
+  final sessions = <WorkoutSessions>[];
+  if (w.sessions == null) {
+    return;
+  }
+  for (var sess in w.sessions!) {
+    if (sess.id == idSession) {
+      continue;
+    }
+    sessions.add(sess);
+  }
+  w.sessions = sessions;
+  updateWorkout(w);
+}
+
 int numOfWeeks(int year) {
   DateTime dec28 = DateTime(year, 12, 28);
   int dayOfDec28 = int.parse(DateFormat("D").format(dec28));

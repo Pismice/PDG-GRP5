@@ -132,7 +132,8 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              const MyEditWorkoutPage(),
+                                              MyEditWorkoutPage(
+                                                  items[index].uid),
                                         ),
                                       );
                                     },

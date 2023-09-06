@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_session.dart';
 import 'package:g2g/api/firebase_workout.dart';
 import 'package:g2g/screens/gestion/affichage/affichage_seance.dart';
+import 'package:g2g/screens/gestion/modification/editworkout.dart';
 
 class MyWorkoutInfoPage extends StatefulWidget {
   final String id;
@@ -84,7 +85,14 @@ class _MyWorkoutInfoPage extends State<MyWorkoutInfoPage> {
                           onPressed: () {}, icon: const Icon(Icons.add))),
                   Expanded(
                       child: IconButton(
-                          onPressed: () {}, icon: const Icon(Icons.edit))),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        MyEditWorkoutPage(widget.id)));
+                          },
+                          icon: const Icon(Icons.edit))),
                   Expanded(
                       child: IconButton(
                           onPressed: () {
