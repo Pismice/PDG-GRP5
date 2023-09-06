@@ -19,6 +19,12 @@ class _MyWorkoutInfoPage extends State<MyWorkoutInfoPage> {
     return FutureBuilder(
       future: items,
       builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        }
+        if (snapshot.hasError) {
+          return Text("Error : ${snapshot.error.toString()}");
+        }
         if (snapshot.connectionState == ConnectionState.done &&
             snapshot.hasData) {
           return Scaffold(
@@ -53,6 +59,14 @@ class _MyWorkoutInfoPage extends State<MyWorkoutInfoPage> {
                                 future: getSession(snapshot
                                     .data!.sessions![index].id as String),
                                 builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return const CircularProgressIndicator();
+                                  }
+                                  if (snapshot.hasError) {
+                                    return Text(
+                                        "Error : ${snapshot.error.toString()}");
+                                  }
                                   if (snapshot.connectionState ==
                                           ConnectionState.done &&
                                       snapshot.hasData) {

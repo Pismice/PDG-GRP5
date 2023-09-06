@@ -23,9 +23,9 @@ class Workout {
     week = json['week'];
     if (json['sessions'] != null) {
       sessions = <WorkoutSessions>[];
-      json['sessions'].forEach((v) {
-        sessions!.add(WorkoutSessions.fromJson(v));
-      });
+      for (Map<String, dynamic> session in json['sessions']) {
+        sessions!.add(WorkoutSessions.fromJson(session));
+      }
     }
   }
 
@@ -87,9 +87,9 @@ class WorkoutSessions {
     }
     if (json['exercises'] != null) {
       exercises = <ExercisesDone>[];
-      json['exercises'].forEach((v) {
-        exercises!.add(ExercisesDone.fromJson(v));
-      });
+      for (Map<String, dynamic> exercise in json['exercises']) {
+        exercises!.add(ExercisesDone.fromJson(exercise));
+      }
     }
   }
 
@@ -141,10 +141,11 @@ class ExercisesDone {
   ExercisesDone.fromJson(Map<String, dynamic> json) {
     id = json['id'].id;
     if (json['sets'] != null) {
+      final jsets = json['sets'];
       sets = <Sets>[];
-      json['sets'].forEach((v) {
-        sets!.add(Sets.fromJson(v));
-      });
+      for (Map<String, dynamic> set in jsets) {
+        sets!.add(Sets.fromJson(set));
+      }
     }
   }
 

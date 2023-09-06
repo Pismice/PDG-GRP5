@@ -22,6 +22,12 @@ class HomeScreen extends StatelessWidget {
           body: FutureBuilder(
         future: getAllWorkoutsFrom(),
         builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return Text("Error ${snapshot.error.toString()}");
+          }
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData) {
             return ListView.builder(
