@@ -29,6 +29,13 @@ class Workout {
     }
   }
 
+  WorkoutSessions? findWorkoutSessionById(String sessionId) {
+    for (var session in sessions!) {
+      if (session.id == sessionId) return session;
+    }
+    return null;
+  }
+
   factory Workout.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) {
     final data = snapshot.data();
@@ -74,11 +81,18 @@ class WorkoutSessions {
   DateTime? start;
   DateTime? end;
   List<ExercisesDone>? exercises;
+  String? workoutId;
 
-  WorkoutSessions({this.id, this.start, this.end, this.exercises});
+  WorkoutSessions({
+    this.id,
+    this.start,
+    this.end,
+    this.exercises,
+    this.workoutId,
+  });
 
   WorkoutSessions.fromJson(Map<String, dynamic> json) {
-    id = json['id'].id;
+    if (json['id'] != null) id = json['id'].id;
     if (json['start'] != null) {
       start = DateTime.fromMillisecondsSinceEpoch(json['start'].seconds * 1000);
     }
@@ -91,6 +105,7 @@ class WorkoutSessions {
         exercises!.add(ExercisesDone.fromJson(v));
       });
     }
+    if (json['workoutId'] != null) workoutId = json['workoutId'];
   }
 
   factory WorkoutSessions.fromFirestore(
@@ -98,7 +113,7 @@ class WorkoutSessions {
       SnapshotOptions? options) {
     final data = snapshot.data();
     return WorkoutSessions(
-      id: data?['id'].id,
+      id: data?['id'] != null ? data!['id'].id : null,
       start: data?['start'] != null
           ? DateTime.fromMillisecondsSinceEpoch(data?['start'])
           : null,
@@ -107,6 +122,7 @@ class WorkoutSessions {
           : null,
       exercises:
           data?['sessions'].map<ExercisesDone>((e) => ExercisesDone()).toList(),
+      workoutId: data?['workoutId'] != null ? data!['workoutId'].id : null,
     );
   }
 
@@ -118,6 +134,9 @@ class WorkoutSessions {
     if (exercises != null) {
       data['exercises'] = exercises!.map((v) => v.toJson()).toList();
     }
+    if (workoutId != null) {
+      data['workoutId'] = FirebaseFirestore.instance.doc("workout/$workoutId");
+    }
     return data;
   }
 
@@ -128,6 +147,8 @@ class WorkoutSessions {
       if (end != null) "end": end!.millisecondsSinceEpoch / 1000,
       if (exercises != null)
         "exercises": exercises!.map((e) => e.toFirestore()).toList(),
+      if (workoutId != null)
+        "workoutId": FirebaseFirestore.instance.doc("workout/$workoutId"),
     };
   }
 }
@@ -135,6 +156,7 @@ class WorkoutSessions {
 class ExercisesDone {
   String? id;
   List<Sets>? sets;
+  WorkoutSessions? session;
 
   ExercisesDone({this.id, this.sets});
 

@@ -44,7 +44,6 @@ Future<void> deleteExercise(String docId) async {
     throw Exception("Erreur lors de la suppressions : $e");
   }
 }
-
 Future<List<Exercise>> getAllExercisesOf({String? authid}) async {
   String id =
       (authid != null) ? authid : FirebaseAuth.instance.currentUser!.uid;
@@ -71,7 +70,10 @@ Future<List<Exercise>> getAllExercisesOf({String? authid}) async {
 /// est renseigné, va retourner la même liste avec tous les exercices
 /// que l'utilsateur renseigné a crée
 Future<List<Exercise>> getAllExercises({String? authid}) async {
+
+ 
   final snapshot = await exercises /*.where("user", isEqualTo: null)*/ .get();
+  
   List<Exercise> data = snapshot.docs.map((e) {
     Exercise exercise = Exercise.fromJson(e.data());
     exercise.uid = e.id;

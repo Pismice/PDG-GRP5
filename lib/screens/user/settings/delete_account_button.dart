@@ -12,12 +12,24 @@ class DeleteAccountButton extends StatelessWidget {
           backgroundColor:
               MaterialStateProperty.all<Color>(Colors.red.shade900),
         ),
-        onPressed: () {
+        onPressed: () async {
           String authIdToBeDeleted = FirebaseAuth.instance.currentUser!.uid;
-          //FirebaseAuth.instance.signOut();
-          deleteUser(authIdToBeDeleted);
+          await deleteUser(authIdToBeDeleted);
+          try {
+            await FirebaseAuth.instance.currentUser!.delete();
+          } catch (e) {
+            if (context.mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                    content: Text(
+                        e.toString())),
+              );
+            }
+          }
           //FirebaseAuth.instance.userChanges();
-          Navigator.pop(context);
+          if (context.mounted) {
+            Navigator.popUntil(context, (route) => route.isFirst);
+          }
         },
         child: const Text("Delete my account"));
   }
