@@ -156,6 +156,7 @@ class WorkoutSessions {
 class ExercisesDone {
   String? id;
   List<Sets>? sets;
+  WorkoutSessions? session;
 
   ExercisesDone({this.id, this.sets});
 
