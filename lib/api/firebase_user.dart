@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:g2g/model/user.dart';
 
 final users = FirebaseFirestore.instance.collection('user');
@@ -11,7 +12,9 @@ Future<User> getUser(String authid) async {
       await users.where('authid', isEqualTo: authid).limit(1).get();
 
   final data = snapshot.docs.map((e) => e.data()).first;
-  return User.fromJson(data);
+  User user = User.fromJson(data);
+  user.uid = snapshot.docs.first.id;
+  return user;
 }
 
 Future<void> deleteUser(String authid) async {
@@ -51,4 +54,20 @@ void updateUser(User user) async {
   if (user.profilepicture != storeUser.profilepicture) {
     users.doc(user.uid).set(user.toFirestore());
   }
+}
+
+Future<void> addNewGoogleUserToFirestore(UserCredential user) {
+  return FirebaseFirestore.instance.collection('user').add(<String, String>{
+    'authid': user.user!.uid,
+    'name': user.user!.displayName.toString(),
+    'profilepicture': user.user!.photoURL.toString(),
+  });
+}
+
+Future<void> addNewEmailUserToFirestore(UserCredential user,
+    [String? username]) {
+  return FirebaseFirestore.instance.collection('user').add(<String, String>{
+    'authid': user.user!.uid,
+    'name': username ?? 'null',
+  });
 }

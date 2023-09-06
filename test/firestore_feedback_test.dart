@@ -1,11 +1,22 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:g2g/model/feedback.dart';
+
+import 'test_models/feedback.dart';
 
 final instance = FakeFirebaseFirestore();
 
 final feedbacks = instance.collection("feedback");
 final users = instance.collection("user");
+
+Future<DocumentReference<Map<String, dynamic>>> getUserReference(
+    String authid) async {
+  return await users
+      .where('authid', isEqualTo: authid)
+      .limit(1)
+      .get()
+      .then((value) => users.doc(value.docs[0].id));
+}
 
 Future<Feedback> getFeedback(String documentId) async {
   final snapshot = await feedbacks.doc(documentId).get();
@@ -58,7 +69,7 @@ void main() async {
 
   Feedback feedback = Feedback(
     uid: "salut",
-    user: "hihihihihhi",
+    user: (await getUserReference("hihihihihhi")).id,
     title: "mon feedback",
     comment: "je suis pas content >:(",
   );
