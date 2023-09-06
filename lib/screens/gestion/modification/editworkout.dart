@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:g2g/api/firebase_session.dart';
 import 'package:g2g/api/firebase_workout.dart';
 import 'package:g2g/screens/gestion/creation/addnew/addnewseance.dart';
 
-const double _kItemExtent = 32.0;
+//const double _kItemExtent = 32.0;
 
 class MyEditWorkoutPage extends StatefulWidget {
   final String? id;
@@ -16,27 +15,6 @@ class MyEditWorkoutPage extends StatefulWidget {
 }
 
 class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
-  void _showDialog(Widget child) {
-    showCupertinoModalPopup<void>(
-      context: context,
-      builder: (BuildContext context) => Container(
-        height: 216,
-        padding: const EdgeInsets.only(top: 6.0),
-        // The Bottom margin is provided to align the popup above the system navigation bar.
-        margin: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
-        ),
-        // Provide a background color for the popup.
-        color: CupertinoColors.systemBackground.resolveFrom(context),
-        // Use a SafeArea widget to avoid system overlaps.
-        child: SafeArea(
-          top: false,
-          child: child,
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
