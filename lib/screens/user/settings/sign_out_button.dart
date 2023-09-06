@@ -11,7 +11,7 @@ class SignOutButton extends StatelessWidget {
           await FirebaseAuth.instance.signOut();
           FirebaseAuth.instance.userChanges();
           if (context.mounted) {
-            Navigator.pop(context);
+            Navigator.popUntil(context, (route) => route.isFirst);
           }
         },
         child: const Text("Sign out"));

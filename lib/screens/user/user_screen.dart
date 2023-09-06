@@ -48,9 +48,12 @@ class UserScreen extends StatelessWidget {
                 FutureBuilder(
                     future: userStat.getNumberSessionDone(),
                     builder: ((context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done &&
-                          snapshot.hasData) {
-                        return Text(snapshot.data.toString());
+                      int value = 0;
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        if (snapshot.hasData) {
+                          value = snapshot.data!;
+                        }
+                        return Text(value.toString());
                       } else {
                         return const Center(child: CircularProgressIndicator());
                       }
@@ -66,9 +69,12 @@ class UserScreen extends StatelessWidget {
                 FutureBuilder(
                     future: userStat.getTotalWeightPushed(),
                     builder: ((context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done &&
-                          snapshot.hasData) {
-                        return Text("${snapshot.data}kg");
+                      double value = 0;
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        if (snapshot.hasData) {
+                          value = snapshot.data!;
+                        }
+                        return Text("$value kg");
                       } else {
                         return const Center(child: CircularProgressIndicator());
                       }
@@ -84,8 +90,10 @@ class UserScreen extends StatelessWidget {
                 FutureBuilder(
                     future: userStat.getHoursSpentInGym(),
                     builder: ((context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done &&
-                          snapshot.hasData) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        if (!snapshot.hasData) {
+                          return const Text("-");
+                        }
                         return Text(snapshot.data as String);
                       } else {
                         return const Center(child: CircularProgressIndicator());
@@ -115,10 +123,8 @@ class UserScreen extends StatelessWidget {
           decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
           child: ElevatedButton(
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ExercicesPr()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const ExercicesPr()));
             },
             child: const Row(
               children: [
