@@ -160,6 +160,43 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                                           );
                                         },
                                       )),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: IconButton(
+                                        icon: const Icon(Icons.delete),
+                                        padding: const EdgeInsets.all(0),
+                                        color: Colors.black,
+                                        onPressed: () {
+                                          showDialog<String>(
+                                            context: context,
+                                            builder: (BuildContext context) =>
+                                                AlertDialog(
+                                              title: const Text(
+                                                  'Suppréssion de l\'exercice'),
+                                              content: const Text(
+                                                  'Êtes-vous certain de vouloir supprimer cette exercice ?'),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          context, 'Cancel'),
+                                                  child: const Text('Annuler'),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    deleteExercise(
+                                                        myExercise[index].uid!);
+                                                    Navigator.pop(
+                                                        context, 'OK');
+                                                  },
+                                                  child:
+                                                      const Text('Supprimer'),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        }),
+                                  )
                                 ]),
                               ]));
                         }));
