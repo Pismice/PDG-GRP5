@@ -47,6 +47,7 @@ Future<Workout> getWorkout(String documentId) async {
 
   for (var i = 0; i < workout.sessions!.length; i++) {
     workout.sessions![i].workoutId = workout.uid;
+    if (workout.sessions![i].exercises == null) continue;
     for (var j = 0; j < workout.sessions![i].exercises!.length; ++j) {
       workout.sessions![i].exercises![j].session = workout.sessions![i];
     }
@@ -71,6 +72,7 @@ Future<List<Workout>> getAllWorkoutsFrom({String? uid}) async {
     workout.uid = w.id;
     for (var i = 0; i < workout.sessions!.length; i++) {
       workout.sessions![i].workoutId = workout.uid;
+      if (workout.sessions![i].exercises == null) continue;
       for (var j = 0; j < workout.sessions![i].exercises!.length; ++j) {
         workout.sessions![i].exercises![j].session = workout.sessions![i];
       }

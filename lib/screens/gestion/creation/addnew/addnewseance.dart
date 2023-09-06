@@ -67,7 +67,9 @@ class _MyEditSeancePage extends State<MyAddNewSeance> {
                         child: Container(
                             color: Colors.green[200],
                             child: IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
                                 icon: const Icon(Icons.check)))),
                   ])
                 ]));
