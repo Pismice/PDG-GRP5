@@ -56,7 +56,12 @@ class _MyAddNewExercise extends State<MyAddNewExercise> {
                           return ElevatedButton(
                               onPressed: () {
                                 widget.session.exercises?.add(SessionExercises(
-                                    id: exercises[index].uid!));
+                                    id: exercises[index].uid!,
+                                    repetition: 1,
+                                    set: 1,
+                                    weight: 1,
+                                    duration: 1,
+                                    sessionId: widget.session.uid));
                                 Navigator.pop(context);
                               },
                               style: ButtonStyle(
