@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:g2g/api/firebase_user.dart';
 import 'package:g2g/screens/user/other_stats/exercices_pr.dart';
 import 'package:g2g/screens/user/settings/settings_screen.dart';
 import 'package:g2g/back/retrieve_user_stat.dart';
@@ -13,8 +14,15 @@ class UserScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-            FirebaseAuth.instance.currentUser?.displayName ?? "Random golem"),
+        title: FutureBuilder(
+            future: getUser(FirebaseAuth.instance.currentUser!.uid),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return Text(snapshot.data!.name ?? "Random golem");
+              } else {
+                return const CircularProgressIndicator();
+              }
+            }),
         actions: [
           IconButton(
             onPressed: () {
