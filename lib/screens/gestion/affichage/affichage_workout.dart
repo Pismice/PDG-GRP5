@@ -21,7 +21,7 @@ class _MyWorkoutInfoPage extends State<MyWorkoutInfoPage> {
       future: items,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
+          return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
           return Text("Error : ${snapshot.error.toString()}");
@@ -30,7 +30,7 @@ class _MyWorkoutInfoPage extends State<MyWorkoutInfoPage> {
             snapshot.hasData) {
           return Scaffold(
               appBar: AppBar(
-                title: Text(snapshot.data!.name as String),
+                title: Text(snapshot.data!.name!),
               ),
               body: Column(children: <Widget>[
                 ListView.builder(
@@ -57,12 +57,13 @@ class _MyWorkoutInfoPage extends State<MyWorkoutInfoPage> {
                           child: Align(
                               alignment: Alignment.centerLeft,
                               child: FutureBuilder(
-                                future: getSession(snapshot
-                                    .data!.sessions![index].id as String),
+                                future: getSession(
+                                    snapshot.data!.sessions![index].id!),
                                 builder: (context, snapshot) {
                                   if (snapshot.connectionState ==
                                       ConnectionState.waiting) {
-                                    return const CircularProgressIndicator();
+                                    return const Center(
+                                        child: CircularProgressIndicator());
                                   }
                                   if (snapshot.hasError) {
                                     return Text(
@@ -71,18 +72,16 @@ class _MyWorkoutInfoPage extends State<MyWorkoutInfoPage> {
                                   if (snapshot.connectionState ==
                                           ConnectionState.done &&
                                       snapshot.hasData) {
-                                    return Text(snapshot.data!.name as String);
+                                    return Text(snapshot.data!.name!);
                                   }
-                                  return const CircularProgressIndicator();
+                                  return const Center(
+                                      child: CircularProgressIndicator());
                                 },
                               )),
                         ));
                   },
                 ),
                 Row(children: [
-                  Expanded(
-                      child: IconButton(
-                          onPressed: () {}, icon: const Icon(Icons.add))),
                   Expanded(
                       child: IconButton(
                           onPressed: () {

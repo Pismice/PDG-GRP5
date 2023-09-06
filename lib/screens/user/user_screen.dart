@@ -86,7 +86,7 @@ class UserScreen extends StatelessWidget {
                     builder: ((context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done &&
                           snapshot.hasData) {
-                        return Text(snapshot.data as String);
+                        return Text(snapshot.data!);
                       } else {
                         return const Center(child: CircularProgressIndicator());
                       }
@@ -115,10 +115,8 @@ class UserScreen extends StatelessWidget {
           decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
           child: ElevatedButton(
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ExercicesPr()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const ExercicesPr()));
             },
             child: const Row(
               children: [

@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:g2g/model/exercise.dart';
+import 'package:g2g/model/session.dart';
 
 class Workout {
   String? uid;
@@ -76,7 +78,9 @@ class WorkoutSessions {
   List<ExercisesDone>? exercises;
 
   WorkoutSessions({this.id, this.start, this.end, this.exercises});
-
+  WorkoutSessions.fromSession(Session s) {
+    id = s.uid;
+  }
   WorkoutSessions.fromJson(Map<String, dynamic> json) {
     id = json['id'].id;
     if (json['start'] != null) {
@@ -137,7 +141,9 @@ class ExercisesDone {
   List<Sets>? sets;
 
   ExercisesDone({this.id, this.sets});
-
+  ExercisesDone.fromSessionExercises(SessionExercises exercise) {
+    id = exercise.id;
+  }
   ExercisesDone.fromJson(Map<String, dynamic> json) {
     id = json['id'].id;
     if (json['sets'] != null) {

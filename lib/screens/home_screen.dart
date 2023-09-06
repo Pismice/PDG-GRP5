@@ -54,7 +54,7 @@ class HomeScreen extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => MyWorkoutInfoPage(
-                                          snapshot.data![i].uid as String)),
+                                          snapshot.data![i].uid!)),
                                 );
                               },
                               child: Column(children: <Widget>[
@@ -62,8 +62,7 @@ class HomeScreen extends StatelessWidget {
                                     alignment: Alignment.bottomLeft,
                                     child: Container(
                                         padding: const EdgeInsets.all(10),
-                                        child: Text(
-                                            snapshot.data![i].name as String))),
+                                        child: Text(snapshot.data![i].name!))),
                                 ListView.builder(
                                     shrinkWrap: true,
                                     itemCount:

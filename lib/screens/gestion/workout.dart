@@ -44,7 +44,7 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
         future: getAllWorkoutsFrom(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (snapshot.connectionState == ConnectionState.done &&
@@ -103,7 +103,7 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => MyWorkoutInfoPage(
-                                    snapshot.data![index].uid as String)),
+                                    snapshot.data![index].uid!)),
                           );
                         },
                         style: ButtonStyle(

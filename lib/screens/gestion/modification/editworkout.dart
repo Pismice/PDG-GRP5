@@ -16,8 +16,6 @@ class MyEditWorkoutPage extends StatefulWidget {
 }
 
 class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
-  var _selectedNumber = 1;
-
   void _showDialog(Widget child) {
     showCupertinoModalPopup<void>(
       context: context,
@@ -42,29 +40,34 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: getWorkout(widget.id as String),
+        future: getWorkout(widget.id!),
         builder: ((context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) {
             return Text("Error : ${snapshot.error.toString()}");
           }
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData) {
-            _selectedNumber = snapshot.data!.duration!;
+            var _selectedNumber = snapshot.data!.duration!;
+            var _name = snapshot.data!.name!;
             return Scaffold(
                 appBar: AppBar(
-                  title: Text(snapshot.data!.name as String),
+                  title: const Text("Modification de "),
                 ),
                 body: Column(children: <Widget>[
-                  const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
                       child: TextField(
-                          decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Rename Workout',
-                      ))),
+                        decoration: InputDecoration(
+                          border: const OutlineInputBorder(),
+                          hintText: _name,
+                        ),
+                        onChanged: (text) {
+                          _name = text;
+                        },
+                      )),
                   Row(children: [
                     const Text('Nombre de semaine'),
                     CupertinoButton(
@@ -108,12 +111,13 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
                               overlayColor: MaterialStateProperty.all(
                                   Colors.grey.shade100)),
                           child: FutureBuilder(
-                            future: getSession(
-                                snapshot.data!.sessions![index].id as String),
+                            future:
+                                getSession(snapshot.data!.sessions![index].id!),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return const CircularProgressIndicator();
+                                return const Center(
+                                    child: CircularProgressIndicator());
                               }
                               if (snapshot.hasError) {
                                 return Text(
@@ -125,9 +129,7 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
                                 return Container(
                                   padding: const EdgeInsets.all(20),
                                   child: Row(children: [
-                                    Expanded(
-                                        child: Text(
-                                            snapshot.data!.name as String)),
+                                    Expanded(child: Text(snapshot.data!.name!)),
                                     Padding(
                                         padding:
                                             const EdgeInsets.only(left: 30),
@@ -184,22 +186,60 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const MyAddNewSeance()));
+                                          MyAddNewSeance(id: widget.id)));
                             },
                             icon: const Icon(Icons.add))),
                     Expanded(
                         child: Container(
                             color: Colors.green[200],
                             child: IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  acceptChanges();
+                                  Navigator.pop(context);
+                                },
                                 icon: const Icon(Icons.check)))),
                     Expanded(
                         child: IconButton(
-                            onPressed: () {}, icon: const Icon(Icons.delete)))
+                            onPressed: () {
+                              showDialog<String>(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: const Text('Suppréssion du workout'),
+                                  content: const Text(
+                                      'Êtes-vous certain de vouloir supprimer ce workout ?'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context, 'Cancel'),
+                                      child: const Text('Annuler'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        deleteWorkout(widget.id!);
+                                        Navigator.pop(context, 'OK');
+                                      },
+                                      child: const Text('Supprimer'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                            icon: const Icon(Icons.delete)))
                   ])
                 ]));
           }
           return const Center(child: CircularProgressIndicator());
         }));
   }
+
+  // Future<void> acceptChanges() async {
+  //   final w = await getWorkout(widget.id!);
+  //   if (w.name != _name) {
+  //     w.name = _name;
+  //   }
+  //   if (w.duration != _selectedNumber) {
+  //     w.duration = _selectedNumber;
+  //   }
+  //   updateWorkout(w);
+  // }
 }

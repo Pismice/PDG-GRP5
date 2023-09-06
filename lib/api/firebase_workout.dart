@@ -67,6 +67,15 @@ Future<List<Workout>> getAllWorkoutsFrom({String? uid}) async {
   return data;
 }
 
+Future<void> addSessionToWorkout(String idWorkout, String idSession) async {
+  final w = await getWorkout(idWorkout);
+  final s = await getSession(idSession);
+  final ws = WorkoutSessions.fromSession(s);
+
+  w.sessions!.add(ws);
+  updateWorkout(w);
+}
+
 Future<void> deleteSessionFromWorkout(
     String idWorkout, String idSession) async {
   final w = await getWorkout(idWorkout);
@@ -74,8 +83,10 @@ Future<void> deleteSessionFromWorkout(
   if (w.sessions == null) {
     return;
   }
+  bool deleted = false;
   for (var sess in w.sessions!) {
-    if (sess.id == idSession) {
+    if (sess.id == idSession && !deleted) {
+      deleted = true;
       continue;
     }
     sessions.add(sess);
