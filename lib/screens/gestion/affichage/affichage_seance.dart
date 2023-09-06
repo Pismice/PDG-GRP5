@@ -37,65 +37,68 @@ class _MySeanceInfoPage extends State<MySeanceInfoPage> {
       ),
       body: Column(
         children: <Widget>[
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: widget.session.exercises!.length,
-            itemBuilder: (context, index) {
-              final data = widget.session.exercises![index];
-              return FutureBuilder(
-                future: getExercise(data.id!),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
-                  }
-                  final exercise = snapshot.data!;
-                  return ElevatedButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                        foregroundColor:
-                            MaterialStateProperty.all(Colors.black),
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
-                        overlayColor:
-                            MaterialStateProperty.all(Colors.grey.shade100)),
-                    child: Container(
-                      padding: const EdgeInsets.all(20),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: FutureBuilder(
-                                future: FirebaseStorage.instance
-                                    .refFromURL('gs://hongym-4cb68.appspot.com')
-                                    .child("img/exercises/${exercise.img}")
-                                    .getDownloadURL(),
-                                builder: (context, snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return const CircularProgressIndicator();
-                                  }
-                                  return Image.network(
-                                    snapshot.data.toString(),
-                                    height: 100,
-                                    width: 100,
-                                  );
-                                },
+          Expanded(
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: widget.session.exercises!.length,
+              itemBuilder: (context, index) {
+                final data = widget.session.exercises![index];
+                return FutureBuilder(
+                  future: getExercise(data.id!),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularProgressIndicator();
+                    }
+                    final exercise = snapshot.data!;
+                    return ElevatedButton(
+                      onPressed: () {},
+                      style: ButtonStyle(
+                          foregroundColor:
+                              MaterialStateProperty.all(Colors.black),
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
+                          overlayColor:
+                              MaterialStateProperty.all(Colors.grey.shade100)),
+                      child: Container(
+                        padding: const EdgeInsets.all(20),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: FutureBuilder(
+                                  future: FirebaseStorage.instance
+                                      .refFromURL(
+                                          'gs://hongym-4cb68.appspot.com')
+                                      .child("img/exercises/${exercise.img}")
+                                      .getDownloadURL(),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return const CircularProgressIndicator();
+                                    }
+                                    return Image.network(
+                                      snapshot.data.toString(),
+                                      height: 100,
+                                      width: 100,
+                                    );
+                                  },
+                                ),
                               ),
                             ),
-                          ),
-                          Expanded(child: Text(exercise.name!)),
-                          Text(
-                            displaySet(exercise),
-                          ),
-                        ],
+                            Expanded(child: Text(exercise.name!)),
+                            Text(
+                              displaySet(exercise),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                },
-              );
-            },
+                    );
+                  },
+                );
+              },
+            ),
           ),
           Row(
             children: [

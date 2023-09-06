@@ -161,96 +161,101 @@ class _MyEditSeancePage extends State<MyEditSeancePage> {
               onChanged: (value) => widget.session.name = value,
             ),
           ),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: widget.session.exercises!.length,
-            itemBuilder: (context, index) {
-              final data = widget.session.exercises![index];
-              return FutureBuilder(
-                future: getExercise(data.id!),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
-                  }
-                  final exercise = snapshot.data!;
-                  return ElevatedButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                        foregroundColor:
-                            MaterialStateProperty.all(Colors.black),
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
-                        overlayColor:
-                            MaterialStateProperty.all(Colors.grey.shade100)),
-                    child: Container(
-                      padding: const EdgeInsets.all(20),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: FutureBuilder(
-                                future: FirebaseStorage.instance
-                                    .refFromURL('gs://hongym-4cb68.appspot.com')
-                                    .child("img/exercises/${exercise.img}")
-                                    .getDownloadURL(),
-                                builder: (context, snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return const CircularProgressIndicator();
-                                  }
-                                  return Image.network(
-                                    snapshot.data.toString(),
-                                    height: 100,
-                                    width: 100,
-                                  );
-                                },
+          Expanded(
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: widget.session.exercises!.length,
+              itemBuilder: (context, index) {
+                final data = widget.session.exercises![index];
+                return FutureBuilder(
+                  future: getExercise(data.id!),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularProgressIndicator();
+                    }
+                    final exercise = snapshot.data!;
+                    return ElevatedButton(
+                      onPressed: () {},
+                      style: ButtonStyle(
+                          foregroundColor:
+                              MaterialStateProperty.all(Colors.black),
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
+                          overlayColor:
+                              MaterialStateProperty.all(Colors.grey.shade100)),
+                      child: Container(
+                        padding: const EdgeInsets.all(20),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: FutureBuilder(
+                                  future: FirebaseStorage.instance
+                                      .refFromURL(
+                                          'gs://hongym-4cb68.appspot.com')
+                                      .child("img/exercises/${exercise.img}")
+                                      .getDownloadURL(),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return const CircularProgressIndicator();
+                                    }
+                                    return Image.network(
+                                      snapshot.data.toString(),
+                                      height: 100,
+                                      width: 100,
+                                    );
+                                  },
+                                ),
                               ),
                             ),
-                          ),
-                          Expanded(child: Text(exercise.name!)),
-                          displaySet(exercise),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 30),
-                            child: IconButton(
-                              onPressed: () {
-                                showDialog<String>(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                    title: const Text('Suppression du workout'),
-                                    content: const Text(
-                                        'Êtes-vous certain de vouloir supprimer cette session ?'),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context, 'Cancel'),
-                                        child: const Text('Annuler'),
-                                      ),
-                                      TextButton(
-                                        onPressed: () {
-                                          deleteExerciseFromSession(
-                                              widget.session.uid!,
-                                              widget.session.exercises![index]);
-                                          Navigator.pop(context, 'OK');
-                                        },
-                                        child: const Text('Supprimer'),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                              icon: const Icon(Icons.delete),
-                            ),
-                          )
-                        ],
+                            Expanded(child: Text(exercise.name!)),
+                            displaySet(exercise),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 30),
+                              child: IconButton(
+                                onPressed: () {
+                                  showDialog<String>(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                      title:
+                                          const Text('Suppression du workout'),
+                                      content: const Text(
+                                          'Êtes-vous certain de vouloir supprimer cette session ?'),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context, 'Cancel'),
+                                          child: const Text('Annuler'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            deleteExerciseFromSession(
+                                                widget.session.uid!,
+                                                widget
+                                                    .session.exercises![index]);
+                                            Navigator.pop(context, 'OK');
+                                          },
+                                          child: const Text('Supprimer'),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                                icon: const Icon(Icons.delete),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                },
-              );
-            },
+                    );
+                  },
+                );
+              },
+            ),
           ),
           Row(
             children: [
