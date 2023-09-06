@@ -62,6 +62,7 @@ class Session {
 
 class SessionExercises {
   String? id;
+  int? positionId;
   int? repetition;
   int? set;
   int? weight;
@@ -70,6 +71,7 @@ class SessionExercises {
 
   SessionExercises({
     this.id,
+    this.positionId,
     this.repetition,
     this.set,
     this.weight,
@@ -83,7 +85,6 @@ class SessionExercises {
     set = json['set'];
     weight = json['weight'];
     duration = json['duration'];
-    if (json['sessionId'] != null) sessionId = json['sessionId'].id;
   }
 
   factory SessionExercises.fromFirestore(
@@ -95,7 +96,6 @@ class SessionExercises {
       repetition: data?['repetition'],
       set: data?['set'],
       weight: data?['weight'],
-      sessionId: data?['sessionId'] != null ? data!['sessionId'].id : null,
     );
   }
 
@@ -106,9 +106,6 @@ class SessionExercises {
     if (set != null) data['set'] = set;
     if (weight != null) data['weight'] = weight;
     if (duration != null) data['duration'] = duration;
-    if (sessionId != null) {
-      data['sessionId'] = FirebaseFirestore.instance.doc("session/$sessionId");
-    }
     return data;
   }
 
@@ -119,8 +116,6 @@ class SessionExercises {
       if (set != null) "set": set,
       if (weight != null) "weight": weight,
       if (duration != null) "duration": duration,
-      if (sessionId != null)
-        "id": FirebaseFirestore.instance.doc("session/$sessionId"),
     };
   }
 }

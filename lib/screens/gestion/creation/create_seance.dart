@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:g2g/screens/gestion/creation/addnew/addnewexercise.dart';
+import 'package:g2g/model/exercise.dart';
 
 const double _kItemExtent = 32.0;
 
@@ -13,7 +13,8 @@ class MyCreateSeance extends StatefulWidget {
 }
 
 class _MyCreateSeance extends State<MyCreateSeance> {
-  var items = <String>[];
+  var items = ["youhou", "oyusu"];
+  List<Exercise> exercises = [];
   var _selectedNumber = 1;
 
   void _showDialog(Widget child) {
@@ -40,17 +41,20 @@ class _MyCreateSeance extends State<MyCreateSeance> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Séance X"),
-        ),
-        body: Column(children: <Widget>[
+      appBar: AppBar(
+        title: const Text("Nouvelle séance"),
+      ),
+      body: Column(
+        children: <Widget>[
           const Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              child: TextField(
-                  decoration: InputDecoration(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: TextField(
+              decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: 'Rename Seance',
-              ))),
+                hintText: 'Nom de la séance',
+              ),
+            ),
+          ),
           ListView.builder(
             shrinkWrap: true,
             itemCount: items.length,
@@ -58,23 +62,26 @@ class _MyCreateSeance extends State<MyCreateSeance> {
               return ElevatedButton(
                   onPressed: () {},
                   style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all(Colors.black),
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
-                      overlayColor:
-                          MaterialStateProperty.all(Colors.grey.shade100)),
+                    foregroundColor: MaterialStateProperty.all(Colors.black),
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.white),
+                    overlayColor:
+                        MaterialStateProperty.all(Colors.grey.shade100),
+                  ),
                   child: Container(
                     padding: const EdgeInsets.all(20),
                     child: Row(children: [
                       Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Image.asset(
-                                'assets/images/cervin.jpg',
-                                height: 75,
-                                width: 75,
-                              ))),
+                        padding: const EdgeInsets.only(right: 10),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Image.asset(
+                            'assets/images/cervin.jpg',
+                            height: 75,
+                            width: 75,
+                          ),
+                        ),
+                      ),
                       Expanded(child: Text(items[index])),
                       CupertinoButton(
                           padding: EdgeInsets.zero,
@@ -137,22 +144,34 @@ class _MyCreateSeance extends State<MyCreateSeance> {
                   ));
             },
           ),
-          Row(children: [
-            Expanded(
+          Row(
+            children: [
+              Expanded(
                 child: IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const MyAddNewExercise()));
-                    },
-                    icon: const Icon(Icons.add))),
-            Expanded(
+                  onPressed: () {
+                    /*Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MyAddNewExercise(session: ,),
+                      ),
+                    );*/
+                  },
+                  icon: const Icon(Icons.add),
+                ),
+              ),
+              Expanded(
                 child: Container(
-                    color: Colors.green[200],
-                    child: IconButton(
-                        onPressed: () {}, icon: const Icon(Icons.check))))
-          ])
-        ]));
+                  color: Colors.green[200],
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.check),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -97,44 +97,53 @@ class _MySessionPageState extends State<MySessionScreen> {
                     shrinkWrap: true,
                     itemCount: items.length,
                     itemBuilder: (context, index) {
+                      final Session session = items[index];
                       return ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const MySeanceInfoPage()),
-                            );
-                          },
-                          style: ButtonStyle(
-                              foregroundColor:
-                                  MaterialStateProperty.all(Colors.black),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white),
-                              overlayColor: MaterialStateProperty.all(
-                                  Colors.grey.shade100)),
-                          child: Column(children: <Widget>[
-                            Row(children: <Widget>[
-                              Expanded(child: Text(items[index].name!)),
-                              Expanded(
-                                  child: Text(
-                                      '${items[index].exercises!.length} exercices')),
-                              Align(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    MySeanceInfoPage(session)),
+                          );
+                        },
+                        style: ButtonStyle(
+                            foregroundColor:
+                                MaterialStateProperty.all(Colors.black),
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(Colors.white),
+                            overlayColor: MaterialStateProperty.all(
+                                Colors.grey.shade100)),
+                        child: Column(
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Expanded(child: Text(items[index].name!)),
+                                Expanded(
+                                    child: Text(
+                                        '${items[index].exercises!.length} exercices')),
+                                Align(
                                   alignment: Alignment.centerRight,
                                   child: IconButton(
                                     icon: const Icon(Icons.edit),
                                     padding: const EdgeInsets.all(0),
                                     color: Colors.black,
                                     onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const MyEditSeancePage()));
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              MyEditSeancePage(session),
+                                          maintainState: false,
+                                        ),
+                                      );
                                     },
-                                  )),
-                            ]),
-                          ]));
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      );
                     },
                   ),
                 ),
