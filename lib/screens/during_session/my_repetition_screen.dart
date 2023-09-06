@@ -14,9 +14,11 @@ class MyRepetition extends StatefulWidget {
       {super.key,
       required this.exercise,
       required this.exoBase,
+      required this.workoutSessions,
       required this.mySets});
   final SessionExercises exercise;
   final Exercise exoBase;
+  final WorkoutSessions workoutSessions;
   List<Sets> mySets;
 
   @override
@@ -61,10 +63,16 @@ class _MyRepetitionState extends State<MyRepetition> {
                     "Série ${onGoingSets.length + 1} sur ${widget.exercise.set}"),
                 Row(
                   children: [
-                    const Text("Nombre de répétitions"),
+                    const Text("Number of repetitions"),
+                    const SizedBox(
+                      width: 10,
+                    ),
                     Expanded(
                         child: TextFormField(
                       keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        hintText: widget.exercise.repetition.toString(),
+                      ),
                       controller: ctrlNbReps,
                       validator: (value) {
                         try {
@@ -82,10 +90,16 @@ class _MyRepetitionState extends State<MyRepetition> {
                 ),
                 Row(
                   children: [
-                    const Text("Poids (kg)"),
+                    const Text("Weights (kg)"),
+                    const SizedBox(
+                      width: 10,
+                    ),
                     Expanded(
                         child: TextFormField(
                       keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        hintText: widget.exercise.weight.toString(),
+                      ),
                       controller: ctrlWeight,
                       validator: (value) {
                         try {
@@ -131,7 +145,7 @@ class _MyRepetitionState extends State<MyRepetition> {
                             );
                             controller.play();
                             await Future.delayed(
-                                const Duration(milliseconds: 3000), () {
+                                const Duration(milliseconds: 1000), () {
                               controller.stop();
                             });
                           }
@@ -160,6 +174,7 @@ class _MyRepetitionState extends State<MyRepetition> {
                                     builder: (context) => MyRepetition(
                                         exercise: widget.exercise,
                                         exoBase: widget.exoBase,
+                                        workoutSessions: widget.workoutSessions,
                                         mySets: onGoingSets)));
                           }
                         } else {
@@ -167,11 +182,13 @@ class _MyRepetitionState extends State<MyRepetition> {
                           // Inserer dans la BD
                           ExercisesDone exercisesDone = ExercisesDone(
                               id: widget.exercise.id, sets: onGoingSets);
-                          Session session =
-                              await getSession(widget.exercise.sessionId!);
-                          addExerciseDone(, exercisesDone, widget.exercise.sessionId!);
+                          Workout workout = await getWorkout(widget.workoutSessions.workoutId!);
+
+                          await addExerciseDone(workout, exercisesDone,
+                              widget.exercise.sessionId!);
+
                           if (context.mounted) {
-                            //Future.delayed(const Duration(seconds: 3));
+                            Future.delayed(const Duration(milliseconds: 500));
                             Navigator.pop(context);
                           }
                         }

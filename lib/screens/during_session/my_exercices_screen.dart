@@ -57,15 +57,24 @@ class _MyExercicesState extends State<MyExercices> {
                             }
                             return GestureDetector(
                               onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => MyRepetition(
-                                              exoBase: exoBase.data!,
-                                              exercise:
-                                                  session.exercises![index],
-                                              mySets: List.empty(),
-                                            )));
+                                if (isExerciseOver) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text(
+                                            "You have already done this exercise, choose another remaining one")),
+                                  );
+                                } else {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => MyRepetition(
+                                                exoBase: exoBase.data!,
+                                                exercise:
+                                                    session.exercises![index],
+                                                    workoutSessions: widget.onGoingSession,
+                                                mySets: List.empty(),
+                                              )));
+                                }
                               },
                               child: Container(
                                 // TODO: si toutes les series de cet exercice sont faits il faut mettre en vert
@@ -107,7 +116,7 @@ class _MyExercicesState extends State<MyExercices> {
                                         Row(
                                           children: [
                                             Text(
-                                                "${session.exercises![index].set.toString()} x ${session.exercises![index].repetition.toString()}")
+                                                "${session.exercises![index].set.toString()} series of  ${session.exercises![index].repetition.toString()} repetitions")
                                           ],
                                         )
                                       ],
