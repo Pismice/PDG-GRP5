@@ -27,7 +27,7 @@ class _EmailSignUpScreenState extends State<EmailSignUpScreen> {
     super.dispose();
   }
 
-  Future<void> signUpAndContinue(String email, String password) async {
+  Future<void> signUpAndContinue(String email, String password, [String? username]) async {
     try {
       Future<UserCredential> credential =
           FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -130,7 +130,7 @@ class _EmailSignUpScreenState extends State<EmailSignUpScreen> {
                   final username = usernameController.text;
                   final email = emailController.text;
                   final password = passwordController.text;
-                  await signUpAndContinue(email, password);
+                  await signUpAndContinue(email, password, username);
                   if (context.mounted && creationOk) {
                     FirebaseAuth.instance.authStateChanges();
                     Navigator.popUntil(context, (route) => route.isFirst);

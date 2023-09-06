@@ -25,7 +25,7 @@ class _EmailSignInScreenState extends State<EmailSignInScreen> {
 
   Future<void> signInAndContinue(String email, String password) async {
     try {
-      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
