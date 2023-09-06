@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_exercise.dart';
+/*import 'package:g2g/api/firebase_user.dart';*/
+import 'package:g2g/model/exercise.dart';
 import 'package:g2g/screens/gestion/modification/editexo.dart';
 import 'package:g2g/screens/gestion/creation/create_exercise.dart';
 
@@ -16,19 +18,32 @@ class MyExerciceScreen extends StatefulWidget {
 class _MyExerciceScreen extends State<MyExerciceScreen> {
   TextEditingController editingController = TextEditingController();
 
-  final duplicateItems = List<String>.generate(10000, (i) => "Exo $i");
-  var items = <String>[];
+  List<Exercise>? exercise = [];
+  var itemsE = <Exercise>[];
+  bool queryEmptyE = true;
+
+  List<Exercise>? myExercise = [];
+  var itemsM = <Exercise>[];
+  bool queryEmptyM = true;
 
   @override
   void initState() {
-    items = duplicateItems;
+    itemsE = exercise!;
+    itemsM = myExercise!;
     super.initState();
   }
 
-  void filterSearchResults(String query) {
+  void filterSearchResultsExercise(String query) {
+    queryEmptyE = query.isEmpty;
+    queryEmptyM = query.isEmpty;
     setState(() {
-      items = duplicateItems
-          .where((item) => item.toLowerCase().contains(query.toLowerCase()))
+      exercise!
+          .where(
+              (item) => item.name!.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+      myExercise!
+          .where(
+              (item) => item.name!.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }
@@ -43,7 +58,7 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
             padding: const EdgeInsets.all(4.0),
             child: TextField(
               onChanged: (value) {
-                filterSearchResults(value);
+                filterSearchResultsExercise(value);
               },
               controller: editingController,
               decoration: const InputDecoration(
