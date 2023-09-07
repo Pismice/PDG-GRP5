@@ -67,7 +67,7 @@ class HomeScreen extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => MyWorkoutInfoPage(
-                                          workoutsSnapshot.data![i].uid!)),
+                                          workout: workoutsSnapshot.data![i])),
                                 );
                               },
                               child: Column(children: <Widget>[
