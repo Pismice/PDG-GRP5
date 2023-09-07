@@ -158,8 +158,7 @@ Future<void> deleteWorkout(String docId) async {
 
 /// Fonction qui ajoute un exercice fait durant une séance d'un workout
 Future<void> addExerciseDone(
-    Workout workout, ExercisesDone exercise, String sessionId) async {
-  Session session = await getSession(sessionId);
+    Workout workout, ExercisesDone exercise, Session session) async {
   bool inSession = false;
   // vérifie que l'exercice était prévu
   for (var sessExercise in session.exercises!) {
@@ -173,11 +172,8 @@ Future<void> addExerciseDone(
   }
   // ajoute l'exercice
   for (var workoutSession in workout.sessions!) {
-    if (workoutSession.id != sessionId) continue;
-    if (workoutSession.exercises == null) {
-      workoutSession.exercises = <ExercisesDone>[];
-      continue;
-    }
+    if (workoutSession.id != session.uid) continue;
+    workoutSession.exercises ??= <ExercisesDone>[];
 
     for (var sessEx in workoutSession.exercises!) {
       if (sessEx.id != exercise.id) continue;

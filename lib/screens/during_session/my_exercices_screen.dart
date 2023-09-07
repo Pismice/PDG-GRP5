@@ -2,6 +2,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_exercise.dart';
 import 'package:g2g/api/firebase_session.dart';
+import 'package:g2g/api/firebase_user.dart';
 import 'package:g2g/model/workout.dart';
 import 'package:g2g/screens/during_session/my_repetition_screen.dart';
 
@@ -69,8 +70,6 @@ class _MyExercicesState extends State<MyExercices> {
                                             "You have already done this exercise, choose another remaining one")),
                                   );
                                 } else {
-                                  // Debut de la seance
-                                  widget.onGoingSession.start = DateTime.now();
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -85,6 +84,7 @@ class _MyExercicesState extends State<MyExercices> {
                                 }
                               },
                               child: Container(
+                                // TODO: si toutes les series de cet exercice sont faits il faut mettre en vert
                                 decoration: BoxDecoration(
                                     color: isExerciseOver
                                         ? Colors.green
