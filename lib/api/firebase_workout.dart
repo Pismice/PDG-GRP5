@@ -131,8 +131,8 @@ Future<List<Workout>> getAllActiveWorkoutsFrom({String? uid}) async {
   final out = <Workout>[];
   final currentWeek = weekNumber(DateTime.now());
   for (var d in data) {
-    if (d.week! >= currentWeek &&
-        d.week! <= (currentWeek + (d.duration as int))) {
+    if (currentWeek >= d.week! &&
+        currentWeek <= (d.week! + (d.duration as int))) {
       out.add(d);
     }
   }
