@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_session.dart';
 import 'package:g2g/api/firebase_workout.dart';
+import 'package:g2g/model/workout.dart';
 //import 'package:g2g/screens/gestion/creation/create_exercise.dart';
 
 class MyAddNewSeance extends StatefulWidget {
-  final String? id;
-  const MyAddNewSeance({this.id, Key? key}) : super(key: key);
+  final Workout workout;
+  const MyAddNewSeance({required this.workout, Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -47,7 +48,7 @@ class _MyEditSeancePage extends State<MyAddNewSeance> {
                                   child: IconButton(
                                       onPressed: () {
                                         addSessionToWorkout(
-                                            widget.id!, items[index].uid!);
+                                            widget.workout, items[index].uid!);
                                       },
                                       icon: const Icon(Icons.add)))
                             ]),
