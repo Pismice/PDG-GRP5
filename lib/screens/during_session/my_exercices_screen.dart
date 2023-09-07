@@ -2,7 +2,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_exercise.dart';
 import 'package:g2g/api/firebase_session.dart';
-import 'package:g2g/model/session.dart';
 import 'package:g2g/model/workout.dart';
 import 'package:g2g/screens/during_session/my_repetition_screen.dart';
 
@@ -15,42 +14,42 @@ class MyExercices extends StatefulWidget {
 }
 
 class _MyExercicesState extends State<MyExercices> {
-  Session session = Session();
-
-  Future<void> loadSessionData() async {
-    session = await getSession(widget.onGoingSession.id!);
-  }
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: loadSessionData(),
-        builder: (context, empty) {
-          if (empty.connectionState == ConnectionState.waiting) {
+        future: getSession(widget.onGoingSession.id!),
+        builder: (context, sessionSnapshot) {
+          if (sessionSnapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator(); // Loading indicator
-          } else if (empty.hasError) {
-            return Text('Error: ${empty.error}'); // Handle errors
+          } else if (sessionSnapshot.hasError) {
+            return Text('Error: ${sessionSnapshot.error}'); // Handle errors
+          } else if (!sessionSnapshot.hasData) {
+            return const Text('Session not found');
           } else {
             return Scaffold(
                 appBar: AppBar(
-                  title: Text(session.name!),
+                  title: Text(sessionSnapshot.data!.name!),
                 ),
                 body: ListView.builder(
-                  itemCount: session.exercises!.length,
+                  itemCount: sessionSnapshot.data!.exercises!.length,
                   itemBuilder: (context, index) {
                     return FutureBuilder(
-                        future: getExercise(session.exercises![index].id!),
+                        future: getExercise(
+                            sessionSnapshot.data!.exercises![index].id!),
                         builder: (context, exoBase) {
                           if (exoBase.connectionState ==
                               ConnectionState.waiting) {
                             return const CircularProgressIndicator();
                           } else if (exoBase.hasError) {
                             return Text('Error: ${exoBase.error}');
+                          } else if (!exoBase.hasData) {
+                            return const Text('No data available');
                           } else {
                             String imageName =
                                 exoBase.data!.img ?? "default.png";
                             bool isExerciseOver = false;
-                            if (session.exercises!.length ==
+                            widget.onGoingSession.exercises ??= [];
+                            if (sessionSnapshot.data!.exercises!.length ==
                                 widget.onGoingSession.exercises!.length) {
                               isExerciseOver = true;
                             }
@@ -68,8 +67,8 @@ class _MyExercicesState extends State<MyExercices> {
                                       MaterialPageRoute(
                                           builder: (context) => MyRepetition(
                                                 exoBase: exoBase.data!,
-                                                exercise:
-                                                    session.exercises![index],
+                                                exercise: sessionSnapshot
+                                                    .data!.exercises![index],
                                                 workoutSessions:
                                                     widget.onGoingSession,
                                                 mySets: List.empty(),
@@ -112,7 +111,7 @@ class _MyExercicesState extends State<MyExercices> {
                                         Row(
                                           children: [
                                             Text(
-                                                "${session.exercises![index].set.toString()} series of  ${session.exercises![index].repetition.toString()} repetitions")
+                                                "${sessionSnapshot.data!.exercises![index].set.toString()} series of  ${sessionSnapshot.data!.exercises![index].repetition.toString()} repetitions")
                                           ],
                                         )
                                       ],

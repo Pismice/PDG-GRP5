@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:confetti/confetti.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_session.dart';
 import 'package:g2g/api/firebase_workout.dart';
@@ -114,6 +115,17 @@ class _MyRepetitionState extends State<MyRepetition> {
                     )),
                   ],
                 ),
+                FutureBuilder(
+                    future: getWeightPR(FirebaseAuth.instance.currentUser!.uid),
+                    builder: (context, prSnapshot) {
+                      if (prSnapshot.connectionState == ConnectionState.done) {
+                        if (prSnapshot.hasData) {
+                          return Text(prSnapshot.data.toString());
+                        }
+                        return const Text("No PR found for this exercise");
+                      }
+                      return const CircularProgressIndicator();
+                    }),
                 const Image(
                   width: 100.0,
                   fit: BoxFit.fitWidth,
@@ -185,10 +197,9 @@ class _MyRepetitionState extends State<MyRepetition> {
                               widget.workoutSessions.workoutId!);
 
                           await addExerciseDone(workout, exercisesDone,
-                              widget.exercise.sessionId!);
+                              widget.workoutSessions.id!);
 
                           if (context.mounted) {
-                            Future.delayed(const Duration(milliseconds: 500));
                             Navigator.pop(context);
                           }
                         }

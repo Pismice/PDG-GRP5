@@ -195,9 +195,10 @@ Future<void> addExerciseDone(
     throw Exception("L'exercice effectué n'est pas prévu dans cette séance");
   }
   // ajoute l'exercice
-  for (var session in workout.sessions!) {
-    if (session.id != sessionId) continue;
-    session.exercises!.add(exercise);
+  for (var workoutSession in workout.sessions!) {
+    if (workoutSession.id != sessionId) continue;
+    workoutSession.exercises ??= <ExercisesDone>[];
+    workoutSession.exercises!.add(exercise);
   }
   // met à jour le workout
   updateWorkout(workout);

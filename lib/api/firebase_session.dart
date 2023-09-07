@@ -7,7 +7,6 @@ import 'package:g2g/model/workout.dart';
 final sessions = FirebaseFirestore.instance.collection('session');
 final users = FirebaseFirestore.instance.collection('user');
 
-
 Session _convertJson(Map<String, dynamic> data, String documentId) {
   Session session = Session.fromJson(data);
   session.uid = documentId;
@@ -16,7 +15,8 @@ Session _convertJson(Map<String, dynamic> data, String documentId) {
   }
   return session;
 }
-  /// Fonction qui retourne la séance correspondant à [documentId]
+
+/// Fonction qui retourne la séance correspondant à [documentId]
 Future<Session> getSession(String documentId) async {
   final snapshot = await sessions.doc(documentId).get();
   // verif si la séance existe
@@ -24,7 +24,7 @@ Future<Session> getSession(String documentId) async {
     throw Exception("Séance non trouvée");
   }
   // retourne la séance
-  
+
   return _convertJson(snapshot.data()!, documentId);
 }
 
@@ -100,6 +100,9 @@ Future<int> _getPR(String exId, _SetsValue sets, {String? authid}) async {
 
   for (var workout in workouts) {
     for (var session in workout.sessions!) {
+      if (session.exercises == null) {
+        continue;
+      }
       for (var exercise in session.exercises!) {
         if (exercise.id != exId) continue;
 
