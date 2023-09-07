@@ -5,15 +5,8 @@ buildscript {
         mavenCentral()
     }
 
-    plugins {
-        id 'com.android.application'
-        id 'com.google.gms.google-services'
-    }
 
     dependencies {
-        implementation platform('com.google.firebase:firebase-bom:32.2.3')
-        implementation("com.google.firebase:firebase-auth-ktx")
-        implementation("com.google.firebase:firebase-firestore-ktx")
         classpath 'com.android.tools.build:gradle:7.3.0'
         // START: FlutterFire Configuration
         classpath 'com.google.gms:google-services:4.3.10'

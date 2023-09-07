@@ -71,7 +71,8 @@ class _MyExercicesState extends State<MyExercices> {
                                                 exoBase: exoBase.data!,
                                                 exercise:
                                                     session.exercises![index],
-                                                    workoutSessions: widget.onGoingSession,
+                                                workoutSessions:
+                                                    widget.onGoingSession,
                                                 mySets: List.empty(),
                                               )));
                                 }
@@ -94,20 +95,16 @@ class _MyExercicesState extends State<MyExercices> {
                                               'gs://hongym-4cb68.appspot.com')
                                           .child("img/exercises/$imageName")
                                           .getDownloadURL(),
-                                      builder: (context, snapshotImage) {
-                                        if (exoBase.connectionState ==
+                                      builder: (context, snapshot) {
+                                        if (snapshot.connectionState ==
                                             ConnectionState.waiting) {
                                           return const CircularProgressIndicator();
-                                        } else if (snapshotImage.hasError) {
-                                          return Text(
-                                              'Error: ${snapshotImage.error}');
-                                        } else {
-                                          return Image.network(
-                                            snapshotImage.data.toString(),
-                                            height: 100,
-                                            width: 100,
-                                          );
                                         }
+                                        return Image.network(
+                                          snapshot.data.toString(),
+                                          height: 100,
+                                          width: 100,
+                                        );
                                       },
                                     ),
                                     Column(

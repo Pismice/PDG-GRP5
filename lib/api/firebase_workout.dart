@@ -33,13 +33,21 @@ Future<Workout> getWorkout(String documentId) async {
 Future<List<Workout>> getAllWorkoutsFrom({String? uid}) async {
   String id = (uid != null) ? uid : FirebaseAuth.instance.currentUser!.uid;
 
-  // on récupère la référence à l'utilisateur dans la bdd
-  final userRef = await users
+
+  
+
+  final values = await users
       .where('authid', isEqualTo: id)
       .limit(1)
       .get()
-      .then((value) => users.doc(value.docs[0].id));
-  // récupère les workouts
+      .then((value) => value);
+  // vérifie que l'user existe dans la bdd
+  if (values.docs.isEmpty) {
+    return <Workout>[];
+  }
+  // on récupère la référence à l'utilisateur dans la bdd
+  final userRef = users.doc(values.docs[0].id);
+    // récupère les workouts
   final snapshot = await workouts.where('user', isEqualTo: userRef).get();
   // formate les workout
   final data = snapshot.docs.map((w) {
