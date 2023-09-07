@@ -105,7 +105,8 @@ Future<List<Exercise>> getAllExercises({String? authid}) async {
         .get()
         .then((value) => users.doc(value.docs[0].id));
 
-    data.removeWhere((exercise) => exercise.user != null || exercise.user != userRef.id);
+    data.removeWhere(
+        (exercise) => exercise.user != null && exercise.user != userRef.id);
   } else {
     data.removeWhere((exercise) => exercise.user != null);
   }

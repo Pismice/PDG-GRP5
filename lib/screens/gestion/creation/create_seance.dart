@@ -215,37 +215,37 @@ class _MyCreateSeance extends State<MyCreateSeance> {
                       padding: const EdgeInsets.all(20),
                       child: Row(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: FutureBuilder(
-                                future: FirebaseStorage.instance
-                                    .refFromURL('gs://hongym-4cb68.appspot.com')
-                                    .child("img/exercises/${exercise.img}")
-                                    .getDownloadURL(),
-                                builder: (context, snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return const CircularProgressIndicator();
-                                  }
-                                  return Image.network(
-                                    snapshot.data.toString(),
-                                    height: 100,
-                                    width: 100,
-                                  );
-                                },
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: FutureBuilder(
+                                  future: FirebaseStorage.instance
+                                      .refFromURL(
+                                          'gs://hongym-4cb68.appspot.com')
+                                      .child("img/exercises/${exercise.img}")
+                                      .getDownloadURL(),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return const CircularProgressIndicator();
+                                    }
+                                    return Image.network(
+                                      snapshot.data.toString(),
+                                      height: 100,
+                                      width: 100,
+                                    );
+                                  },
+                                ),
                               ),
                             ),
                           ),
                           Expanded(child: Text(exercise.name!)),
                           _displaySet(exercise),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 30),
-                            child: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.delete),
-                            ),
+                          IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Icons.delete),
                           ),
                         ],
                       ),
