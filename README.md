@@ -27,8 +27,10 @@ Avant de coder
 4. Create une new branch depuis l'issue en question
 
 Avant de commit les modifications
-5. ```Flutter analyze``` 
+5. ```Flutter analyze```
+ 
 6. ```Flutter test```
+
 7. Commit avec la bonne nomanclature [WIP], [Fix], ...
 8. Push sur la branch
 9. Pull request sur github et déplacer l'issue dans la colonne Review sur le Kanban 
