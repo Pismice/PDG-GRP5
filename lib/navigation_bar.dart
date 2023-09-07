@@ -38,11 +38,11 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
-            label: 'Workout',
+            label: 'Organize',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'profile',
+            label: 'Profile',
           ),
         ],
         currentIndex: _selectedIndex,

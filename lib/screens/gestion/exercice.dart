@@ -63,8 +63,8 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
               },
               controller: editingController,
               decoration: const InputDecoration(
-                  labelText: "Recherche",
-                  hintText: "Mon Exercice",
+                  labelText: "Search",
+                  hintText: "My exercise",
                   prefixIcon: Icon(Icons.search),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)))),
@@ -88,7 +88,7 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
             alignment: Alignment.centerLeft,
             child: Padding(
               padding: EdgeInsets.all(20),
-              child: Text(style: TextStyle(fontSize: 24), "Mes exercices"),
+              child: Text(style: TextStyle(fontSize: 24), "My exercises"),
             )),
         FutureBuilder(
             future: getAllExercisesOf(),
@@ -100,7 +100,7 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                   snapshot.hasData) {
                 customExercises = snapshot.data;
                 if (customExercises!.isEmpty) {
-                  return const Text("Aucun exercice disponible");
+                  return const Text("No available exercise");
                 }
                 if (customItems.isEmpty && customQueryEmpty) {
                   customItems = customExercises!;
@@ -169,15 +169,15 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                                             builder: (BuildContext context) =>
                                                 AlertDialog(
                                               title: const Text(
-                                                  'Suppression de l\'exercice'),
+                                                  'Delete exercise'),
                                               content: const Text(
-                                                  'Êtes-vous certain de vouloir supprimer cette exercice ?'),
+                                                  'Are you sure that you want to delete this exercise ?'),
                                               actions: <Widget>[
                                                 TextButton(
                                                   onPressed: () =>
                                                       Navigator.pop(
                                                           context, 'Cancel'),
-                                                  child: const Text('Annuler'),
+                                                  child: const Text('Cancel'),
                                                 ),
                                                 TextButton(
                                                   onPressed: () {
@@ -188,7 +188,7 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                                                         context, 'OK');
                                                   },
                                                   child:
-                                                      const Text('Supprimer'),
+                                                      const Text('Delete'),
                                                 ),
                                               ],
                                             ),
@@ -209,7 +209,7 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
             alignment: Alignment.centerLeft,
             child: Padding(
               padding: EdgeInsets.all(20),
-              child: Text(style: TextStyle(fontSize: 24), "Autres exercices"),
+              child: Text(style: TextStyle(fontSize: 24), "Other exercises"),
             )),
         FutureBuilder(
             future: getAllExercises(),
@@ -221,7 +221,7 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                   snapshot.hasData) {
                 defaultExercises = snapshot.data;
                 if (defaultExercises!.isEmpty) {
-                  return const Text("Aucun exercice disponible");
+                  return const Text("No available exercise");
                 }
                 if (defaultItems.isEmpty && defaultQueryEmpty) {
                   defaultItems = defaultExercises!;

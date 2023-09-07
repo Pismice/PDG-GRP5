@@ -192,7 +192,7 @@ class _MyEditSeancePage extends State<MyEditSeancePage> {
             child: TextField(
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: 'Renommer la séance',
+                hintText: 'Rename the session',
               ),
               onChanged: (value) => widget.session.name = value,
             ),
@@ -250,15 +250,14 @@ class _MyEditSeancePage extends State<MyEditSeancePage> {
                                     context: context,
                                     builder: (BuildContext context) =>
                                         AlertDialog(
-                                      title:
-                                          const Text('Suppression du workout'),
+                                      title: const Text('Delete session'),
                                       content: const Text(
-                                          'Êtes-vous certain de vouloir supprimer cette session ?'),
+                                          'Are your sure that you want to remove this exercise from the session ?'),
                                       actions: <Widget>[
                                         TextButton(
                                           onPressed: () =>
                                               Navigator.pop(context, 'Cancel'),
-                                          child: const Text('Annuler'),
+                                          child: const Text('Cancel'),
                                         ),
                                         TextButton(
                                           onPressed: () {
@@ -268,7 +267,7 @@ class _MyEditSeancePage extends State<MyEditSeancePage> {
                                                     .session.exercises![index]);
                                             Navigator.pop(context, 'OK');
                                           },
-                                          child: const Text('Supprimer'),
+                                          child: const Text('Delete'),
                                         ),
                                       ],
                                     ),
@@ -324,20 +323,20 @@ class _MyEditSeancePage extends State<MyEditSeancePage> {
                     showDialog<String>(
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
-                        title: const Text('Suppression du workout'),
+                        title: const Text('Delete session'),
                         content: const Text(
-                            'Êtes-vous certain de vouloir supprimer cette session ?'),
+                            'Are you sure that you want to delete the session ?'),
                         actions: <Widget>[
                           TextButton(
                             onPressed: () => Navigator.pop(context, 'Cancel'),
-                            child: const Text('Annuler'),
+                            child: const Text('Cancel'),
                           ),
                           TextButton(
                             onPressed: () {
                               deleteSession(widget.session.uid!);
                               Navigator.pop(context, 'OK');
                             },
-                            child: const Text('Supprimer'),
+                            child: const Text('Delete'),
                           ),
                         ],
                       ),

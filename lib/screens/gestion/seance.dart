@@ -52,8 +52,8 @@ class _MySessionPageState extends State<MySessionScreen> {
               },
               controller: editingController,
               decoration: const InputDecoration(
-                  labelText: "Recherche",
-                  hintText: "Mon Workout",
+                  labelText: "Search",
+                  hintText: "My session",
                   prefixIcon: Icon(Icons.search),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)))),
@@ -112,7 +112,7 @@ class _MySessionPageState extends State<MySessionScreen> {
                                 Expanded(child: Text(items[index].name!)),
                                 Expanded(
                                     child: Text(
-                                        '${items[index].exercises!.length} exercices')),
+                                        '${items[index].exercises!.length} exercises')),
                                 Align(
                                   alignment: Alignment.centerRight,
                                   child: IconButton(

@@ -44,13 +44,6 @@ class _AvailableWorkoutsState extends State<AvailableWorkouts> {
                         );
                         Navigator.pop(context);
                       },
-                      style: ButtonStyle(
-                          foregroundColor:
-                              MaterialStateProperty.all(Colors.black),
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.white),
-                          overlayColor:
-                              MaterialStateProperty.all(Colors.grey.shade100)),
                       child: Column(
                         children: <Widget>[
                           Row(
@@ -63,7 +56,7 @@ class _AvailableWorkoutsState extends State<AvailableWorkouts> {
                             ],
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 15, bottom: 15),
+                            padding: const EdgeInsets.only(top: 15),
                             child: Row(
                               children: <Widget>[
                                 const Icon(Icons.repeat),

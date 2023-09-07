@@ -16,7 +16,7 @@ class MyCreateExercice extends StatefulWidget {
 }
 
 class _MyCreateExercice extends State<MyCreateExercice> {
-  String name = "Exercice";
+  String name = "Exercise";
   var _selectedNumber = 0;
 
   String _giveUpdateType(int i) {
@@ -71,7 +71,7 @@ class _MyCreateExercice extends State<MyCreateExercice> {
                     onPressed: () {},
                     style: const ButtonStyle(
                         backgroundColor: MaterialStatePropertyAll(Colors.grey)),
-                    child: const Text("add photo")),
+                    child: const Text("Add photo")),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: TextField(
@@ -80,7 +80,7 @@ class _MyCreateExercice extends State<MyCreateExercice> {
                     },
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      hintText: 'Nom exercice',
+                      hintText: 'Exercise name',
                     ),
                   ),
                 ),
@@ -113,15 +113,13 @@ class _MyCreateExercice extends State<MyCreateExercice> {
                               MaterialPageRoute(
                                   builder: (context) => const GestionScreen()))*/
                               );
-                          if (name != "Exercice") {
-                            addExercise(Exercise(
-                                name: name,
-                                img: "default.png",
-                                type: _giveUpdateType(_selectedNumber),
-                                user: await getUser(
-                                        FirebaseAuth.instance.currentUser!.uid)
-                                    .then((value) => value.uid)));
-                          }
+                          addExercise(Exercise(
+                              name: name,
+                              img: "default.png",
+                              type: _giveUpdateType(_selectedNumber),
+                              user: await getUser(
+                                      FirebaseAuth.instance.currentUser!.uid)
+                                  .then((value) => value.uid)));
                         },
                         icon: const Icon(Icons.check)))
               ],

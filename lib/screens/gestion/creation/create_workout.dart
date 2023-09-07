@@ -52,7 +52,7 @@ class _MyCreateWorkout extends State<MyCreateWorkout> {
     if (w.sessions == null) {
       return Scaffold(
           appBar: AppBar(
-            title: const Text("Création d'un workout"),
+            title: const Text("Workout creation"),
           ),
           body: Column(children: <Widget>[
             Padding(
@@ -60,17 +60,16 @@ class _MyCreateWorkout extends State<MyCreateWorkout> {
                 child: TextField(
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: 'Nom Workout',
+                    hintText: 'Workout name',
                   ),
                   onChanged: (String text) {
                     w.name = text;
                   },
                 )),
             Row(children: [
-              const Text('Nombre de semaine'),
+              const Text('Number of weeks'),
               CupertinoButton(
                   padding: EdgeInsets.zero,
-                  // Display a CupertinoPicker with list of fruits.
                   onPressed: () => _showDialog(
                         CupertinoPicker(
                           itemExtent: _kItemExtent,
@@ -78,7 +77,6 @@ class _MyCreateWorkout extends State<MyCreateWorkout> {
                           scrollController: FixedExtentScrollController(
                             initialItem: w.duration!,
                           ),
-                          // This is called when selected item is changed.
                           onSelectedItemChanged: (int selectedItem) {
                             setState(() {
                               w.duration = selectedItem;
@@ -89,12 +87,11 @@ class _MyCreateWorkout extends State<MyCreateWorkout> {
                           }),
                         ),
                       ),
-                  // This displays the selected fruit name.
                   child: Text(
                     '${w.duration}',
                   )),
             ]),
-            const Center(child: Text("Pas de séance dans ce workout")),
+            const Center(child: Text("No session in this workout")),
             Row(children: [
               Expanded(
                   child: IconButton(
@@ -120,7 +117,7 @@ class _MyCreateWorkout extends State<MyCreateWorkout> {
     }
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Création d'un workout"),
+          title: const Text("Workout creation"),
         ),
         body: Column(children: <Widget>[
           Padding(
@@ -128,14 +125,14 @@ class _MyCreateWorkout extends State<MyCreateWorkout> {
               child: TextField(
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Nom Workout',
+                  hintText: 'Workout name',
                 ),
                 onChanged: (String text) {
                   w.name = text;
                 },
               )),
           Row(children: [
-            const Text('Nombre de semaine'),
+            const Text('Number of weeks'),
             CupertinoButton(
                 padding: EdgeInsets.zero,
                 // Display a CupertinoPicker with list of fruits.
@@ -167,7 +164,8 @@ class _MyCreateWorkout extends State<MyCreateWorkout> {
               child: TextField(
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  hintText: 'Start week of the workout (actual : ${w.week})',
+                  hintText:
+                      'Week of the year you at which you want to start your workout (default : ${w.week})',
                 ),
                 keyboardType: TextInputType.number,
                 onChanged: (weekText) {
@@ -206,9 +204,9 @@ class _MyCreateWorkout extends State<MyCreateWorkout> {
                                         onPressed: () {
                                           AlertDialog(
                                             title: const Text(
-                                                'Suppréssion de séance dans un workout'),
+                                                'Remove this session from the workout'),
                                             content: const Text(
-                                                'Êtes-vous certain de vouloir supprimer cette séance de ce workout ?'),
+                                                'Are you sure that you want to remove this session from the workout ?'),
                                             actions: <Widget>[
                                               Expanded(
                                                   child: Text(sessionSnapshot
@@ -216,7 +214,7 @@ class _MyCreateWorkout extends State<MyCreateWorkout> {
                                               TextButton(
                                                 onPressed: () => Navigator.pop(
                                                     context, 'Cancel'),
-                                                child: const Text('Annuler'),
+                                                child: const Text('Cancel'),
                                               ),
                                               TextButton(
                                                 onPressed: () {
@@ -224,7 +222,7 @@ class _MyCreateWorkout extends State<MyCreateWorkout> {
                                                       w.sessions![index]);
                                                   Navigator.pop(context, 'OK');
                                                 },
-                                                child: const Text('Supprimer'),
+                                                child: const Text('Delete'),
                                               ),
                                             ],
                                           );

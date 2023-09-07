@@ -39,7 +39,7 @@ class _MyAddNewExercise extends State<MyAddNewExercise> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Nouvelle Séance"),
+          title: const Text("Session creation"),
         ),
         body: FutureBuilder(
             future: getAllExercises(),
@@ -51,7 +51,7 @@ class _MyAddNewExercise extends State<MyAddNewExercise> {
                   snapshot.hasData) {
                 exercises = snapshot.data;
                 if (exercises!.isEmpty) {
-                  return const Text("Aucun exercice disponible");
+                  return const Text("No available exercise");
                 }
                 if (items.isEmpty && queryEmpty) {
                   items = exercises!;
@@ -66,8 +66,8 @@ class _MyAddNewExercise extends State<MyAddNewExercise> {
                         },
                         controller: editingController,
                         decoration: const InputDecoration(
-                            labelText: "Recherche",
-                            hintText: "Un exercice",
+                            labelText: "Search",
+                            hintText: "An exercise",
                             prefixIcon: Icon(Icons.search),
                             border: OutlineInputBorder(
                                 borderRadius:

@@ -66,12 +66,6 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
             itemBuilder: (context, index) {
               return ElevatedButton(
                   onPressed: () {},
-                  style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all(Colors.black),
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
-                      overlayColor:
-                          MaterialStateProperty.all(Colors.grey.shade100)),
                   child: FutureBuilder(
                     future: getSession(widget.workout.sessions![index].id!),
                     builder: (context, snapshot) {
@@ -95,15 +89,14 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
                                         context: context,
                                         builder: (BuildContext context) =>
                                             AlertDialog(
-                                          title: const Text(
-                                              'Suppréssion de séance dans un workout'),
+                                          title: const Text('Remove session'),
                                           content: const Text(
-                                              'Êtes-vous certain de vouloir supprimer cette séance de ce workout ?'),
+                                              'Are you sure you want to remove this session from the workout ?'),
                                           actions: <Widget>[
                                             TextButton(
                                               onPressed: () => Navigator.pop(
                                                   context, 'Cancel'),
-                                              child: const Text('Annuler'),
+                                              child: const Text('Cancel'),
                                             ),
                                             TextButton(
                                               onPressed: () {
@@ -112,7 +105,7 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
                                                     snapshot.data!.uid!);
                                                 Navigator.pop(context, 'OK');
                                               },
-                                              child: const Text('Supprimer'),
+                                              child: const Text('Delete'),
                                             ),
                                           ],
                                         ),
@@ -153,20 +146,20 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
                       showDialog<String>(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(
-                          title: const Text('Suppréssion du workout'),
+                          title: const Text('Delete workout'),
                           content: const Text(
-                              'Êtes-vous certain de vouloir supprimer ce workout ?'),
+                              'Are you sure that you want to delete this workout ?'),
                           actions: <Widget>[
                             TextButton(
                               onPressed: () => Navigator.pop(context, 'Cancel'),
-                              child: const Text('Annuler'),
+                              child: const Text('Cancel'),
                             ),
                             TextButton(
                               onPressed: () {
                                 deleteWorkout(widget.workout.uid!);
                                 Navigator.pop(context, 'OK');
                               },
-                              child: const Text('Supprimer'),
+                              child: const Text('Delete'),
                             ),
                           ],
                         ),

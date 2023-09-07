@@ -39,12 +39,20 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Gym2Golem',
       theme: ThemeData(
+        textTheme: const TextTheme(
+          displayLarge:
+              TextStyle(fontSize: 24, fontWeight: FontWeight.bold), 
+        ),
         brightness: Brightness.dark,
         primaryColor: const Color.fromARGB(255, 7, 3, 58),
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
+              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+           const EdgeInsets.all(16), // Add this line for padding
+          ),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
+              side: const BorderSide(color: Colors.black, width: 1),
               borderRadius:
                   BorderRadius.circular(0), // Set radius to 0 for sharp corners
             ),

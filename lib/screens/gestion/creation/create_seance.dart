@@ -187,7 +187,7 @@ class _MyCreateSeance extends State<MyCreateSeance> {
     session.exercises = [];
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Nouvelle séance"),
+        title: const Text("Session creation"),
       ),
       body: Column(
         children: <Widget>[
@@ -196,7 +196,7 @@ class _MyCreateSeance extends State<MyCreateSeance> {
             child: TextField(
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: 'Nom de la séance',
+                hintText: 'Session name',
               ),
               onChanged: (value) => session.name = value,
             ),

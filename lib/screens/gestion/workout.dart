@@ -52,8 +52,8 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
               },
               controller: editingController,
               decoration: const InputDecoration(
-                  labelText: "Recherche",
-                  hintText: "Mon Workout",
+                  labelText: "Search",
+                  hintText: "Workout name",
                   prefixIcon: Icon(Icons.search),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)))),
@@ -84,7 +84,7 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
                   snapshot.hasData) {
                 workouts = snapshot.data;
                 if (workouts!.isEmpty) {
-                  return const Text("Aucun workout crée");
+                  return const Text("No created workout");
                 }
                 if (items.isEmpty && queryEmpty) {
                   items = workouts!;
@@ -138,12 +138,12 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
                                   const Icon(Icons.repeat),
                                   Expanded(
                                     child: Text(
-                                        '${items[index].duration} Semaine'),
+                                        '${items[index].duration}  weeks'),
                                   ),
                                   Align(
                                     alignment: Alignment.topCenter,
                                     child: Text(
-                                        '${items[index].sessions!.length} entrainements'),
+                                        '${items[index].sessions!.length} training sessions'),
                                   ),
                                 ],
                               ),

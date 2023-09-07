@@ -8,10 +8,9 @@ void main() => runApp(const GestionScreen());
 class GestionScreen extends StatelessWidget {
   const GestionScreen({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MyHomePage(title: 'Entrainements');
+    return const MyHomePage(title: 'My entities');
   }
 }
 
@@ -51,11 +50,11 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: NavigationBar(
         destinations: const [
           NavigationDestination(
-              icon: Icon(Icons.playlist_add_check_sharp), label: 'Workout'),
+              icon: Icon(Icons.playlist_add_check_sharp), label: 'Workouts'),
           NavigationDestination(
-              icon: Icon(Icons.align_horizontal_left), label: 'Seance'),
+              icon: Icon(Icons.align_horizontal_left), label: 'Sessions'),
           NavigationDestination(
-              icon: Icon(Icons.fitness_center), label: 'Exercice')
+              icon: Icon(Icons.fitness_center), label: 'Exercises')
         ],
         selectedIndex: _selectedIndex,
         onDestinationSelected: _onItemTapped,

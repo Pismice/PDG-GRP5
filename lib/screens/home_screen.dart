@@ -34,108 +34,117 @@ class HomeScreen extends StatelessWidget {
           title: Text(
               'My ongoing workouts for week ${weekNumber(DateTime.now())}'),
         ),
-        body: Container(
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  colors: [
-                Color.fromARGB(255, 1, 9, 128),
-                Color.fromARGB(255, 38, 1, 73)
-              ])),
-          child: FutureBuilder(
-            future: getAllActiveWorkoutsFrom(),
-            builder: (context, workoutsSnapshot) {
-              if (workoutsSnapshot.connectionState == ConnectionState.waiting ||
-                  workoutsSnapshot.connectionState == ConnectionState.active) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              if (workoutsSnapshot.hasError) {
-                return Text("Error ${workoutsSnapshot.error.toString()}");
-              }
-              if (workoutsSnapshot.connectionState == ConnectionState.done &&
-                  workoutsSnapshot.hasData) {
-                if (workoutsSnapshot.data!.isEmpty) {
-                  return const Center(
-                      child: Text("No active workout this week"));
-                }
-                return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: workoutsSnapshot.data!.length,
-                    itemBuilder: (context, i) {
-                      return Container(
-                          padding: const EdgeInsets.all(15),
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  foregroundColor: Colors.black,
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                                  backgroundColor: Colors.white),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => MyWorkoutInfoPage(
-                                          workout: workoutsSnapshot.data![i])),
-                                );
-                              },
-                              child: Column(children: <Widget>[
-                                Align(
-                                    alignment: Alignment.bottomLeft,
-                                    child: Container(
-                                        padding: const EdgeInsets.all(10),
-                                        child: Text(
-                                            workoutsSnapshot.data![i].name!))),
-                                ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: workoutsSnapshot
-                                        .data![i].sessions!.length,
-                                    itemBuilder: (context, j) {
-                                      return Container(
-                                          padding: const EdgeInsets.all(8),
-                                          child: FutureBuilder(
-                                            builder:
-                                                ((context, snapshotSession) {
-                                              if (snapshotSession
-                                                          .connectionState ==
-                                                      ConnectionState.done &&
-                                                  snapshotSession.hasData) {
-                                                return ElevatedButton(
-                                                    onPressed: () {
-                                                      WorkoutSessions
-                                                          workoutSessions =
-                                                          workoutsSnapshot
-                                                              .data![i]
-                                                              .findWorkoutSessionById(
-                                                                  snapshotSession
-                                                                      .data!
-                                                                      .uid!)!;
-                                                      Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                MyExercices(
-                                                                    onGoingSession:
-                                                                        workoutSessions)),
-                                                      );
-                                                    },
-                                                    child: Text(snapshotSession
-                                                        .data!.name!));
-                                              }
-                                              return const Center(
-                                                  child:
-                                                      CircularProgressIndicator());
-                                            }),
-                                            future: getSession(workoutsSnapshot
-                                                .data![i].sessions![j].id!),
-                                          ));
-                                    })
-                              ])));
-                    });
-              }
-              return const Center(child: CircularProgressIndicator());
-            },
-          ),
+        body: Column(
+          children: [
+            Expanded(
+              child: Container(
+                decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topRight,
+                        end: Alignment.bottomLeft,
+                        colors: [
+                      Color.fromARGB(255, 0, 6, 83),
+                      Color.fromARGB(255, 38, 1, 73)
+                    ])),
+                child: FutureBuilder(
+                  future: getAllActiveWorkoutsFrom(),
+                  builder: (context, workoutsSnapshot) {
+                    if (workoutsSnapshot.connectionState == ConnectionState.waiting ||
+                        workoutsSnapshot.connectionState == ConnectionState.active) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    if (workoutsSnapshot.hasError) {
+                      return Text("Error ${workoutsSnapshot.error.toString()}");
+                    }
+                    if (workoutsSnapshot.connectionState == ConnectionState.done &&
+                        workoutsSnapshot.hasData) {
+                      if (workoutsSnapshot.data!.isEmpty) {
+                        return const Center(
+                            child: Text("No active workout this week"));
+                      }
+                      return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: workoutsSnapshot.data!.length,
+                          itemBuilder: (context, i) {
+                            return Container(
+                                padding: const EdgeInsets.all(15),
+                                child: ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => MyWorkoutInfoPage(
+                                                workout: workoutsSnapshot.data![i])),
+                                      );
+                                    },
+                                    child: Column(children: <Widget>[
+                                      Align(
+                                          alignment: Alignment.bottomLeft,
+                                          child: Container(
+                                              padding: const EdgeInsets.all(10),
+                                              child: Text(
+                                                  workoutsSnapshot.data![i].name!, style: Theme.of(context)
+                                                    .textTheme
+                                                    .displayLarge,
+                                              ))),
+                                      ListView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: workoutsSnapshot
+                                              .data![i].sessions!.length,
+                                          itemBuilder: (context, j) {
+                                            return Container(
+                                                padding: const EdgeInsets.all(1),
+                                                color: Colors.blue,
+                                                height: 100,
+                                                child: FutureBuilder(
+                                                  builder:
+                                                      ((context, snapshotSession) {
+                                                    if (snapshotSession
+                                                                .connectionState ==
+                                                            ConnectionState.done &&
+                                                        snapshotSession.hasData) {
+                                                      return ElevatedButton(
+                                                          onPressed: () {
+                                                            WorkoutSessions
+                                                                workoutSessions =
+                                                                workoutsSnapshot
+                                                                    .data![i]
+                                                                    .findWorkoutSessionById(
+                                                                        snapshotSession
+                                                                            .data!
+                                                                            .uid!)!;
+                                                            Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder: (context) =>
+                                                                      MyExercices(
+                                                                          onGoingSession:
+                                                                              workoutSessions)),
+                                                            );
+                                                          },
+                                                          child: Text(snapshotSession
+                                                              .data!.name!));
+                                                    }
+                                                    return const Center(
+                                                        child:
+                                                            CircularProgressIndicator());
+                                                  }),
+                                                  future: getSession(workoutsSnapshot
+                                                      .data![i].sessions![j].id!),
+                                                ));
+                                          }),
+                                      const SizedBox(
+                                        height: 20,
+                                      )
+                                    ])));
+                          });
+                    }
+                    return const Center(child: CircularProgressIndicator());
+                  },
+                ),
+              ),
+            ),
+          ],
         ));
   }
 }

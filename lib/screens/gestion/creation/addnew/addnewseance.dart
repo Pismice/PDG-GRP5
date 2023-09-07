@@ -30,7 +30,7 @@ class _MyEditSeancePage extends State<MyAddNewSeance> {
             var items = snapshot.data!;
             return Scaffold(
                 appBar: AppBar(
-                  title: const Text("Ajout de séance au workout"),
+                  title: const Text("Add session to workout"),
                 ),
                 body: Column(children: <Widget>[
                   ListView.builder(

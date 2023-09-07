@@ -139,7 +139,7 @@ class _MyEditExoPage extends State<MyEditExoPage> {
                     // This displays the selected fruit name.
                     child: list[_selectedNumber]),
                 Container(
-                    color: Colors.green[200],
+                    color: const Color.fromARGB(255, 1, 73, 3),
                     child: IconButton(
                         onPressed: () {
                           updateExercise(ex);
