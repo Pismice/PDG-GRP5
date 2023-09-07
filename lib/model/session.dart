@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:g2g/model/workout.dart';
 
 /// classe qui représente une séance
 class Session {
@@ -9,6 +10,39 @@ class Session {
   List<SessionExercises>? exercises;
 
   Session({this.uid, this.name, this.user, this.duration, this.exercises});
+
+  bool isFinished(WorkoutSessions workoutSessions) {
+    // Si la séance ne contient pas d'exercices template
+    if (exercises == null) {
+      return true;
+    }
+    if (exercises!.isEmpty) {
+      return true;
+    }
+
+    // Si aucun n exercice n a ete effectue
+    if (workoutSessions.exercises == null) {
+      return false;
+    }
+    if (workoutSessions.exercises!.isEmpty) {
+      return false;
+    }
+
+    List<int> setNumbers = [];
+    for (var exercise in exercises!) {
+      if (exercise.set == null) return false;
+      setNumbers.add(exercise.set!);
+    }
+
+    int i = 0;
+    // Verifier que tous les sets soient non null
+    for (var exercice in workoutSessions.exercises!) {
+      if (exercice.sets == null) return false;
+      if (exercice.sets!.length != setNumbers[i++]) return false;
+    }
+
+    return true;
+  }
 
   /// Constructeur à partir d'un json
   Session.fromJson(Map<String, dynamic> json) {

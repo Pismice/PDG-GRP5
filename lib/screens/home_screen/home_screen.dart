@@ -49,14 +49,17 @@ class HomeScreen extends StatelessWidget {
                 child: FutureBuilder(
                   future: getAllActiveWorkoutsFrom(),
                   builder: (context, workoutsSnapshot) {
-                    if (workoutsSnapshot.connectionState == ConnectionState.waiting ||
-                        workoutsSnapshot.connectionState == ConnectionState.active) {
+                    if (workoutsSnapshot.connectionState ==
+                            ConnectionState.waiting ||
+                        workoutsSnapshot.connectionState ==
+                            ConnectionState.active) {
                       return const Center(child: CircularProgressIndicator());
                     }
                     if (workoutsSnapshot.hasError) {
                       return Text("Error ${workoutsSnapshot.error.toString()}");
                     }
-                    if (workoutsSnapshot.connectionState == ConnectionState.done &&
+                    if (workoutsSnapshot.connectionState ==
+                            ConnectionState.done &&
                         workoutsSnapshot.hasData) {
                       if (workoutsSnapshot.data!.isEmpty) {
                         return const Center(
@@ -73,8 +76,10 @@ class HomeScreen extends StatelessWidget {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => MyWorkoutInfoPage(
-                                                workout: workoutsSnapshot.data![i])),
+                                            builder: (context) =>
+                                                MyWorkoutInfoPage(
+                                                    workout: workoutsSnapshot
+                                                        .data![i])),
                                       );
                                     },
                                     child: Column(children: <Widget>[
@@ -83,7 +88,8 @@ class HomeScreen extends StatelessWidget {
                                           child: Container(
                                               padding: const EdgeInsets.all(10),
                                               child: Text(
-                                                  workoutsSnapshot.data![i].name!, style: Theme.of(context)
+                                                workoutsSnapshot.data![i].name!,
+                                                style: Theme.of(context)
                                                     .textTheme
                                                     .displayLarge,
                                               ))),
@@ -93,17 +99,24 @@ class HomeScreen extends StatelessWidget {
                                               .data![i].sessions!.length,
                                           itemBuilder: (context, j) {
                                             return Container(
-                                                padding: const EdgeInsets.all(1),
+                                                padding:
+                                                    const EdgeInsets.all(1),
                                                 color: Colors.blue,
                                                 height: 100,
                                                 child: FutureBuilder(
-                                                  builder:
-                                                      ((context, snapshotSession) {
+                                                  builder: ((context,
+                                                      snapshotSession) {
                                                     if (snapshotSession
                                                                 .connectionState ==
-                                                            ConnectionState.done &&
-                                                        snapshotSession.hasData) {
+                                                            ConnectionState
+                                                                .done &&
+                                                        snapshotSession
+                                                            .hasData) {
+                                                              // TODO
                                                       return ElevatedButton(
+                                                          style: ButtonStyle(
+                                                              backgroundColor: MaterialStateProperty.all<Color>(snapshotSession.data!.isFinished(workoutsSnapshot.data![i].sessions![
+                                                                              j]) ? Colors.green : Colors.grey.shade800)),
                                                           onPressed: () {
                                                             WorkoutSessions
                                                                 workoutSessions =
@@ -122,15 +135,18 @@ class HomeScreen extends StatelessWidget {
                                                                               workoutSessions)),
                                                             );
                                                           },
-                                                          child: Text(snapshotSession
-                                                              .data!.name!));
+                                                          child: Text(
+                                                              snapshotSession
+                                                                  .data!
+                                                                  .name!));
                                                     }
                                                     return const Center(
                                                         child:
                                                             CircularProgressIndicator());
                                                   }),
-                                                  future: getSession(workoutsSnapshot
-                                                      .data![i].sessions![j].id!),
+                                                  future: getSession(
+                                                      workoutsSnapshot.data![i]
+                                                          .sessions![j].id!),
                                                 ));
                                           }),
                                       const SizedBox(

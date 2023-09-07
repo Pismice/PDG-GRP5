@@ -65,14 +65,15 @@ class MyFeedbackFormState extends State<MyFeedbackForm> {
                             user: await getUser(
                                     FirebaseAuth.instance.currentUser!.uid)
                                 .then((value) => value.uid));
+                        await addFeedback(feedback);
                         if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                                 content: Text(
                                     "Feedback ${feedback.title} submited. Thank you ! :)")),
                           );
+                          Navigator.pop(context);
                         }
-                        addFeedback(feedback);
                       }
                     },
                     child: const Text("Submit feedback or bug"))
@@ -83,7 +84,7 @@ class MyFeedbackFormState extends State<MyFeedbackForm> {
             height: 50,
           ),
           const Text(
-              "Writing a nice and productive feedback is going to help us change the app in order to best fit your needs. We are responding to ALL feedbacks who are honest :)"),
+              "Writing a nice and productive feedback is going to help us change the app in order to best fit your needs :)"),
           const SizedBox(
             height: 300,
             child: Image(image: AssetImage("ressources/feedback.png")),

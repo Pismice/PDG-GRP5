@@ -4,7 +4,6 @@ import 'package:g2g/api/firebase_session.dart';
 import 'package:g2g/api/firebase_user.dart';
 import 'package:g2g/model/session.dart';
 import 'package:g2g/model/workout.dart';
-import 'package:intl/intl.dart';
 
 final workouts = FirebaseFirestore.instance.collection('workout');
 final users = FirebaseFirestore.instance.collection('user');
