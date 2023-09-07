@@ -40,59 +40,58 @@ class _MySessionPageState extends State<MySessionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: getAllSessionsFrom(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
+    return Column(
+      children: <Widget>[
+        Row(children: <Widget>[
+          Expanded(
+              child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: TextField(
+              onChanged: (value) {
+                filterSearchResults(value);
+              },
+              controller: editingController,
+              decoration: const InputDecoration(
+                  labelText: "Recherche",
+                  hintText: "Mon Workout",
+                  prefixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)))),
+            ),
+          )),
+          Padding(
+              padding: const EdgeInsets.only(right: 0),
+              child: Align(
+                  alignment: Alignment.topCenter,
+                  child: IconButton(
+                    icon: const Icon(Icons.add),
+                    color: Colors.black,
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MyCreateSeance()));
+                    },
+                  ))),
+        ]),
+        FutureBuilder(
+            future: getAllSessionsFrom(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
 
-          if (snapshot.connectionState == ConnectionState.done &&
-              snapshot.hasData) {
-            sessions = snapshot.data;
-            if (sessions!.isEmpty) {
-              return const Text("Aucune session crée");
-            }
-            if (items.isEmpty && queryEmpty) {
-              items = sessions!;
-            }
-            return Column(
-              children: <Widget>[
-                Row(children: <Widget>[
-                  Expanded(
-                      child: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: TextField(
-                      onChanged: (value) {
-                        filterSearchResults(value);
-                      },
-                      controller: editingController,
-                      decoration: const InputDecoration(
-                          labelText: "Recherche",
-                          hintText: "Mon Workout",
-                          prefixIcon: Icon(Icons.search),
-                          border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0)))),
-                    ),
-                  )),
-                  Padding(
-                      padding: const EdgeInsets.only(right: 0),
-                      child: Align(
-                          alignment: Alignment.topCenter,
-                          child: IconButton(
-                            icon: const Icon(Icons.add),
-                            color: Colors.black,
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const MyCreateSeance()));
-                            },
-                          ))),
-                ]),
-                Expanded(
+              if (snapshot.connectionState == ConnectionState.done &&
+                  snapshot.hasData) {
+                sessions = snapshot.data;
+                if (sessions!.isEmpty) {
+                  return const Text("Aucune session crée");
+                }
+                if (items.isEmpty && queryEmpty) {
+                  items = sessions!;
+                }
+                return Expanded(
+                  // mettre ici le future builder
                   child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: items.length,
@@ -146,11 +145,11 @@ class _MySessionPageState extends State<MySessionScreen> {
                       );
                     },
                   ),
-                ),
-              ],
-            );
-          }
-          return const Text("");
-        });
+                );
+              }
+              return const Center(child: CircularProgressIndicator());
+            })
+      ],
+    );
   }
 }
