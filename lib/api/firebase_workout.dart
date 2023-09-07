@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:g2g/api/firebase_session.dart';
+import 'package:g2g/api/firebase_user.dart';
 import 'package:g2g/model/session.dart';
 import 'package:g2g/model/workout.dart';
 import 'package:intl/intl.dart';
@@ -33,9 +34,6 @@ Future<Workout> getWorkout(String documentId) async {
 Future<List<Workout>> getAllWorkoutsFrom({String? uid}) async {
   String id = (uid != null) ? uid : FirebaseAuth.instance.currentUser!.uid;
 
-
-  
-
   final values = await users
       .where('authid', isEqualTo: id)
       .limit(1)
@@ -47,7 +45,7 @@ Future<List<Workout>> getAllWorkoutsFrom({String? uid}) async {
   }
   // on récupère la référence à l'utilisateur dans la bdd
   final userRef = users.doc(values.docs[0].id);
-    // récupère les workouts
+  // récupère les workouts
   final snapshot = await workouts.where('user', isEqualTo: userRef).get();
   // formate les workout
   final data = snapshot.docs.map((w) {
@@ -67,17 +65,17 @@ Future<List<Workout>> getAllWorkoutsFrom({String? uid}) async {
 }
 
 /// Fonction qui ajoute une séance [idSession] à un workout [idWorkou]
-Future<void> addSessionToWorkout(String idWorkout, String idSession) async {
-  // récup le workout
-  final w = await getWorkout(idWorkout);
+Future<void> addSessionToWorkout(Workout workout, String idSession) async {
   // récup la séance
   final s = await getSession(idSession);
   // formate la séance en séance de workout
   final ws = WorkoutSessions.fromSession(s);
   // on ajout la séance au workout
-  w.sessions!.add(ws);
-  // on mets à jour le workout
-  updateWorkout(w);
+  if (workout.sessions == null) {
+    workout.sessions = <WorkoutSessions>[ws];
+  } else {
+    workout.sessions!.add(ws);
+  }
 }
 
 /// Fonction qui supprime une séance [isSession] d'un workout [idWorkout]
@@ -141,6 +139,7 @@ Future<List<Workout>> getAllActiveWorkoutsFrom({String? uid}) async {
 
 /// Fonction qui ajoute un [workout] à la bdd
 Future<Workout> addWorkout(Workout workout) async {
+  workout.user ??= (await getUser(FirebaseAuth.instance.currentUser!.uid)).uid;
   try {
     final newWorkoutRef = workouts
         .withConverter(
@@ -153,8 +152,8 @@ Future<Workout> addWorkout(Workout workout) async {
     final snapshot = await newWorkoutRef.get();
 
     // Create a Workout object from the fetched data
-    final w = snapshot.data() as Workout;
-
+    final w = snapshot.data()!;
+    w.uid = snapshot.id;
     return w;
   } on Exception catch (e) {
     throw Exception("Erreur lors de l'ajout : $e");
@@ -163,6 +162,7 @@ Future<Workout> addWorkout(Workout workout) async {
 
 /// Fonction qui met à jour un [workout] dans la bdd
 Future<void> updateWorkout(Workout workout) async {
+  workout.user ??= (await getUser(FirebaseAuth.instance.currentUser!.uid)).uid;
   try {
     await workouts.doc(workout.uid).update(workout.toFirestore());
   } on Exception catch (e) {

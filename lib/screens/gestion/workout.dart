@@ -100,7 +100,7 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => MyWorkoutInfoPage(
-                                    snapshot.data![index].uid!)),
+                                    workout: snapshot.data![index])),
                           );
                         },
                         child: Column(
@@ -122,7 +122,7 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               MyEditWorkoutPage(
-                                                  items[index].uid),
+                                                  workout: items[index]),
                                         ),
                                       );
                                     },
