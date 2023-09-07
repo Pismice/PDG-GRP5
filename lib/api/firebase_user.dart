@@ -43,16 +43,12 @@ Future<void> deleteUser(String authid) async {
   ref.delete();
 }
 
-void updateUser(User user) async {
-  User storeUser = User.fromFirestore(
-      await users
-              .doc(user.uid)
-              .get()
-              .then((DocumentSnapshot snapshot) => snapshot)
-          as DocumentSnapshot<Map<String, dynamic>>,
-      null);
-  if (user.profilepicture != storeUser.profilepicture) {
-    users.doc(user.uid).set(user.toFirestore());
+
+Future<void> updateUser(User user) async {
+  try {
+    await users.doc(user.uid).update(user.toFirestore());
+  } on Exception catch (e) {
+    throw Exception("Erreur lors de la modification : $e");
   }
 }
 
