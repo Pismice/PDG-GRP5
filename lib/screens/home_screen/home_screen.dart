@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_session.dart';
 import 'package:g2g/api/firebase_workout.dart';
 import 'package:g2g/model/workout.dart';
-import 'package:g2g/screens/available_workouts_screen.dart';
+import 'package:g2g/screens/home_screen/available_workouts_screen.dart';
 import 'package:g2g/screens/during_session/my_exercices_screen.dart';
 import 'package:g2g/screens/gestion/affichage/affichage_workout.dart';
 

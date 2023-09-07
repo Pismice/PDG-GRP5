@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:g2g/screens/home_screen.dart';
+import 'package:g2g/screens/home_screen/home_screen.dart';
 import 'package:g2g/screens/user/user_screen.dart';
-import 'screens/gestion_screen.dart';
+import 'gestion/gestion_screen.dart';
 
 class MyNavigationBar extends StatefulWidget {
   const MyNavigationBar({super.key});
