@@ -76,7 +76,6 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                   alignment: Alignment.topCenter,
                   child: IconButton(
                     icon: const Icon(Icons.add),
-                    color: Colors.black,
                     onPressed: () {
                       Navigator.push(
                           context,
@@ -113,14 +112,6 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                         itemBuilder: (context, index) {
                           return ElevatedButton(
                             onPressed: () {},
-                            style: ButtonStyle(
-                                foregroundColor:
-                                    MaterialStateProperty.all(Colors.black),
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.white),
-                                overlayColor: MaterialStateProperty.all(
-                                    Colors.grey.shade100)),
                             child: Column(
                               children: <Widget>[
                                 Row(
@@ -154,7 +145,6 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                                       child: IconButton(
                                         icon: const Icon(Icons.edit),
                                         padding: const EdgeInsets.all(0),
-                                        color: Colors.black,
                                         onPressed: () {
                                           Navigator.push(
                                             context,
@@ -173,7 +163,6 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                                       child: IconButton(
                                         icon: const Icon(Icons.delete),
                                         padding: const EdgeInsets.all(0),
-                                        color: Colors.black,
                                         onPressed: () {
                                           showDialog<String>(
                                             context: context,
@@ -244,14 +233,6 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                         itemBuilder: (context, index) {
                           return ElevatedButton(
                               onPressed: () {},
-                              style: ButtonStyle(
-                                  foregroundColor:
-                                      MaterialStateProperty.all(Colors.black),
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.white),
-                                  overlayColor: MaterialStateProperty.all(
-                                      Colors.grey.shade100)),
                               child: Column(children: <Widget>[
                                 Row(children: <Widget>[
                                   Padding(

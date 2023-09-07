@@ -65,7 +65,6 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
                   alignment: Alignment.topCenter,
                   child: IconButton(
                     icon: const Icon(Icons.add),
-                    color: Colors.black,
                     onPressed: () {
                       Navigator.push(
                           context,
@@ -104,13 +103,6 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
                                     snapshot.data![index].uid!)),
                           );
                         },
-                        style: ButtonStyle(
-                            foregroundColor:
-                                MaterialStateProperty.all(Colors.black),
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.white),
-                            overlayColor: MaterialStateProperty.all(
-                                Colors.grey.shade100)),
                         child: Column(
                           children: <Widget>[
                             Row(
@@ -124,7 +116,6 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
                                   alignment: Alignment.topCenter,
                                   child: IconButton(
                                     icon: const Icon(Icons.edit),
-                                    color: Colors.black,
                                     onPressed: () {
                                       Navigator.push(
                                         context,

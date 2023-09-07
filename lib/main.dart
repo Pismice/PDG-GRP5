@@ -40,7 +40,16 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         brightness: Brightness.dark,
-        primaryColor: Colors.purple,
+        primaryColor: const Color.fromARGB(255, 7, 3, 58),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ButtonStyle(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius:
+                  BorderRadius.circular(0), // Set radius to 0 for sharp corners
+            ),
+          ),
+        )),
         useMaterial3: true,
       ),
       home: StreamBuilder<User?>(
