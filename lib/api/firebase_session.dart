@@ -105,6 +105,7 @@ Future<int> _getPR(String exId, _SetsValue sets, {String? authid}) async {
       }
       for (var exercise in session.exercises!) {
         if (exercise.id != exId) continue;
+        if (exercise.sets == null) continue;
 
         for (var set in exercise.sets!) {
           switch (sets) {
