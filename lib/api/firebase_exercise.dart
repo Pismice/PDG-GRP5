@@ -105,17 +105,9 @@ Future<List<Exercise>> getAllExercises({String? authid}) async {
         .get()
         .then((value) => users.doc(value.docs[0].id));
 
-    for (var exercise in data) {
-      if (exercise.user != null || exercise.user != userRef.id) {
-        data.remove(exercise);
-      }
-    }
+    data.removeWhere((exercise) => exercise.user != null || exercise.user != userRef.id);
   } else {
-    for (var exercise in data) {
-      if (exercise.user != null) {
-        data.remove(exercise);
-      }
-    }
+    data.removeWhere((exercise) => exercise.user != null);
   }
 
   return data;
