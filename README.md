@@ -17,7 +17,7 @@ Cliquer sur le [lien](https://gilliozdorian.wixsite.com/gym2golem) pour accéder
 # Build notre projet 
 1. Installer [Flutter](https://docs.flutter.dev/get-started/install) 
 2. Cloner le projet sur votre machine local
-3
+3. 
 
 # Déployer une nouvelle fonctionnalité 
 Avant de coder
@@ -27,8 +27,8 @@ Avant de coder
 4. Create une new branch depuis l'issue en question
 
 Avant de commit les modifications
-5. Flutter analyze 
-6. Flutter test 
+5. ```Flutter analyze``` 
+6. ```Flutter test```
 7. Commit avec la bonne nomanclature [WIP], [Fix], ...
 8. Push sur la branch
 9. Pull request sur github et déplacer l'issue dans la colonne Review sur le Kanban 
@@ -39,7 +39,7 @@ Avant de commit les modifications
    - Lors des sprints : 
          1. Mise au points ce qui est fait et ce qu'il reste à faire
          1. Ajout de nouvelles tâches à un backlog via les issues github
-         2. Répartition des tâches selon le label (frontend (Jérémie et Théo), backend (Dorian et Oscar))
+         2. Répartition des tâches selon le label (```frontend``` (Jérémie et Théo), ```backend``` (Dorian et Oscar))
          3. Review des modifications ensemble pour vérifier que le code soit maintenable et suffisamment compréhensible
          4. Une fois les modifications validées, début du sprint suivant
 
@@ -47,19 +47,19 @@ Avant de commit les modifications
 - Le projet contient la branch principal main, nous utilisons les branches pour ne pas travailler directement dessus. 
 
 - Une issue possède un label qui doit être assigné : 
-   - frontend : pour les taches de gestion de l'affichage
-   - backend : pour les tâches sur la database ou pour l'api 
+   - ```frontend``` : pour les taches de gestion de l'affichage
+   - ```backend``` : pour les tâches sur la database ou pour l'api 
 
 - Une issue possède un Milestones qui doit être assigné : 
-   - First useable version : pour les tâches nécéssaire pour le fonctionnement de la premiere version 
-   - Required additions : addition de features non-nécéssaire au bon fonctionnement mais requise pour l'application
-   - Possible additions : addition de features non-nécéssaire au bon fonctionnement et non requise mais qui peuvent améliorer l'expérience utilisateur
+   - ```First useable version``` : pour les tâches nécéssaire pour le fonctionnement de la premiere version 
+   - ```Required additions``` : addition de features non-nécéssaire au bon fonctionnement mais requise pour l'application
+   - ```Possible additions``` : addition de features non-nécéssaire au bon fonctionnement et non requise mais qui peuvent améliorer l'expérience utilisateur
 
 - Convention de nommage des commits: [WIP], [DONE], [FIXED] + nom du commit (en anglais) 
       Ex: [WIP] Add button supress account
-      - WIP: En cours mais pas encore terminé
-      - DONE: La tâche est terminée et prête à être review
-      - FIXED: Modification (si nécessaire) d'une tâche après code review
+      - ```WIP```: En cours mais pas encore terminé
+      - ```DONE```: La tâche est terminée et prête à être review
+      - ```FIXED```: Modification (si nécessaire) d'une tâche après code review
 
 - Il faut ensuite suivre la marche a suivre # Déployer une nouvelle fonctionnalité au dessus
 
