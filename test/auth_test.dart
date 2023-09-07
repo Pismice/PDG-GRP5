@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:g2g/model/user.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 
 void main() async {
@@ -21,7 +20,7 @@ void main() async {
   test("Sign user in", () async {
     String email = "email@email.com";
     final auth = MockFirebaseAuth(mockUser: MockUser(uid: 'testoID'));
-    final result2 = await auth.createUserWithEmailAndPassword(
+    await auth.createUserWithEmailAndPassword(
         email: email, password: "password");
     final result = await auth.signInWithEmailAndPassword(
         email: email, password: "password");
