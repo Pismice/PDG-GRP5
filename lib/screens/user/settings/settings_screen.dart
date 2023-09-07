@@ -12,22 +12,24 @@ class SettingsScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Settings"),
       ),
-      body: const Column(
-        children: [
-          SignOutButton(),
-          SizedBox(
-            height: 10,
-          ),
-          DeleteAccountButton(),
-          SizedBox(
-            height: 10,
-          ),
-          FeedbackButton(),
-          SizedBox(
-            height: 10,
-          ),
-          Text("Version acutelle de l'app: 0.0.1"),
-        ],
+      body: const Center(
+        child: Column(
+          children: [
+            SignOutButton(),
+            SizedBox(
+              height: 10,
+            ),
+            DeleteAccountButton(),
+            SizedBox(
+              height: 10,
+            ),
+            FeedbackButton(),
+            SizedBox(
+              height: 10,
+            ),
+            Text("Version acutelle de l'app: 0.0.1"),
+          ],
+        ),
       ),
     );
   }

@@ -14,15 +14,13 @@ class DeleteAccountButton extends StatelessWidget {
         ),
         onPressed: () async {
           String authIdToBeDeleted = FirebaseAuth.instance.currentUser!.uid;
-          await deleteUser(authIdToBeDeleted);
           try {
             await FirebaseAuth.instance.currentUser!.delete();
+            await deleteUser(authIdToBeDeleted);
           } catch (e) {
             if (context.mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                    content: Text(
-                        e.toString())),
+                SnackBar(content: Text(e.toString())),
               );
             }
           }
