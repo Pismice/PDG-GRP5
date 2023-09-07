@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_workout.dart';
 import 'package:g2g/model/session.dart';
 import 'package:g2g/model/workout.dart';
