@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:g2g/api/firebase_workout.dart';
 import 'package:g2g/model/session.dart';
+import 'package:intl/intl.dart';
 
 /// classe qui représente un workout
 class Workout {
@@ -7,7 +9,7 @@ class Workout {
   String? name;
   String? user;
   int? duration; // Nb of weeks
-  int? week; // First week of the year of the workout
+  int? week; // First week of the year of the workout, aka starting week
   List<WorkoutSessions>? sessions;
 
   Workout(
@@ -17,6 +19,20 @@ class Workout {
       this.duration,
       this.week,
       this.sessions});
+
+  /// Return
+  bool isActive() {
+    if (week! + duration! >= weekNumber(DateTime.now())) {
+      return true;
+    }
+    return false;
+  }
+
+  Future<void> setInactive() async {
+    duration = 0;
+    week = 0;
+    await updateWorkout(this);
+  }
 
   /// Constructeur à partir d'un json
   Workout.fromJson(Map<String, dynamic> json) {
@@ -279,4 +295,23 @@ class Sets {
       if (duration != null) "duration": duration,
     };
   }
+}
+
+/// Fonction qui nous donne le nombre de semaine d'une année donné
+int numOfWeeks(int year) {
+  DateTime dec28 = DateTime(year, 12, 28);
+  int dayOfDec28 = int.parse(DateFormat("D").format(dec28));
+  return ((dayOfDec28 - dec28.weekday + 10) / 7).floor();
+}
+
+/// Fonction qui retourne quel est le numéro de semaine selon la [date]
+int weekNumber(DateTime date) {
+  int dayOfYear = int.parse(DateFormat("D").format(date));
+  int woy = ((dayOfYear - date.weekday + 10) / 7).floor();
+  if (woy < 1) {
+    woy = numOfWeeks(date.year - 1);
+  } else if (woy > numOfWeeks(date.year)) {
+    woy = 1;
+  }
+  return woy;
 }

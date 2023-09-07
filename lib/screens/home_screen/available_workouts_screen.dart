@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_user.dart';
 import 'package:g2g/api/firebase_workout.dart';
 import 'package:g2g/model/user.dart';
+import 'package:g2g/model/workout.dart';
 
 class AvailableWorkouts extends StatefulWidget {
   const AvailableWorkouts({super.key});

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_session.dart';
+import 'package:g2g/api/firebase_user.dart';
 import 'package:g2g/api/firebase_workout.dart';
 import 'package:g2g/model/workout.dart';
 import 'package:g2g/screens/gestion/modification/editworkout.dart';
@@ -94,7 +95,13 @@ class _MyWorkoutInfoPage extends State<MyWorkoutInfoPage> {
                         ),
                       );
                     },
-                    icon: const Icon(Icons.delete)))
+                    icon: const Icon(Icons.delete))),
+            if (widget.workout.isActive())
+              ElevatedButton(
+                  onPressed: () async {
+                    await widget.workout.setInactive();
+                  },
+                  child: const Text("Stop this workout")),
           ])
         ]));
   }
