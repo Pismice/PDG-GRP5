@@ -52,7 +52,8 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
               child: TextField(
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  hintText: 'Number of week (actual : ${widget.workout.week})',
+                  hintText:
+                      'Start week of the workout (actual : ${widget.workout.week})',
                 ),
                 keyboardType: TextInputType.number,
                 onChanged: (text) {

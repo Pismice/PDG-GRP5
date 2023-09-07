@@ -31,12 +31,18 @@ class HomeScreen extends StatelessWidget {
           child: const Icon(Icons.add),
         ),
         appBar: AppBar(
-          title: const Text('My ongoing workouts'),
+          title: Text(
+              'My ongoing workouts for week ${weekNumber(DateTime.now())}'),
         ),
         body: Container(
           decoration: const BoxDecoration(
-            gradient: LinearGradient(begin: Alignment.topRight, end:Alignment.bottomLeft, colors: [Color.fromARGB(255, 1, 9, 128), Color.fromARGB(255, 38, 1, 73)])
-          ),
+              gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  colors: [
+                Color.fromARGB(255, 1, 9, 128),
+                Color.fromARGB(255, 38, 1, 73)
+              ])),
           child: FutureBuilder(
             future: getAllActiveWorkoutsFrom(),
             builder: (context, workoutsSnapshot) {
@@ -50,7 +56,8 @@ class HomeScreen extends StatelessWidget {
               if (workoutsSnapshot.connectionState == ConnectionState.done &&
                   workoutsSnapshot.hasData) {
                 if (workoutsSnapshot.data!.isEmpty) {
-                  return const Center(child: Text("No active workout this week"));
+                  return const Center(
+                      child: Text("No active workout this week"));
                 }
                 return ListView.builder(
                     shrinkWrap: true,
@@ -87,7 +94,8 @@ class HomeScreen extends StatelessWidget {
                                       return Container(
                                           padding: const EdgeInsets.all(8),
                                           child: FutureBuilder(
-                                            builder: ((context, snapshotSession) {
+                                            builder:
+                                                ((context, snapshotSession) {
                                               if (snapshotSession
                                                           .connectionState ==
                                                       ConnectionState.done &&

@@ -167,7 +167,7 @@ class _MyCreateWorkout extends State<MyCreateWorkout> {
               child: TextField(
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  hintText: 'Number of week (actual : ${w.week})',
+                  hintText: 'Start week of the workout (actual : ${w.week})',
                 ),
                 keyboardType: TextInputType.number,
                 onChanged: (weekText) {
