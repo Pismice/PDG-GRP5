@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:confetti/confetti.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_session.dart';
 import 'package:g2g/api/firebase_workout.dart';
@@ -126,11 +127,21 @@ class _MyRepetitionState extends State<MyRepetition> {
                       }
                       return const CircularProgressIndicator();
                     }),
-                const Image(
-                  width: 100.0,
-                  fit: BoxFit.fitWidth,
-                  image: NetworkImage(
-                      'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                FutureBuilder(
+                  future: FirebaseStorage.instance
+                      .refFromURL('gs://hongym-4cb68.appspot.com')
+                      .child("img/exercises/${widget.exoBase.img}")
+                      .getDownloadURL(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularProgressIndicator();
+                    }
+                    return Image.network(
+                      snapshot.data.toString(),
+                      height: 100,
+                      width: 100,
+                    );
+                  },
                 ),
                 ElevatedButton(
                     onPressed: () async {
