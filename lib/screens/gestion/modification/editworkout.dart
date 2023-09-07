@@ -60,11 +60,12 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
                   widget.workout.week = int.parse(text);
                 },
               )),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: widget.workout.sessions!.length,
-            itemBuilder: (context, index) {
-              return ElevatedButton(
+          Expanded(
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: widget.workout.sessions!.length,
+              itemBuilder: (context, index) {
+                return ElevatedButton(
                   onPressed: () {},
                   child: FutureBuilder(
                     future: getSession(widget.workout.sessions![index].id!),
@@ -117,8 +118,10 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
                       }
                       return const Center(child: CircularProgressIndicator());
                     },
-                  ));
-            },
+                  ),
+                );
+              },
+            ),
           ),
           Row(children: [
             Expanded(
