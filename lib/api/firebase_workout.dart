@@ -101,8 +101,6 @@ Future<void> deleteSessionFromWorkout(
   updateWorkout(w);
 }
 
-
-
 /// Fonction qui retourne tous les workout qui sont actif cette semaine
 Future<List<Workout>> getAllActiveWorkoutsFrom({String? uid}) async {
   final data = await getAllWorkoutsFrom(uid: uid);
@@ -177,8 +175,17 @@ Future<void> addExerciseDone(
   // ajoute l'exercice
   for (var workoutSession in workout.sessions!) {
     if (workoutSession.id != sessionId) continue;
-    workoutSession.exercises ??= <ExercisesDone>[];
-    workoutSession.exercises!.add(exercise);
+    if (workoutSession.exercises == null) {
+      workoutSession.exercises = <ExercisesDone>[];
+      continue;
+    }
+
+    for (var sessEx in workoutSession.exercises!) {
+      if (sessEx.id != exercise.id) continue;
+
+      sessEx.sets ??= [];
+      sessEx.sets!.addAll(exercise.sets!);
+    }
   }
   // met à jour le workout
   updateWorkout(workout);
