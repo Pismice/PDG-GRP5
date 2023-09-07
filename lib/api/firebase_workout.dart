@@ -157,9 +157,9 @@ Future<void> deleteWorkout(String docId) async {
 }
 
 /// Fonction qui ajoute un exercice fait durant une séance d'un workout
-Future<void> addExerciseDone(
-    Workout workout, ExercisesDone exercise, String sessionId) async {
-  Session session = await getSession(sessionId);
+Future<void> addExerciseDone(Workout workout, ExercisesDone exercise,
+    WorkoutSessions workoutSessions) async {
+  Session session = await getSession(workoutSessions.id!);
   bool inSession = false;
   // vérifie que l'exercice était prévu
   for (var sessExercise in session.exercises!) {
@@ -173,7 +173,7 @@ Future<void> addExerciseDone(
   }
   // ajoute l'exercice
   for (var workoutSession in workout.sessions!) {
-    if (workoutSession.id != sessionId) continue;
+    if (workoutSession.id != workoutSessions.id!) continue;
     if (workoutSession.exercises == null) {
       workoutSession.exercises = <ExercisesDone>[];
       continue;
@@ -186,6 +186,18 @@ Future<void> addExerciseDone(
       sessEx.sets!.addAll(exercise.sets!);
     }
   }
-  // met à jour le workout
+
+  // On met a jour la workoutSession qui contient notamment end et start
+  for (var ws in workout.sessions!) {}
+
+  for (var i = 0; i < workout.sessions!.length; i++) {
+    if (workout.sessions![i].id == workoutSessions.id) {
+      workout.sessions![i] = workoutSessions;
+    }
+  }
+  // workout.sessions!.removeWhere((element) {
+  //   element.id = workoutSessions.id;
+  // }, workoutSessions);
+
   updateWorkout(workout);
 }
