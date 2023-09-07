@@ -96,6 +96,10 @@ class WorkoutSessions {
   /// Constructeur à partir d'une séance
   WorkoutSessions.fromSession(Session s) {
     id = s.uid;
+    exercises = <ExercisesDone>[];
+    for (var exo in s.exercises!) {
+      exercises!.add(ExercisesDone.fromSessionExercises(exo));
+    }
   }
 
   /// Constructeur à partir d'un json
@@ -159,6 +163,7 @@ class WorkoutSessions {
       if (end != null) "end": end!.millisecondsSinceEpoch / 1000,
       if (exercises != null)
         "exercises": exercises!.map((e) => e.toFirestore()).toList(),
+      if (exercises == null) "exerciceses": <ExercisesDone>[],
       if (workoutId != null)
         "workoutId": FirebaseFirestore.instance.doc("workout/$workoutId"),
     };
