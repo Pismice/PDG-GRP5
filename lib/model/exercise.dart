@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+/// Classe qui réprésente un exrecice
 class Exercise {
   String? uid;
   String? name;
@@ -9,6 +10,7 @@ class Exercise {
 
   Exercise({this.uid, this.name, this.img, this.type, this.user});
 
+  /// Constructeur à partir d'un json
   Exercise.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     img = json['img'];
@@ -16,6 +18,7 @@ class Exercise {
     if (json['user'] != null) user = json['user'].id;
   }
 
+  // Constructeur à partir d'un DocumentSnapshot (depuis la bdd)
   factory Exercise.fromFirestore(
       DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) {
@@ -29,6 +32,7 @@ class Exercise {
     );
   }
 
+  /// Fonction qui retourne l'exercice au format json
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (name != null) data['name'] = name;
@@ -37,10 +41,10 @@ class Exercise {
     if (user != null) {
       data['user'] = FirebaseFirestore.instance.doc("user/$user");
     }
-
     return data;
   }
 
+  /// Fonction qui retourne l'exercice au format correct pour le mettre dans la bdd
   Map<String, dynamic> toFirestore() {
     return {
       if (name != null) "name": name,

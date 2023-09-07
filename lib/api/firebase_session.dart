@@ -1,40 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_workout.dart';
 import 'package:g2g/model/session.dart';
 import 'package:g2g/model/workout.dart';
 
-class GetSession extends StatelessWidget {
-  final String documentId;
-
-  const GetSession(this.documentId, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: getSession(documentId),
-      builder: (BuildContext context, AsyncSnapshot<Session> snapshot) {
-        if (snapshot.hasError) {
-          return const Text("Quelque chose n'a pas fonctionné");
-        }
-
-        if (!snapshot.hasData) {
-          return const Text("Le document n'existe pas");
-        }
-
-        if (snapshot.connectionState == ConnectionState.done) {
-          return Text(snapshot.data!.name!);
-        }
-
-        return const Text("Chargement");
-      },
-    );
-  }
-}
-
 final sessions = FirebaseFirestore.instance.collection('session');
 final users = FirebaseFirestore.instance.collection('user');
+
 
 Session _convertJson(Map<String, dynamic> data, String documentId) {
   Session session = Session.fromJson(data);
@@ -44,19 +16,23 @@ Session _convertJson(Map<String, dynamic> data, String documentId) {
   }
   return session;
 }
-
+  /// Fonction qui retourne la séance correspondant à [documentId]
 Future<Session> getSession(String documentId) async {
   final snapshot = await sessions.doc(documentId).get();
+  // verif si la séance existe
   if (snapshot.data() == null) {
     throw Exception("Séance non trouvée");
   }
-
+  // retourne la séance
+  
   return _convertJson(snapshot.data()!, documentId);
 }
 
+/// Fonction qui retourne toutes les séance d'un utilisateur
 Future<List<Session>> getAllSessionsFrom({String? uid}) async {
   String id = (uid != null) ? uid : FirebaseAuth.instance.currentUser!.uid;
 
+  // récup la reference sur l'utilisateur dans la bdd
   final userRef = await users
       .where('authid', isEqualTo: id)
       .limit(1)
@@ -65,6 +41,7 @@ Future<List<Session>> getAllSessionsFrom({String? uid}) async {
 
   final snapshot = await sessions.where('user', isEqualTo: userRef).get();
 
+  // formate la séance
   final data = snapshot.docs.map((s) {
     return _convertJson(s.data(), s.id);
   }).toList();
@@ -152,6 +129,8 @@ Future<int> _getPR(String exId, _SetsValue sets, {String? authid}) async {
   return pr;
 }
 
+/// Retourne le personal record pour une exercice [exId]
+/// pour un exercice de poids
 Future<int> getWeightPR(String exId, {String? authid}) async {
   if (authid != null) {
     return await _getPR(exId, _SetsValue.weight, authid: authid);
@@ -159,6 +138,8 @@ Future<int> getWeightPR(String exId, {String? authid}) async {
   return await _getPR(exId, _SetsValue.weight);
 }
 
+/// Retourne le personal record pour une exercice [exId]
+/// pour un exercice de durée
 Future<int> getDurationPR(String exId, {String? authid}) async {
   if (authid != null) {
     return await _getPR(exId, _SetsValue.duration, authid: authid);
@@ -166,6 +147,8 @@ Future<int> getDurationPR(String exId, {String? authid}) async {
   return await _getPR(exId, _SetsValue.duration);
 }
 
+/// Retourne le personal record pour une exercice [exId]
+/// pour un exercice de repetition
 Future<int> getRepetitionPR(String exId, {String? authid}) async {
   if (authid != null) {
     return await _getPR(exId, _SetsValue.repetition, authid: authid);
@@ -173,6 +156,7 @@ Future<int> getRepetitionPR(String exId, {String? authid}) async {
   return await _getPR(exId, _SetsValue.repetition);
 }
 
+/// Retourne le nombre le meilleur set effectué
 Future<int> getBestSetsNb(String exId, {String? authid}) async {
   final List<Workout> workouts;
   if (authid != null) {
