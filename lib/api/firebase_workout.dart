@@ -188,8 +188,6 @@ Future<void> addExerciseDone(Workout workout, ExercisesDone exercise,
   }
 
   // On met a jour la workoutSession qui contient notamment end et start
-  for (var ws in workout.sessions!) {}
-
   for (var i = 0; i < workout.sessions!.length; i++) {
     if (workout.sessions![i].id == workoutSessions.id) {
       workout.sessions![i] = workoutSessions;

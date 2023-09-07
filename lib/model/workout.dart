@@ -126,14 +126,27 @@ class WorkoutSessions {
     }
   }
 
+  DateTime convertTimestampToDateTime(double timestamp) {
+    Timestamp ts = doubleToTimestamp(timestamp);
+    return ts.toDate();
+  }
+
+  Timestamp doubleToTimestamp(double value) {
+    // Convert the double value to milliseconds since epoch
+    int millisecondsSinceEpoch = (value * 1000).toInt();
+
+    // Create a new Timestamp using the millisecondsSinceEpoch
+    return Timestamp.fromMillisecondsSinceEpoch(millisecondsSinceEpoch);
+  }
+
   /// Constructeur à partir d'un json
   WorkoutSessions.fromJson(Map<String, dynamic> json) {
     if (json['id'] != null) id = json['id'].id;
     if (json['start'] != null) {
-      start = DateTime.fromMillisecondsSinceEpoch(json['start'].seconds * 1000);
+      start = convertTimestampToDateTime(json['start']);
     }
     if (json['end'] != null) {
-      end = DateTime.fromMillisecondsSinceEpoch(json['end'].seconds * 1000);
+      end = convertTimestampToDateTime(json['end']);
     }
     if (json['exercises'] != null) {
       exercises = <ExercisesDone>[];
