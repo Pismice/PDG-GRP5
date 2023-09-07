@@ -20,21 +20,24 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const AvailableWorkouts()));
-            },
-            child: const Icon(Icons.add),
+    return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const AvailableWorkouts()));
+          },
+          child: const Icon(Icons.add),
+        ),
+        appBar: AppBar(
+          title: const Text('My ongoing workouts'),
+        ),
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(begin: Alignment.topRight, end:Alignment.bottomLeft, colors: [Color.fromARGB(255, 1, 9, 128), Color.fromARGB(255, 38, 1, 73)])
           ),
-          appBar: AppBar(
-            title: const Text('My ongoing workouts'),
-          ),
-          body: FutureBuilder(
+          child: FutureBuilder(
             future: getAllActiveWorkoutsFrom(),
             builder: (context, workoutsSnapshot) {
               if (workoutsSnapshot.connectionState == ConnectionState.waiting ||
@@ -47,8 +50,7 @@ class HomeScreen extends StatelessWidget {
               if (workoutsSnapshot.connectionState == ConnectionState.done &&
                   workoutsSnapshot.hasData) {
                 if (workoutsSnapshot.data!.isEmpty) {
-                  return const Center(
-                      child: Text("No active workout this week"));
+                  return const Center(child: Text("No active workout this week"));
                 }
                 return ListView.builder(
                     shrinkWrap: true,
@@ -85,8 +87,7 @@ class HomeScreen extends StatelessWidget {
                                       return Container(
                                           padding: const EdgeInsets.all(8),
                                           child: FutureBuilder(
-                                            builder:
-                                                ((context, snapshotSession) {
+                                            builder: ((context, snapshotSession) {
                                               if (snapshotSession
                                                           .connectionState ==
                                                       ConnectionState.done &&
@@ -126,7 +127,7 @@ class HomeScreen extends StatelessWidget {
               }
               return const Center(child: CircularProgressIndicator());
             },
-          )),
-    );
+          ),
+        ));
   }
 }

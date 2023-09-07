@@ -65,14 +65,6 @@ class _MyAddNewExercise extends State<MyAddNewExercise> {
                                     sessionId: widget.session.uid));
                                 Navigator.pop(context);
                               },
-                              style: ButtonStyle(
-                                  foregroundColor:
-                                      MaterialStateProperty.all(Colors.black),
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.white),
-                                  overlayColor: MaterialStateProperty.all(
-                                      Colors.grey.shade100)),
                               child: Column(children: <Widget>[
                                 Row(children: <Widget>[
                                   Padding(

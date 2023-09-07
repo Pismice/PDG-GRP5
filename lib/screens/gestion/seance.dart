@@ -65,7 +65,6 @@ class _MySessionPageState extends State<MySessionScreen> {
                   alignment: Alignment.topCenter,
                   child: IconButton(
                     icon: const Icon(Icons.add),
-                    color: Colors.black,
                     onPressed: () {
                       Navigator.push(
                           context,
@@ -106,13 +105,6 @@ class _MySessionPageState extends State<MySessionScreen> {
                                     MySeanceInfoPage(session)),
                           );
                         },
-                        style: ButtonStyle(
-                            foregroundColor:
-                                MaterialStateProperty.all(Colors.black),
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.white),
-                            overlayColor: MaterialStateProperty.all(
-                                Colors.grey.shade100)),
                         child: Column(
                           children: <Widget>[
                             Row(
@@ -126,7 +118,6 @@ class _MySessionPageState extends State<MySessionScreen> {
                                   child: IconButton(
                                     icon: const Icon(Icons.edit),
                                     padding: const EdgeInsets.all(0),
-                                    color: Colors.black,
                                     onPressed: () {
                                       Navigator.of(context).push(
                                         MaterialPageRoute(

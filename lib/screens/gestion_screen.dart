@@ -11,13 +11,7 @@ class GestionScreen extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Gestion',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Entrainements'),
-    );
+    return const MyHomePage(title: 'Entrainements');
   }
 }
 
