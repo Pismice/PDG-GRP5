@@ -90,8 +90,16 @@ class WorkoutSessions {
   DateTime? end;
   List<ExercisesDone>? exercises;
   String? workoutId;
-  WorkoutSessions(
-      {this.id, this.start, this.end, this.exercises, this.workoutId});
+  int? positionId;
+
+  WorkoutSessions({
+    this.id,
+    this.start,
+    this.end,
+    this.exercises,
+    this.workoutId,
+    this.positionId,
+  });
 
   /// Constructeur à partir d'une séance
   WorkoutSessions.fromSession(Session s) {

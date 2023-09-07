@@ -9,18 +9,14 @@ import 'package:intl/intl.dart';
 final workouts = FirebaseFirestore.instance.collection('workout');
 final users = FirebaseFirestore.instance.collection('user');
 
-/// Fonction qui retourne un workout selon son [documentId]
-Future<Workout> getWorkout(String documentId) async {
-  final snapshot = await workouts.doc(documentId).get();
-  if (snapshot.data() == null) {
-    throw Exception("Workout non trouvé");
-  }
-  Workout workout = Workout.fromJson(snapshot.data()!);
+Workout _convertJson(Map<String, dynamic> data, String documentId) {
+  Workout workout = Workout.fromJson(data);
   workout.uid = documentId;
 
   // ajoute les workoutId au session et les session au exerciseDone
   for (var i = 0; i < workout.sessions!.length; i++) {
     workout.sessions![i].workoutId = workout.uid;
+    workout.sessions![i].positionId = i + 1;
     if (workout.sessions![i].exercises == null) continue;
     for (var j = 0; j < workout.sessions![i].exercises!.length; ++j) {
       workout.sessions![i].exercises![j].session = workout.sessions![i];
@@ -28,6 +24,16 @@ Future<Workout> getWorkout(String documentId) async {
   }
 
   return workout;
+}
+
+/// Fonction qui retourne un workout selon son [documentId]
+Future<Workout> getWorkout(String documentId) async {
+  final snapshot = await workouts.doc(documentId).get();
+  if (snapshot.data() == null) {
+    throw Exception("Workout non trouvé");
+  }
+
+  return _convertJson(snapshot.data()!, documentId);
 }
 
 /// Fonction qui retourne tous les workouts d'un utilisateur
@@ -49,16 +55,7 @@ Future<List<Workout>> getAllWorkoutsFrom({String? uid}) async {
   final snapshot = await workouts.where('user', isEqualTo: userRef).get();
   // formate les workout
   final data = snapshot.docs.map((w) {
-    Workout workout = Workout.fromJson(w.data());
-    workout.uid = w.id;
-    for (var i = 0; i < workout.sessions!.length; i++) {
-      workout.sessions![i].workoutId = workout.uid;
-      if (workout.sessions![i].exercises == null) continue;
-      for (var j = 0; j < workout.sessions![i].exercises!.length; ++j) {
-        workout.sessions![i].exercises![j].session = workout.sessions![i];
-      }
-    }
-    return workout;
+    return _convertJson(w.data(), w.id);
   }).toList();
 
   return data;
