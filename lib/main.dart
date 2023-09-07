@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Gym2Golem',
       theme: ThemeData(
         brightness: Brightness.dark,
         primaryColor: const Color.fromARGB(255, 7, 3, 58),

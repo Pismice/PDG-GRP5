@@ -43,9 +43,10 @@ class ConnectionChoicesScreen extends StatelessWidget {
             TextButton(
               onPressed: () async {
                 await signInWithGoogle();
-                // ignore: use_build_context_synchronously
-                Navigator.pop(context);
                 // Google connection success: Navigate to another screen or perform desired action
+                if (context.mounted) {
+                  Navigator.pop(context);
+                }
               },
               child: const Row(
                 children: [

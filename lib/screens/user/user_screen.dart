@@ -6,13 +6,9 @@ import 'package:g2g/model/user.dart';
 import 'package:g2g/screens/user/edit_profile_screen.dart';
 import 'package:g2g/screens/user/other_stats/exercices_pr.dart';
 import 'package:g2g/screens/user/settings/settings_screen.dart';
-import 'package:g2g/back/retrieve_user_stat.dart';
 
 class UserScreen extends StatelessWidget {
-  final UserStatistics userStat =
-      UserStatistics(FirebaseAuth.instance.currentUser!.uid);
-
-  UserScreen({super.key});
+  const UserScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +76,7 @@ class UserScreen extends StatelessWidget {
                             const Text("Finished sessions",
                                 style: TextStyle(fontSize: 10)),
                             FutureBuilder(
-                                future: userStat.getNumberSessionDone(),
+                                future: getNumberSessionDone(FirebaseAuth.instance.currentUser!.uid),
                                 builder: ((context, snapshot) {
                                   int value = 0;
                                   if (snapshot.connectionState ==
@@ -104,7 +100,7 @@ class UserScreen extends StatelessWidget {
                             const Text("Total lifted weight",
                                 style: TextStyle(fontSize: 10)),
                             FutureBuilder(
-                                future: userStat.getTotalWeightPushed(),
+                                future: getTotalWeightPushed(FirebaseAuth.instance.currentUser!.uid),
                                 builder: ((context, snapshot) {
                                   double value = 0;
                                   if (snapshot.connectionState ==
@@ -128,7 +124,8 @@ class UserScreen extends StatelessWidget {
                             const Text("Time spent doing sport",
                                 style: TextStyle(fontSize: 10)),
                             FutureBuilder(
-                                future: userStat.getHoursSpentInGym(),
+                                future: getHoursSpentInGym(
+                                    FirebaseAuth.instance.currentUser!.uid),
                                 builder: ((context, snapshot) {
                                   if (snapshot.connectionState ==
                                       ConnectionState.done) {
@@ -180,7 +177,7 @@ class UserScreen extends StatelessWidget {
                     child: const Row(
                       children: [
                         Icon(Icons.workspace_premium),
-                        Text("Les PR de mes exercices"),
+                        Text("PRs for all my exercises"),
                       ],
                     ),
                   ),
@@ -194,7 +191,7 @@ class UserScreen extends StatelessWidget {
                     child: const Row(
                       children: [
                         Icon(Icons.trending_up),
-                        Text("Mon evolution"),
+                        Text("My evolution"),
                       ],
                     ),
                   ),

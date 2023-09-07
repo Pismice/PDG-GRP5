@@ -6,8 +6,8 @@ class Workout {
   String? uid;
   String? name;
   String? user;
-  int? duration;
-  int? week;
+  int? duration; // Nb of weeks
+  int? week; // First week of the year of the workout
   List<WorkoutSessions>? sessions;
 
   Workout(

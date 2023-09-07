@@ -6,7 +6,6 @@ import 'package:g2g/model/session.dart';
 import 'package:g2g/model/workout.dart';
 import 'package:g2g/screens/during_session/my_repetition_screen.dart';
 
-// ignore: must_be_immutable
 class MyExercices extends StatefulWidget {
   const MyExercices({super.key, required this.onGoingSession});
   final WorkoutSessions onGoingSession;

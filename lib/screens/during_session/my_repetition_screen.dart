@@ -8,18 +8,17 @@ import 'package:g2g/model/exercise.dart';
 import 'package:g2g/model/session.dart';
 import 'package:g2g/model/workout.dart';
 
-// ignore: must_be_immutable
 class MyRepetition extends StatefulWidget {
-  MyRepetition(
+  final SessionExercises exercise;
+  final Exercise exoBase;
+  final WorkoutSessions workoutSessions;
+  final List<Sets> mySets;
+  const MyRepetition(
       {super.key,
       required this.exercise,
       required this.exoBase,
       required this.workoutSessions,
       required this.mySets});
-  final SessionExercises exercise;
-  final Exercise exoBase;
-  final WorkoutSessions workoutSessions;
-  List<Sets> mySets;
 
   @override
   State<MyRepetition> createState() => _MyRepetitionState();
@@ -182,7 +181,8 @@ class _MyRepetitionState extends State<MyRepetition> {
                           // Inserer dans la BD
                           ExercisesDone exercisesDone = ExercisesDone(
                               id: widget.exercise.id, sets: onGoingSets);
-                          Workout workout = await getWorkout(widget.workoutSessions.workoutId!);
+                          Workout workout = await getWorkout(
+                              widget.workoutSessions.workoutId!);
 
                           await addExerciseDone(workout, exercisesDone,
                               widget.exercise.sessionId!);

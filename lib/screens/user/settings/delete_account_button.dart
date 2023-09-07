@@ -7,7 +7,7 @@ class DeleteAccountButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FilledButton(
+    return ElevatedButton(
         style: ButtonStyle(
           backgroundColor:
               MaterialStateProperty.all<Color>(Colors.red.shade900),
