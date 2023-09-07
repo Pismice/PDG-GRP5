@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_session.dart';
 import 'package:g2g/api/firebase_workout.dart';
+import 'package:g2g/model/session.dart';
 import 'package:g2g/model/workout.dart';
 //import 'package:g2g/screens/gestion/creation/create_exercise.dart';
 
@@ -14,6 +15,8 @@ class MyAddNewSeance extends StatefulWidget {
 }
 
 class _MyEditSeancePage extends State<MyAddNewSeance> {
+  List<Session> itemslist = <Session>[];
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -37,6 +40,9 @@ class _MyEditSeancePage extends State<MyAddNewSeance> {
                     shrinkWrap: true,
                     itemCount: items.length,
                     itemBuilder: (context, index) {
+                      if (widget.workout
+                              .findWorkoutSessionById(items[index].uid!) !=
+                          null) return Container();
                       return ElevatedButton(
                           onPressed: () {},
                           child: Container(
