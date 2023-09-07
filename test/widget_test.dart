@@ -15,6 +15,8 @@ void main() {
     expect(1, 1);
     // Build our app and trigger a frame.
     //await tester.pumpWidget(const MyApp());
+    
+    // Un peu complexe comme on a galere avec les state :(
 
     // // Verify that our counter starts at 0.
     // expect(find.text('0'), findsOneWidget);

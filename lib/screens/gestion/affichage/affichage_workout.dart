@@ -84,9 +84,11 @@ class _MyWorkoutInfoPage extends State<MyWorkoutInfoPage> {
                               child: const Text('Annuler'),
                             ),
                             TextButton(
-                              onPressed: () {
-                                deleteWorkout(widget.workout.uid!);
-                                Navigator.pop(context, 'OK');
+                              onPressed: () async {
+                                await deleteWorkout(widget.workout.uid!);
+                                if (context.mounted) {
+                                  Navigator.pop(context, 'OK');
+                                }
                               },
                               child: const Text('Supprimer'),
                             ),
@@ -99,6 +101,9 @@ class _MyWorkoutInfoPage extends State<MyWorkoutInfoPage> {
               ElevatedButton(
                   onPressed: () async {
                     await widget.workout.setInactive();
+                    if (context.mounted) {
+                      Navigator.pop(context);
+                    }
                   },
                   child: const Text("Stop this workout")),
           ])

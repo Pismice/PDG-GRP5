@@ -158,9 +158,11 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
                               child: const Text('Cancel'),
                             ),
                             TextButton(
-                              onPressed: () {
-                                deleteWorkout(widget.workout.uid!);
-                                Navigator.pop(context, 'OK');
+                              onPressed: () async {
+                                await deleteWorkout(widget.workout.uid!);
+                                if (context.mounted) {
+                                  Navigator.pop(context, 'OK');
+                                }
                               },
                               child: const Text('Delete'),
                             ),

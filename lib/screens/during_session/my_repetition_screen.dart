@@ -121,7 +121,13 @@ class _MyRepetitionState extends State<MyRepetition> {
                     builder: (context, prSnapshot) {
                       if (prSnapshot.connectionState == ConnectionState.done) {
                         if (prSnapshot.hasData) {
-                          return Text(prSnapshot.data.toString());
+                          int myPR = prSnapshot.data!;
+                          for (Sets exo in onGoingSets) {
+                            if (exo.weight! >= prSnapshot.data!) {
+                              myPR = exo.weight!;
+                            }
+                          }
+                          return Text("My current PR = ${myPR.toString()} kg");
                         }
                         return const Text("No PR found for this exercise");
                       }
