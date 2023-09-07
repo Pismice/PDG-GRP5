@@ -49,8 +49,15 @@ class _MyExercicesState extends State<MyExercices> {
                                 exoBase.data!.img ?? "default.png";
                             bool isExerciseOver = false;
                             widget.onGoingSession.exercises ??= [];
-                            if (sessionSnapshot.data!.exercises!.length ==
-                                widget.onGoingSession.exercises!.length) {
+                            // verifier si le nombre de set correspond au nombre de set voulu
+                            if (widget.onGoingSession.exercises![index].sets ==
+                                null) {
+                              widget.onGoingSession.exercises![index].sets =
+                                  <Sets>[];
+                            }
+                            if (sessionSnapshot.data!.exercises![index].set ==
+                                widget.onGoingSession.exercises![index].sets!
+                                    .length) {
                               isExerciseOver = true;
                             }
                             return GestureDetector(
