@@ -1,5 +1,6 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:g2g/model/exercise.dart';
 import 'package:g2g/model/session.dart';
 import 'package:g2g/api/firebase_exercise.dart';
 
@@ -13,6 +14,26 @@ class MyAddNewExercise extends StatefulWidget {
 
 class _MyAddNewExercise extends State<MyAddNewExercise> {
   TextEditingController editingController = TextEditingController();
+
+  List<Exercise>? exercises = [];
+  var items = <Exercise>[];
+  bool queryEmpty = true;
+
+  @override
+  void initState() {
+    items = exercises!;
+    super.initState();
+  }
+
+  void filterSearchResults(String query) {
+    queryEmpty = query.isEmpty;
+    setState(() {
+      items = exercises!
+          .where(
+              (item) => item.name!.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,16 +49,21 @@ class _MyAddNewExercise extends State<MyAddNewExercise> {
               }
               if (snapshot.connectionState == ConnectionState.done &&
                   snapshot.hasData) {
-                final exercises = snapshot.data;
+                exercises = snapshot.data;
                 if (exercises!.isEmpty) {
                   return const Text("Aucun exercice disponible");
+                }
+                if (items.isEmpty && queryEmpty) {
+                  items = exercises!;
                 }
                 return Column(
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: TextField(
-                        onChanged: (value) {},
+                        onChanged: (value) {
+                          filterSearchResults(value);
+                        },
                         controller: editingController,
                         decoration: const InputDecoration(
                             labelText: "Recherche",
@@ -51,13 +77,13 @@ class _MyAddNewExercise extends State<MyAddNewExercise> {
                     Expanded(
                       child: ListView.builder(
                         shrinkWrap: true,
-                        itemCount: exercises.length,
+                        itemCount: items.length,
                         itemBuilder: (context, index) {
                           return ElevatedButton(
                               onPressed: () {
                                 widget.session.exercises ??= [];
                                 widget.session.exercises?.add(SessionExercises(
-                                    id: exercises[index].uid!,
+                                    id: items[index].uid!,
                                     repetition: 1,
                                     set: 1,
                                     weight: 1,
@@ -65,14 +91,6 @@ class _MyAddNewExercise extends State<MyAddNewExercise> {
                                     sessionId: widget.session.uid));
                                 Navigator.pop(context);
                               },
-                              style: ButtonStyle(
-                                  foregroundColor:
-                                      MaterialStateProperty.all(Colors.black),
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.white),
-                                  overlayColor: MaterialStateProperty.all(
-                                      Colors.grey.shade100)),
                               child: Column(children: <Widget>[
                                 Row(children: <Widget>[
                                   Padding(
@@ -82,7 +100,7 @@ class _MyAddNewExercise extends State<MyAddNewExercise> {
                                             .refFromURL(
                                                 'gs://hongym-4cb68.appspot.com')
                                             .child(
-                                                "img/exercises/${exercises[index].img}")
+                                                "img/exercises/${items[index].img}")
                                             .getDownloadURL(),
                                         builder: (context, snapshot) {
                                           if (snapshot.connectionState ==
@@ -96,7 +114,7 @@ class _MyAddNewExercise extends State<MyAddNewExercise> {
                                           );
                                         },
                                       )),
-                                  Expanded(child: Text(exercises[index].name!)),
+                                  Expanded(child: Text(items[index].name!)),
                                 ]),
                               ]));
                         },

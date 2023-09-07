@@ -39,13 +39,6 @@ class _MyEditSeancePage extends State<MyAddNewSeance> {
                     itemBuilder: (context, index) {
                       return ElevatedButton(
                           onPressed: () {},
-                          style: ButtonStyle(
-                              foregroundColor:
-                                  MaterialStateProperty.all(Colors.black),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white),
-                              overlayColor: MaterialStateProperty.all(
-                                  Colors.grey.shade100)),
                           child: Container(
                             padding: const EdgeInsets.all(20),
                             child: Row(children: [

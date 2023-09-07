@@ -19,30 +19,30 @@ class MyExerciceScreen extends StatefulWidget {
 class _MyExerciceScreen extends State<MyExerciceScreen> {
   TextEditingController editingController = TextEditingController();
 
-  List<Exercise>? exercise = [];
-  var itemsE = <Exercise>[];
-  bool queryEmptyE = true;
+  List<Exercise>? customExercises = [];
+  var customItems = <Exercise>[];
+  bool customQueryEmpty = true;
 
-  List<Exercise>? myExercise = [];
-  var itemsM = <Exercise>[];
-  bool queryEmptyM = true;
+  List<Exercise>? defaultExercises = [];
+  var defaultItems = <Exercise>[];
+  bool defaultQueryEmpty = true;
 
   @override
   void initState() {
-    itemsE = exercise!;
-    itemsM = myExercise!;
+    customItems = customExercises!;
+    defaultItems = defaultExercises!;
     super.initState();
   }
 
   void filterSearchResultsExercise(String query) {
-    queryEmptyE = query.isEmpty;
-    queryEmptyM = query.isEmpty;
+    customQueryEmpty = query.isEmpty;
+    defaultQueryEmpty = query.isEmpty;
     setState(() {
-      exercise!
+      customItems = customExercises!
           .where(
               (item) => item.name!.toLowerCase().contains(query.toLowerCase()))
           .toList();
-      myExercise!
+      defaultItems = defaultExercises!
           .where(
               (item) => item.name!.toLowerCase().contains(query.toLowerCase()))
           .toList();
@@ -76,7 +76,6 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                   alignment: Alignment.topCenter,
                   child: IconButton(
                     icon: const Icon(Icons.add),
-                    color: Colors.black,
                     onPressed: () {
                       Navigator.push(
                           context,
@@ -99,80 +98,78 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
               }
               if (snapshot.connectionState == ConnectionState.done &&
                   snapshot.hasData) {
-                final myExercise = snapshot.data;
-                if (myExercise!.isEmpty) {
+                customExercises = snapshot.data;
+                if (customExercises!.isEmpty) {
                   return const Text("Aucun exercice disponible");
+                }
+                if (customItems.isEmpty && customQueryEmpty) {
+                  customItems = customExercises!;
                 }
                 return Flexible(
                     child: ListView.builder(
                         shrinkWrap: true,
-                        itemCount: myExercise.length,
+                        itemCount: customItems.length,
                         itemBuilder: (context, index) {
                           return ElevatedButton(
-                              onPressed: () {},
-                              style: ButtonStyle(
-                                  foregroundColor:
-                                      MaterialStateProperty.all(Colors.black),
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.white),
-                                  overlayColor: MaterialStateProperty.all(
-                                      Colors.grey.shade100)),
-                              child: Column(children: <Widget>[
-                                Row(children: <Widget>[
-                                  Padding(
-                                      padding: const EdgeInsets.only(right: 10),
-                                      child: FutureBuilder(
-                                        future: FirebaseStorage.instance
-                                            .refFromURL(
-                                                'gs://hongym-4cb68.appspot.com')
-                                            .child(
-                                                "img/exercises/${myExercise[index].img}")
-                                            .getDownloadURL(),
-                                        builder: (context, snapshot) {
-                                          if (snapshot.connectionState ==
-                                              ConnectionState.waiting) {
-                                            return const CircularProgressIndicator();
-                                          }
-                                          return Image.network(
-                                            snapshot.data.toString(),
-                                            height: 75,
-                                            width: 75,
-                                          );
-                                        },
-                                      )),
-                                  Expanded(
-                                      child: Text(myExercise[index].name!)),
-                                  Align(
+                            onPressed: () {},
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  children: <Widget>[
+                                    Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 10),
+                                        child: FutureBuilder(
+                                          future: FirebaseStorage.instance
+                                              .refFromURL(
+                                                  'gs://hongym-4cb68.appspot.com')
+                                              .child(
+                                                  "img/exercises/${customItems[index].img}")
+                                              .getDownloadURL(),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return const CircularProgressIndicator();
+                                            }
+                                            return Image.network(
+                                              snapshot.data.toString(),
+                                              height: 75,
+                                              width: 75,
+                                            );
+                                          },
+                                        )),
+                                    Expanded(
+                                        child: Text(customItems[index].name!)),
+                                    Align(
                                       alignment: Alignment.centerRight,
                                       child: IconButton(
                                         icon: const Icon(Icons.edit),
                                         padding: const EdgeInsets.all(0),
-                                        color: Colors.black,
                                         onPressed: () {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) =>
-                                                    MyEditExoPage(
-                                                        exo:
-                                                            myExercise[index])),
+                                              builder: (context) =>
+                                                  MyEditExoPage(
+                                                exo: customItems[index],
+                                              ),
+                                            ),
                                           );
                                         },
-                                      )),
-                                  Align(
-                                    alignment: Alignment.centerRight,
-                                    child: IconButton(
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: IconButton(
                                         icon: const Icon(Icons.delete),
                                         padding: const EdgeInsets.all(0),
-                                        color: Colors.black,
                                         onPressed: () {
                                           showDialog<String>(
                                             context: context,
                                             builder: (BuildContext context) =>
                                                 AlertDialog(
                                               title: const Text(
-                                                  'Suppréssion de l\'exercice'),
+                                                  'Suppression de l\'exercice'),
                                               content: const Text(
                                                   'Êtes-vous certain de vouloir supprimer cette exercice ?'),
                                               actions: <Widget>[
@@ -185,7 +182,8 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                                                 TextButton(
                                                   onPressed: () {
                                                     deleteExercise(
-                                                        myExercise[index].uid!);
+                                                        defaultItems[index]
+                                                            .uid!);
                                                     Navigator.pop(
                                                         context, 'OK');
                                                   },
@@ -195,10 +193,14 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                                               ],
                                             ),
                                           );
-                                        }),
-                                  )
-                                ]),
-                              ]));
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          );
                         }));
               }
               return const Text("");
@@ -217,25 +219,20 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
               }
               if (snapshot.connectionState == ConnectionState.done &&
                   snapshot.hasData) {
-                final exercise = snapshot.data;
-                if (exercise!.isEmpty) {
+                defaultExercises = snapshot.data;
+                if (defaultExercises!.isEmpty) {
                   return const Text("Aucun exercice disponible");
+                }
+                if (defaultItems.isEmpty && defaultQueryEmpty) {
+                  defaultItems = defaultExercises!;
                 }
                 return Expanded(
                     child: ListView.builder(
                         shrinkWrap: true,
-                        itemCount: exercise.length,
+                        itemCount: defaultItems.length,
                         itemBuilder: (context, index) {
                           return ElevatedButton(
                               onPressed: () {},
-                              style: ButtonStyle(
-                                  foregroundColor:
-                                      MaterialStateProperty.all(Colors.black),
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.white),
-                                  overlayColor: MaterialStateProperty.all(
-                                      Colors.grey.shade100)),
                               child: Column(children: <Widget>[
                                 Row(children: <Widget>[
                                   Padding(
@@ -245,7 +242,7 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                                             .refFromURL(
                                                 'gs://hongym-4cb68.appspot.com')
                                             .child(
-                                                "img/exercises/${exercise[index].img}")
+                                                "img/exercises/${defaultItems[index].img}")
                                             .getDownloadURL(),
                                         builder: (context, snapshot) {
                                           if (snapshot.connectionState ==
@@ -259,7 +256,8 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                                           );
                                         },
                                       )),
-                                  Expanded(child: Text(exercise[index].name!)),
+                                  Expanded(
+                                      child: Text(defaultItems[index].name!)),
                                 ]),
                               ]));
                         }));

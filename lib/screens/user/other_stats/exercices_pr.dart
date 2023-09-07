@@ -18,7 +18,7 @@ class _ExercicesPrState extends State<ExercicesPr> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Mes PR"),
+          title: const Text("My PRs"),
         ),
         body: FutureBuilder(
             future: getAllExercisesFrom(),
@@ -26,7 +26,7 @@ class _ExercicesPrState extends State<ExercicesPr> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
-                return Text("Eroor: ${snapshot.error}");
+                return Text("Error: ${snapshot.error}");
               } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                 return const Text(
                     "Do you first exercices in order to have PRs displayed");

@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class User {
   // id du document de la bdd
   String? uid;
-  String? authId;
+  String? authId; // FirebaseAuth user id
   String? name;
   String? profilepicture;
 

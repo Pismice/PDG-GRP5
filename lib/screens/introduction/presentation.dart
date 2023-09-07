@@ -11,8 +11,8 @@ class AppPresentationScreen extends StatelessWidget {
       showBackButton: true,
       skip: const Text("Skip"),
       done: const Text("Start my journey to become a GOLEM"),
-      back: const Text("<-"),
-      next: const Text("->"),
+      back: const Icon(Icons.arrow_circle_left_outlined),
+      next: const Icon(Icons.arrow_circle_right_outlined),
       onDone: () {
         Navigator.push(
             context,

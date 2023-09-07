@@ -27,7 +27,7 @@ class SettingsScreen extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            Text("Version acutelle de l'app: 0.0.1"),
+            Text("App version : 0.0.1"),
           ],
         ),
       ),
