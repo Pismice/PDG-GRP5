@@ -27,6 +27,7 @@ Avant de coder
 4. Create une new branch depuis l'issue en question
 
 Avant de commit les modifications
+
 5. ```Flutter analyze```
  
 6. ```Flutter test```
@@ -59,9 +60,13 @@ Avant de commit les modifications
 
 - Convention de nommage des commits: [WIP], [DONE], [FIXED] + nom du commit (en anglais) 
       Ex: [WIP] Add button supress account
+
       - ```WIP```: En cours mais pas encore terminé
+
       - ```DONE```: La tâche est terminée et prête à être review
+
       - ```FIXED```: Modification (si nécessaire) d'une tâche après code review
+      
 
 - Il faut ensuite suivre la marche a suivre # Déployer une nouvelle fonctionnalité au dessus
 
