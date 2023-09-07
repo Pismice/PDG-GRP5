@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:g2g/model/exercise.dart';
@@ -42,7 +43,8 @@ class _MyAddNewExercise extends State<MyAddNewExercise> {
           title: const Text("Session creation"),
         ),
         body: FutureBuilder(
-            future: getAllExercises(),
+            future:
+                getAllExercises(authid: FirebaseAuth.instance.currentUser!.uid),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const CircularProgressIndicator();

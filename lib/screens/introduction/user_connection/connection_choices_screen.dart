@@ -59,8 +59,7 @@ class ConnectionChoicesScreen extends StatelessWidget {
                     height: 10,
                     width: 10,
                   ),
-                  Text(
-                      'Sign In with Google (only working on web platforms for now)'),
+                  Text('Sign In with Google (web only)'),
                 ],
               ),
             ),
