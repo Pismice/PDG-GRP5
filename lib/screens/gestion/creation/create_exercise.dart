@@ -67,11 +67,11 @@ class _MyCreateExercice extends State<MyCreateExercice> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                ElevatedButton(
+                /*ElevatedButton(
                     onPressed: () {},
                     style: const ButtonStyle(
                         backgroundColor: MaterialStatePropertyAll(Colors.grey)),
-                    child: const Text("Add photo")),
+                    child: const Text("Add photo")),*/
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: TextField(
