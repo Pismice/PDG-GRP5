@@ -40,59 +40,57 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: getAllWorkoutsFrom(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
+    return Column(
+      children: <Widget>[
+        Row(children: <Widget>[
+          Expanded(
+              child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: TextField(
+              onChanged: (value) {
+                filterSearchResults(value);
+              },
+              controller: editingController,
+              decoration: const InputDecoration(
+                  labelText: "Recherche",
+                  hintText: "Mon Workout",
+                  prefixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)))),
+            ),
+          )),
+          Padding(
+              padding: const EdgeInsets.only(right: 0),
+              child: Align(
+                  alignment: Alignment.topCenter,
+                  child: IconButton(
+                    icon: const Icon(Icons.add),
+                    color: Colors.black,
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MyCreateWorkout()));
+                    },
+                  ))),
+        ]),
+        FutureBuilder(
+            future: getAllWorkoutsFrom(),
+            builder: ((context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
 
-          if (snapshot.connectionState == ConnectionState.done &&
-              snapshot.hasData) {
-            workouts = snapshot.data;
-            if (workouts!.isEmpty) {
-              return const Text("Aucun workout crée");
-            }
-            if (items.isEmpty && queryEmpty) {
-              items = workouts!;
-            }
-            return Column(
-              children: <Widget>[
-                Row(children: <Widget>[
-                  Expanded(
-                      child: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: TextField(
-                      onChanged: (value) {
-                        filterSearchResults(value);
-                      },
-                      controller: editingController,
-                      decoration: const InputDecoration(
-                          labelText: "Recherche",
-                          hintText: "Mon Workout",
-                          prefixIcon: Icon(Icons.search),
-                          border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0)))),
-                    ),
-                  )),
-                  Padding(
-                      padding: const EdgeInsets.only(right: 0),
-                      child: Align(
-                          alignment: Alignment.topCenter,
-                          child: IconButton(
-                            icon: const Icon(Icons.add),
-                            color: Colors.black,
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const MyCreateWorkout()));
-                            },
-                          ))),
-                ]),
-                Expanded(
+              if (snapshot.connectionState == ConnectionState.done &&
+                  snapshot.hasData) {
+                workouts = snapshot.data;
+                if (workouts!.isEmpty) {
+                  return const Text("Aucun workout crée");
+                }
+                if (items.isEmpty && queryEmpty) {
+                  items = workouts!;
+                }
+                return Expanded(
                   child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: items.length,
@@ -164,11 +162,13 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
                       );
                     },
                   ),
-                ),
-              ],
-            );
-          }
-          return const Text("");
-        });
+                );
+              }
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }))
+      ],
+    );
   }
 }

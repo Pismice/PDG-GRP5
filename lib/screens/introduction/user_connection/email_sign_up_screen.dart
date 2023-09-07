@@ -47,10 +47,6 @@ class _EmailSignUpScreenState extends State<EmailSignUpScreen> {
                 0)
               {await addNewEmailUserToFirestore(value, username)}
           });
-
-      if (context.mounted) {
-        Navigator.pop(context);
-      }
     } on FirebaseAuthException catch (e) {
       creationOk = false;
       if (e.code == 'weak-password') {

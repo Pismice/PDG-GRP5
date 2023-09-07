@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:g2g/api/firebase_exercise.dart';
@@ -82,10 +83,22 @@ class _MyEditExoPage extends State<MyEditExoPage> {
               children: <Widget>[
                 Align(
                     alignment: Alignment.centerLeft,
-                    child: Image.asset(
-                      widget.exo.img!,
-                      height: 75,
-                      width: 75,
+                    child: FutureBuilder(
+                      future: FirebaseStorage.instance
+                          .refFromURL('gs://hongym-4cb68.appspot.com')
+                          .child("img/exercises/${widget.exo.img}")
+                          .getDownloadURL(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const CircularProgressIndicator();
+                        }
+                        return Image.network(
+                          snapshot.data.toString(),
+                          height: 100,
+                          width: 100,
+                        );
+                      },
                     )),
                 /*ElevatedButton(
                     onPressed: () {},

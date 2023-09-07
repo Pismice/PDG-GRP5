@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_exercise.dart';
 /*import 'package:g2g/api/firebase_user.dart';*/
@@ -121,13 +122,25 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                                 Row(children: <Widget>[
                                   Padding(
                                       padding: const EdgeInsets.only(right: 10),
-                                      child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Image.asset(
-                                            myExercise[index].img!,
+                                      child: FutureBuilder(
+                                        future: FirebaseStorage.instance
+                                            .refFromURL(
+                                                'gs://hongym-4cb68.appspot.com')
+                                            .child(
+                                                "img/exercises/${myExercise[index].img}")
+                                            .getDownloadURL(),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return const CircularProgressIndicator();
+                                          }
+                                          return Image.network(
+                                            snapshot.data.toString(),
                                             height: 75,
                                             width: 75,
-                                          ))),
+                                          );
+                                        },
+                                      )),
                                   Expanded(
                                       child: Text(myExercise[index].name!)),
                                   Align(
@@ -147,6 +160,43 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                                           );
                                         },
                                       )),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: IconButton(
+                                        icon: const Icon(Icons.delete),
+                                        padding: const EdgeInsets.all(0),
+                                        color: Colors.black,
+                                        onPressed: () {
+                                          showDialog<String>(
+                                            context: context,
+                                            builder: (BuildContext context) =>
+                                                AlertDialog(
+                                              title: const Text(
+                                                  'Suppréssion de l\'exercice'),
+                                              content: const Text(
+                                                  'Êtes-vous certain de vouloir supprimer cette exercice ?'),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          context, 'Cancel'),
+                                                  child: const Text('Annuler'),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    deleteExercise(
+                                                        myExercise[index].uid!);
+                                                    Navigator.pop(
+                                                        context, 'OK');
+                                                  },
+                                                  child:
+                                                      const Text('Supprimer'),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        }),
+                                  )
                                 ]),
                               ]));
                         }));
@@ -190,13 +240,25 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                                 Row(children: <Widget>[
                                   Padding(
                                       padding: const EdgeInsets.only(right: 10),
-                                      child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Image.asset(
-                                            exercise[index].img!,
+                                      child: FutureBuilder(
+                                        future: FirebaseStorage.instance
+                                            .refFromURL(
+                                                'gs://hongym-4cb68.appspot.com')
+                                            .child(
+                                                "img/exercises/${exercise[index].img}")
+                                            .getDownloadURL(),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return const CircularProgressIndicator();
+                                          }
+                                          return Image.network(
+                                            snapshot.data.toString(),
                                             height: 75,
                                             width: 75,
-                                          ))),
+                                          );
+                                        },
+                                      )),
                                   Expanded(child: Text(exercise[index].name!)),
                                 ]),
                               ]));

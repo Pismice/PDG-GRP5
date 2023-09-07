@@ -1,11 +1,11 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:g2g/screens/gestion/creation/create_exercise.dart';
-
-void main() => runApp(const MyAddNewExercise());
+import 'package:g2g/model/session.dart';
+import 'package:g2g/api/firebase_exercise.dart';
 
 class MyAddNewExercise extends StatefulWidget {
-  const MyAddNewExercise({Key? key}) : super(key: key);
-
+  const MyAddNewExercise({Key? key, required this.session}) : super(key: key);
+  final Session session;
   @override
   // ignore: library_private_types_in_public_api
   _MyAddNewExercise createState() => _MyAddNewExercise();
@@ -14,97 +14,98 @@ class MyAddNewExercise extends StatefulWidget {
 class _MyAddNewExercise extends State<MyAddNewExercise> {
   TextEditingController editingController = TextEditingController();
 
-  final duplicateItems = List<String>.generate(100, (i) => "Exo $i");
-  var items = <String>[];
-
-  @override
-  void initState() {
-    items = duplicateItems;
-    super.initState();
-  }
-
-  void filterSearchResults(String query) {
-    setState(() {
-      items = duplicateItems
-          .where((item) => item.toLowerCase().contains(query.toLowerCase()))
-          .toList();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Séance X"),
+          title: const Text("Nouvelle Séance"),
         ),
-        body: Column(
-          children: <Widget>[
-            Row(children: <Widget>[
-              Expanded(
-                  child: Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: TextField(
-                  onChanged: (value) {
-                    filterSearchResults(value);
-                  },
-                  controller: editingController,
-                  decoration: const InputDecoration(
-                      labelText: "Recherche",
-                      hintText: "Mon Workout",
-                      prefixIcon: Icon(Icons.search),
-                      border: OutlineInputBorder(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(10.0)))),
-                ),
-              )),
-              Padding(
-                  padding: const EdgeInsets.only(right: 0),
-                  child: Align(
-                      alignment: Alignment.topCenter,
-                      child: IconButton(
-                        icon: const Icon(Icons.add),
-                        color: Colors.black,
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const MyCreateExercice()));
+        body: FutureBuilder(
+            future: getAllExercises(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator();
+              }
+              if (snapshot.connectionState == ConnectionState.done &&
+                  snapshot.hasData) {
+                final exercises = snapshot.data;
+                if (exercises!.isEmpty) {
+                  return const Text("Aucun exercice disponible");
+                }
+                return Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: TextField(
+                        onChanged: (value) {},
+                        controller: editingController,
+                        decoration: const InputDecoration(
+                            labelText: "Recherche",
+                            hintText: "Un exercice",
+                            prefixIcon: Icon(Icons.search),
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0)))),
+                      ),
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: exercises.length,
+                        itemBuilder: (context, index) {
+                          return ElevatedButton(
+                              onPressed: () {
+                                widget.session.exercises ??= [];
+                                widget.session.exercises?.add(SessionExercises(
+                                    id: exercises[index].uid!,
+                                    repetition: 1,
+                                    set: 1,
+                                    weight: 1,
+                                    duration: 1,
+                                    sessionId: widget.session.uid));
+                                Navigator.pop(context);
+                              },
+                              style: ButtonStyle(
+                                  foregroundColor:
+                                      MaterialStateProperty.all(Colors.black),
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.white),
+                                  overlayColor: MaterialStateProperty.all(
+                                      Colors.grey.shade100)),
+                              child: Column(children: <Widget>[
+                                Row(children: <Widget>[
+                                  Padding(
+                                      padding: const EdgeInsets.only(right: 10),
+                                      child: FutureBuilder(
+                                        future: FirebaseStorage.instance
+                                            .refFromURL(
+                                                'gs://hongym-4cb68.appspot.com')
+                                            .child(
+                                                "img/exercises/${exercises[index].img}")
+                                            .getDownloadURL(),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return const CircularProgressIndicator();
+                                          }
+                                          return Image.network(
+                                            snapshot.data.toString(),
+                                            height: 100,
+                                            width: 100,
+                                          );
+                                        },
+                                      )),
+                                  Expanded(child: Text(exercises[index].name!)),
+                                ]),
+                              ]));
                         },
-                      ))),
-            ]),
-            Expanded(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: items.length,
-                itemBuilder: (context, index) {
-                  return ElevatedButton(
-                      onPressed: () {},
-                      style: ButtonStyle(
-                          foregroundColor:
-                              MaterialStateProperty.all(Colors.black),
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.white),
-                          overlayColor:
-                              MaterialStateProperty.all(Colors.grey.shade100)),
-                      child: Column(children: <Widget>[
-                        Row(children: <Widget>[
-                          Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Image.asset(
-                                    'assets/images/cervin.jpg',
-                                    height: 75,
-                                    width: 75,
-                                  ))),
-                          Expanded(child: Text(items[index])),
-                        ]),
-                      ]));
-                },
-              ),
-            ),
-          ],
-        ));
+                      ),
+                    ),
+                  ],
+                );
+              }
+              return const Text("");
+            }));
   }
 }

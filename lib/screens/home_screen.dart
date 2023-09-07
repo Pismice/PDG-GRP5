@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_session.dart';
 import 'package:g2g/api/firebase_workout.dart';
 import 'package:g2g/model/workout.dart';
+import 'package:g2g/screens/available_workouts_screen.dart';
 import 'package:g2g/screens/during_session/my_exercices_screen.dart';
 import 'package:g2g/screens/gestion/affichage/affichage_workout.dart';
 
@@ -21,28 +22,37 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const AvailableWorkouts()));
+            },
+            child: const Icon(Icons.add),
+          ),
           appBar: AppBar(
-            title: const Text('Workout'),
+            title: const Text('My ongoing workouts'),
           ),
           body: FutureBuilder(
             future: getAllActiveWorkoutsFrom(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting ||
-                  snapshot.connectionState == ConnectionState.active) {
+            builder: (context, workoutsSnapshot) {
+              if (workoutsSnapshot.connectionState == ConnectionState.waiting ||
+                  workoutsSnapshot.connectionState == ConnectionState.active) {
                 return const Center(child: CircularProgressIndicator());
               }
-              if (snapshot.hasError) {
-                return Text("Error ${snapshot.error.toString()}");
+              if (workoutsSnapshot.hasError) {
+                return Text("Error ${workoutsSnapshot.error.toString()}");
               }
-              if (snapshot.connectionState == ConnectionState.done &&
-                  snapshot.hasData) {
-                if (snapshot.data!.isEmpty) {
+              if (workoutsSnapshot.connectionState == ConnectionState.done &&
+                  workoutsSnapshot.hasData) {
+                if (workoutsSnapshot.data!.isEmpty) {
                   return const Center(
-                      child: Text("Pas de workout actif pour cette semaine"));
+                      child: Text("No active workout this week"));
                 }
                 return ListView.builder(
                     shrinkWrap: true,
-                    itemCount: snapshot.data!.length,
+                    itemCount: workoutsSnapshot.data!.length,
                     itemBuilder: (context, i) {
                       return Container(
                           padding: const EdgeInsets.all(15),
@@ -57,7 +67,7 @@ class HomeScreen extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => MyWorkoutInfoPage(
-                                          snapshot.data![i].uid!)),
+                                          workoutsSnapshot.data![i].uid!)),
                                 );
                               },
                               child: Column(children: <Widget>[
@@ -65,11 +75,12 @@ class HomeScreen extends StatelessWidget {
                                     alignment: Alignment.bottomLeft,
                                     child: Container(
                                         padding: const EdgeInsets.all(10),
-                                        child: Text(snapshot.data![i].name!))),
+                                        child: Text(
+                                            workoutsSnapshot.data![i].name!))),
                                 ListView.builder(
                                     shrinkWrap: true,
-                                    itemCount:
-                                        snapshot.data![i].sessions!.length,
+                                    itemCount: workoutsSnapshot
+                                        .data![i].sessions!.length,
                                     itemBuilder: (context, j) {
                                       return Container(
                                           padding: const EdgeInsets.all(8),
@@ -84,7 +95,8 @@ class HomeScreen extends StatelessWidget {
                                                     onPressed: () {
                                                       WorkoutSessions
                                                           workoutSessions =
-                                                          snapshot.data![i]
+                                                          workoutsSnapshot
+                                                              .data![i]
                                                               .findWorkoutSessionById(
                                                                   snapshotSession
                                                                       .data!
@@ -98,14 +110,14 @@ class HomeScreen extends StatelessWidget {
                                                                         workoutSessions)),
                                                       );
                                                     },
-                                                    child: Text(snapshot
-                                                        .data![i].name!));
+                                                    child: Text(snapshotSession
+                                                        .data!.name!));
                                               }
                                               return const Center(
                                                   child:
                                                       CircularProgressIndicator());
                                             }),
-                                            future: getSession(snapshot
+                                            future: getSession(workoutsSnapshot
                                                 .data![i].sessions![j].id!),
                                           ));
                                     })

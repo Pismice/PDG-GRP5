@@ -7,7 +7,16 @@ import 'package:g2g/model/workout.dart';
 final sessions = FirebaseFirestore.instance.collection('session');
 final users = FirebaseFirestore.instance.collection('user');
 
-/// Fonction qui retourne la séance correspondant à [documentId]
+
+Session _convertJson(Map<String, dynamic> data, String documentId) {
+  Session session = Session.fromJson(data);
+  session.uid = documentId;
+  for (int i = 0; i < session.exercises!.length; ++i) {
+    session.exercises![i].positionId = i + 1;
+  }
+  return session;
+}
+  /// Fonction qui retourne la séance correspondant à [documentId]
 Future<Session> getSession(String documentId) async {
   final snapshot = await sessions.doc(documentId).get();
   // verif si la séance existe
@@ -15,12 +24,8 @@ Future<Session> getSession(String documentId) async {
     throw Exception("Séance non trouvée");
   }
   // retourne la séance
-  Session session = Session.fromJson(snapshot.data()!);
-  session.uid = documentId;
-  for (var i = 0; i < session.exercises!.length; i++) {
-    session.exercises![i].sessionId = session.uid;
-  }
-  return session;
+  
+  return _convertJson(snapshot.data()!, documentId);
 }
 
 /// Fonction qui retourne toutes les séance d'un utilisateur
@@ -38,12 +43,7 @@ Future<List<Session>> getAllSessionsFrom({String? uid}) async {
 
   // formate la séance
   final data = snapshot.docs.map((s) {
-    Session session = Session.fromJson(s.data());
-    session.uid = s.id;
-    for (var i = 0; i < session.exercises!.length; i++) {
-      session.exercises![i].sessionId = session.uid;
-    }
-    return session;
+    return _convertJson(s.data(), s.id);
   }).toList();
 
   return data;
@@ -180,4 +180,17 @@ Future<int> getBestSetsNb(String exId, {String? authid}) async {
   }
 
   return pr;
+}
+
+Future<void> deleteExerciseFromSession(
+    String sessionId, SessionExercises exercise) async {
+  Session session = await getSession(sessionId);
+
+  for (var sesssionEx in session.exercises!) {
+    if (sesssionEx.positionId == exercise.positionId) {
+      session.exercises!.remove(sesssionEx);
+    }
+  }
+
+  await updateSession(session);
 }
