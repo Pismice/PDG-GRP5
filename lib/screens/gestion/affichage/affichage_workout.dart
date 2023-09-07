@@ -21,11 +21,12 @@ class _MyWorkoutInfoPage extends State<MyWorkoutInfoPage> {
           title: Text(widget.workout.name!),
         ),
         body: Column(children: <Widget>[
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: widget.workout.sessions!.length,
-            itemBuilder: (context, index) {
-              return ElevatedButton(
+          Expanded(
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: widget.workout.sessions!.length,
+              itemBuilder: (context, index) {
+                return ElevatedButton(
                   onPressed: () {},
                   style: ButtonStyle(
                       foregroundColor: MaterialStateProperty.all(Colors.black),
@@ -36,31 +37,32 @@ class _MyWorkoutInfoPage extends State<MyWorkoutInfoPage> {
                   child: Container(
                     padding: const EdgeInsets.all(20),
                     child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: FutureBuilder(
-                          future:
-                              getSession(widget.workout.sessions![index].id!),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return const Center(
-                                  child: CircularProgressIndicator());
-                            }
-                            if (snapshot.hasError) {
-                              return Text(
-                                  "Error : ${snapshot.error.toString()}");
-                            }
-                            if (snapshot.connectionState ==
-                                    ConnectionState.done &&
-                                snapshot.hasData) {
-                              return Text(snapshot.data!.name!);
-                            }
+                      alignment: Alignment.centerLeft,
+                      child: FutureBuilder(
+                        future: getSession(widget.workout.sessions![index].id!),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
                             return const Center(
                                 child: CircularProgressIndicator());
-                          },
-                        )),
-                  ));
-            },
+                          }
+                          if (snapshot.hasError) {
+                            return Text("Error : ${snapshot.error.toString()}");
+                          }
+                          if (snapshot.connectionState ==
+                                  ConnectionState.done &&
+                              snapshot.hasData) {
+                            return Text(snapshot.data!.name!);
+                          }
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        },
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
           ),
           Row(children: [
             Expanded(

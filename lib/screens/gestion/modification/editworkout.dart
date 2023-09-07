@@ -60,11 +60,12 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
                   widget.workout.week = int.parse(text);
                 },
               )),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: widget.workout.sessions!.length,
-            itemBuilder: (context, index) {
-              return ElevatedButton(
+          Expanded(
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: widget.workout.sessions!.length,
+              itemBuilder: (context, index) {
+                return ElevatedButton(
                   onPressed: () {},
                   style: ButtonStyle(
                       foregroundColor: MaterialStateProperty.all(Colors.black),
@@ -96,7 +97,7 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
                                         builder: (BuildContext context) =>
                                             AlertDialog(
                                           title: const Text(
-                                              'Suppréssion de séance dans un workout'),
+                                              'Suppression de séance dans un workout'),
                                           content: const Text(
                                               'Êtes-vous certain de vouloir supprimer cette séance de ce workout ?'),
                                           actions: <Widget>[
@@ -124,8 +125,10 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
                       }
                       return const Center(child: CircularProgressIndicator());
                     },
-                  ));
-            },
+                  ),
+                );
+              },
+            ),
           ),
           Row(children: [
             Expanded(
