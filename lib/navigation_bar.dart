@@ -15,7 +15,7 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
   static final List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     const GestionScreen(),
-    UserScreen(),
+    const UserScreen(),
   ];
 
   void _onItemTapped(int index) {
