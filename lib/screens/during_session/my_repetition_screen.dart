@@ -213,6 +213,8 @@ class _MyRepetitionState extends State<MyRepetition> {
                           Workout workout = await getWorkout(
                               widget.workoutSessions.workoutId!);
 
+                          // Fin de la seance
+                          widget.workoutSessions.end = DateTime.now();
                           await addExerciseDone(workout, exercisesDone,
                               widget.workoutSessions.id!);
 
