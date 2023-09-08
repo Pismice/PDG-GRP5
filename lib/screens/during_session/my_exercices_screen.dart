@@ -132,8 +132,9 @@ class _MyExercicesState extends State<MyExercices> {
                                         Text(exoBase.data!.name!),
                                         Row(
                                           children: [
-                                            Text(
-                                                "${sessionSnapshot.data!.exercises![index].set.toString()} series of  ${sessionSnapshot.data!.exercises![index].repetition.toString()} repetitions")
+                                            Text(exoBase.data!.type == "TIME"
+                                                ? "${sessionSnapshot.data!.exercises![index].set.toString()} series of  ${sessionSnapshot.data!.exercises![index].duration.toString()} seconds"
+                                                : "${sessionSnapshot.data!.exercises![index].set.toString()} series of  ${sessionSnapshot.data!.exercises![index].repetition.toString()} repetitions")
                                           ],
                                         )
                                       ],

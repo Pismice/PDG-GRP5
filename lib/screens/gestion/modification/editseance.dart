@@ -33,6 +33,36 @@ class _MyEditSeancePage extends State<MyEditSeancePage> {
                   itemExtent: _kItemExtent,
                   // This sets the initial item.
                   scrollController: FixedExtentScrollController(
+                    initialItem: sessEx.set!,
+                  ),
+                  // This is called when selected item is changed.
+                  onSelectedItemChanged: (int selectedItem) {
+                    setState(
+                      () {
+                        sessEx.set = selectedItem;
+                      },
+                    );
+                  },
+                  children: List<Widget>.generate(
+                    600,
+                    (int index) {
+                      return Center(child: Text('$index'));
+                    },
+                  ),
+                ),
+              ),
+              child: Text(
+                '${sessEx.set}',
+              ),
+            ),
+            const Text(' X '),
+            CupertinoButton(
+              padding: EdgeInsets.zero,
+              onPressed: () => _showDialog(
+                CupertinoPicker(
+                  itemExtent: _kItemExtent,
+                  // This sets the initial item.
+                  scrollController: FixedExtentScrollController(
                     initialItem: sessEx.duration!,
                   ),
                   // This is called when selected item is changed.
