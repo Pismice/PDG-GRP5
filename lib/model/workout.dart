@@ -63,7 +63,7 @@ class Workout {
 
     return Workout(
         name: data?['name'],
-        user: data?['user'],
+        user: data?['user'] != null ? data!['user'].id : null,
         duration: data?['duration'],
         week: data?['week'],
         sessions: data?['sessions']
