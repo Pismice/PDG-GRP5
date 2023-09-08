@@ -13,7 +13,6 @@ Reste motivé en battant tes records et en suivant ta progression.
 
 # Acceder à l'application 
 Cliquer sur le [lien](https://gilliozdorian.wixsite.com/gym2golem) pour accéder à notre application
-¨
 # Build notre projet 
 1. Installer [Flutter](https://docs.flutter.dev/get-started/install) 
 2. Cloner le projet sur votre machine local
@@ -61,11 +60,11 @@ Avant de commit les modifications
 - Convention de nommage des commits: [WIP], [DONE], [FIXED] + nom du commit (en anglais) 
       Ex: [WIP] Add button supress account
 
-      - ```WIP```: En cours mais pas encore terminé
+      - WIP: En cours mais pas encore terminé
 
-      - ```DONE```: La tâche est terminée et prête à être review
+      - DONE: La tâche est terminée et prête à être review
 
-      - ```FIXED```: Modification (si nécessaire) d'une tâche après code review
+      - FIXED: Modification (si nécessaire) d'une tâche après code review
       
 
 - Il faut ensuite suivre la marche a suivre # Déployer une nouvelle fonctionnalité au dessus
