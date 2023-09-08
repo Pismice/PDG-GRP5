@@ -3,6 +3,7 @@ import 'package:g2g/screens/user/settings/delete_account_button.dart';
 import 'package:g2g/screens/user/settings/feedback_button.dart';
 import 'package:g2g/screens/user/settings/sign_out_button.dart';
 
+/// Page des paramètres
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
@@ -15,6 +16,7 @@ class SettingsScreen extends StatelessWidget {
       body: const Center(
         child: Column(
           children: [
+            // Boutons des paramètres
             SignOutButton(),
             SizedBox(
               height: 10,

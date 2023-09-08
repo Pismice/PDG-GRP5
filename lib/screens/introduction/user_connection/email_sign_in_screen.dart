@@ -2,6 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+/// Page de connexion du compte par e-mail
 class EmailSignInScreen extends StatefulWidget {
   const EmailSignInScreen({super.key});
 
@@ -12,6 +13,7 @@ class EmailSignInScreen extends StatefulWidget {
 
 class _EmailSignInScreenState extends State<EmailSignInScreen> {
   final _formKey = GlobalKey<FormState>();
+  // Contrôleurs pour le formulaire
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool creationOk = true;
@@ -23,8 +25,10 @@ class _EmailSignInScreenState extends State<EmailSignInScreen> {
     super.dispose();
   }
 
+  /// Gère la connexion au compte avec l'[email] et le [password]
   Future<void> signInAndContinue(String email, String password) async {
     try {
+      // Effectue la connexion à l'app
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
@@ -32,6 +36,7 @@ class _EmailSignInScreenState extends State<EmailSignInScreen> {
       FirebaseAuth.instance.authStateChanges();
     } on FirebaseAuthException catch (e) {
       creationOk = false;
+      // Affichage des erreurs de connexion
       if (e.code == 'user-not-found') {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -63,6 +68,8 @@ class _EmailSignInScreenState extends State<EmailSignInScreen> {
         child: Column(
           children: <Widget>[
             TextFormField(
+              // Email de l'utilisateur
+              // ----------------------
               controller: emailController,
               validator: (value) {
                 if (value!.isEmpty) {
@@ -79,6 +86,8 @@ class _EmailSignInScreenState extends State<EmailSignInScreen> {
               keyboardType: TextInputType.emailAddress,
             ),
             TextFormField(
+              // Mot de passe de l'utilisateur
+              // -----------------------------
               controller: passwordController,
               validator: (value) {
                 if (value!.length < 4) {
@@ -93,6 +102,7 @@ class _EmailSignInScreenState extends State<EmailSignInScreen> {
               obscureText: true,
             ),
             ElevatedButton(
+              // Validation du formulaire
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
                   final email = emailController.text;

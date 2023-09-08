@@ -13,6 +13,7 @@ void main() {
   ));
 }
 
+/// Ecran d'accueil qui affichera tous les workout en cours de cette semaine
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
@@ -47,8 +48,11 @@ class HomeScreen extends StatelessWidget {
                       Color.fromARGB(255, 38, 1, 73)
                     ])),
                 child: FutureBuilder(
+                  // Récupération et affichage des workouts en cours
+                  // -----------------------------------------------
                   future: getAllActiveWorkoutsFrom(),
                   builder: (context, workoutsSnapshot) {
+                    // Traitement de la récupération des données
                     if (workoutsSnapshot.connectionState ==
                             ConnectionState.waiting ||
                         workoutsSnapshot.connectionState ==
@@ -66,101 +70,121 @@ class HomeScreen extends StatelessWidget {
                             child: Text("No active workout this week"));
                       }
                       return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: workoutsSnapshot.data!.length,
-                          itemBuilder: (context, i) {
-                            return Container(
-                                padding: const EdgeInsets.all(15),
-                                child: ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                MyWorkoutInfoPage(
-                                                    workout: workoutsSnapshot
-                                                        .data![i])),
+                        // Affichage des workouts dans une ListView
+                        // ----------------------------------------
+                        shrinkWrap: true,
+                        itemCount: workoutsSnapshot.data!.length,
+                        itemBuilder: (context, i) {
+                          return Container(
+                            padding: const EdgeInsets.all(15),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => MyWorkoutInfoPage(
+                                      workout: workoutsSnapshot.data![i],
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Column(
+                                children: <Widget>[
+                                  Align(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Container(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Text(
+                                        workoutsSnapshot.data![i].name!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayLarge,
+                                      ),
+                                    ),
+                                  ),
+                                  ListView.builder(
+                                    // -----------------------------------------
+                                    // Affichage des séances en cours de workout
+                                    // -----------------------------------------
+                                    shrinkWrap: true,
+                                    itemCount: workoutsSnapshot
+                                        .data![i].sessions!.length,
+                                    itemBuilder: (context, j) {
+                                      return Container(
+                                        padding: const EdgeInsets.all(1),
+                                        color: Colors.blue,
+                                        height: 100,
+                                        child: FutureBuilder(
+                                          // ---------------------------------
+                                          // Récupération des séances en cours
+                                          // ---------------------------------
+                                          future: getSession(
+                                            workoutsSnapshot
+                                                .data![i].sessions![j].id!,
+                                          ),
+                                          builder: ((context, snapshotSession) {
+                                            if (snapshotSession
+                                                        .connectionState ==
+                                                    ConnectionState.done &&
+                                                snapshotSession.hasData) {
+                                              return ElevatedButton(
+                                                // ------------------------------------
+                                                // Affichage si la séance est terminée
+                                                // ou non
+                                                // ------------------------------------
+                                                style: ButtonStyle(
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all<
+                                                          Color>(snapshotSession
+                                                              .data!
+                                                              .isFinished(
+                                                                  workoutsSnapshot
+                                                                      .data![i]
+                                                                      .sessions![j])
+                                                          ? Colors.green
+                                                          : Colors.grey.shade800),
+                                                ),
+                                                onPressed: () {
+                                                  WorkoutSessions
+                                                      workoutSessions =
+                                                      workoutsSnapshot.data![i]
+                                                          .findWorkoutSessionById(
+                                                              snapshotSession
+                                                                  .data!.uid!)!;
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          MyExercices(
+                                                        onGoingSession:
+                                                            workoutSessions,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                                child: Text(
+                                                  snapshotSession.data!.name!,
+                                                ),
+                                              );
+                                            }
+                                            return const Center(
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            );
+                                          }),
+                                        ),
                                       );
                                     },
-                                    child: Column(children: <Widget>[
-                                      Align(
-                                          alignment: Alignment.bottomLeft,
-                                          child: Container(
-                                              padding: const EdgeInsets.all(10),
-                                              child: Text(
-                                                workoutsSnapshot.data![i].name!,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .displayLarge,
-                                              ))),
-                                      ListView.builder(
-                                          shrinkWrap: true,
-                                          itemCount: workoutsSnapshot
-                                              .data![i].sessions!.length,
-                                          itemBuilder: (context, j) {
-                                            return Container(
-                                                padding:
-                                                    const EdgeInsets.all(1),
-                                                color: Colors.blue,
-                                                height: 100,
-                                                child: FutureBuilder(
-                                                  builder: ((context,
-                                                      snapshotSession) {
-                                                    if (snapshotSession
-                                                                .connectionState ==
-                                                            ConnectionState
-                                                                .done &&
-                                                        snapshotSession
-                                                            .hasData) {
-                                                      // TODO
-                                                      return ElevatedButton(
-                                                          style: ButtonStyle(
-                                                              backgroundColor: MaterialStateProperty.all<
-                                                                  Color>(snapshotSession
-                                                                      .data!
-                                                                      .isFinished(
-                                                                          workoutsSnapshot.data![i].sessions![
-                                                                              j])
-                                                                  ? Colors.green
-                                                                  : Colors.grey
-                                                                      .shade800)),
-                                                          onPressed: () {
-                                                            WorkoutSessions
-                                                                workoutSessions =
-                                                                workoutsSnapshot
-                                                                    .data![i]
-                                                                    .findWorkoutSessionById(
-                                                                        snapshotSession
-                                                                            .data!
-                                                                            .uid!)!;
-                                                            Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder: (context) =>
-                                                                      MyExercices(
-                                                                          onGoingSession:
-                                                                              workoutSessions)),
-                                                            );
-                                                          },
-                                                          child: Text(
-                                                              snapshotSession
-                                                                  .data!
-                                                                  .name!));
-                                                    }
-                                                    return const Center(
-                                                        child:
-                                                            CircularProgressIndicator());
-                                                  }),
-                                                  future: getSession(
-                                                      workoutsSnapshot.data![i]
-                                                          .sessions![j].id!),
-                                                ));
-                                          }),
-                                      const SizedBox(
-                                        height: 20,
-                                      )
-                                    ])));
-                          });
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
                     }
                     return Container();
                   },
