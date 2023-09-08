@@ -59,7 +59,7 @@ Avant de commit les modifications
    - ```Possible additions``` : addition de features non-nécéssaire au bon fonctionnement et non requise mais qui peuvent améliorer l'expérience utilisateur
 
 - Convention de nommage des commits: [WIP], [DONE], [FIXED] + nom du commit (en anglais) 
-      Ex: [WIP] Add button supress account
+      Ex: [WIP] Add button delete account
 
       - WIP: En cours mais pas encore terminé
 
