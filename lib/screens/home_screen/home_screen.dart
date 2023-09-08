@@ -105,7 +105,8 @@ class HomeScreen extends StatelessWidget {
                                                 .displayLarge,
                                           ),
                                           const SizedBox(width: 10),
-                                          Text("$currentWeek / ${workoutsSnapshot.data![i].duration!}"),
+                                          Text(
+                                              "$currentWeek / ${workoutsSnapshot.data![i].duration!} weeks"),
                                         ],
                                       ),
                                     ),
