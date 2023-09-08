@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_exercise.dart';
 import 'package:g2g/model/exercise.dart';
 import 'package:g2g/api/firebase_user.dart';
+import 'package:g2g/screens/gestion/exercice.dart';
 
 const double _kItemExtent = 32.0;
 
@@ -108,11 +109,7 @@ class _MyCreateExercice extends State<MyCreateExercice> {
                     color: Colors.green[200],
                     child: IconButton(
                         onPressed: () async {
-                          Navigator.pop(
-                              context /*,
-                              MaterialPageRoute(
-                                  builder: (context) => const GestionScreen()))*/
-                              );
+                          Navigator.pop(context);
                           addExercise(Exercise(
                               name: name,
                               img: "default.png",

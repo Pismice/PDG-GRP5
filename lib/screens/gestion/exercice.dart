@@ -182,7 +182,7 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                                                 TextButton(
                                                   onPressed: () {
                                                     deleteExercise(
-                                                        defaultItems[index]
+                                                        customItems[index]
                                                             .uid!);
                                                     Navigator.pop(
                                                         context, 'OK');
