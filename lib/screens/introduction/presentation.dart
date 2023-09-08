@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:g2g/screens/introduction/user_connection/connection_choices_screen.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
+// Page de présentation de l'Application
 class AppPresentationScreen extends StatelessWidget {
   const AppPresentationScreen({super.key});
 
@@ -15,12 +16,16 @@ class AppPresentationScreen extends StatelessWidget {
       next: const Icon(Icons.arrow_circle_right_outlined),
       onDone: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const ConnectionChoicesScreen()));
+          context,
+          MaterialPageRoute(
+            builder: (context) => const ConnectionChoicesScreen(),
+          ),
+        );
       },
       pages: [
         PageViewModel(
+            // 1ère page
+            // ---------
             title: "Welcome on Gym2Golem",
             body:
                 "Our app fix issues BEFORE, DURING and AFTER your sport sessions ...",
@@ -28,6 +33,8 @@ class AppPresentationScreen extends StatelessWidget {
               child: Image(image: AssetImage("ressources/large.jpg")),
             )),
         PageViewModel(
+            // 2ème page
+            // ---------
             title: "BEFORE",
             body:
                 "- You have issues organzing the way you work ?\n- You can't remember what you have already done ? \n - You want to have something planned and ready to work !?",
@@ -50,6 +57,8 @@ class AppPresentationScreen extends StatelessWidget {
               ),
             )),
         PageViewModel(
+            // 3ème page
+            // ---------
             title: "DURING",
             body:
                 "- You have issues keeping tracks of your sessions ?\n- You can't remember your PRs ? \n -You are annoyed of taking your stylo and your notepad everytime ?",
@@ -72,6 +81,8 @@ class AppPresentationScreen extends StatelessWidget {
               ),
             )),
         PageViewModel(
+            // 4ème page
+            // ---------
             title: "AFTER",
             body:
                 "- You want to see how much you have evolved ? \n- You want to have somewhere you can instantly see your PRs ?\n- You want to see other intersting stats about yourself and your gym activities ?",
@@ -94,6 +105,8 @@ class AppPresentationScreen extends StatelessWidget {
               ),
             )),
         PageViewModel(
+            // Dernière page : pour se connecter
+            // ---------------------------------
             title: "Become a GOLEM now !!!",
             body: "",
             image: const Center(

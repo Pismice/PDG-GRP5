@@ -4,6 +4,7 @@ import 'package:g2g/api/firebase_feedback.dart';
 import 'package:g2g/api/firebase_user.dart';
 import 'package:g2g/model/feedback.dart';
 
+/// Formulaire pour remplir un feedback sur l'application
 class MyFeedbackForm extends StatefulWidget {
   const MyFeedbackForm({super.key});
 
@@ -13,6 +14,7 @@ class MyFeedbackForm extends StatefulWidget {
   }
 }
 
+/// State du formulaire
 class MyFeedbackFormState extends State<MyFeedbackForm> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _comment = TextEditingController();
@@ -31,6 +33,8 @@ class MyFeedbackFormState extends State<MyFeedbackForm> {
             child: Column(
               children: <Widget>[
                 TextFormField(
+                  // Champ pour donner le titre du feedback
+                  // --------------------------------------
                   decoration: const InputDecoration(
                       hintText: "Title of my feedback", labelText: "Title"),
                   controller: _title,
@@ -43,6 +47,8 @@ class MyFeedbackFormState extends State<MyFeedbackForm> {
                   },
                 ),
                 TextFormField(
+                  // Champ pour remplir le corps du feedback
+                  // ---------------------------------------
                   decoration: const InputDecoration(
                     hintText: "Content of my feedback ...",
                     labelText: "Content",
@@ -57,18 +63,22 @@ class MyFeedbackFormState extends State<MyFeedbackForm> {
                   },
                 ),
                 ElevatedButton(
+                    // Bouton pour envoyer le feedback
+                    // -------------------------------
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         Feedback feedback = Feedback(
                             comment: _comment.value.text,
                             title: _title.value.text,
                             user: await getUser(
+                                    // L'utlisateur qui a posté le feedback
                                     FirebaseAuth.instance.currentUser!.uid)
                                 .then((value) => value.uid));
                         await addFeedback(feedback);
                         if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
+                                // Message de validation
                                 content: Text(
                                     "Feedback ${feedback.title} submited. Thank you ! :)")),
                           );

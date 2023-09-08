@@ -12,23 +12,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  /*if (kDebugMode) {
-    // Utilisation des émulateurs pour éviter les couts innatendus
-    await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
-    FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
-  }*/
-
-  // Vérification que l'utilisateur est toujours connecté
-  FirebaseAuth.instance.authStateChanges().listen((User? u) {
-    if (u == null) {
-      //print('User is currently signed out!');
-    } else {
-      //print('User is signed in!');
-    }
-  });
-
   // Lancer l'app
-  //final db = FirebaseFirestore.instance;
   runApp(const MyApp());
 }
 
@@ -39,6 +23,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Gym2Golem',
       theme: ThemeData(
+        // Le thème de l'application
         textTheme: const TextTheme(
           displayLarge: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
@@ -60,6 +45,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: StreamBuilder<User?>(
+        // Gestion de la page à afficher si l'utilsateur est connecté ou non
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -67,8 +53,10 @@ class MyApp extends StatelessWidget {
           }
           final user = snapshot.data;
           if (user == null) {
+            // S'il n'est pas connecté, on le met sur la page de login
             return const AppPresentationScreen();
           } else {
+            // sinon sur la page principale
             return const MyNavigationBar();
           }
         },

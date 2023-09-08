@@ -5,6 +5,7 @@ import 'package:g2g/api/firebase_user.dart';
 import 'package:g2g/screens/introduction/user_connection/email_sign_in_screen.dart';
 import 'package:g2g/screens/introduction/user_connection/email_sign_up_screen.dart';
 
+/// Connexion à l'app avec Google
 Future<UserCredential> signInWithGoogle() async {
   // Create a new provider
   GoogleAuthProvider googleProvider = GoogleAuthProvider();
@@ -28,6 +29,7 @@ Future<UserCredential> signInWithGoogle() async {
   return out;
 }
 
+/// Page pour choisir quel mode de connexion utiliser
 class ConnectionChoicesScreen extends StatelessWidget {
   const ConnectionChoicesScreen({super.key});
   @override
@@ -41,6 +43,8 @@ class ConnectionChoicesScreen extends StatelessWidget {
           children: [
             const Text("Available sign-in/up methods:"),
             TextButton(
+              // Connexion avec Google
+              // ---------------------
               onPressed: () async {
                 await signInWithGoogle();
                 // Google connection success: Navigate to another screen or perform desired action
@@ -64,6 +68,8 @@ class ConnectionChoicesScreen extends StatelessWidget {
               ),
             ),
             TextButton(
+              // Création d'un compte et connexion par e-mail
+              // --------------------------------------------
               onPressed: () async {
                 Navigator.push(
                     context,
@@ -86,6 +92,8 @@ class ConnectionChoicesScreen extends StatelessWidget {
               ),
             ),
             TextButton(
+              // Connexion par e-mail
+              // --------------------
               onPressed: () async {
                 Navigator.push(
                     context,

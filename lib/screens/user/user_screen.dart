@@ -7,6 +7,7 @@ import 'package:g2g/screens/user/edit_profile_screen.dart';
 import 'package:g2g/screens/user/other_stats/exercices_pr.dart';
 import 'package:g2g/screens/user/settings/settings_screen.dart';
 
+/// Page de l'utilisateur
 class UserScreen extends StatelessWidget {
   const UserScreen({super.key});
 
@@ -15,10 +16,12 @@ class UserScreen extends StatelessWidget {
     return FutureBuilder(
         future: getUser(FirebaseAuth.instance.currentUser!.uid),
         builder: (context, userSnapshot) {
+          // Si la ressource de future a été obtenue
           if (userSnapshot.connectionState == ConnectionState.done) {
             return Scaffold(
               appBar: AppBar(
                 title: StreamBuilder<DocumentSnapshot>(
+                    // Affichge du nom d'utilisateur
                     stream: FirebaseFirestore.instance
                         .collection('user')
                         .doc(userSnapshot.data!.uid)
@@ -27,17 +30,18 @@ class UserScreen extends StatelessWidget {
                       const String defaultName = "Random golem";
                       if (snapshot.connectionState == ConnectionState.active) {
                         if (snapshot.hasData) {
+                          // Affichage du nom de l'utilisateur
                           var userData =
                               snapshot.data!.data() as Map<String, dynamic>;
                           User currentUser = User.fromJson(userData);
                           return Text(currentUser.name ?? defaultName);
                         }
                         return const Text(defaultName);
-                      } else if (snapshot.hasError) {
-                        return Text(snapshot.error.toString());
-                      } else {
-                        return Container();
                       }
+                      if (snapshot.hasError) {
+                        return Text(snapshot.error.toString());
+                      }
+                      return Container();
                     }),
                 actions: [
                   IconButton(
@@ -58,14 +62,13 @@ class UserScreen extends StatelessWidget {
                       width: 10,
                     ),
                     GestureDetector(
-                        onTap: () {
-                          // il faudra peut etre changer la PP
-                        },
-                        child: CircleAvatar(
-                          backgroundImage: NetworkImage(FirebaseAuth
-                                  .instance.currentUser?.photoURL ??
-                              'https://static.wikia.nocookie.net/clashofclans/images/4/44/Avatar_Golem.png'),
-                        )),
+                      // Affichage de l'avatar utlisateur
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(FirebaseAuth
+                                .instance.currentUser?.photoURL ??
+                            'https://static.wikia.nocookie.net/clashofclans/images/4/44/Avatar_Golem.png'),
+                      ),
+                    ),
                     const SizedBox(
                       width: 10,
                     ),
@@ -73,9 +76,13 @@ class UserScreen extends StatelessWidget {
                       children: [
                         Column(
                           children: [
-                            const Text("Finished sessions",
-                                style: TextStyle(fontSize: 10)),
+                            const Text(
+                              "Finished sessions",
+                              style: TextStyle(fontSize: 10),
+                            ),
                             FutureBuilder(
+                                // Affiche le nombre de séances réalisées
+                                // --------------------------------------
                                 future: getNumberSessionDone(
                                     FirebaseAuth.instance.currentUser!.uid),
                                 builder: ((context, snapshot) {
@@ -86,9 +93,8 @@ class UserScreen extends StatelessWidget {
                                       value = snapshot.data!;
                                     }
                                     return Text(value.toString());
-                                  } else {
-                                    return const Text("-");
                                   }
+                                  return const Text("-");
                                 })),
                           ],
                         ),
@@ -100,6 +106,8 @@ class UserScreen extends StatelessWidget {
                             const Text("Total lifted weight",
                                 style: TextStyle(fontSize: 10)),
                             FutureBuilder(
+                                // Affiche le poids total soulevé
+                                // ------------------------------
                                 future: getTotalWeightPushed(
                                     FirebaseAuth.instance.currentUser!.uid),
                                 builder: ((context, snapshot) {
@@ -124,6 +132,8 @@ class UserScreen extends StatelessWidget {
                             const Text("Time spent doing sport",
                                 style: TextStyle(fontSize: 10)),
                             FutureBuilder(
+                                // Affiche le temps total passé à la salle
+                                // ---------------------------------------
                                 future: getHoursSpentInGym(
                                     FirebaseAuth.instance.currentUser!.uid),
                                 builder: ((context, snapshot) {
@@ -149,20 +159,28 @@ class UserScreen extends StatelessWidget {
                 Row(
                   children: [
                     ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(
+                      // Bouton pour modifier le profil
+                      // ------------------------------
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
                             builder: (context) {
                               return const EditProfile();
                             },
-                          ));
-                        },
-                        child: const Text("Edit Profile")),
+                          ),
+                        );
+                      },
+                      child: const Text("Edit Profile"),
+                    ),
                   ],
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 Container(
+                  // Bouton pour accéder à la page des PR
+                  // ------------------------------------
                   width: MediaQuery.of(context).size.width,
                   decoration:
                       BoxDecoration(border: Border.all(color: Colors.grey)),
@@ -182,6 +200,8 @@ class UserScreen extends StatelessWidget {
                   ),
                 ),
                 Container(
+                  // Bouton pour accéder à la page des statistiques
+                  // ----------------------------------------------
                   width: MediaQuery.of(context).size.width,
                   decoration:
                       BoxDecoration(border: Border.all(color: Colors.grey)),

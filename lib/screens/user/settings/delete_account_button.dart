@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_user.dart';
 
+/// Bouton pour supprimer le compte utilisateur
 class DeleteAccountButton extends StatelessWidget {
   const DeleteAccountButton({super.key});
 
@@ -15,6 +16,7 @@ class DeleteAccountButton extends StatelessWidget {
         onPressed: () async {
           String authIdToBeDeleted = FirebaseAuth.instance.currentUser!.uid;
           try {
+            // Suppression de l'utilisateur connecté
             await FirebaseAuth.instance.currentUser!.delete();
             await deleteUser(authIdToBeDeleted);
           } catch (e) {
@@ -24,7 +26,6 @@ class DeleteAccountButton extends StatelessWidget {
               );
             }
           }
-          //FirebaseAuth.instance.userChanges();
           if (context.mounted) {
             Navigator.popUntil(context, (route) => route.isFirst);
           }
