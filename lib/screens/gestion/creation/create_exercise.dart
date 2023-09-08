@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_exercise.dart';
 import 'package:g2g/model/exercise.dart';
 import 'package:g2g/api/firebase_user.dart';
-import 'package:g2g/screens/gestion/exercice.dart';
 
 const double _kItemExtent = 32.0;
 
