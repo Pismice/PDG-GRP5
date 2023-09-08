@@ -28,7 +28,6 @@ class _MyEditSeancePage extends State<MyEditSeancePage> {
           children.addAll([
             CupertinoButton(
               padding: EdgeInsets.zero,
-              // Display a CupertinoPicker with list of fruits.
               onPressed: () => _showDialog(
                 CupertinoPicker(
                   itemExtent: _kItemExtent,
@@ -52,7 +51,6 @@ class _MyEditSeancePage extends State<MyEditSeancePage> {
                   ),
                 ),
               ),
-              // This displays the selected fruit name.
               child: Text(
                 '${sessEx.duration}',
               ),
@@ -64,15 +62,12 @@ class _MyEditSeancePage extends State<MyEditSeancePage> {
           children.addAll([
             CupertinoButton(
               padding: EdgeInsets.zero,
-              // Display a CupertinoPicker with list of fruits.
               onPressed: () => _showDialog(
                 CupertinoPicker(
                   itemExtent: _kItemExtent,
-                  // This sets the initial item.
                   scrollController: FixedExtentScrollController(
                     initialItem: sessEx.repetition!,
                   ),
-                  // This is called when selected item is changed.
                   onSelectedItemChanged: (int selectedItem) {
                     setState(() {
                       sessEx.weight = selectedItem;
@@ -120,7 +115,7 @@ class _MyEditSeancePage extends State<MyEditSeancePage> {
                   child: Text(
                     '${sessEx.repetition}',
                   )),
-              const Text(' X '),
+              const Text('sets'),
               CupertinoButton(
                 padding: EdgeInsets.zero,
                 // Display a CupertinoPicker with list of fruits.
@@ -147,6 +142,7 @@ class _MyEditSeancePage extends State<MyEditSeancePage> {
                   '${sessEx.set}',
                 ),
               ),
+              const Text("reps"),
             ],
           );
           break;

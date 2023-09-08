@@ -69,6 +69,7 @@ class _MyExercicesState extends State<MyExercices> {
                                             "You have already done this exercise, choose another remaining one")),
                                   );
                                 } else {
+                                  widget.onGoingSession.start = DateTime.now();
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -83,7 +84,6 @@ class _MyExercicesState extends State<MyExercices> {
                                 }
                               },
                               child: Container(
-                                // TODO: si toutes les series de cet exercice sont faits il faut mettre en vert
                                 decoration: BoxDecoration(
                                     color: isExerciseOver
                                         ? Colors.green

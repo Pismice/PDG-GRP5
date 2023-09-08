@@ -29,7 +29,7 @@ class _AvailableWorkoutsState extends State<AvailableWorkouts> {
           title: const Text("Choose a new workout to begin"),
         ),
         body: FutureBuilder(
-          future: getAllWorkoutsFrom(uid: user.uid),
+          future: getAllInactiveWorkoutsFrom(uid: user.uid),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasData) {

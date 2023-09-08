@@ -114,6 +114,18 @@ Future<List<Workout>> getAllActiveWorkoutsFrom({String? uid}) async {
   return out;
 }
 
+/// Fonction qui retourne tous les workout qui sont actif cette semaine
+Future<List<Workout>> getAllInactiveWorkoutsFrom({String? uid}) async {
+  final data = await getAllWorkoutsFrom(uid: uid);
+  final out = <Workout>[];
+  for (var d in data) {
+    if (!d.isActive()) {
+      out.add(d);
+    }
+  }
+  return out;
+}
+
 /// Fonction qui ajoute un [workout] à la bdd
 Future<Workout> addWorkout(Workout workout) async {
   workout.user ??= (await getUser(FirebaseAuth.instance.currentUser!.uid)).uid;
@@ -179,23 +191,30 @@ Future<void> addExerciseDone(Workout workout, ExercisesDone exercise,
       continue;
     }
 
-    for (var sessEx in workoutSession.exercises!) {
-      if (sessEx.id != exercise.id) continue;
-
-      sessEx.sets ??= [];
-      sessEx.sets!.addAll(exercise.sets!);
+    for (var i = 0; i < workoutSession.exercises!.length; i++) {
+      if (exercise.id == workoutSessions.exercises![i].id) {
+        workoutSessions.exercises![i].sets!.addAll(exercise.sets!);
+      }
     }
-  }
 
-  // On met a jour la workoutSession qui contient notamment end et start
-  for (var i = 0; i < workout.sessions!.length; i++) {
-    if (workout.sessions![i].id == workoutSessions.id) {
-      workout.sessions![i] = workoutSessions;
+    //   for (var sessEx in workoutSession.exercises!) {
+    //     if (sessEx.id != exercise.id) continue;
+
+    //     sessEx.sets ??= [];
+    //     sessEx.sets!.addAll(exercise.sets!);
+    //   }
+    // }
+
+    // On met a jour la workoutSession qui contient notamment end et start
+    for (var i = 0; i < workout.sessions!.length; i++) {
+      if (workout.sessions![i].id == workoutSessions.id) {
+        workout.sessions![i] = workoutSessions;
+      }
     }
-  }
-  // workout.sessions!.removeWhere((element) {
-  //   element.id = workoutSessions.id;
-  // }, workoutSessions);
+    // workout.sessions!.removeWhere((element) {
+    //   element.id = workoutSessions.id;
+    // }, workoutSessions);
 
-  updateWorkout(workout);
+    updateWorkout(workout);
+  }
 }
