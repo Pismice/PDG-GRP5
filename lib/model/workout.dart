@@ -108,7 +108,7 @@ class WorkoutSessions {
   // date de fin
   DateTime? end;
   List<ExercisesDone>? exercises;
-  String? s;
+  String? workoutId;
   int? positionId;
 
   WorkoutSessions({
