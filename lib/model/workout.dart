@@ -126,19 +126,6 @@ class WorkoutSessions {
     }
   }
 
-  DateTime convertTimestampToDateTime(double timestamp) {
-    Timestamp ts = doubleToTimestamp(timestamp);
-    return ts.toDate();
-  }
-
-  Timestamp doubleToTimestamp(double value) {
-    // Convert the double value to milliseconds since epoch
-    int millisecondsSinceEpoch = (value * 1000).toInt();
-
-    // Create a new Timestamp using the millisecondsSinceEpoch
-    return Timestamp.fromMillisecondsSinceEpoch(millisecondsSinceEpoch);
-  }
-
   /// Constructeur à partir d'un json
   WorkoutSessions.fromJson(Map<String, dynamic> json) {
     if (json['id'] != null) id = json['id'].id;
@@ -327,4 +314,17 @@ int weekNumber(DateTime date) {
     woy = 1;
   }
   return woy;
+}
+
+DateTime convertTimestampToDateTime(double timestamp) {
+  Timestamp ts = doubleToTimestamp(timestamp);
+  return ts.toDate();
+}
+
+Timestamp doubleToTimestamp(double value) {
+  // Convert the double value to milliseconds since epoch
+  int millisecondsSinceEpoch = (value * 1000).toInt();
+
+  // Create a new Timestamp using the millisecondsSinceEpoch
+  return Timestamp.fromMillisecondsSinceEpoch(millisecondsSinceEpoch);
 }
