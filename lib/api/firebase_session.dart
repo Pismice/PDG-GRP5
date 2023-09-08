@@ -187,14 +187,10 @@ Future<int> getBestSetsNb(String exId, {String? authid}) async {
 }
 
 Future<void> deleteExerciseFromSession(
-    String sessionId, SessionExercises exercise) async {
-  Session session = await getSession(sessionId);
-
-  for (var sesssionEx in session.exercises!) {
-    if (sesssionEx.positionId == exercise.positionId) {
-      session.exercises!.remove(sesssionEx);
-    }
-  }
+    Session session, SessionExercises exercise) async {
+  if (session.exercises == null) return;
+  session.exercises!
+      .removeWhere((sessionEx) => sessionEx.positionId == exercise.positionId);
 
   await updateSession(session);
 }

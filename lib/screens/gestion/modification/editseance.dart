@@ -287,9 +287,12 @@ class _MyEditSeancePage extends State<MyEditSeancePage> {
                                       ),
                                       TextButton(
                                         onPressed: () {
-                                          deleteExerciseFromSession(
-                                              widget.session.uid!,
-                                              widget.session.exercises![index]);
+                                          setState(() {
+                                            deleteExerciseFromSession(
+                                                widget.session,
+                                                widget
+                                                    .session.exercises![index]);
+                                          });
                                           Navigator.pop(context, 'OK');
                                         },
                                         child: const Text('Delete'),
