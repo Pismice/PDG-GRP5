@@ -71,7 +71,7 @@ Avant de commit les modifications
 
 # Architecture 
 
-![](ressource/schema_pdg.png)
+![](ressources/schema_pdg.png)
 
 # Description du dossier lib 
 
