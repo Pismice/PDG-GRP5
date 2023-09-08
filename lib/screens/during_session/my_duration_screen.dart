@@ -10,12 +10,12 @@ import 'package:g2g/model/exercise.dart';
 import 'package:g2g/model/session.dart';
 import 'package:g2g/model/workout.dart';
 
-class MyRepetition extends StatefulWidget {
+class MyDuration extends StatefulWidget {
   final SessionExercises exercise;
   final Exercise exoBase;
   final WorkoutSessions workoutSessions;
   final List<Sets> mySets;
-  const MyRepetition(
+  const MyDuration(
       {super.key,
       required this.exercise,
       required this.exoBase,
@@ -23,10 +23,10 @@ class MyRepetition extends StatefulWidget {
       required this.mySets});
 
   @override
-  State<MyRepetition> createState() => _MyRepetitionState();
+  State<MyDuration> createState() => _MyDurationState();
 }
 
-class _MyRepetitionState extends State<MyRepetition> {
+class _MyDurationState extends State<MyDuration> {
   List<Sets> onGoingSets = List<Sets>.from(List.empty(growable: true));
   bool isPlaying = false;
   bool isSent = false;
@@ -47,8 +47,7 @@ class _MyRepetitionState extends State<MyRepetition> {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController ctrlNbReps = TextEditingController();
-    TextEditingController ctrlWeight = TextEditingController();
+    TextEditingController ctrlDuration = TextEditingController();
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -64,7 +63,7 @@ class _MyRepetitionState extends State<MyRepetition> {
                     "Série ${onGoingSets.length + 1} sur ${widget.exercise.set}"),
                 Row(
                   children: [
-                    const Text("Number of repetitions"),
+                    const Text("Duration time"),
                     const SizedBox(
                       width: 10,
                     ),
@@ -72,36 +71,9 @@ class _MyRepetitionState extends State<MyRepetition> {
                         child: TextFormField(
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        hintText: widget.exercise.repetition.toString(),
+                        hintText: widget.exercise.duration.toString(),
                       ),
-                      controller: ctrlNbReps,
-                      validator: (value) {
-                        try {
-                          int.parse(value!);
-                        } catch (e) {
-                          return "Must be a number";
-                        }
-                        if (int.parse(value) <= 0) {
-                          return "Must be positive";
-                        }
-                        return null;
-                      },
-                    )),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Text("Weights (kg)"),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                        child: TextFormField(
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        hintText: widget.exercise.weight.toString(),
-                      ),
-                      controller: ctrlWeight,
+                      controller: ctrlDuration,
                       validator: (value) {
                         try {
                           int.parse(value!);
@@ -117,18 +89,18 @@ class _MyRepetitionState extends State<MyRepetition> {
                   ],
                 ),
                 FutureBuilder(
-                    future: getWeightPR(widget.exoBase.uid!,
+                    future: getDurationPR(widget.exoBase.uid!,
                         authid: FirebaseAuth.instance.currentUser!.uid),
                     builder: (context, prSnapshot) {
                       if (prSnapshot.connectionState == ConnectionState.done) {
                         if (prSnapshot.hasData) {
                           int myPR = prSnapshot.data!;
                           for (Sets exo in onGoingSets) {
-                            if (exo.weight! >= prSnapshot.data!) {
-                              myPR = exo.weight!;
+                            if (exo.duration! >= prSnapshot.data!) {
+                              myPR = exo.duration!;
                             }
                           }
-                          return Text("My current PR = ${myPR.toString()} kg");
+                          return Text("My current PR = ${myPR.toString()} sec");
                         }
                         return const Text("No PR found for this exercise");
                       }
@@ -152,15 +124,15 @@ class _MyRepetitionState extends State<MyRepetition> {
                 ),
                 ElevatedButton(
                     onPressed: () async {
-                      int myPR = await getWeightPR(widget.exoBase.uid!);
+                      int myPR = await getDurationPR(widget.exoBase.uid!);
                       if (_formKey.currentState!.validate() && !isSent) {
-                        int myPerformance = int.parse(ctrlWeight.text);
+                        int myPerformance = int.parse(ctrlDuration.text);
                         bool isPrBeaten = false;
                         isSent = true;
                         if (myPR < myPerformance) {
                           isPrBeaten = true;
                           for (Sets exo in onGoingSets) {
-                            if (exo.weight! >= myPerformance) {
+                            if (exo.duration! >= myPerformance) {
                               // Un exercice recent est meilleur donc pas de PR ...
                               isPrBeaten = false;
                               break;
@@ -189,8 +161,8 @@ class _MyRepetitionState extends State<MyRepetition> {
 
                         // Inserer dans la liste de sets
                         Sets sets = Sets(
-                            repetition: int.parse(ctrlNbReps.text),
-                            weight: int.parse(ctrlWeight.text));
+                          duration: int.parse(ctrlDuration.text),
+                        );
                         onGoingSets.add(sets);
 
                         // Passer a la serie suivante ou revenir sur l ecran des exercices si cest termine
@@ -200,7 +172,7 @@ class _MyRepetitionState extends State<MyRepetition> {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => MyRepetition(
+                                    builder: (context) => MyDuration(
                                         exercise: widget.exercise,
                                         exoBase: widget.exoBase,
                                         workoutSessions: widget.workoutSessions,
