@@ -1,7 +1,7 @@
 ![](ressources/large.jpg)
 # Gym 2 Golem
 
-Le sport est important dans la vie de chacun. Beaucoup trop de gens le néglige1nt malheuresement. 
+Le sport est important dans la vie de chacun. Beaucoup trop de gens le négligent malheuresement. 
 
 Nous avons noté 3 pilliers qui sont indispensable pour avoir une bonne relation avec le sport. 
 
