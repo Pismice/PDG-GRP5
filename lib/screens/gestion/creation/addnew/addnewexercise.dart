@@ -42,41 +42,40 @@ class _MyAddNewExercise extends State<MyAddNewExercise> {
         appBar: AppBar(
           title: const Text("Session creation"),
         ),
-        body: FutureBuilder(
-            future:
-                getAllExercises(authid: FirebaseAuth.instance.currentUser!.uid),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Container();
-              }
-              if (snapshot.connectionState == ConnectionState.done &&
-                  snapshot.hasData) {
-                exercises = snapshot.data;
-                if (exercises!.isEmpty) {
-                  return const Text("No available exercise");
-                }
-                if (items.isEmpty && queryEmpty) {
-                  items = exercises!;
-                }
-                return Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: TextField(
-                        onChanged: (value) {
-                          filterSearchResults(value);
-                        },
-                        controller: editingController,
-                        decoration: const InputDecoration(
-                            labelText: "Search",
-                            hintText: "An exercise",
-                            prefixIcon: Icon(Icons.search),
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.0)))),
-                      ),
-                    ),
-                    Expanded(
+        body: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: TextField(
+                onChanged: (value) {
+                  filterSearchResults(value);
+                },
+                controller: editingController,
+                decoration: const InputDecoration(
+                    labelText: "Search",
+                    hintText: "An exercise",
+                    prefixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)))),
+              ),
+            ),
+            FutureBuilder(
+                future: getAllExercises(
+                    authid: FirebaseAuth.instance.currentUser!.uid),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Container();
+                  }
+                  if (snapshot.connectionState == ConnectionState.done &&
+                      snapshot.hasData) {
+                    exercises = snapshot.data;
+                    if (exercises!.isEmpty) {
+                      return const Text("No available exercise");
+                    }
+                    if (items.isEmpty && queryEmpty) {
+                      items = exercises!;
+                    }
+                    return Expanded(
                       child: ListView.builder(
                         shrinkWrap: true,
                         itemCount: items.length,
@@ -121,11 +120,11 @@ class _MyAddNewExercise extends State<MyAddNewExercise> {
                               ]));
                         },
                       ),
-                    ),
-                  ],
-                );
-              }
-              return const Text("");
-            }));
+                    );
+                  }
+                  return const Text("");
+                })
+          ],
+        ));
   }
 }
