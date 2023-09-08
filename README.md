@@ -1,34 +1,35 @@
 ![](ressources/large.jpg)
 # Gym 2 Golem
 
-Le sport est important dans la vie de chacun. Beaucoup trop de gens le négligent malheuresement. 
+Le sport est important dans la vie de chacun. Malheuresement beaucoup trop de gens ne sont  pas assez accompagnés dans leur vie sportive. 
 
 Nous avons noté 3 pilliers qui sont indispensables pour avoir une bonne relation avec le sport. 
 
-1. La structuration: Il est très important de bien structurer ces entrainements pour avoir des résultats et surtout ne pas se blesser. 
+1. La structuration: Il est très important de bien structurer ces entraînements pour avoir des résultats et surtout ne pas se blesser. 
 Un programme bien structuré peut être également bénéfique pour motiver la personne qui peut y trouver un objectif dans le temps.
 
-2. La régularité: Trop souvent une personnes qui tentent de se mettre au sport sera très motivée les premières semaines puis cette motivation va baisser avec le temps, jusqu'à disparaitre. 
+2. La régularité: Trop souvent une personnes qui tentent de se mettre au sport sera très motivée les premières semaines puis cette motivation va baisser avec le temps, jusqu'à disparaitre. Il faut donc garder l'utilisateur motivé/discipliné le plus longtemps possible.
 
-3. L'augmentation progressive: Une augmentation des performances trop rapide entraine trop souvent une blessure. Des améliorations trop lentes quant à elles vont démotiver le sportif. C'est pourquoi il faut trouver le juste milieu entre les deux. 
+3. L'augmentation progressive: Pour progresser et devenir plus fort (et donc en meilleure santé) il est important d'augmenter la charge de travail progressivment dans le temps. Si l'utilisateur n'est pas motivé à battre ses records parce qu'il ne les connait pas par exemple. Il ne se donnera pas les moyens de se dépasser.
 
-Les solutions proposées aujourd'hui sont soit de faire ces programmes et noter ces performances sur papier... 
-Ce qui n'est clairement pas idéal (trop de papier = désorganisé, peu pratique à déplacer et utiliser pendant les séances, peuvent se perdre, déchirer)
+Les solutions proposées aujourd'hui sont soit de faire ces programmes et noter ces performances sur papier ... 
+Ce qui n'est clairement pas idéal (trop de papier = désorganisé, peu pratique à déplacer et utiliser pendant les séances, peuvent se perdre, déchirer, ...)
 
 Il existe sinon quelques applications mais elles sont souvent peu flexibles et compliquées à utiliser. De plus, elles sont toutes payantes...
 
 C'est pourquoi nous avons décidé de développer Gym 2 Golem. 
-C'est une solution facile de prise en main, où tout est centralisé au même endroit et accessible partout et à tout moment. 
+C'est une solution facile de prise en main, avec des données centralisées et flexible dans la planification des activités sportives. 
 
 Gym 2 golem est une application de fitness qui acompagne les utilisateurs avant, pendant et après leurs séances de sport. 
 Il est compliqué de structurer ses programmes de sport, de rester motivé, et de garder un suivi de ta progression. 
 
-Sur Gym 2 golem, il est possible de planifier ces programmes, avec des séances et des exercices. 
-Plus besoin de réflechir sur le nombre de sets, de répétitions ou le poids à utiliser, l'application te suit pendant la séance.
-Reste motivé en battant tes records et en suivant ta progression. 
+Sur Gym 2 golem, il est possible d'avant de faire sa séance de sport de planifier ces programmes, avec des séances et des exercices. 
+Pendant la séance l'utilisateur est guidé et n'a pas besoin de réfléchir avec notre UI intuitive. Il peut donc se focaliser à 100% sur ses performances sportives.
+Après sa séance il peut revoir ses PR ainsi que les séances hébdomadaires qui lui reste à faire.
 
 # Acceder à l'application 
 Cliquer sur le [lien](https://gilliozdorian.wixsite.com/gym2golem) pour accéder à notre application
+
 # Build notre projet 
 1. Installer [Flutter](https://docs.flutter.dev/get-started/install) 
 2. Cloner le projet sur votre machine locale
