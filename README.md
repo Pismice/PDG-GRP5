@@ -16,7 +16,8 @@ Cliquer sur le [lien](https://gilliozdorian.wixsite.com/gym2golem) pour accéder
 # Build notre projet 
 1. Installer [Flutter](https://docs.flutter.dev/get-started/install) 
 2. Cloner le projet sur votre machine local
-3. TODO !!!!! 
+3. Executer la commande ```Flutter get pub``` dans l'invite de commandes à la racinde de votre projet
+4. Lancer l'application (depuis VSCode par exemple)
 
 # Déployer une nouvelle fonctionnalité 
 Avant de coder
