@@ -35,6 +35,9 @@ Cliquer sur le [lien](https://gilliozdorian.wixsite.com/gym2golem) pour accéder
 2. Cloner le projet sur votre machine locale
 3. Executer la commande ```flutter pub get``` dans l'invite de commandes à la racinde de votre projet
 4. Lancer l'application (depuis VSCode par exemple avec F5)
+Remarques:
+- Il est normal de ne pas voir les images des exercices durant le run en mode debug, pour palier à se problème il faut désactiver le CORS (sécurité WEB), mais ce n'est pas grave car sur la version de prod les images s'affichent.
+- Comme dit à l'assistant nous n'avons pas réussi à mettre en place des StreamBuilder ou provider pour gérer les différents states de notre programme, c'est pourquoi il faut des fois F5 ou changer de page puis revenir pour voir les modifications.
 
 # Déployer une nouvelle fonctionnalité 
 Avant de coder
