@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 /// Classe qui représente un feedback
 class Feedback {
+  // id du document
   String? uid;
   String? user;
   String? email;

@@ -5,6 +5,7 @@ import 'package:g2g/model/exercise.dart';
 import 'package:g2g/model/session.dart';
 import 'package:g2g/api/firebase_exercise.dart';
 
+/// Widget qui va ajouter un ou plusieur exercice à un séance [session] lors de la création
 class MyAddNewExercise extends StatefulWidget {
   const MyAddNewExercise({Key? key, required this.session}) : super(key: key);
   final Session session;
@@ -44,6 +45,7 @@ class _MyAddNewExercise extends State<MyAddNewExercise> {
         ),
         body: Column(
           children: <Widget>[
+            // bar de recherche
             Padding(
               padding: const EdgeInsets.all(4.0),
               child: TextField(
@@ -59,6 +61,7 @@ class _MyAddNewExercise extends State<MyAddNewExercise> {
                         borderRadius: BorderRadius.all(Radius.circular(10.0)))),
               ),
             ),
+            // liste des exercices
             FutureBuilder(
                 future: getAllExercises(
                     authid: FirebaseAuth.instance.currentUser!.uid),

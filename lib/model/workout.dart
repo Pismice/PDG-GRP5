@@ -101,11 +101,14 @@ class Workout {
 
 /// Classe qui représente une séance durant un workout
 class WorkoutSessions {
+  // id de la séance
   String? id;
+  // date de début de la séance
   DateTime? start;
+  // date de fin
   DateTime? end;
   List<ExercisesDone>? exercises;
-  String? workoutId;
+  String? s;
   int? positionId;
 
   WorkoutSessions({

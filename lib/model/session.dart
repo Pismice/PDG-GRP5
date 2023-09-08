@@ -3,13 +3,13 @@ import 'package:g2g/model/workout.dart';
 
 /// classe qui représente une séance
 class Session {
+  // id du document
   String? uid;
   String? name;
   String? user;
-  int? duration;
   List<SessionExercises>? exercises;
 
-  Session({this.uid, this.name, this.user, this.duration, this.exercises});
+  Session({this.uid, this.name, this.user, this.exercises});
 
   bool isFinished(WorkoutSessions workoutSessions) {
     // Si la séance ne contient pas d'exercices template
@@ -48,7 +48,6 @@ class Session {
   Session.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     if (user != null) user = json['user'].id;
-    duration = json['duration'];
     if (json['exercises'] != null) {
       exercises = <SessionExercises>[];
       for (Map<String, dynamic> exercise in json['exercises']) {
@@ -66,7 +65,6 @@ class Session {
         uid: snapshot.id,
         name: data?['name'],
         user: (data?['user'] != null) ? data!['user'].id : null,
-        duration: data?['duration'],
         exercises:
             data?['exercises'].map<SessionExercises>((e) => {}).toList());
   }
@@ -80,7 +78,6 @@ class Session {
       data['user'] = FirebaseFirestore.instance.doc("user/$user");
     }
 
-    if (duration != null) data['duration'] = duration;
     if (exercises != null) {
       data['exercises'] = exercises!.map((e) => e.toJson()).toList();
     }
@@ -92,7 +89,6 @@ class Session {
     return {
       if (name != null) "name": name,
       if (user != null) "user": FirebaseFirestore.instance.doc("user/$user"),
-      if (duration != null) "duration": duration,
       if (exercises != null)
         "exercises": exercises!.map((e) => e.toFirestore()).toList(),
     };
@@ -101,7 +97,10 @@ class Session {
 
 /// Classe qui représente les exercices des séances
 class SessionExercises {
+  // id de l'exercice
   String? id;
+  // position de l'exercice dans la
+  // séance (pour différencier si il y a 2 fois le meme exercice)
   int? positionId;
   int? repetition;
   int? set;

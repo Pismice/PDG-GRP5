@@ -5,6 +5,7 @@ import 'package:g2g/model/session.dart';
 import 'package:g2g/model/workout.dart';
 //import 'package:g2g/screens/gestion/creation/create_exercise.dart';
 
+/// Widget qui ajoute une ou plusieur séance à un workout [workout] lors de sa création
 class MyAddNewSeance extends StatefulWidget {
   final Workout workout;
   const MyAddNewSeance({required this.workout, Key? key}) : super(key: key);
@@ -19,6 +20,7 @@ class _MyEditSeancePage extends State<MyAddNewSeance> {
 
   @override
   Widget build(BuildContext context) {
+    // liste des séances
     return FutureBuilder(
         future: getAllSessionsFrom(),
         builder: (context, snapshot) {
@@ -35,6 +37,7 @@ class _MyEditSeancePage extends State<MyAddNewSeance> {
                 appBar: AppBar(
                   title: const Text("Add session to workout"),
                 ),
+                // info de séance
                 body: Column(children: <Widget>[
                   ListView.builder(
                     shrinkWrap: true,
@@ -61,6 +64,7 @@ class _MyEditSeancePage extends State<MyAddNewSeance> {
                           ));
                     },
                   ),
+                  // bouton de validation
                   Row(children: [
                     Expanded(child: Container()),
                     Expanded(

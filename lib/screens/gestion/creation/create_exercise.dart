@@ -7,6 +7,7 @@ import 'package:g2g/api/firebase_user.dart';
 
 const double _kItemExtent = 32.0;
 
+/// Widget utilisé pour la création d'exercice
 class MyCreateExercice extends StatefulWidget {
   const MyCreateExercice({Key? key}) : super(key: key);
 
@@ -59,7 +60,6 @@ class _MyCreateExercice extends State<MyCreateExercice> {
 
   @override
   Widget build(BuildContext context) {
-    /*Future<User> user = getUser(FirebaseAuth.instance.currentUser!.uid);*/
     return Scaffold(
         appBar: AppBar(title: const Text("New exercices")),
         body: Padding(
@@ -67,11 +67,7 @@ class _MyCreateExercice extends State<MyCreateExercice> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                /*ElevatedButton(
-                    onPressed: () {},
-                    style: const ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(Colors.grey)),
-                    child: const Text("Add photo")),*/
+                // text field pour le nom de l'exercice
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: TextField(
@@ -84,9 +80,9 @@ class _MyCreateExercice extends State<MyCreateExercice> {
                     ),
                   ),
                 ),
+                // un picker pour le type d'exercice
                 CupertinoButton(
                     padding: EdgeInsets.zero,
-                    // Display a CupertinoPicker with list of fruits.
                     onPressed: () => _showDialog(
                           CupertinoPicker(
                               itemExtent: _kItemExtent,

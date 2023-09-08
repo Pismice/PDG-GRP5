@@ -10,6 +10,7 @@ import 'package:g2g/model/exercise.dart';
 import 'package:g2g/model/session.dart';
 import 'package:g2g/model/workout.dart';
 
+/// Widget qui affiche une exercice à repetiton dans une séance en cours
 class MyRepetition extends StatefulWidget {
   final SessionExercises exercise;
   final Exercise exoBase;

@@ -10,7 +10,9 @@ import 'package:g2g/model/exercise.dart';
 import 'package:g2g/model/session.dart';
 import 'package:g2g/model/workout.dart';
 
+/// Widget qui affiche un exercice à durée en cours
 class MyDuration extends StatefulWidget {
+  // exercice en question
   final SessionExercises exercise;
   final Exercise exoBase;
   final WorkoutSessions workoutSessions;

@@ -4,6 +4,7 @@ import 'package:g2g/api/firebase_workout.dart';
 import 'package:g2g/model/workout.dart';
 import 'package:g2g/screens/gestion/modification/editworkout.dart';
 
+/// Widget qui affiche les informations d'une séance
 class MyWorkoutInfoPage extends StatefulWidget {
   final Workout workout;
   const MyWorkoutInfoPage({required this.workout, Key? key}) : super(key: key);
@@ -46,6 +47,7 @@ class _MyWorkoutInfoPage extends State<MyWorkoutInfoPage> {
                           if (snapshot.connectionState ==
                                   ConnectionState.done &&
                               snapshot.hasData) {
+                            // affiche le nom de la séance après l'avoir chargée
                             return Text(snapshot.data!.name!);
                           }
                           return const Center(
@@ -59,6 +61,7 @@ class _MyWorkoutInfoPage extends State<MyWorkoutInfoPage> {
             ),
           ),
           Row(children: [
+            // affiche le bouton de modification
             Expanded(
                 child: IconButton(
                     onPressed: () {
@@ -69,6 +72,7 @@ class _MyWorkoutInfoPage extends State<MyWorkoutInfoPage> {
                                   MyEditWorkoutPage(workout: widget.workout)));
                     },
                     icon: const Icon(Icons.edit))),
+            // affiche le bouton de suppression
             Expanded(
                 child: IconButton(
                     onPressed: () {

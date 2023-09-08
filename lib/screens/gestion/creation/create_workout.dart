@@ -7,6 +7,7 @@ import 'package:g2g/screens/gestion/creation/addnew/addnewseance.dart';
 
 const double _kItemExtent = 32.0;
 
+/// Widget pour la création de workout
 class MyCreateWorkout extends StatefulWidget {
   const MyCreateWorkout({Key? key}) : super(key: key);
 
@@ -55,6 +56,7 @@ class _MyCreateWorkout extends State<MyCreateWorkout> {
             title: const Text("Workout creation"),
           ),
           body: Column(children: <Widget>[
+            // nom du workout
             Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: TextField(
@@ -68,6 +70,7 @@ class _MyCreateWorkout extends State<MyCreateWorkout> {
                 )),
             Row(children: [
               const Text('Number of weeks'),
+              // picker pour la durée du workout en semaine
               CupertinoButton(
                   padding: EdgeInsets.zero,
                   onPressed: () => _showDialog(
@@ -92,6 +95,7 @@ class _MyCreateWorkout extends State<MyCreateWorkout> {
                   )),
             ]),
             const Center(child: Text("No session in this workout")),
+            // bouton pour l'ajout de séance au workout
             Row(children: [
               Expanded(
                   child: IconButton(

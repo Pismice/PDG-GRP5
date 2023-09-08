@@ -2,10 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 /// Classe qui réprésente un exrecice
 class Exercise {
+  // id du document
   String? uid;
   String? name;
   String? img;
   String? type;
+  // id du document qui contient les info sur l'utilisateur
   String? user;
 
   Exercise({this.uid, this.name, this.img, this.type, this.user});

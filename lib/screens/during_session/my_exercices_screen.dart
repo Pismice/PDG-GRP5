@@ -6,6 +6,7 @@ import 'package:g2g/model/workout.dart';
 import 'package:g2g/screens/during_session/my_duration_screen.dart';
 import 'package:g2g/screens/during_session/my_repetition_screen.dart';
 
+// Widget qui affiche les exercices d'une séance en cours
 class MyExercices extends StatefulWidget {
   const MyExercices({super.key, required this.onGoingSession});
   final WorkoutSessions onGoingSession;
@@ -132,6 +133,7 @@ class _MyExercicesState extends State<MyExercices> {
                                         Text(exoBase.data!.name!),
                                         Row(
                                           children: [
+                                            // affiche correctement le message
                                             Text(exoBase.data!.type == "TIME"
                                                 ? "${sessionSnapshot.data!.exercises![index].set.toString()} series of  ${sessionSnapshot.data!.exercises![index].duration.toString()} seconds"
                                                 : "${sessionSnapshot.data!.exercises![index].set.toString()} series of  ${sessionSnapshot.data!.exercises![index].repetition.toString()} repetitions")

@@ -6,7 +6,9 @@ import 'package:g2g/model/exercise.dart';
 import 'package:g2g/model/session.dart';
 import 'package:g2g/screens/gestion/modification/editseance.dart';
 
+/// Widget qui affiche les infos d'une séance
 class MySeanceInfoPage extends StatefulWidget {
+  // séance à afficher
   final Session session;
   const MySeanceInfoPage(this.session, {Key? key}) : super(key: key);
 
