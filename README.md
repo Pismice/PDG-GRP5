@@ -2,9 +2,9 @@
 # Gym 2 Golem
 
 Gym 2 golem est une application de fitness qui acompagne les utilisateurs avant, pendant et après leur séance de sport. 
-Il est compliqué de structuré ses programmes de sport, de rester motivé, et de garder un suivi de ta progression. 
+Il est compliqué de structurer ses programmes de sport, de rester motivé, et de garder un suivi de ta progression. 
 
-Et il n'existe pas de solution efficaces actuellement, c'est pourquoi nous avons décidé de développer Gym 2 Golem. 
+Et il n'existe pas de solution efficace actuellement, c'est pourquoi nous avons décidé de développer Gym 2 Golem. 
 C'est une solution facile de prise en main, où tout est centraliser au même endroit et accessible partout et à tout moment. 
 
 Sur Gym 2 golem, il est possible de plannifié ces programmes, avec des séances et des exercices. 
@@ -16,8 +16,8 @@ Cliquer sur le [lien](https://gilliozdorian.wixsite.com/gym2golem) pour accéder
 # Build notre projet 
 1. Installer [Flutter](https://docs.flutter.dev/get-started/install) 
 2. Cloner le projet sur votre machine local
-3. Executer la commande ```Flutter get pub``` dans l'invite de commandes à la racinde de votre projet
-4. Lancer l'application (depuis VSCode par exemple)
+3. Executer la commande ```flutter pub get``` dans l'invite de commandes à la racinde de votre projet
+4. Lancer l'application (depuis VSCode par exemple avec F5)
 
 # Déployer une nouvelle fonctionnalité 
 Avant de coder
@@ -28,14 +28,14 @@ Avant de coder
 
 Avant de commit les modifications
 
-5. ```Flutter analyze```
+5. ```flutter analyze```
  
-6. ```Flutter test```
+6. ```flutter test```
 
-7. Commit avec la bonne nomanclature [WIP], [Fix], ...
+7. Commit avec la bonne nomanclature [WIP], [DONE], ...
 8. Push sur la branch
 9. Pull request sur github et déplacer l'issue dans la colonne Review sur le Kanban 
-10. Un autre développeur valide la pull request et deplace l'issue dans la colone Done sur la Kanban 
+10. Un autre développeur valide la pull request, l'issue est donc automatiquement déplacé vers la colonne "Done" du Kanban
 
 # Contribution
 - Sprints de 2 jours, pour avoir des feedback réguliers et dynamique dans un projet de 3 semaines.
@@ -47,7 +47,7 @@ Avant de commit les modifications
          4. Une fois les modifications validées, début du sprint suivant
 
 ## Pour participer au projet 
-- Le projet contient la branch principal main, nous utilisons les branches pour ne pas travailler directement dessus. 
+- Le projet contient la branch principal main (qui est automatiquement publié sur notre Firebase Hosting website), nous utilisons les branches pour ne pas travailler directement dessus. 
 
 - Une issue possède un label qui doit être assigné : 
    - ```frontend``` : pour les taches de gestion de l'affichage
@@ -58,7 +58,7 @@ Avant de commit les modifications
    - ```Required additions``` : addition de features non-nécéssaire au bon fonctionnement mais requise pour l'application
    - ```Possible additions``` : addition de features non-nécéssaire au bon fonctionnement et non requise mais qui peuvent améliorer l'expérience utilisateur
 
-- Convention de nommage des commits: [WIP], [DONE], [FIXED] + nom du commit (en anglais) 
+- Convention de nommage des commits: [WIP], [DONE], [FIXED] + nom du commit (en français) 
       Ex: [WIP] Add button delete account
 
       - WIP: En cours mais pas encore terminé
@@ -76,14 +76,14 @@ Avant de commit les modifications
 
 # Description du dossier lib 
 
-1 - api — Pour les fonctions de récupération, modification ou suppression de données 
-2 - model — Pour les différent model utilisé dans le porjet
-3 - screens — Pour les pages d'afficage 
+1 - api — Pour les fonctions de récupération, modification ou suppression de données via Firebase Firestore
+2 - model — Pour les différent model utilisés dans le projet
+3 - screens  —  Pour les pages d'affichage 
       - during_session - Pour les pages lorsque l'utilisateur est en séance 
-      - gestion - Pour la gestion des programmes, des séances, des exercices
+      - gestion - Pour la gestion des programmes, des séances, des exercices (CRUD)
       - home_screen - Pour la page d'accueil 
       - introduction - Pour les pages avant de s'identifier
-      - user - Pour les pages d'information utilisateur
-4 - files.dart - Pour l'upload d'image
+      - user - Pour les pages d'information utilisateur et des paramètres
+4 - files.dart - Pour gérer nos images présentes dans Firebase Storage
 5 - firebase_options.dart - Pour les options firebase pour les utiliser avec Firebase apps.
 6 - main.dart - Le point d'entrée de notre application.
