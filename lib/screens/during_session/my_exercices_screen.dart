@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_exercise.dart';
 import 'package:g2g/api/firebase_session.dart';
 import 'package:g2g/model/workout.dart';
+import 'package:g2g/screens/during_session/my_duration_screen.dart';
 import 'package:g2g/screens/during_session/my_repetition_screen.dart';
 
 class MyExercices extends StatefulWidget {
@@ -71,16 +72,30 @@ class _MyExercicesState extends State<MyExercices> {
                                 } else {
                                   widget.onGoingSession.start = DateTime.now();
                                   Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => MyRepetition(
-                                                exoBase: exoBase.data!,
-                                                exercise: sessionSnapshot
-                                                    .data!.exercises![index],
-                                                workoutSessions:
-                                                    widget.onGoingSession,
-                                                mySets: List.empty(),
-                                              )));
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        if (exoBase.data!.type == "TIME") {
+                                          return MyDuration(
+                                            exoBase: exoBase.data!,
+                                            exercise: sessionSnapshot
+                                                .data!.exercises![index],
+                                            workoutSessions:
+                                                widget.onGoingSession,
+                                            mySets: List.empty(),
+                                          );
+                                        }
+                                        return MyRepetition(
+                                          exoBase: exoBase.data!,
+                                          exercise: sessionSnapshot
+                                              .data!.exercises![index],
+                                          workoutSessions:
+                                              widget.onGoingSession,
+                                          mySets: List.empty(),
+                                        );
+                                      },
+                                    ),
+                                  );
                                 }
                               },
                               child: Container(
