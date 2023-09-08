@@ -7,6 +7,7 @@ import 'package:g2g/screens/gestion/creation/create_seance.dart';
 
 void main() => runApp(const MySessionScreen());
 
+/// Widget qui affiche les séance
 class MySessionScreen extends StatefulWidget {
   const MySessionScreen({Key? key}) : super(key: key);
 
@@ -40,6 +41,7 @@ class _MySessionPageState extends State<MySessionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // bar de recherche
     return Column(
       children: <Widget>[
         Row(children: <Widget>[
@@ -59,6 +61,7 @@ class _MySessionPageState extends State<MySessionScreen> {
                       borderRadius: BorderRadius.all(Radius.circular(10.0)))),
             ),
           )),
+          // bouton d'ajout de séance
           Padding(
               padding: const EdgeInsets.only(right: 0),
               child: Align(
@@ -73,6 +76,7 @@ class _MySessionPageState extends State<MySessionScreen> {
                     },
                   ))),
         ]),
+        // liste des séance de l'utilisateur
         FutureBuilder(
             future: getAllSessionsFrom(),
             builder: (context, snapshot) {

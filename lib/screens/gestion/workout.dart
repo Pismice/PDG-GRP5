@@ -7,6 +7,7 @@ import 'package:g2g/screens/gestion/creation/create_workout.dart';
 
 void main() => runApp(const MyWorkoutScreen());
 
+/// Widget qui affiche les workout
 class MyWorkoutScreen extends StatefulWidget {
   const MyWorkoutScreen({Key? key}) : super(key: key);
 
@@ -40,6 +41,7 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // bar de recherche
     return Column(
       children: <Widget>[
         Row(children: <Widget>[
@@ -73,6 +75,7 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
                     },
                   ))),
         ]),
+        // liste des workout du user
         FutureBuilder(
             future: getAllWorkoutsFrom(),
             builder: ((context, snapshot) {

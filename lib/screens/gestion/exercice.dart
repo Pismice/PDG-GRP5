@@ -8,6 +8,7 @@ import 'package:g2g/screens/gestion/creation/create_exercise.dart';
 
 void main() => runApp(const MyExerciceScreen());
 
+/// Widget qui affiche les exercices
 class MyExerciceScreen extends StatefulWidget {
   const MyExerciceScreen({Key? key}) : super(key: key);
 
@@ -34,6 +35,7 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
     super.initState();
   }
 
+  // methode pour la bar de recherche
   void filterSearchResultsExercise(String query) {
     customQueryEmpty = query.isEmpty;
     defaultQueryEmpty = query.isEmpty;
@@ -54,6 +56,7 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
     return Column(
       children: [
         Row(children: <Widget>[
+          // bar de recherche
           Expanded(
               child: Padding(
             padding: const EdgeInsets.all(4.0),
@@ -70,6 +73,7 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                       borderRadius: BorderRadius.all(Radius.circular(10.0)))),
             ),
           )),
+          // bouton de création
           Padding(
               padding: const EdgeInsets.only(right: 0),
               child: Align(
@@ -90,6 +94,7 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
               padding: EdgeInsets.all(20),
               child: Text(style: TextStyle(fontSize: 24), "My exercises"),
             )),
+        // liste des exercices
         FutureBuilder(
             future: getAllExercisesOf(),
             builder: (context, snapshot) {
@@ -140,6 +145,7 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                                         )),
                                     Expanded(
                                         child: Text(customItems[index].name!)),
+                                    // bouton de modif d'un exercice
                                     Align(
                                       alignment: Alignment.centerRight,
                                       child: IconButton(
@@ -158,6 +164,7 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                                         },
                                       ),
                                     ),
+                                    // bouton de suppression d'un exercice
                                     Align(
                                       alignment: Alignment.centerRight,
                                       child: IconButton(

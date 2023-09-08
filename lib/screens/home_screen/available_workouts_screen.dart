@@ -5,6 +5,7 @@ import 'package:g2g/api/firebase_workout.dart';
 import 'package:g2g/model/user.dart';
 import 'package:g2g/model/workout.dart';
 
+/// Widget qui affiche les workouts qui sont disponible
 class AvailableWorkouts extends StatefulWidget {
   const AvailableWorkouts({super.key});
 
@@ -28,6 +29,7 @@ class _AvailableWorkoutsState extends State<AvailableWorkouts> {
         appBar: AppBar(
           title: const Text("Choose a new workout to begin"),
         ),
+        // liste des workouts
         body: FutureBuilder(
           future: getAllInactiveWorkoutsFrom(uid: user.uid),
           builder: (context, snapshot) {
