@@ -1,11 +1,27 @@
 ![](ressources/large.jpg)
 # Gym 2 Golem
 
+Le sport est important dans la vie de chacun. Beaucoup trop de gens le néglige1nt malheuresement. 
+
+Nous avons noté 3 pilliers qui sont indispensable pour avoir une bonne relation avec le sport. 
+
+1. La structuration: Il est très important de bien structurer ces entrainements pour avoir des résultats et surtout ne pas se blesser. 
+Un programme bien structuré peut être également bénéfique pour motiver la personne qui peut y trouver un objectif dans le temps.
+
+2. La régularité: Trop souvent une personne qui tente de se mettre au sport sera très motivée les premières semaines puis cette motivation va baisser avec le temps, jusqu'à disparaitre. 
+
+3. L'augmentation progressive: Une augmentation des performences trop rapide entraine trop souvent une blessure. Des améliorations trop lente quant à elle vont démotiver le sportif. C'est pourquoi il faut trouver le juste milieux entre les deux. 
+
+Les solutions proposées aujourd'hui sont soit de faire ces programmes et noter ces performences sur papier... 
+Ce qui n'est clairement pas idéal (trop de papier = désorganisé, peu pratique à déplacer et utiliser pendant les séances, peuvent se perdre, déchirer)
+
+Il existe sinon quelques applications mais elles sont souvent peu flexible et compliqué à utiliser. De plus, elles sont toutes payantes...
+
+C'est pourquoi nous avons décidé de développer Gym 2 Golem. 
+C'est une solution facile de prise en main, où tout est centraliser au même endroit et accessible partout et à tout moment. 
+
 Gym 2 golem est une application de fitness qui acompagne les utilisateurs avant, pendant et après leur séance de sport. 
 Il est compliqué de structurer ses programmes de sport, de rester motivé, et de garder un suivi de ta progression. 
-
-Et il n'existe pas de solution efficace actuellement, c'est pourquoi nous avons décidé de développer Gym 2 Golem. 
-C'est une solution facile de prise en main, où tout est centraliser au même endroit et accessible partout et à tout moment. 
 
 Sur Gym 2 golem, il est possible de plannifié ces programmes, avec des séances et des exercices. 
 Plus besoin de réflechir sur le nombre de set, de répétition ou le poids à utilisé, l'application te suit pendant la séance.
