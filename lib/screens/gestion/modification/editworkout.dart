@@ -101,10 +101,13 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
                                             ),
                                             TextButton(
                                               onPressed: () {
-                                                deleteSessionFromWorkout(
-                                                    widget.workout.uid!,
-                                                    snapshot.data!.uid!);
-                                                Navigator.pop(context, 'OK');
+                                                setState(() {
+                                                  deleteSessionFromWorkout(
+                                                      widget.workout,
+                                                      widget.workout
+                                                          .sessions![index]);
+                                                  Navigator.pop(context, 'OK');
+                                                });
                                               },
                                               child: const Text('Delete'),
                                             ),

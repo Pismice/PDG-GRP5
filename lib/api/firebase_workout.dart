@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide User;
+import 'package:flutter/material.dart';
 import 'package:g2g/api/firebase_session.dart';
 import 'package:g2g/api/firebase_user.dart';
 import 'package:g2g/model/session.dart';
@@ -76,28 +77,17 @@ Future<void> addSessionToWorkout(Workout workout, String idSession) async {
 
 /// Fonction qui supprime une séance [isSession] d'un workout [idWorkout]
 Future<void> deleteSessionFromWorkout(
-    String idWorkout, String idSession) async {
-  final w = await getWorkout(idWorkout);
-  final sessions = <WorkoutSessions>[];
+    Workout workout, WorkoutSessions workoutSessions) async {
   // si il y a pas de sessions dans le workout => on ne peut pas en supprimer
-  if (w.sessions == null) {
+  if (workout.sessions == null) {
     return;
   }
-  // bool qui nous sert dans le cas ou il y a 2 fois la meme séance dans un workout
-  bool deleted = false;
-  for (var sess in w.sessions!) {
-    // si [sess] est la séance à suppr et qu'on a pas déjà supprimer la séance
-    if (sess.id == idSession && !deleted) {
-      // on passe à la séance suivante
-      deleted = true;
-      continue;
-    }
-    // sinon on ajoute la séance
-    sessions.add(sess);
-  }
+
+  workout.sessions!.removeWhere(
+      (element) => element.positionId == workoutSessions.positionId);
+
   // on met à jour les séances du workout
-  w.sessions = sessions;
-  updateWorkout(w);
+  await updateWorkout(workout);
 }
 
 /// Fonction qui retourne tous les workout qui sont actif cette semaine

@@ -22,7 +22,7 @@ class _MySeanceInfoPage extends State<MySeanceInfoPage> {
       String res = "";
       switch (ex.type) {
         case "TIME":
-          return "${sessEx.duration} sec";
+          return "${sessEx.duration} sec x ${sessEx.set}";
         case "WEIGHT":
           res = "${sessEx.weight} kg |";
           continue rest;
