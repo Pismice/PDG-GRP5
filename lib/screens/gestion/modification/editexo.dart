@@ -91,7 +91,7 @@ class _MyEditExoPage extends State<MyEditExoPage> {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return const CircularProgressIndicator();
+                          return Container();
                         }
                         return Image.network(
                           snapshot.data.toString(),

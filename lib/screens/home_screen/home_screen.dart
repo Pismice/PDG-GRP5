@@ -53,7 +53,7 @@ class HomeScreen extends StatelessWidget {
                             ConnectionState.waiting ||
                         workoutsSnapshot.connectionState ==
                             ConnectionState.active) {
-                      return const Center(child: CircularProgressIndicator());
+                      return Container();
                     }
                     if (workoutsSnapshot.hasError) {
                       return Text("Error ${workoutsSnapshot.error.toString()}");
@@ -112,11 +112,18 @@ class HomeScreen extends StatelessWidget {
                                                                 .done &&
                                                         snapshotSession
                                                             .hasData) {
-                                                              // TODO
+                                                      // TODO
                                                       return ElevatedButton(
                                                           style: ButtonStyle(
-                                                              backgroundColor: MaterialStateProperty.all<Color>(snapshotSession.data!.isFinished(workoutsSnapshot.data![i].sessions![
-                                                                              j]) ? Colors.green : Colors.grey.shade800)),
+                                                              backgroundColor: MaterialStateProperty.all<
+                                                                  Color>(snapshotSession
+                                                                      .data!
+                                                                      .isFinished(
+                                                                          workoutsSnapshot.data![i].sessions![
+                                                                              j])
+                                                                  ? Colors.green
+                                                                  : Colors.grey
+                                                                      .shade800)),
                                                           onPressed: () {
                                                             WorkoutSessions
                                                                 workoutSessions =
@@ -155,7 +162,7 @@ class HomeScreen extends StatelessWidget {
                                     ])));
                           });
                     }
-                    return const Center(child: CircularProgressIndicator());
+                    return Container();
                   },
                 ),
               ),

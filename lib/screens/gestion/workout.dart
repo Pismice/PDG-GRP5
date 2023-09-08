@@ -77,7 +77,7 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
             future: getAllWorkoutsFrom(),
             builder: ((context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
+                return Container();
               }
 
               if (snapshot.connectionState == ConnectionState.done &&
@@ -137,8 +137,8 @@ class _MyWorkoutScreen extends State<MyWorkoutScreen> {
                                 children: <Widget>[
                                   const Icon(Icons.repeat),
                                   Expanded(
-                                    child: Text(
-                                        '${items[index].duration}  weeks'),
+                                    child:
+                                        Text('${items[index].duration}  weeks'),
                                   ),
                                   Align(
                                     alignment: Alignment.topCenter,

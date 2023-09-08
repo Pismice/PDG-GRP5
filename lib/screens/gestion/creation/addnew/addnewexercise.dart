@@ -47,7 +47,7 @@ class _MyAddNewExercise extends State<MyAddNewExercise> {
                 getAllExercises(authid: FirebaseAuth.instance.currentUser!.uid),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
+                return Container();
               }
               if (snapshot.connectionState == ConnectionState.done &&
                   snapshot.hasData) {
@@ -107,7 +107,7 @@ class _MyAddNewExercise extends State<MyAddNewExercise> {
                                         builder: (context, snapshot) {
                                           if (snapshot.connectionState ==
                                               ConnectionState.waiting) {
-                                            return const CircularProgressIndicator();
+                                            return Container();
                                           }
                                           return Image.network(
                                             snapshot.data.toString(),

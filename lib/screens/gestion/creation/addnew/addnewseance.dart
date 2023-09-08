@@ -23,7 +23,7 @@ class _MyEditSeancePage extends State<MyAddNewSeance> {
         future: getAllSessionsFrom(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return Container();
           }
           if (snapshot.hasError) {
             return Text("Error : ${snapshot.error.toString()}");
@@ -74,7 +74,7 @@ class _MyEditSeancePage extends State<MyAddNewSeance> {
                   ])
                 ]));
           }
-          return const Center(child: CircularProgressIndicator());
+          return Container();
         });
   }
 }

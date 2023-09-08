@@ -36,7 +36,7 @@ class UserScreen extends StatelessWidget {
                       } else if (snapshot.hasError) {
                         return Text(snapshot.error.toString());
                       } else {
-                        return const CircularProgressIndicator();
+                        return Container();
                       }
                     }),
                 actions: [
@@ -76,7 +76,8 @@ class UserScreen extends StatelessWidget {
                             const Text("Finished sessions",
                                 style: TextStyle(fontSize: 10)),
                             FutureBuilder(
-                                future: getNumberSessionDone(FirebaseAuth.instance.currentUser!.uid),
+                                future: getNumberSessionDone(
+                                    FirebaseAuth.instance.currentUser!.uid),
                                 builder: ((context, snapshot) {
                                   int value = 0;
                                   if (snapshot.connectionState ==
@@ -86,8 +87,7 @@ class UserScreen extends StatelessWidget {
                                     }
                                     return Text(value.toString());
                                   } else {
-                                    return const Center(
-                                        child: CircularProgressIndicator());
+                                    return const Text("-");
                                   }
                                 })),
                           ],
@@ -100,7 +100,8 @@ class UserScreen extends StatelessWidget {
                             const Text("Total lifted weight",
                                 style: TextStyle(fontSize: 10)),
                             FutureBuilder(
-                                future: getTotalWeightPushed(FirebaseAuth.instance.currentUser!.uid),
+                                future: getTotalWeightPushed(
+                                    FirebaseAuth.instance.currentUser!.uid),
                                 builder: ((context, snapshot) {
                                   double value = 0;
                                   if (snapshot.connectionState ==
@@ -110,8 +111,7 @@ class UserScreen extends StatelessWidget {
                                     }
                                     return Text("$value kg");
                                   } else {
-                                    return const Center(
-                                        child: CircularProgressIndicator());
+                                    return const Text("-");
                                   }
                                 })),
                           ],
@@ -134,8 +134,7 @@ class UserScreen extends StatelessWidget {
                                     }
                                     return Text(snapshot.data as String);
                                   } else {
-                                    return const Center(
-                                        child: CircularProgressIndicator());
+                                    return const Text("-");
                                   }
                                 }))
                           ],
@@ -199,7 +198,7 @@ class UserScreen extends StatelessWidget {
               ]),
             );
           } else {
-            return const CircularProgressIndicator();
+            return Container();
           }
         });
   }

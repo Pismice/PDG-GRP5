@@ -94,7 +94,7 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
             future: getAllExercisesOf(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
+                return Container();
               }
               if (snapshot.connectionState == ConnectionState.done &&
                   snapshot.hasData) {
@@ -129,7 +129,7 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                                           builder: (context, snapshot) {
                                             if (snapshot.connectionState ==
                                                 ConnectionState.waiting) {
-                                              return const CircularProgressIndicator();
+                                              return Container();
                                             }
                                             return Image.network(
                                               snapshot.data.toString(),
@@ -168,8 +168,8 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                                             context: context,
                                             builder: (BuildContext context) =>
                                                 AlertDialog(
-                                              title: const Text(
-                                                  'Delete exercise'),
+                                              title:
+                                                  const Text('Delete exercise'),
                                               content: const Text(
                                                   'Are you sure that you want to delete this exercise ?'),
                                               actions: <Widget>[
@@ -187,8 +187,7 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                                                     Navigator.pop(
                                                         context, 'OK');
                                                   },
-                                                  child:
-                                                      const Text('Delete'),
+                                                  child: const Text('Delete'),
                                                 ),
                                               ],
                                             ),
@@ -215,7 +214,7 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
             future: getAllExercises(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
+                return Container();
               }
               if (snapshot.connectionState == ConnectionState.done &&
                   snapshot.hasData) {
@@ -247,7 +246,7 @@ class _MyExerciceScreen extends State<MyExerciceScreen> {
                                         builder: (context, snapshot) {
                                           if (snapshot.connectionState ==
                                               ConnectionState.waiting) {
-                                            return const CircularProgressIndicator();
+                                            return Container();
                                           }
                                           return Image.network(
                                             snapshot.data.toString(),

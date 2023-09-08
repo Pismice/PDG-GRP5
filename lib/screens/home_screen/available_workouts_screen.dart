@@ -84,7 +84,7 @@ class _AvailableWorkoutsState extends State<AvailableWorkouts> {
             } else if (snapshot.hasError) {
               return Text(snapshot.error.toString());
             } else {
-              return const CircularProgressIndicator();
+              return Container();
             }
           },
         ));

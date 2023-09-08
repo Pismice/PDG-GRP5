@@ -40,15 +40,14 @@ class MyApp extends StatelessWidget {
       title: 'Gym2Golem',
       theme: ThemeData(
         textTheme: const TextTheme(
-          displayLarge:
-              TextStyle(fontSize: 24, fontWeight: FontWeight.bold), 
+          displayLarge: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         brightness: Brightness.dark,
         primaryColor: const Color.fromARGB(255, 7, 3, 58),
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
-              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-           const EdgeInsets.all(16), // Add this line for padding
+          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+            const EdgeInsets.all(16), // Add this line for padding
           ),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
@@ -64,7 +63,7 @@ class MyApp extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return Container();
           }
           final user = snapshot.data;
           if (user == null) {

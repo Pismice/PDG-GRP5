@@ -78,10 +78,10 @@ class _MyCreateSeance extends State<MyCreateSeance> {
               ),
               // This displays the selected fruit name.
               child: Text(
-                '${sessEx.weight}',
+                '${sessEx.duration}',
               ),
             ),
-            const Text(' kg'),
+            const Text(' sec'),
           ]);
           break;
         case "WEIGHT":
@@ -99,7 +99,7 @@ class _MyCreateSeance extends State<MyCreateSeance> {
                   // This is called when selected item is changed.
                   onSelectedItemChanged: (int selectedItem) {
                     setState(() {
-                      sessEx.weight = selectedItem;
+                      sessEx.repetition = selectedItem;
                     });
                   },
                   children: List<Widget>.generate(150, (int index) {
@@ -109,7 +109,7 @@ class _MyCreateSeance extends State<MyCreateSeance> {
               ),
               // This displays the selected fruit name.
               child: Text(
-                '${sessEx.weight}',
+                '${sessEx.repetition}',
               ),
             ),
             const Text(' kg'),
@@ -229,7 +229,7 @@ class _MyCreateSeance extends State<MyCreateSeance> {
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
-                                      return const CircularProgressIndicator();
+                                      return Container();
                                     }
                                     return Image.network(
                                       snapshot.data.toString(),

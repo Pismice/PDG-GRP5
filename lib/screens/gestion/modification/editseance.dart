@@ -203,7 +203,7 @@ class _MyEditSeancePage extends State<MyEditSeancePage> {
                   future: getExercise(data.id!),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const CircularProgressIndicator();
+                      return Container();
                     }
                     final exercise = snapshot.data!;
                     return ElevatedButton(
@@ -226,7 +226,7 @@ class _MyEditSeancePage extends State<MyEditSeancePage> {
                                     builder: (context, snapshot) {
                                       if (snapshot.connectionState ==
                                           ConnectionState.waiting) {
-                                        return const CircularProgressIndicator();
+                                        return Container();
                                       }
                                       return Image.network(
                                         snapshot.data.toString(),

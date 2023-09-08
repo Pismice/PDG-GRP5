@@ -20,7 +20,7 @@ class _MyExercicesState extends State<MyExercices> {
         future: getSession(widget.onGoingSession.id!),
         builder: (context, sessionSnapshot) {
           if (sessionSnapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator(); // Loading indicator
+            return Container(); // Loading indicator
           } else if (sessionSnapshot.hasError) {
             return Text('Error: ${sessionSnapshot.error}'); // Handle errors
           } else if (!sessionSnapshot.hasData) {
@@ -39,7 +39,7 @@ class _MyExercicesState extends State<MyExercices> {
                         builder: (context, exoBase) {
                           if (exoBase.connectionState ==
                               ConnectionState.waiting) {
-                            return const CircularProgressIndicator();
+                            return Container();
                           } else if (exoBase.hasError) {
                             return Text('Error: ${exoBase.error}');
                           } else if (!exoBase.hasData) {
@@ -103,7 +103,7 @@ class _MyExercicesState extends State<MyExercices> {
                                       builder: (context, snapshot) {
                                         if (snapshot.connectionState ==
                                             ConnectionState.waiting) {
-                                          return const CircularProgressIndicator();
+                                          return Container();
                                         }
                                         return Image.network(
                                           snapshot.data.toString(),

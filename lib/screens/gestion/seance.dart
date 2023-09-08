@@ -77,7 +77,7 @@ class _MySessionPageState extends State<MySessionScreen> {
             future: getAllSessionsFrom(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
+                return Container();
               }
 
               if (snapshot.connectionState == ConnectionState.done &&
@@ -138,7 +138,7 @@ class _MySessionPageState extends State<MySessionScreen> {
                   ),
                 );
               }
-              return const Center(child: CircularProgressIndicator());
+              return Container();
             })
       ],
     );

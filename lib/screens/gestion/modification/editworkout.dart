@@ -71,7 +71,7 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
                     future: getSession(widget.workout.sessions![index].id!),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
+                        return Container();
                       }
                       if (snapshot.hasError) {
                         return Text("Error : ${snapshot.error.toString()}");
@@ -116,7 +116,7 @@ class _MyEditWorkoutPage extends State<MyEditWorkoutPage> {
                           ]),
                         );
                       }
-                      return const Center(child: CircularProgressIndicator());
+                      return Container();
                     },
                   ),
                 );

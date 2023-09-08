@@ -131,7 +131,7 @@ class _MyRepetitionState extends State<MyRepetition> {
                         }
                         return const Text("No PR found for this exercise");
                       }
-                      return const CircularProgressIndicator();
+                      return Container();
                     }),
                 FutureBuilder(
                   future: FirebaseStorage.instance
@@ -140,7 +140,7 @@ class _MyRepetitionState extends State<MyRepetition> {
                       .getDownloadURL(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const CircularProgressIndicator();
+                      return Container();
                     }
                     return Image.network(
                       snapshot.data.toString(),
