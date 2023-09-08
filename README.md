@@ -77,13 +77,18 @@ Avant de commit les modifications
 # Description du dossier lib 
 
 1 - api — Pour les fonctions de récupération, modification ou suppression de données via Firebase Firestore
+
 2 - model — Pour les différent model utilisés dans le projet
+
 3 - screens  —  Pour les pages d'affichage 
       - during_session - Pour les pages lorsque l'utilisateur est en séance 
       - gestion - Pour la gestion des programmes, des séances, des exercices (CRUD)
       - home_screen - Pour la page d'accueil 
       - introduction - Pour les pages avant de s'identifier
       - user - Pour les pages d'information utilisateur et des paramètres
+      
 4 - files.dart - Pour gérer nos images présentes dans Firebase Storage
+
 5 - firebase_options.dart - Pour les options firebase pour les utiliser avec Firebase apps.
+
 6 - main.dart - Le point d'entrée de notre application.
