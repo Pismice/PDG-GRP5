@@ -75,6 +75,8 @@ class HomeScreen extends StatelessWidget {
                         shrinkWrap: true,
                         itemCount: workoutsSnapshot.data!.length,
                         itemBuilder: (context, i) {
+                          int currentWeek = weekNumber(DateTime.now()) -
+                              workoutsSnapshot.data![i].week!;
                           return Container(
                             padding: const EdgeInsets.all(15),
                             child: ElevatedButton(
@@ -94,11 +96,17 @@ class HomeScreen extends StatelessWidget {
                                     alignment: Alignment.bottomLeft,
                                     child: Container(
                                       padding: const EdgeInsets.all(10),
-                                      child: Text(
-                                        workoutsSnapshot.data![i].name!,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displayLarge,
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            workoutsSnapshot.data![i].name!,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .displayLarge,
+                                          ),
+                                          const SizedBox(width: 10),
+                                          Text("$currentWeek / ${workoutsSnapshot.data![i].duration!}"),
+                                        ],
                                       ),
                                     ),
                                   ),
